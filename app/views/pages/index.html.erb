@@ -19,11 +19,8 @@
         <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" %>
 
         <%= stylesheet_link_tag "site" %>
-
-        <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
-        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js" %>
         <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js" %>
-        <%= javascript_include_tag "index.js" %>
+        
         
         
 
@@ -50,7 +47,8 @@
             <a href="https://github.com/SpartaHack"><i class="fa fa-github"></i></a>
           </div>
         </footer>
-
-        <script>window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"><\/script>')</script>
+        <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js" %>
+        <%= javascript_include_tag "index.js" %>
     </body>
 </html>
