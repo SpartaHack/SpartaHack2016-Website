@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+    <head>
+        <title>SpartaHack II Application</title>
+        <%= stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" %>
+        <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js" %>
+        <%= javascript_include_tag "universities" %>
+        <%= javascript_include_tag "users" %>
+        
+        
+
+    </head>
+    <style>
+      #gender{
+        width: 150px;
+      }
+    </style>
+    <body>
+        <% if flash[:id] %>
+          <div class="error"><%= flash[:id] %></div>
+        <% end %>
+
+        <%= form_tag("/", method: "post") do %>
+          <div>
+            <%= label_tag(:firstName, "First Name:") %>
+            <%= text_field_tag(:firstName) %>
+          </div>
+          <div>
+            <%= label_tag(:lastName, "Last Name:") %>
+            <%= text_field_tag(:lastName) %>
+          </div>
+          <div>
+          <%= label_tag(:dob, "What is your gender?") %>
+            <select id="gender" name="gender">
+              <option></option>
+            </select>
+          </div>
+          <div>
+            <%= label_tag(:dob, "Date of Birth:") %>
+            <input id="dob" name="dob" type="date" min="1950-01-01" max="2002-12-31"/>
+          </div>
+          <div>
+            <%= check_box_tag(:firstHackathon) %>
+            <%= label_tag(:firstHackathon, "Is this your first hackathon?") %>
+          </div>
+          <div>
+            <%= label_tag(:university, "What university do you attend?") %>
+            <select id="university" name="university">
+              <option></option>
+            </select>
+          </div>
+        <% end %>
+    </body>
+</html>

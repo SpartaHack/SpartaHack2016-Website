@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'signup'  => 'users#new'
+  get 'login'  => 'users#login'
+  post 'auth'  => 'users#auth'
+  get 'app'  => 'users#app'
+  resources :users
+  
+
   root :to => 'pages#index', :as => :index
 
   # The priority is based upon order of creation: first created -> highest priority.

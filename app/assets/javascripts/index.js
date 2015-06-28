@@ -1,5 +1,5 @@
-jQuery("#title-text").fitText(1);
-jQuery(".responsive-text").fitText(1);
+//jQuery("#title-text").fitText(1);
+//jQuery(".responsive-text").fitText(1);
 
 if (navigator.appVersion.indexOf("Win")!=-1) {
   $('#hero').find('a').addClass( "windowsCenter" );
