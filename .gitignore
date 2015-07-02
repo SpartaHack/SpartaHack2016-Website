@@ -17,3 +17,4 @@
 /tmp
 .DS_Store
 .sass-cache/
+parse_config.rb
