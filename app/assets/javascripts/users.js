@@ -1,24 +1,15 @@
 $(document).ready(function() {
 	$('#university').select2({
 	  placeholder: "Select a University", 
-	  allowClear: true,
-	  data: universities
+	  allowClear: true
 	});
 	$('#gender').select2({
 	  placeholder: "Select a gender", 
-	  allowClear: true,
-	  data: [{
-        "text":"Male",
-        "id":"male"
-      },
-      {
-        "text":"Female",
-        "id":"female"
-      },
-      {
-        "text":"Non-Binary",
-        "id":"non-binary"
-      }]
+	  allowClear: true
+	});
+	$('#gradeLevel').select2({
+	  placeholder: "Select a grade level", 
+	  allowClear: true
 	});
 })
 

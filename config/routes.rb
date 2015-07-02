@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'login'  => 'users#login'
   post 'auth'  => 'users#auth'
   get 'app'  => 'users#app'
+  post 'save' => 'users#save'
   resources :users
   
 
