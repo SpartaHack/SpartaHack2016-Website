@@ -2,6 +2,7 @@
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
+  margin-top: 100px;
   z-index: 10;
 }
 
@@ -15,7 +16,7 @@
 }
 
 body {
-  background: $heroBackground;
+  background: $mainBackground;
   margin: 0 auto;
 }
 
@@ -27,4 +28,8 @@ body {
 .mirrorY {
   transform: scaleY(-1);
   filter: FlipV;
+}
+
+a {
+  text-decoration: none;
 }

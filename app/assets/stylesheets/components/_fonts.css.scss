@@ -1,9 +1,21 @@
 @font-face {
-font-family: 'PhantLight';
-src: url('fonts/PhantLight.otf');
+  font-family: 'MoonDance';
+  src: url('fonts/moondance-webfont.eot'); /* IE9 Compat Modes */
+  src: url('fonts/moondance-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/moondance-webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/moondance-webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('fonts/moondance-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('fonts/moondance-webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
 
 @font-face {
-font-family: 'PhantBold';
-src: url('fonts/PhantBold.otf');
+  font-family: 'ubuntu';
+  font-weight: 100;
+  font-style: normal;
+  src: url('fonts/ubuntu-l-webfont.eot'); /* IE9 Compat Modes */
+  src: url('fonts/ubuntu-l-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/ubuntu-l-webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/ubuntu-l-webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('fonts/ubuntu-l-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('fonts/ubuntu-l-webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
 }
