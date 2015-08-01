@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>SpartaHack II</title>
+        <title>SpartaHack</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
@@ -28,14 +28,60 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
+        <div id="header" class="header">
+            <nav id="nav">
+                <ul class="nav navbar-nav">
+                    <li class="center-content">
+                        <a href="#top" class="button">2016</a>
+                    </li>
+                    <li>
+                        <a href="#faq" class="button">FAQ</a>
+                    </li>
+                    <li>
+                        <a href="#schedule" class="button">SCHEDULE</a>
+                    </li>
+                    <li>
+                        <a href="#judges" class="button">JUDGES</a>
+                    </li>
+                    <li>
+                        <a href="#sponsors" class="button">SPONSORS</a>
+                    </li>
+                    <li>
+                        <a href="#mobile" class="button">MOBILE</a>
+                    </li>
+                    <li>
+                        <a href="#contact" class="button">CONTACT</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
 
         <section id="hero">
           <div class="wrap">
-            <%= image_tag "logo-supertech.svg", alt: "SpartaHack", :class => "logo" %>
-            <%= render partial: "pages/index_head"%>
+            
+            <div id="logo-wrap">
+                <h2 id="title-text">< SPARTAHACK /></h2>
+                <p id="title-subtext">February 26-28</p>
+                <%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
+                <p id="intro">
+                    SpartaHack is Michigan State University’s official hackathon. For one weekend, 300 students from a wide range of disciplines and skill levels will team up to build creative, innovative technological projects from scratch.
+                </p>
+            </div>
         </section>
-        <%= render partial: "pages/index_faq" %>
-        <%= render partial: "pages/index_end" %>
+
+        <<%= render partial: "pages/index_faq" %>
+        
+        <div id="mailing">
+            <form action="//spartahack.us9.list-manage.com/subscribe/post?u=03bbf4682a83a01eb78a6f8ae&amp;id=69e2029eba" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="YOUR EMAIL" required>
+                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -4000px;">
+                    <input type="text" name="b_03bbf4682a83a01eb78a6f8ae_69e2029eba" tabindex="-1" value="">
+                </div>
+                <div class="clear"><input type="submit" value="SEND MESSAGE  >" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+            </form>
+        </div>
+        <!-- <= render partial: "pages/index_end" %> -->
 
         <footer class="footer">
           <div class="wrap">
