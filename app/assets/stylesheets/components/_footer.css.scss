@@ -6,6 +6,11 @@
   background-color: $footer;
   color: $cream;
   font-size: .9em;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 999999;
 
   .fa-heart, .fa-code {
     color: $belizeHole;
