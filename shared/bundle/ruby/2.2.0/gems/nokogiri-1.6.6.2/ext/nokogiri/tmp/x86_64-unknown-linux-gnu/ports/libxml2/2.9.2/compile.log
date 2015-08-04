@@ -1,0 +1,247 @@
+make  all-recursive
+make[1]: Entering directory `/home/deploy/SpartaHackII-Web/shared/bundle/ruby/2.2.0/gems/nokogiri-1.6.6.2/ext/nokogiri/tmp/x86_64-unknown-linux-gnu/ports/libxml2/2.9.2/libxml2-2.9.2'
+Making all in include
+make[2]: Entering directory `/home/deploy/SpartaHackII-Web/shared/bundle/ruby/2.2.0/gems/nokogiri-1.6.6.2/ext/nokogiri/tmp/x86_64-unknown-linux-gnu/ports/libxml2/2.9.2/libxml2-2.9.2/include'
+Making all in libxml
+make[3]: Entering directory `/home/deploy/SpartaHackII-Web/shared/bundle/ruby/2.2.0/gems/nokogiri-1.6.6.2/ext/nokogiri/tmp/x86_64-unknown-linux-gnu/ports/libxml2/2.9.2/libxml2-2.9.2/include/libxml'
+make[3]: Nothing to be done for `all'.
+make[3]: Leaving directory `/home/deploy/SpartaHackII-Web/shared/bundle/ruby/2.2.0/gems/nokogiri-1.6.6.2/ext/nokogiri/tmp/x86_64-unknown-linux-gnu/ports/libxml2/2.9.2/libxml2-2.9.2/include/libxml'
+make[3]: Entering directory `/home/deploy/SpartaHackII-Web/shared/bundle/ruby/2.2.0/gems/nokogiri-1.6.6.2/ext/nokogiri/tmp/x86_64-unknown-linux-gnu/ports/libxml2/2.9.2/libxml2-2.9.2/include'
+make[3]: Nothing to be done for `all-am'.
+make[3]: Leaving directory `/home/deploy/SpartaHackII-Web/shared/bundle/ruby/2.2.0/gems/nokogiri-1.6.6.2/ext/nokogiri/tmp/x86_64-unknown-linux-gnu/ports/libxml2/2.9.2/libxml2-2.9.2/include'
+make[2]: Leaving directory `/home/deploy/SpartaHackII-Web/shared/bundle/ruby/2.2.0/gems/nokogiri-1.6.6.2/ext/nokogiri/tmp/x86_64-unknown-linux-gnu/ports/libxml2/2.9.2/libxml2-2.9.2/include'
+Making all in .
+make[2]: Entering directory `/home/deploy/SpartaHackII-Web/shared/bundle/ruby/2.2.0/gems/nokogiri-1.6.6.2/ext/nokogiri/tmp/x86_64-unknown-linux-gnu/ports/libxml2/2.9.2/libxml2-2.9.2'
+  CC       SAX.lo
+  CC       entities.lo
+  CC       encoding.lo
+  CC       error.lo
+  CC       parserInternals.lo
+  CC       parser.lo
+  CC       tree.lo
+  CC       hash.lo
+  CC       list.lo
+  CC       xmlIO.lo
+  CC       xmlmemory.lo
+  CC       uri.lo
+  CC       valid.lo
+  CC       xlink.lo
+  CC       HTMLparser.lo
+  CC       HTMLtree.lo
+  CC       debugXML.lo
+  CC       xpath.lo
+xpath.c: In function 'xmlXPathRegisterFuncNS':
+xpath.c:4875:5: warning: ISO C forbids passing argument 4 of 'xmlHashAddEntry2' between function pointer and 'void *' [-Wpedantic]
+     return(xmlHashAddEntry2(ctxt->funcHash, name, ns_uri, XML_CAST_FPTR(f)));
+     ^
+In file included from ./include/libxml/parser.h:18:0,
+                 from ./include/libxml/globals.h:18,
+                 from ./include/libxml/threads.h:35,
+                 from ./include/libxml/xmlmemory.h:218,
+                 from xpath.c:38:
+./include/libxml/hash.h:128:4: note: expected 'void *' but argument is of type 'xmlXPathFunction'
+    xmlHashAddEntry2(xmlHashTablePtr table,
+    ^
+xpath.c: In function 'xmlXPathFunctionLookupNS':
+xpath.c:4956:24: warning: ISO C forbids assignment between function pointer and 'void *' [-Wpedantic]
+     XML_CAST_FPTR(ret) = xmlHashLookup2(ctxt->funcHash, name, ns_uri);
+                        ^
+xpath.c: In function 'xmlXPathCompOpEval':
+xpath.c:13552:41: warning: ISO C forbids assignment between function pointer and 'void *' [-Wpedantic]
+                     XML_CAST_FPTR(func) = op->cache;
+                                         ^
+xpath.c:13579:31: warning: ISO C forbids assignment between function pointer and 'void *' [-Wpedantic]
+                     op->cache = XML_CAST_FPTR(func);
+                               ^
+In file included from xpath.c:476:0:
+xpath.c: At top level:
+trionan.c:218:1: warning: 'trio_is_negative' defined but not used [-Wunused-function]
+ trio_is_negative
+ ^
+  CC       xpointer.lo
+  CC       xinclude.lo
+  CC       nanohttp.lo
+  CC       nanoftp.lo
+  CC       catalog.lo
+  CC       globals.lo
+  CC       threads.lo
+threads.c:53:12: warning: redundant redeclaration of 'pthread_once' [-Wredundant-decls]
+ extern int pthread_once (pthread_once_t *__once_control,
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:505:12: note: previous declaration of 'pthread_once' was here
+ extern int pthread_once (pthread_once_t *__once_control,
+            ^
+threads.c:56:14: warning: redundant redeclaration of 'pthread_getspecific' [-Wredundant-decls]
+ extern void *pthread_getspecific (pthread_key_t __key)
+              ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:1130:14: note: previous declaration of 'pthread_getspecific' was here
+ extern void *pthread_getspecific (pthread_key_t __key) __THROW;
+              ^
+threads.c:58:12: warning: redundant redeclaration of 'pthread_setspecific' [-Wredundant-decls]
+ extern int pthread_setspecific (pthread_key_t __key,
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:1133:12: note: previous declaration of 'pthread_setspecific' was here
+ extern int pthread_setspecific (pthread_key_t __key,
+            ^
+threads.c:61:12: warning: redundant redeclaration of 'pthread_key_create' [-Wredundant-decls]
+ extern int pthread_key_create (pthread_key_t *__key,
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:1122:12: note: previous declaration of 'pthread_key_create' was here
+ extern int pthread_key_create (pthread_key_t *__key,
+            ^
+threads.c:64:12: warning: redundant redeclaration of 'pthread_key_delete' [-Wredundant-decls]
+ extern int pthread_key_delete (pthread_key_t __key)
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:1127:12: note: previous declaration of 'pthread_key_delete' was here
+ extern int pthread_key_delete (pthread_key_t __key) __THROW;
+            ^
+threads.c:67:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:66:12: warning: redundant redeclaration of 'pthread_mutex_init' [-Wredundant-decls]
+ extern int pthread_mutex_init ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:760:12: note: previous declaration of 'pthread_mutex_init' was here
+ extern int pthread_mutex_init (pthread_mutex_t *__mutex,
+            ^
+threads.c:69:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:68:12: warning: redundant redeclaration of 'pthread_mutex_destroy' [-Wredundant-decls]
+ extern int pthread_mutex_destroy ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:765:12: note: previous declaration of 'pthread_mutex_destroy' was here
+ extern int pthread_mutex_destroy (pthread_mutex_t *__mutex)
+            ^
+threads.c:71:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:70:12: warning: redundant redeclaration of 'pthread_mutex_lock' [-Wredundant-decls]
+ extern int pthread_mutex_lock ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:773:12: note: previous declaration of 'pthread_mutex_lock' was here
+ extern int pthread_mutex_lock (pthread_mutex_t *__mutex)
+            ^
+threads.c:73:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:72:12: warning: redundant redeclaration of 'pthread_mutex_unlock' [-Wredundant-decls]
+ extern int pthread_mutex_unlock ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:784:12: note: previous declaration of 'pthread_mutex_unlock' was here
+ extern int pthread_mutex_unlock (pthread_mutex_t *__mutex)
+            ^
+threads.c:75:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:74:12: warning: redundant redeclaration of 'pthread_cond_init' [-Wredundant-decls]
+ extern int pthread_cond_init ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:979:12: note: previous declaration of 'pthread_cond_init' was here
+ extern int pthread_cond_init (pthread_cond_t *__restrict __cond,
+            ^
+threads.c:77:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:76:12: warning: redundant redeclaration of 'pthread_cond_destroy' [-Wredundant-decls]
+ extern int pthread_cond_destroy ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:984:12: note: previous declaration of 'pthread_cond_destroy' was here
+ extern int pthread_cond_destroy (pthread_cond_t *__cond)
+            ^
+threads.c:79:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:78:12: warning: redundant redeclaration of 'pthread_cond_wait' [-Wredundant-decls]
+ extern int pthread_cond_wait ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:1000:12: note: previous declaration of 'pthread_cond_wait' was here
+ extern int pthread_cond_wait (pthread_cond_t *__restrict __cond,
+            ^
+threads.c:81:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:80:12: warning: redundant redeclaration of 'pthread_equal' [-Wredundant-decls]
+ extern int pthread_equal ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:289:12: note: previous declaration of 'pthread_equal' was here
+ extern int pthread_equal (pthread_t __thread1, pthread_t __thread2)
+            ^
+threads.c:83:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:82:18: warning: redundant redeclaration of 'pthread_self' [-Wredundant-decls]
+ extern pthread_t pthread_self ()
+                  ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:286:18: note: previous declaration of 'pthread_self' was here
+ extern pthread_t pthread_self (void) __THROW __attribute__ ((__const__));
+                  ^
+threads.c:85:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:84:12: warning: redundant redeclaration of 'pthread_key_create' [-Wredundant-decls]
+ extern int pthread_key_create ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:1122:12: note: previous declaration of 'pthread_key_create' was here
+ extern int pthread_key_create (pthread_key_t *__key,
+            ^
+threads.c:87:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:86:12: warning: redundant redeclaration of 'pthread_key_delete' [-Wredundant-decls]
+ extern int pthread_key_delete ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:1127:12: note: previous declaration of 'pthread_key_delete' was here
+ extern int pthread_key_delete (pthread_key_t __key) __THROW;
+            ^
+threads.c:89:5: warning: function declaration isn't a prototype [-Wstrict-prototypes]
+     __attribute((weak));
+     ^
+threads.c:88:12: warning: redundant redeclaration of 'pthread_cond_signal' [-Wredundant-decls]
+ extern int pthread_cond_signal ()
+            ^
+In file included from threads.c:28:0:
+/usr/include/pthread.h:988:12: note: previous declaration of 'pthread_cond_signal' was here
+ extern int pthread_cond_signal (pthread_cond_t *__cond)
+            ^
+  CC       c14n.lo
+  CC       xmlstring.lo
+  CC       buf.lo
+  CC       xmlregexp.lo
+  CC       xmlschemas.lo
+  CC       xmlschemastypes.lo
+  CC       xmlunicode.lo
+  CC       xmlreader.lo
+  CC       relaxng.lo
+  CC       dict.lo
+  CC       SAX2.lo
+  CC       xmlwriter.lo
+  CC       legacy.lo
+  CC       chvalid.lo
+  CC       pattern.lo
+Hangup
+make[2]: *** wait: No child processes.  Stop.
+make[2]: *** Waiting for unfinished jobs....
+make[2]: *** wait: No child processes.  Stop.
+make[1]: *** wait: No child processes.  Stop.
+make[1]: *** Waiting for unfinished jobs....
+make[1]: *** wait: No child processes.  Stop.
+make: *** wait: No child processes.  Stop.
+make: *** Waiting for unfinished jobs....
+make: *** wait: No child processes.  Stop.
