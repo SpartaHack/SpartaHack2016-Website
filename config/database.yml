@@ -83,6 +83,6 @@ test:
 #
 production:
   <<: *default
-  database: app_production
+  database: spartahack
   username: deploy
   password: hu8jmn3
