@@ -1,1 +1,0 @@
-# SpartaHackII-Web

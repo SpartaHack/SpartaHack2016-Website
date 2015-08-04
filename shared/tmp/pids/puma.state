@@ -1,5 +1,5 @@
 ---
-pid: 25037
+pid: 26916
 config: !ruby/object:Puma::Configuration
   options:
     :min_threads: 4
@@ -24,5 +24,5 @@ config: !ruby/object:Puma::Configuration
     :redirect_stderr: "/home/deploy/SpartaHackII-Web/current/log/puma.access.log"
     :redirect_append: true
     :preload_app: true
-    :control_auth_token: 2d8dca43154b15c9783c8ee98ecccc2e
-    :tag: '20150804191613'
+    :control_auth_token: 79c455d1abdbf941debce5aba63c3835
+    :tag: '20150804192746'
