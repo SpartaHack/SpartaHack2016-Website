@@ -1,0 +1,67 @@
+"gcc -o conftest -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/x86_64-linux -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/ruby/backward -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0 -I.     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC  conftest.c  -L. -L/home/deploy/.rvm/rubies/ruby-2.2.1/lib -Wl,-R/home/deploy/.rvm/rubies/ruby-2.2.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lpthread -ldl -lcrypt -lm   -lc "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"gcc -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/x86_64-linux -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/ruby/backward -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0 -I.     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC    -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+have_library: checking for gzdopen() in -lz... -------------------- yes
+
+"gcc -o conftest -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/x86_64-linux -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/ruby/backward -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0 -I.     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/home/deploy/.rvm/rubies/ruby-2.2.1/lib -Wl,-R/home/deploy/.rvm/rubies/ruby-2.2.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby -lz  -lpthread -ldl -lcrypt -lm   -lc "
+conftest.c: In function ‘t’:
+conftest.c:15:32: warning: variable ‘p’ set but not used [-Wunused-but-set-variable]
+ int t(void) { void ((*volatile p)()); p = (void ((*)()))gzdopen; return 0; }
+                                ^
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <zlib.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     printf("%p", &t);
+11:   }
+12: 
+13:   return 0;
+14: }
+15: int t(void) { void ((*volatile p)()); p = (void ((*)()))gzdopen; return 0; }
+/* end */
+
+--------------------
+
+have_iconv?: checking for iconv... -------------------- yes
+
+"gcc -o conftest -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/x86_64-linux -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0/ruby/backward -I/home/deploy/.rvm/rubies/ruby-2.2.1/include/ruby-2.2.0 -I.     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC  -g -DXP_UNIX -O3 -Wall -Wcast-qual -Wwrite-strings -Wconversion -Wmissing-noreturn -Winline conftest.c  -L. -L/home/deploy/.rvm/rubies/ruby-2.2.1/lib -Wl,-R/home/deploy/.rvm/rubies/ruby-2.2.1/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lpthread -ldl -lcrypt -lm   -lc "
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <stdlib.h>
+ 4: #include <iconv.h>
+ 5: 
+ 6: int main(void)
+ 7: {
+ 8:     iconv_t cd = iconv_open("", "");
+ 9:     iconv(cd, NULL, NULL, NULL, NULL);
+10:     return EXIT_SUCCESS;
+11: }
+/* end */
+
+--------------------
+
