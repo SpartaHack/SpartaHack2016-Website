@@ -1,0 +1,76 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+#schedule {
+  //background: #A64823;
+  background-color: $chocolateSea;
+  position: relative;
+  padding: 10vh .5em;
+  overflow: hidden;
+
+
+  @media (min-width: 550px){
+    padding-top: 40vh;
+  }
+  padding-bottom: 40vh;
+
+  h1 {
+    text-align: center;
+    font-size: 350%;
+    font-family: PhantLight;
+    text-transform: lowercase;
+    padding: 0;
+    margin-bottom: .5em;
+    color: $cream;
+    text-decoration: underline;
+    font-weight: bold;
+
+    @media (min-width: 550px){
+      font-size: 500%;
+    }
+  }
+
+  h2 {
+    font-family: PhantLight;
+    font-size: 3em;
+    text-align: center;
+    text-transform: uppercase;
+    color: $butter;
+    letter-spacing: .15em;
+    margin-top: .5em;
+    margin-bottom: .5em;
+  }
+
+  .schedule-item {
+    font-family: Lato;
+    color: $cream;
+    margin: .5em 0;
+
+    b {
+      width: 25%;
+      text-align: right;
+      font-weight: 900;
+      letter-spacing: .05em;
+      display: inline-block;
+      margin-right: 2em;
+      color: #A64823;
+    }
+
+    strong {
+      font-weight: 900;
+      letter-spacing: .05em;
+      color: darken($butter, 10%);
+    }
+  }
+
+  .schedule-mountains {
+    position: absolute;
+    height: 11em;
+    width: 120%;
+    bottom: 0;
+    left: -3em;
+    background: url(mountains.svg) repeat-x left bottom;
+    z-index: 8;
+  }
+}
+

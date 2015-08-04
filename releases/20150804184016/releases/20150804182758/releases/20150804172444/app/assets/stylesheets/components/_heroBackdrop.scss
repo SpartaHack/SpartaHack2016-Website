@@ -1,0 +1,119 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+#hero {
+  .backdrop{
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+.island {
+  width: 100%;
+  position: absolute;
+  top: 72vh;
+  left: 0;
+  z-index: 4;
+
+  @media (min-width: 600px) {
+    top: 25vh;
+  }
+}
+
+.backfog {
+  width: 100%;
+  position: absolute;
+  top: 78vh;
+  left: 0;
+  z-index: 1;
+
+  @media (min-width: 600px) {
+    top: 45vh;
+  }
+}
+
+.light-back-cloud {
+  width: 35%;
+  position: absolute;
+  top: 25vh;
+  left: 74%;
+  z-index: 1;
+}
+
+.dark-back-cloud {
+  position: absolute;
+  width: 35%;
+  top: 18vh;
+  left: -3%;
+  z-index: 1;
+}
+
+.cloud1,  .cloud2 {
+  opacity: 0.8;
+  z-index: 5;
+}
+
+.cloud1 {
+  position: absolute;
+  width: 85%;
+  top: 30vh;
+  left: -20%;
+  display: none;
+
+  @media (min-width: 600px) {
+    display: block;
+  }
+}
+
+.cloud2 {
+  position: absolute;
+  width: 85%;
+  top: 83vh;
+  left: 30%;
+
+  @media (min-width: 600px) {
+    top: 70vh;
+  }
+}
+
+.lil-cloud {
+  position: absolute;
+  width: 45%;
+  top: 70vh;
+  left: -10%;
+  z-index: 6;
+
+  @media (min-width: 600px) {
+    top: 60vh;
+  }
+}
+
+.faq-head {
+  position: absolute;
+  width: 120%;
+  bottom: -1vh;
+  left: -10%;
+  z-index: 8;
+
+  @media (min-width: 600px) {
+    bottom: -10vh;
+  }
+}
+
+.faq-tail {
+  position: absolute;
+  width: 120%;
+  top: -1vh;
+  left: -5%;
+  z-index: 8;
+}
+
+.faq2 {
+  opacity: 0.8;
+  z-index: 5;
+  position: absolute;
+  width: 65%;
+  top: 1vh;
+  left: -12%;
+  z-index: 9;
+}

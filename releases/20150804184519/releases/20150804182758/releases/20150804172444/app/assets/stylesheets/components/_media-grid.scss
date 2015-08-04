@@ -1,0 +1,41 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+.media-grid {
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  article {
+    width: 100%;
+    padding: .5em 0;
+
+    @media (min-width: 550px) and (max-width: 960px) {
+      width: 45%;
+      padding: .5em;
+    }
+
+    &.gold {
+      @media (min-width: 550px) and (max-width: 960px) {
+        width: 60%;
+        padding: .5em;
+      }
+
+      @media (min-width: 960px) {
+        width: 40%;
+        padding: .5em;
+      }
+    }
+
+    @media (min-width: 960px) {
+      width: 30%;
+      padding: .5em;
+    }
+  }
+
+  .full {
+    width: 100%;
+    padding: 1em;
+  }
+}

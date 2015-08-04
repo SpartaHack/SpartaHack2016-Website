@@ -1,0 +1,97 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+#judges {
+  background: #5F4836;
+  position: relative;
+  padding: 10vh .5em;
+  overflow: hidden;
+
+  padding-bottom: 40vh;
+
+  h1 {
+    text-align: center;
+    font-size: 350%;
+    font-family: PhantLight;
+    text-transform: lowercase;
+    padding: 0;
+    margin-bottom: .5em;
+    color: $cream;
+    text-decoration: underline;
+    font-weight: bold;
+
+    @media (min-width: 550px){
+      font-size: 500%;
+    }
+  }
+
+  h2.name {
+    font-family: PhantLight;
+    font-size: 2em;
+    text-align: center;
+    color: $butter;
+    letter-spacing: .15em;
+    margin-top: .5em;
+  }
+
+  h3 {
+    text-align: center;
+    font-size: 1.25em;
+    font-family: Lato;
+    letter-spacing: .05em;
+
+    a {
+      color: $butter;
+      text-decoration: none;
+
+      .at {
+        color: $mutedCream;
+      }
+    }
+  }
+
+  article {
+    position: relative;
+    margin-bottom: 1em;
+
+
+    p {
+      font-family: Lato;
+      font-size: 1.25em;
+      color: $cream;
+      line-height: 1.15em;
+      margin-top: .25em;
+      text-align: center;
+      letter-spacing: .05em;
+    }
+  }
+
+  .media-grid {
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .judge-photo {
+    width: 90%;
+    margin: 0 5%;
+  }
+
+  .judges-waves {
+    position: absolute;
+    height: 4em;
+    width: 120%;
+    bottom: 0;
+    left: -3em;
+    background: url(waves.svg) repeat-x left bottom;
+    z-index: 8;
+  }
+
+  .judges-boat {
+    position: absolute;
+    width: 18em;
+    left: 5%;
+    bottom: 1.7em;
+    z-index: 7;
+  }
+}
+
