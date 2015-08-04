@@ -1,0 +1,116 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+#faq {
+  padding: .1em;
+
+  background: $faqBackground;
+  color: $faqText;
+  font-family: Lato;
+  font-weight: 400;
+  text-align: center;
+  position: relative;
+
+  a {
+    color: #a86b28;
+
+    &:visited {
+      color: #7e562d;
+    }
+  }
+
+  @media (min-width: 550px) {
+
+    text-align: left;
+  }
+
+  article {
+    z-index: 10;
+    @media (min-width: 550px) {
+      margin-bottom: 3vh;
+    }
+  }
+
+  h1 {
+    text-transform: uppercase;
+    font-size: 110%;
+    padding-bottom: 1em;
+
+    @media (min-width: 550px) {
+      font-size: 130%;
+    }
+
+    @media (max-width: 550px) {
+      display: flex;
+      justify-content: space-between;
+      padding: 0;
+      margin: 0 5%;
+      color: $lightBrown;
+      background-color: #c1aa96;
+      min-height: 50px;
+
+      span{
+        padding: .4em;
+        width: 80%
+      }
+
+      i {
+        width: 10%;
+        display: flex;
+        background-color: #a89483;
+        padding: .4em .5em;
+
+        &:before {
+          margin: auto;
+        }
+      }
+    }
+  }
+
+  i {
+    //display: block;
+
+    @media (min-width: 550px) {
+      display: none;
+    }
+  }
+
+  p {
+    font-size: 100%;
+    padding: 1em;
+    display: none;
+    z-index: 10;
+    line-height: 110%;
+
+    @media (min-width: 550px) {
+      display: block;
+      padding: 0;
+    }
+  }
+
+  .full {
+    text-align: center;
+    font-size: 120%;
+    padding-bottom: 1em;
+    line-height: 100%;
+
+    h1 {
+      font-size: 275%;
+      padding-bottom: .3em;
+    }
+
+    p {
+      display: block;
+    }
+
+    @media (min-width: 550px) {
+      font-size: 210%;
+      line-height: 120%;
+    }
+  }
+
+  .tail {
+    width: 100%;
+    text-align: center;
+  }
+}
