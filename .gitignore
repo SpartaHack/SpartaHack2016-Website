@@ -17,7 +17,3 @@
 /tmp
 .DS_Store
 .sass-cache/
-/releases/
-/shared/
-/public/
-/repo/
