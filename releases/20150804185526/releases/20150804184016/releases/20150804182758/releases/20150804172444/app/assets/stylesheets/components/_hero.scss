@@ -1,0 +1,197 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+#hero {
+
+  display: flex;
+
+  overflow: hidden;
+
+  height: 100vh;
+  background: $heroBackground;
+
+  text-align: center;
+  color: $heroMain;
+  letter-spacing: .05em;
+
+  font-family: PhantLight;
+
+  #title-text {
+    width: 60%;
+  }
+
+  h1, h2, p{
+    margin: auto;
+  }
+
+  h1, h2{
+    color: $heroAccent;
+  }
+
+  h1 {
+    width: 60%;
+    min-width: 300px;
+    font-size: 500%;
+    letter-spacing: .15em;
+  }
+
+  h2 {
+    width: 35%;
+    min-width: 200px;
+    font-size: 250%;
+    letter-spacing: .05em;
+  }
+
+  p {
+    width: 20%;
+    min-width: 140px;
+    font-size: 120%;
+    margin-top: 1.2em;
+    margin-bottom: .7em;
+    font-family: Raleway;
+    color: $heroMainDark;
+  }
+
+  .logo{
+    margin-top: 10vh;
+    min-width: 185px;
+    width: 35%;
+
+    @media (min-width: 600px) {
+      margin-top: 5vh;
+    }
+  }
+
+  a {
+    display: inline-block;
+    color: $heroLink;
+    padding: 0 .4em;
+    text-transform: lowercase;
+    font-size: 150%;
+    text-decoration: none;
+    border-bottom: 2px solid $heroLink;
+
+    &:hover {
+      color: $heroAccent;
+    }
+
+    &.anchorLink {
+      display: block;
+      font-size: 350%;
+      margin-top: 1em;
+      border: none;
+    }
+  }
+
+  .sendgrid-subscription-widget {
+
+    span {
+      display: none;
+    }
+
+  }
+
+  label {
+    display: inline-block;
+    width: 44%;
+  }
+
+  div.mc-field-group {
+    width: 44%;
+    display: inline-block;
+  }
+
+  input[type=email] {
+    display: inline-block;
+    background: none;
+    //border: 1px solid $heroMain;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    height: 36px;
+    color: $buttonText;
+    background-color: $buttonBackground;
+
+    -webkit-appearance: none;
+  }
+
+  ::-webkit-input-placeholder {
+   color: $buttonText;
+   font-family: PhantLight;
+   padding-left: .5em;
+   letter-spacing: .06em;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+     color: $buttonText;
+     font-family: PhantLight;
+     padding-left: .5em;
+     letter-spacing: .06em;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19+ */
+     color: $buttonText;
+     font-family: PhantLight;
+     padding-left: .5em;
+     letter-spacing: .06em;
+  }
+
+  :-ms-input-placeholder {
+     color: $buttonText;
+     font-family: PhantLight;
+     padding-left: .5em;
+     letter-spacing: .06em;
+  }
+
+  input[type=submit] {
+    display: inline-block;
+    color: $buttonText;
+    background: none;
+    border: none;
+    border-radius: 0;
+    width: 40px;
+    padding: 0;
+    margin-left: 20px;
+    height: 40px;
+    background-color: $buttonBackground;
+
+    -webkit-appearance: none;
+  }
+
+  .button {
+    display: block;
+    width: 20%;
+    margin: 1em auto;
+    padding: .5em 2em;
+    border: 2px solid $heroLink;
+    background-color: $mutedCream;
+    //margin-top: 1vh;
+  }
+
+  .drop-link {
+    margin-top: .5em;
+  }
+}
+
+#mc_embed_signup {text-align:center;padding-bottom:0px;}
+#mc_embed_signup form {display:block; text-align:center; padding:20px 0 0px 0}
+#mc_embed_signup h2 {font-weight:bold; padding:0; margin:15px 0; font-size:1.4em;}
+#mc_embed_signup input {border:1px solid #999; -webkit-appearance:none;}
+#mc_embed_signup input[type=checkbox]{-webkit-appearance:checkbox;}
+#mc_embed_signup input[type=radio]{-webkit-appearance:radio;}
+#mc_embed_signup input:focus {border-color:#333;}
+#mc_embed_signup .button {clear:both; background-color: #aaa; border: 0 none; border-radius:4px; color: #FFFFFF; cursor: pointer; display: inline-block; font-size:15px; font-weight: bold; height: 32px; line-height: 32px; margin: 0 5px 10px 0; padding:0; text-align: center; text-decoration: none; vertical-align: top; white-space: nowrap; width: auto;}
+#mc_embed_signup .button:hover {background-color:#777;}
+#mc_embed_signup .small-meta {font-size: 11px;}
+#mc_embed_signup .nowrap {white-space:nowrap;}
+#mc_embed_signup .clear {clear:none; display:inline;}
+
+#mc_embed_signup label {display:block; text-align:center;margin-left:5%;font-size:16px; padding-bottom:10px; font-weight:bold;width:90%}
+#mc_embed_signup input.email {opacity:1;text-align:center; font-size:20px; display:inline-block; padding:8px 0; margin:0 0 10px 10%;width:50%; min-width:130px;}
+#mc_embed_signup input.button {display:inline-block; width:52px;height:52px; margin:0 10% 10px -5px;}
+
+#mc_embed_signup div#mce-responses {float:inherit; top:-1.4em; padding:0em .5em 0em .5em; overflow:hidden; width:90%;margin: 0 5%; clear: both;}
+#mc_embed_signup div.response {margin:1em 0; padding:1em .5em .5em 0; font-weight:bold; float:left; top:-1.5em; z-index:1; width:80%;}
+#mc_embed_signup #mce-error-response {display:none;}
+#mc_embed_signup #mce-success-response {color:#529214; display:none;}
+#mc_embed_signup label.error {display:block; float:none; width:auto; margin-left:1.05em; text-align:center; padding:.5em 0;}

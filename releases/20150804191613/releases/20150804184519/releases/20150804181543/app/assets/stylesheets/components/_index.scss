@@ -1,0 +1,33 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+.wrap {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+.backdrop {
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+body {
+  background: $heroBackground;
+  margin: 0 auto;
+}
+
+.mirrorX {
+  transform: scaleX(-1);
+  filter: FlipH;
+}
+
+.mirrorY {
+  transform: scaleY(-1);
+  filter: FlipV;
+}

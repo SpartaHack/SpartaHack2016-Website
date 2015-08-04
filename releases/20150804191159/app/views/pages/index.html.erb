@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SpartaHack</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:image" content="static/img/logo-supertech.png" />
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="icon" type="image/png" href="/static/img/favicon.png">
+
+        <%= stylesheet_link_tag "//fonts.googleapis.com/css?family=Raleway" %>
+        <%= stylesheet_link_tag "//fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic" %>
+        <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" %>
+
+        <%= stylesheet_link_tag "application.scss" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js" %>
+        
+        
+        
+
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <section id="hero">
+          <div class="wrap">
+            <%= image_tag "logo-supertech.svg", alt: "SpartaHack", :class => "logo" %>
+            <%= render partial: "pages/index_head"%>
+        </section>
+
+        <footer class="footer">
+          <div class="wrap">
+            <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by SpartaHack
+            &copy;<script>new Date().getFullYear()>document.write(new Date().getFullYear());</script>, Spartan Hackers&nbsp;&nbsp;
+            <a href="https://www.facebook.com/spartahackmsu"><i class="fa fa-facebook-square"></i></a>
+            <a href="https://twitter.com/spartahack"><i class="fa fa-twitter"></i></a>
+            <a href="https://github.com/SpartaHack"><i class="fa fa-github"></i></a>
+          </div>
+        </footer>
+        <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js" %>
+        <%= javascript_include_tag "index.js" %>
+    </body>
+</html>

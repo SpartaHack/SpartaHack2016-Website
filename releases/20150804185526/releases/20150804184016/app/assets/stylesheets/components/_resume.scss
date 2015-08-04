@@ -1,0 +1,29 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+.resume-container {
+  display: flex;
+  height: 100vh;
+  font-family: Raleway;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+  }
+
+  label {
+    display: block;
+    text-align: center;
+    color: $resumeLabel;
+  }
+
+  input {
+    margin-bottom: 1vh;
+  }
+}
+
+.resume-button {
+  font-family: Raleway;
+  margin-bottom: 1vh;
+}
