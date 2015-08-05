@@ -15,7 +15,7 @@
   right: 0px;
   z-index: 999999;
 
-  .fa-heart, .fa-code {
+  .fa-code {
     color: $belizeHole;
   }
 
@@ -29,3 +29,9 @@
     }
   }
 }
+
+  .rails {
+    height: 20px;
+    width: auto;
+    margin-bottom: -5px;
+  }
