@@ -17,13 +17,15 @@ Open terminal and run the following commands in order to install Command Line To
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 ##### Install RVM
-Open terminal and run the following commands in order
-
-    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+Open terminal and run the following command
 
     \curl -sSL https://get.rvm.io | bash
+
+Close and reopen terminal. Run the following commands        
     
     rvm install 2.2.1
+
+    rvm --default use 2.1.1
 
 And then execute:
 
@@ -31,8 +33,6 @@ And then execute:
 
 ##### Install Postgres
 Run the following commands in terminal
-
-    brew update
     
     brew install postgresql
     
@@ -40,17 +40,15 @@ Run the following commands in terminal
 
 Now go to http://postgresapp.com/ and install Postgress.app.
 
-If you are using **bash** (default shell on OS X), add the following line to `~/.bash_profile`:
-
-    export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
-
 ##### Run Postgres locally
 Open the app and click on `Open psql`. A terminal window should pop up.
 
 Run the following commands
 
     CREATE ROLE "pguser" NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN;
+
     ALTER ROLE pguser WITH PASSWORD 'hello';
+    
     CREATE DATABASE dev ENCODING 'UTF8';
 
 **Postgres must be running in the background to run SpartaHack locally.**
