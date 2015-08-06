@@ -25,7 +25,7 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 ## Defaults:
-set :scm,             :git
+# set :scm,             :git
 set :branch,          "origin/development"
 # set :format,        :pretty
 # set :log_level,     :debug
