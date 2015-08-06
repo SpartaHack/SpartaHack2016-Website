@@ -1,3 +1,6 @@
+
+set :branch,          fetch(:branch, "development")
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
