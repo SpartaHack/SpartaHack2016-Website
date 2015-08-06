@@ -1,7 +1,7 @@
 server '104.131.101.186', port: 22, roles: [:web, :app, :db], primary: true
 
-set :branch,          :development
 set :repo_url,        'git@github.com:SpartaHack/SpartaHackII-Web.git'
+set :branch,          'development'
 set :application,     'SpartaHack2016-Dev'
 set :user,            'dev'
 set :puma_threads,    [4, 16]
