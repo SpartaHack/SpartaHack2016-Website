@@ -1,7 +1,7 @@
 server '104.131.101.186', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:SpartaHack/SpartaHackII-Web.git'
-set :branch,          fetch(:branch, "origin/development")
+set :branch,          "origin/development"
 set :application,     'SpartaHack2016-Dev'
 set :user,            'dev'
 set :puma_threads,    [4, 16]
@@ -11,6 +11,7 @@ set :puma_workers,    0
 set :pty,             true
 set :use_sudo,        false
 set :stage,           :production
+set :branch,          "origin/development"
 set :deploy_via,      :remote_cache
 set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
 set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
@@ -24,7 +25,8 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 ## Defaults:
-# set :scm,           :git
+set :scm,             :git
+set :branch,          "origin/development"
 # set :format,        :pretty
 # set :log_level,     :debug
 # set :keep_releases, 5
