@@ -21,8 +21,4 @@
 /repo/
 /shared/ 
 
-app/controllers/application_controller.rb
-config/application.rb
-config/environments/development.rb
-config/environments/production.rb
-spec/spec_helper.rb
+config/nginx.conf
