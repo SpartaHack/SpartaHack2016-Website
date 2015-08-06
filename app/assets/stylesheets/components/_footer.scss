@@ -1,9 +1,14 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
 .footer {
   text-align: center;
   padding: .75em 0;
-  font-family: Lato;
+  font-family: ubuntu;
   font-weight: 100;
-  background-color: $footer;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  background-color: transparent;
   color: $cream;
   font-size: .9em;
 

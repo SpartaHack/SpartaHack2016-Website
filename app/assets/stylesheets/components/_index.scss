@@ -1,19 +1,17 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
 .wrap {
   width: 100%;
   max-width: 960px;
   margin: 0 auto;
-  margin-top: 100px;
   z-index: 10;
 }
 
-.backdrop {
-  width: 100%;
-  position: relative;
-  top: 0;
-  left: 0;
-  position: absolute;
-  overflow: hidden;
+.wrap-main {
+  background: image-url("glitch.gif") no-repeat center 10px fixed;
 }
+
 
 body {
   background: $mainBackground;

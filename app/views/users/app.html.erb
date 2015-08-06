@@ -32,12 +32,12 @@
             <%= text_field_tag 'lastName', "#{@application[0]['lastName'] if @application[0]}" %>
           </div>
           <div>
-            <%= label_tag(:dob, "What is your gender?") %>
             <select id="gender" name="gender">
                <option></option>
                <option value="male">Male</option>
                <option value="female">Female</option>
-               <option value="non-binary">Non-Binary</option>
+               <option value="non-binary">Non-binary</option>
+               <option value="prefer-not">Prefer not to say</option>
             </select>
           </div>
           <div>
@@ -49,11 +49,9 @@
             <%= label_tag(:firstHackathon, "Is this your first hackathon?") %>
           </div>
           <div>
-            <%= label_tag(:university, "What university do you attend?") %>
             <%= render partial: "users/app_university" %>
           </div>
           <div>
-            <%= label_tag(:gradeLevel, "What year of school are you in?") %>
             <select id="gradeLevel" name="gradeLevel">
               <option></option>
               <option>Freshman</option>
@@ -64,7 +62,17 @@
             </select>
           </div>
           <div>
-            <%= label_tag(:github, "What's your github?") %>
+            <select id="major" name="major">
+              <option></option>
+              <option>Major 1</option>
+              <option>Major 2</option>
+              <option>Major 3</option>
+              <option>Major 4</option>
+              <option>Major 5 sdfjkhaslkdfhaskjdfh</option>
+            </select>
+          </div>
+          <div>
+            <%= label_tag(:github, "What's your github? http://github.com/") %>
             <%= text_field_tag 'github', "#{@application[0]['github'] if @application[0]}" %>
           </div>
           <div>

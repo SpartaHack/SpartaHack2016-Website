@@ -1,37 +1,57 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
 #faq {
   padding: .1em;
 
-  background: $faqBackground;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center; 
   color: $faqText;
-  font-family: Lato;
-  font-weight: 400;
-  text-align: center;
   position: relative;
 
-  a {
-    color: #a86b28;
-
-    &:visited {
-      color: #7e562d;
-    }
+  .wrap {
+    width: 45%;
+    @media (max-width: 550px){
+      width: 100%;
+      line-height: 250%; 
+    }   
   }
 
-  @media (min-width: 550px) {
-
-    text-align: left;
+  a {
+    color: $faqText;
+    text-decoration: underline;
+    &:visited {
+      color: $faqText;
+    }
   }
 
   article {
     z-index: 10;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
     @media (min-width: 550px) {
       margin-bottom: 3vh;
     }
   }
 
   h1 {
-    text-transform: uppercase;
+    width: 35%;
+    min-width: 200px;
+    font-size: 180%;
+    font-family: MoonDance;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h2 {
     font-size: 110%;
-    padding-bottom: 1em;
 
     @media (min-width: 550px) {
       font-size: 130%;
@@ -42,8 +62,7 @@
       justify-content: space-between;
       padding: 0;
       margin: 0 5%;
-      color: $lightBrown;
-      background-color: #c1aa96;
+      background-color: transparent;
       min-height: 50px;
 
       span{
@@ -77,7 +96,7 @@
     padding: 1em;
     display: none;
     z-index: 10;
-    line-height: 110%;
+    line-height: 220%;
 
     @media (min-width: 550px) {
       display: block;
@@ -91,7 +110,7 @@
     padding-bottom: 1em;
     line-height: 100%;
 
-    h1 {
+    h2 {
       font-size: 275%;
       padding-bottom: .3em;
     }

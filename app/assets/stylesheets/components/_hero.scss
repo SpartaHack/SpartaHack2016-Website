@@ -1,15 +1,20 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
 #hero {
 
   display: flex;
   height: 100vh;
   border-collapse: collapse;
   border-spacing: 0;
-  background: image-url("glitch.gif") no-repeat center 10px fixed;
+  background-color: transparent;
   overflow: hidden;
-
- 
   text-align: center;
   letter-spacing: .05em;
+  
+  .wrap {
+    margin-top: 100px;
+  }
 
   #title-text {
     width: 60%;
@@ -22,6 +27,9 @@
   h1, h2{
     color: $heroAccent;
     font-family: MoonDance;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
   }
 
   h1 {

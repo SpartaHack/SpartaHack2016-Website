@@ -1,14 +1,18 @@
 $(document).ready(function() {
 	$('#university').select2({
-	  placeholder: "Select a University", 
+	  placeholder: "College/University", 
 	  allowClear: true
 	});
 	$('#gender').select2({
-	  placeholder: "Select a gender", 
+	  placeholder: "Gender", 
+	  allowClear: true
+	});
+	$('#major').select2({
+	  placeholder: "Major(s)", 
 	  allowClear: true
 	});
 	$('#gradeLevel').select2({
-	  placeholder: "Select a grade level", 
+	  placeholder: "Year in School", 
 	  allowClear: true
 	});
 })

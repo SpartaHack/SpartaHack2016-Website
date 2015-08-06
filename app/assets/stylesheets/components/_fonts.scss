@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'MoonDance';
+  src: url('moondance-webfont.eot'); /* IE9 Compat Modes */
+  src: url('moondance-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('moondance-webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('moondance-webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('moondance-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('moondance-webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'ubuntu';
+  font-weight: 100;
+  font-style: normal;
+  src: url('ubuntu-l-webfont.eot'); /* IE9 Compat Modes */
+  src: url('ubuntu-l-webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('ubuntu-l-webfont.woff2') format('woff2'), /* Super Modern Browsers */
+       url('ubuntu-l-webfont.woff') format('woff'), /* Pretty Modern Browsers */
+       url('ubuntu-l-webfont.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('ubuntu-l-webfont.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
