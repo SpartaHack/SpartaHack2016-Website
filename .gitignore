@@ -19,6 +19,6 @@
 .sass-cache/
 /releases/
 /repo/
-/shared/ 
-
+/shared 
+/current
 config/nginx.conf
