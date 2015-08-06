@@ -1,7 +1,6 @@
 server '104.131.101.186', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:SpartaHack/SpartaHackII-Web.git'
-set :branch,	      'development'
 set :application,     'SpartaHack2016-Dev'
 set :user,            'dev'
 set :puma_threads,    [4, 16]
@@ -25,7 +24,7 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 
 ## Defaults:
 # set :scm,           :git
-# set :branch,        :master
+set :branch,          :development
 # set :format,        :pretty
 # set :log_level,     :debug
 # set :keep_releases, 5
