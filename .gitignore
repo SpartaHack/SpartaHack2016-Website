@@ -22,4 +22,4 @@
 /shared 
 /current
 config/nginx.conf
-parse_config.rb
+
