@@ -18,7 +18,6 @@
         <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" %>
 
         <%= stylesheet_link_tag "site" %>
-        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js" %>
         
         
         
@@ -28,18 +27,16 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div id="header" class="header">
-            <nav id="nav">
-                <ul class="nav navbar-nav">
-                    <li class="center-content"><a href="#top" class="button">2016</a></li>
-                    <li><a href="#faq" class="button">FAQ</a></li>
-                    <li><a href="#schedule" class="button">SCHEDULE</a></li>
-                    <li><a href="#judges" class="button">JUDGES</a></li>
-                    <li><a href="#sponsors" class="button">SPONSORS</a></li>
-                    <li><a href="#mobile" class="button">MOBILE</a></li>
-                    <li><a href="#contact" class="button">CONTACT</a></li>
-                </ul>
-            </nav>
+        <div id="header" class="headroom">
+            <ul class="nav navbar-nav">
+                <li class="center-content"><a href="#top" class="button">2016</a></li>
+                <li><a href="#faq" class="button">FAQ</a></li>
+                <li><a href="#schedule" class="button">SCHEDULE</a></li>
+                <li><a href="#judges" class="button">JUDGES</a></li>
+                <li><a href="#sponsors" class="button">SPONSORS</a></li>
+                <li><a href="#mobile" class="button">MOBILE</a></li>
+                <li><a href="#contact" class="button">CONTACT</a></li>
+            </ul>
         </div>
         <section class="wrap-main">
             <section id="hero">
@@ -79,8 +76,11 @@
             <a href="https://github.com/SpartaHack"><i class="fa fa-github"></i></a>
           </div>
         </footer>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.js" %>
         <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
         <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/jQuery.headroom.js" %>
         <%= javascript_include_tag "index.js" %>
     </body>
 </html>
