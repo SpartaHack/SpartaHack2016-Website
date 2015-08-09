@@ -19,18 +19,6 @@ body {
   margin: 0 auto;
 }
 
-.mirrorX {
-  transform: scaleX(-1);
-  filter: FlipH;
-}
-
-.mirrorY {
-  transform: scaleY(-1);
-  filter: FlipV;
-}
-
 a {
   text-decoration: none;
 }
-
-

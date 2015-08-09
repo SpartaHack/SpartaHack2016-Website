@@ -3,11 +3,8 @@
 
 .navbar-nav {
 	background: $mainBackground;
-	display: flex;
-	justify-content: left;
 	margin: 0px;
 	padding: 5px 10px;
-	border-bottom: solid 1px $mutedCream;
 	font-family: ubuntu;
 	font-weight: 100;
 	border-radius: 0;
@@ -23,14 +20,34 @@
 		  -webkit-font-smoothing: antialiased;
   	}
   }
+
+}
+
+.right{
+  li {
+    float: right;
+    clear:right;
+  } 
+  width: 50%;
+}
+
+.left {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  align-content: left;
+  justify-content: left;
 }
 
 .headroom {
-	z-index: 999;
-	background: $mainBackground;
-    position: fixed;
-    width: 100%;
-    transition: all .2s ease-in-out;
+  z-index: 999;
+  background: $mainBackground;
+  border-bottom: solid 1px $mutedCream;
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  transition: all .2s ease-in-out;
     
 }
 
