@@ -44,9 +44,17 @@
   }
 
   .hline {
-    background: rgb(128,295,219);
+    border-top: solid 1px $mutedCream;
+    background: none;
     width: 60%;
-    height: 0.06em;
+  }
+
+  .hline-full {
+    border-top: solid 1px $mutedCream;
+    background: none;
+    position: absolute;
+    left:0;
+    width: 100%;
   }
 
   h1 {

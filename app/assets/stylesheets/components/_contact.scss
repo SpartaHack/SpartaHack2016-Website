@@ -1,0 +1,127 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+#contact {
+
+  .wrap {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  h1 {
+    min-width: 200px;
+    font-size: 180%;
+    padding-bottom: 30px;
+    font-family: MoonDance;
+    text-align: center;
+    color: $cream;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::-webkit-input-placeholder {
+    color: $cream;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 14px;
+    padding-right: 1em;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: $cream;
+    font-family: ubuntu;
+    font-size: 14px;
+    font-weight: lighter;
+    padding-right: 1em;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19+ */
+    color: $cream;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 14px;
+    padding-right: 1em;
+  }
+
+  :-ms-input-placeholder { 
+    color: $cream;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 14px;
+    padding-right: 1em;
+  }
+
+  input[type=email] {
+    width: 86%;
+    display: inline-block;
+    border: solid 1px $mutedCream;
+    margin-top: 35px;
+    margin-bottom: 100px;
+    text-align:left; 
+    font-size: 14px; 
+    font-weight: lighter;
+    color: $cream;
+    background: none;
+    padding: 8px 0px 8px 25px; 
+    height: 36px;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    @media (min-width: 560px) {
+      width: 530px;
+    }
+  }
+
+  input[type=text] {
+    text-align:left; 
+    border: solid $mutedCream;
+    font-size: 14px; 
+    font-weight: 100;
+    color: $cream;
+    background: none;
+    padding: 8px 0px 8px 25px; 
+    width: 40%;
+    height: 36px;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    @media (min-width: 560px) {
+      width: 235px;
+    }
+  }
+
+  .inner {
+    width: 92%;
+    border: solid $mutedCream;
+    border-width: 0px 1px 0px 1px;
+    @media (min-width: 560px) {
+      width: 555px;
+    }
+  }
+
+  #firstName {
+    float: left;
+    border-width: 1px 1px 1px 0px;
+  }
+
+  #lastName {
+    float: right;
+    border-width: 1px 0px 1px 1px;
+  }
+
+  input[type=submit] {
+    background: none;
+    border-style: none;
+    text-align: right;
+    border-top: solid 1px $mutedCream;
+    color: $cream;
+    font-weight: 10;
+    font-size: 15px;
+    border-radius: 0;
+    width: 100%;
+    height: 60px;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+}

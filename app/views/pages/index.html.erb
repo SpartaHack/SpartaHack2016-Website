@@ -36,35 +36,44 @@
             </ul>
         </div>
         <section class="wrap-main">
-            <section id="hero">
-              <div class="wrap">
-                
-                <div id="logo-wrap">
-                    <h2 id="title-text">< SPARTAHACK /></h2>
-                    <p id="title-subtext">February 26-28</p>
-                    <%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
-                    <p id="intro">
-                        SpartaHack is Michigan State University’s official hackathon. For one weekend, 300 students from a wide range of disciplines and skill levels will team up to build creative, innovative technological projects from scratch.
-                    </p>
-                </div>
-            </section>
+          <section id="hero">
+            <div class="wrap">
+              
+              <div id="logo-wrap">
+                  <h2 id="title-text">< SPARTAHACK /></h2>
+                  <p id="title-subtext">February 26-28</p>
+                  <%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
+                  <p id="intro">
+                      SpartaHack is Michigan State University’s official hackathon. For one weekend, 300 students from a wide range of disciplines and skill levels will team up to build creative, innovative technological projects from scratch.
+                  </p>
+              </div>
+          </section>
 
-           <<%= render partial: "pages/index_faq" %>
+          <<%= render partial: "pages/index_faq" %>
+          <<%= render partial: "pages/index_contact" %>
+      
        </section>
-        
-        <div id="mailing">
-            <form action="//spartahack.us9.list-manage.com/subscribe/post?u=03bbf4682a83a01eb78a6f8ae&amp;id=69e2029eba" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="YOUR EMAIL" required>
-                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                <div style="position: absolute; left: -4000px;">
-                    <input type="text" name="b_03bbf4682a83a01eb78a6f8ae_69e2029eba" tabindex="-1" value="">
-                </div>
-                <div class="clear hvr-bounce-to-right"><input type="submit" value="SEND MESSAGE  >" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-            </form>
-        </div>
-        <!-- <= render partial: "pages/index_end" %> -->
 
-        <footer class="footer">
+
+        <!-- <= render partial: "pages/index_end" %> -->
+        <!--End mc_embed_signup-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--         <footer class="footer">
           <div class="wrap">
             <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by SpartaHack
             &copy;<script>new Date().getFullYear()>document.write(new Date().getFullYear());</script>, Spartan Hackers&nbsp;&nbsp;
@@ -72,7 +81,7 @@
             <a href="https://twitter.com/spartahack"><i class="fa fa-twitter"></i></a>
             <a href="https://github.com/SpartaHack"><i class="fa fa-github"></i></a>
           </div>
-        </footer>
+        </footer> -->
         <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js" %>
         <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.js" %>
         <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
