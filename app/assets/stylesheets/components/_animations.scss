@@ -1,3 +1,6 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
 // @keyframes "pulse_animation" {
 //         0% { transform: scale(1); }
 //         25% { transform: scale(1.08); }
@@ -64,8 +67,8 @@
 
   #send-message {
     color: $mainBackground;
-    -webkit-transition-delay: .1s; /* Safari */
-    transition-delay: .1s;
+    -webkit-transition-delay: .2s; /* Safari */
+    transition-delay: .2s;
   }
 }
 .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
