@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post 'auth'  => 'users#auth'
   get 'app'  => 'users#app'
   post 'save' => 'users#save'
+  get 'sponsor' => 'pages#sponsor'
   resources :users
   
 
