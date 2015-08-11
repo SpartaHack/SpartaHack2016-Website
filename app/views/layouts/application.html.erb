@@ -1,12 +1,49 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>SpartaHack II Web</title>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SpartaHack</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
 
-</head>
-<body>
+        <%= favicon_link_tag 'favicon.ico' %>
+        <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" %>
 
-<%= yield %>
+        <%= stylesheet_link_tag "site" %>
+        
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.js" %>
+        <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/jQuery.headroom.js" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js" %>
+        <%= javascript_include_tag "pdf.js" %>
+        
 
-</body>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="header" class="headroom">
+            <ul class="navbar-nav left">
+                <li class="center-content"><a href="#hero" class="anchorLink">2016</a></li>
+                <li><a href="#faq" class="anchorLink">FAQ</a></li>
+<!--                 <li><a href="#schedule" class="anchorLink">SCHEDULE</a></li>
+                <li><a href="#judges" class="anchorLink">JUDGES</a></li>
+                <li><a href="#sponsors" class="anchorLink">SPONSORS</a></li>
+                <li><a href="#mobile" class="anchorLink">MOBILE</a></li> -->
+                <li><a href="#contact" class="anchorLink">CONTACT</a></li>
+            </ul>
+            <ul class="navbar-nav right">
+                <li class="sponsor "><a href="sponsor">SPONSOR</a></li>
+            </ul>
+        </div>
+		<%= yield %>
+
+	</body>
 </html>

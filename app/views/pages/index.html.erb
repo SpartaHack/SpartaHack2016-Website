@@ -25,18 +25,43 @@
             <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div id="header" class="headroom">
-            <ul class="navbar-nav left">
-                <li class="center-content"><a href="#hero" class="anchorLink">2016</a></li>
+            <div class="navbar-nav left">
+                <div id="home-nav" class="svg-wrapper active">
+                  <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="shape home" height="60" width="85" />
+                    <div class="text"><a href="#hero" class="anchorLink">2016</a></div>
+                  </svg>
+                </div>
+                <div id="faq-nav" class="svg-wrapper">
+                  <svg height="60" width="80" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="shape" height="60" width="80" />
+                    <div class="text"><a href="#faq" class="anchorLink">FAQ</a></div>
+                  </svg>
+                </div>
+                <div id="contact-nav" class="svg-wrapper">
+                  <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="shape contact" height="60" width="120" />
+                    <div class="text"><a href="#contact" class="anchorLink">CONTACT</a></div>
+                  </svg>
+                </div>
+<!--                 <li ><a href="#hero" class="anchorLink">2016</a></li>
                 <li><a href="#faq" class="anchorLink">FAQ</a></li>
-<!--                 <li><a href="#schedule" class="anchorLink">SCHEDULE</a></li>
+                <li><a href="#schedule" class="anchorLink">SCHEDULE</a></li>
                 <li><a href="#judges" class="anchorLink">JUDGES</a></li>
                 <li><a href="#sponsors" class="anchorLink">SPONSORS</a></li>
-                <li><a href="#mobile" class="anchorLink">MOBILE</a></li> -->
-                <li><a href="#contact" class="anchorLink">CONTACT</a></li>
-            </ul>
-            <ul class="navbar-nav right">
-                <li class="sponsor "><a href="#sponsor">SPONSOR</a></li>
-            </ul>
+                <li><a href="#mobile" class="anchorLink">MOBILE</a></li>
+                <li><a href="#contact" class="anchorLink">CONTACT</a></li> -->
+            </div>
+            <div class="navbar-nav right">
+              <div id="sponsor-wrapper">
+                  <div id="contact-nav" class="svg-wrapper">
+                    <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape contact" height="60" width="120" />
+                      <div class="text"><a href="sponsor">SPONSOR</a></div>
+                    </svg>
+                  </div>
+              </div>
+            </div>
         </div>
         <section class="wrap-main">
           <section id="hero">
@@ -74,6 +99,7 @@
         <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/headroom.js" %>
         <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
         <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/headroom/0.7.0/jQuery.headroom.js" %>
+        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js" %>
         <%= javascript_include_tag "index.js" %>
     </body>
 </html>
