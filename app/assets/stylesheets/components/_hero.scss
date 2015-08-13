@@ -16,8 +16,12 @@
     margin-top: 100px;
   }
 
-  #title-text {
-    width: 60%;
+  .title-text {
+    height: 30px;
+  }
+
+  #title-subtext {
+    font-size: 140%;
   }
 
   h1, h2, p{
@@ -79,28 +83,15 @@
   }
 
   a {
-    display: inline-block;
-    color: $heroLink;
-    padding: 0 .4em;
-    text-transform: lowercase;
-    font-size: 150%;
-    text-decoration: none;
-    border-bottom: 2px solid $heroLink;
-
-    &:hover {
-      color: $heroAccent;
-    }
-
-    &.anchorLink {
-      display: block;
-      font-size: 350%;
-      margin-top: 1em;
-      border: none;
+    color: $faqText;
+    text-decoration: underline;
+    &:visited {
+      color: $faqText;
     }
   }
 
   #intro {
-    width: 70%;
+    width: 100%;
     line-height: 250%;
   }
 }
