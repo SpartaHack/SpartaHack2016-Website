@@ -1,9 +1,6 @@
-class PagesController < ActionController::Base
+class PagesController < ApplicationController
   def index
+  	render layout: false
   end
 
-	def sponsor
-		prospectus = File.join(Rails.root, "lib/prospectus.pdf")
-		#send_file(prospectus, :filename => "prospectus.pdf", :disposition => 'inline', :type => "application/pdf")
-	end
 end
