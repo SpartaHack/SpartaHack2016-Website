@@ -58,20 +58,9 @@
             </div>
         </div>
         <section class="wrap-main">
-          <section id="hero">
-            <div class="wrap">
-              
-              <div id="logo-wrap">
-                  <%= image_tag "sparathack2016.svg", alt: "SpartaHack", :class => "title-text" %>
-                  <p id="title-subtext">February 26-28</p>
-                  <%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
-                  <p id="intro">
-                      SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. On the weekend of February 26th, we're bringing together 500 students of all skill levels and disciplines to get creative with tech, connect with peers and professionals, and forget the words "I can't."
-                      We're excited to see what you will create! <a href="#contact" class="anchorLink">Register for our mailing list</a> to be notified when sign-up opens.
-                  </p>
-              </div>
-          </section>
 
+
+          <<%= render partial: "pages/index_head" %>
           <<%= render partial: "pages/index_faq" %>
           <<%= render partial: "pages/index_contact" %>
       
