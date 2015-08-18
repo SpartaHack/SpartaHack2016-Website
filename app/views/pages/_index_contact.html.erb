@@ -1,8 +1,7 @@
 <section id="contact">
   <%= form_tag("/contact", method: "post", id: "send_contact") do %>
-    <div class="wrap column">
-      <h1>MAILING LIST</h1>
-      
+    <div class="wrap column">  
+      <h1 class="section-head">MAILING LIST</h1>    
       <div class="inner">
         <%= text_field_tag 'firstName', nil, placeholder: 'FIRST NAME'%>
         <%= text_field_tag 'lastName', nil, placeholder: 'LAST NAME'%>                

@@ -12,11 +12,6 @@
   color: $faqText;
   position: relative;
 
-  #faq-head {
-    margin-top: 100px;
-    font-size: 220%
-  }
-
   .wrap {
     width: 960px;
     padding-top: 0px;
@@ -35,6 +30,8 @@
     justify-content: space-between;
 
     article {
+      display: flex;
+      flex-direction: column;
       z-index: 10;
       width: 40%;
       font-family: ubuntu;
@@ -45,14 +42,22 @@
         margin: 3vh 0;
       }
 
-    @media (max-width: 550px) {
-      width: 87%
-    } 
+      @media (max-width: 550px) {
+        width: 100%;
+        align-items: center;
+
+        .a-hline {
+          border-top: solid 1px $mutedCream;
+          background: none;
+          width: 15%;
+        }
+
+      } 
 
     }  
 
     @media (max-width: 1000px) {
-      width: 86%;
+      width: 87%;
     }
 
     @media (max-width: 550px) {
@@ -73,8 +78,14 @@
   .hline {
     border-top: solid 1px $mutedCream;
     background: none;
-    width: 100%;
+    width: 70%;
+
+    @media (max-width: 550px) {
+      width: 15%;
+    }
   }
+
+
 
   .hline-full {
     border-top: solid 1px $mutedCream;
@@ -82,17 +93,6 @@
     position: absolute;
     left:0;
     width: 100%;
-  }
-
-  h1 {
-    width: 35%;
-    min-width: 200px;
-    font-size: 180%;
-    font-family: MoonDance;
-    font-weight: 100;
-    -webkit-appearance: none;
-    -webkit-font-smoothing: antialiased;
-    margin-bottom: 0;
   }
 
   h2 {
@@ -103,8 +103,6 @@
     }
 
     @media (max-width: 550px) {
-      display: flex;
-      justify-content: space-between;
       padding: 0;
       margin: 0 5%;
       background-color: transparent;
@@ -125,12 +123,6 @@
           margin: auto;
         }
       }
-    }
-  }
-
-  i {
-    @media (min-width: 550px) {
-      display: none;
     }
   }
 
