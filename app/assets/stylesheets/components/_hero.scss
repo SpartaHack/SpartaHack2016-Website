@@ -2,6 +2,14 @@
 @import 'components/fonts';
 
 #hero {
+  @media (max-width: 550px) {
+    line-height: 0px;
+
+    .section-head {
+      margin-top: 50px; 
+      margin-bottom: 25px;
+    }
+  }
 
   display: flex;
   border-collapse: collapse;
@@ -69,6 +77,10 @@
     @media (min-width: 600px) {
       margin-top: -5vh;
     }
+    @media (max-width: 550px) {
+      width: 70%;
+      margin-top: -25px;
+    }
   }
 
   a {
@@ -85,6 +97,8 @@
 
     @media (max-width: 1024px) {
       width: 87%;
+      line-height: 150%;
+      margin-top: -25px;
     }
   }
 }
