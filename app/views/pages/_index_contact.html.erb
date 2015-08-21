@@ -1,17 +1,21 @@
 <section id="contact">
   <%= form_tag("/contact", method: "post", id: "send_contact") do %>
     <div class="wrap column">  
-      <h1 class="section-head">MAILING LIST</h1>    
+      <h1 class="section-head">CONTACT US</h1>    
       <div class="inner">
         <%= text_field_tag 'firstName', nil, placeholder: 'FIRST NAME'%>
         <%= text_field_tag 'lastName', nil, placeholder: 'LAST NAME'%>                
       </div>
 
-      <%= email_field_tag 'email', nil, placeholder: 'YOUR EMAIL'%>
+      <%= email_field_tag 'email-input', nil, placeholder: 'YOUR EMAIL'%>
+    
+      <%= text_area_tag 'message', nil, placeholder: 'YOUR MESSAGE (OPTIONAL)'%>
+      <div id="note">* Omit message for mailing list.</div>
+      <div class="email-us">EMAIL<div id='email'>hello@spartahack.com</div></div>
+      <div class="email-us tail">SPONSOR<div id='email'>sponsor@spartahack.com</div></div>
+
     </div>
-    <!-- <div>
-      <= text_area_tag 'message', nil, placeholder: 'YOUR MESSAGE (OPTIONAL)'%>
-    </div>-->
+
     <div class="hvr-sweep-to-right">
       <%= submit_tag "SEND  >", id: "send-message"%>
     </div>

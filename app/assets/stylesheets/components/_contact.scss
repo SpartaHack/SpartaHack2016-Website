@@ -47,7 +47,7 @@
     display: inline-block;
     border: solid 1px $mutedCream;
     margin-top: 35px;
-    margin-bottom: 100px;
+    margin-bottom: 0px;
     text-align:left; 
     font-size: 14px; 
     font-weight: lighter;
@@ -79,6 +79,39 @@
     }
   }
 
+  #message {
+    width: 86%;
+    height: 150px;
+    display: inline-block;
+    border: solid 1px $mutedCream;
+    margin-top: 35px;
+    margin-bottom: 0px;
+    text-align:left; 
+    font-size: 14px; 
+    font-weight: lighter;
+    color: $cream;
+    background: none;
+    padding: 8px 0px 8px 25px; 
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    @media (min-width: 560px) {
+      width: 530px;
+    }
+  }
+
+  #note {
+    width: 86%;
+    text-align: left;
+    font-size: 14px; 
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    @media (min-width: 560px) {
+      width: 530px;
+    }
+  }
+
   .inner {
     width: 92%;
     border: solid $mutedCream;
@@ -96,6 +129,35 @@
   #lastName {
     float: right;
     border-width: 1px 0px 1px 1px;
+  }
+
+  .email-us {
+    width: 86%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    font-family: MoonDance;;
+    font-size: 24px;
+    margin-top: 35px;
+    @media (min-width: 560px) {
+      width: 530px;
+    }
+  }
+
+  #email {
+    padding-left: 50px;
+    color: $mutedCream;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    font-size: 24px;
+  }
+
+  .tail {
+    margin-bottom: 100px;
   }
 
   input[type=submit] {

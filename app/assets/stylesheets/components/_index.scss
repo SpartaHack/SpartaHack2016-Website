@@ -11,6 +11,9 @@
 .wrap-main {
   background: image-url("glitch.gif") no-repeat center 10px fixed;
   background-size: cover;
+  @media (max-width: 550px) {
+    background-size: 100% auto;
+  }
 }
 
 .section-head {
