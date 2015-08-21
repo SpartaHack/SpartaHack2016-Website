@@ -110,19 +110,10 @@
 
       span{
         padding: .4em;
+        font-size: 115%;
         width: 80%
       }
 
-      i {
-        width: 10%;
-        display: flex;
-        background-color: #a89483;
-        padding: .4em .5em;
-
-        &:before {
-          margin: auto;
-        }
-      }
     }
   }
 
