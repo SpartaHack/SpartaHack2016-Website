@@ -6,6 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>SpartaHack</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,7 +25,7 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <div id="header" class="headroom">
+        <div id="header" class="header">
             <div class="navbar-nav left">
                 <div id="home-nav" class="svg-wrapper active">
                   <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
@@ -56,6 +57,16 @@
                   </div>
               </div>
             </div>
+
+            <nav>
+                <ul class="mobile">
+                    <li><a href="#hero" class="anchorLink">Home</a></li>
+                    <li><a href="#faq" class="anchorLink">FAQ</a></li>
+                    <li><a href="#contact" class="anchorLink">Contact</a></li>
+                    <li><a href="http://bit.ly/1L8UZfr" target="_blank">Sponsor</a></li>  
+                </ul>
+                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+            </nav>
         </div>
         <section class="wrap-main">
 
