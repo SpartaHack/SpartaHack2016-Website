@@ -16,7 +16,7 @@ $('.anchorLink').click(function(){
   return false;
 });
 
-var menu = [
+var desktop_menu = [
   {"scroll_to": "#home-nav", "elem": $("#hero")},
   {"scroll_to": "#faq-nav", "elem": $("#faq")},
   {"scroll_to": "#contact-nav", "elem": $("#contact")},
@@ -37,15 +37,15 @@ $(".svg-wrapper").hover(
 );
 
 $(window).scroll(function() {
-  if (window.innerWidth > 550) {
+  if ($(window).width() > 550) {
     var halfHeight = $(this).scrollTop() + ($(this).height() / 1.7);
 
-    for(var i = 0; i < menu.length; i++) {
-      var topOffset = menu[i]["elem"].offset().top;
-      var height = menu[i]["elem"].height();
+    for(var i = 0; i < desktop_menu.length; i++) {
+      var topOffset = desktop_menu[i]["elem"].offset().top;
+      var height = desktop_menu[i]["elem"].height();
 
-      if(halfHeight >= topOffset && halfHeight <= (topOffset + height) && current != menu[i]["scroll_to"]) {
-        var scroll_to = menu[i]["scroll_to"];
+      if(halfHeight >= topOffset && halfHeight <= (topOffset + height) && current != desktop_menu[i]["scroll_to"]) {
+        var scroll_to = desktop_menu[i]["scroll_to"];
         // change the selected menu element
         $(".svg-wrapper").removeClass("active");
         $(scroll_to).addClass("active");
