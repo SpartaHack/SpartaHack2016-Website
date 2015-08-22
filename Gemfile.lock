@@ -92,6 +92,7 @@ GEM
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     erubis (2.7.0)
+    excon (0.45.4)
     execjs (2.5.2)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
@@ -113,6 +114,9 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mailchimp-api (2.0.6)
+      excon (>= 0.16.0)
+      json (>= 1.7.7)
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.7.0)
@@ -229,6 +233,7 @@ DEPENDENCIES
   compass (~> 1.0)
   jbuilder (~> 2.0)
   jquery-rails
+  mailchimp-api (~> 2.0.6)
   parse-ruby-client
   pg
   puma
