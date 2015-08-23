@@ -143,7 +143,6 @@
     }
     nav div#pull {
       display: flex;
-      color: $mutedCream;
       font-family: MoonDance;
       font-weight: 100;
       -webkit-appearance: none;
@@ -170,17 +169,20 @@
     nav li {
       display: block;
       padding-left: 15px;
-      color: $cream;
-      font-family: ubuntu;
-      font-weight: 100;
-      -webkit-appearance: none;
-      -webkit-font-smoothing: antialiased;
       width: 100%;
     }
 
     nav li:last-child {
       border: solid $mutedCream;
       border-width: 0px 0px 1px 0px;
+    }
+
+    nav li a {
+      color: $cream;
+      font-family: ubuntu;
+      font-weight: 100;
+      -webkit-appearance: none;
+      -webkit-font-smoothing: antialiased;
     }
 
   }
