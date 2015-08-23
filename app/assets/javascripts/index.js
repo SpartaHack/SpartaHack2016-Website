@@ -21,7 +21,7 @@ var desktop_menu = [
   {"scroll_to": "#contact-nav", "elem": $("#contact")},
 ];
 
-var current = "home";
+var current = "#home-nav";
 
 $(".svg-wrapper").hover( 
   function () { 
