@@ -55,6 +55,7 @@ Run the following commands
 
 ##### Setting your Environmental Variables
 Set the following environmental variables:
+	
 	export PROD_SECRET='YOUR PRODUCTION SECRET'
 	
 	export PARSE_API_KEY='YOUR PARSE API KEY'
