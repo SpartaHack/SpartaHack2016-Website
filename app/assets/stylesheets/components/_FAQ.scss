@@ -156,4 +156,11 @@
     width: 100%;
     text-align: center;
   }
+
+  .faq-top {
+    margin-bottom: 0px;
+    @media (max-width: 550px) {
+      margin-bottom: 25px;
+    }
+  }
 }
