@@ -114,8 +114,7 @@
 
   .inner {
     width: 92%;
-    border: solid $mutedCream;
-    border-width: 0px 1px 0px 1px;
+    border: none;
     @media (min-width: 560px) {
       width: 555px;
     }
@@ -123,12 +122,12 @@
 
   #fname {
     float: left;
-    border-width: 1px 1px 1px 0px;
+    border-width: 1px;
   }
 
   #lname {
     float: right;
-    border-width: 1px 0px 1px 1px;
+    border-width: 1px;
   }
 
   .email-us {
