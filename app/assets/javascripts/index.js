@@ -6,7 +6,6 @@ if (navigator.appVersion.indexOf("Win")!=-1) {
 }
 $('#faq article h2').click(function() {
   $(this).next().slideToggle();
-  $(this).children("i").toggleClass("fa-plus").toggleClass("fa-minus");
 });
 
 $('.anchorLink').click(function(){
