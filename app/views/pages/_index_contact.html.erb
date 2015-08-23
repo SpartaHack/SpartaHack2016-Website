@@ -1,18 +1,19 @@
 <section id="contact">
-  <%= form_tag("/contact", method: "post", id: "send_contact") do %>
+  <%= form_tag("/subscribe", method: "post", id: "send_contact") do %>
     <div class="wrap column">  
-      <h1 class="section-head">CONTACT US</h1>    
+      <h1 class="section-head">CONTACT US</h1> 
+      <div class="email-us top">EMAIL<div id='email'>hello@spartahack.com</div></div>
+      <div class="email-us">SPONSOR<div id='email'>sponsor@spartahack.com</div></div>   
+      <h1 id="mail">MAILING LIST</h1>
       <div class="inner">
-        <%= text_field_tag 'firstName', nil, placeholder: 'FIRST NAME'%>
-        <%= text_field_tag 'lastName', nil, placeholder: 'LAST NAME'%>                
+        <%= text_field_tag 'fname', nil, placeholder: 'FIRST NAME', :required => true%>
+        <%= text_field_tag 'lname', nil, placeholder: 'LAST NAME', :required => true%>                
       </div>
 
-      <%= email_field_tag 'email-input', nil, placeholder: 'YOUR EMAIL'%>
+      <%= email_field_tag 'emailinput', nil, placeholder: 'YOUR EMAIL', :required => true, :class => "tail"%>
     
       <!--<= text_area_tag 'message', nil, placeholder: 'YOUR MESSAGE (OPTIONAL)'%>
       <div id="note">* Omit message for mailing list.</div>-->
-      <div class="email-us">EMAIL<div id='email'>hello@spartahack.com</div></div>
-      <div class="email-us tail">SPONSOR<div id='email'>sponsor@spartahack.com</div></div>
 
     </div>
 
