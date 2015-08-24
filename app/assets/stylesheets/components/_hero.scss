@@ -11,7 +11,9 @@
   }
 
   display: flex;
+  flex-direction: column;
   border-collapse: collapse;
+  justify-content: space-between;
   border-spacing: 0;
   min-height: 100vh;
   background-color: transparent;
@@ -103,6 +105,46 @@
       width: 87%;
       line-height: 150%;
       margin-top: -25px;
+    }
+  }
+
+  .signup-wrapper {
+    background: none;
+    border-style: none;
+    text-align: right;
+    border-top: solid 1px $mutedCream;
+    border-bottom: solid 1px $mutedCream;
+    border-radius: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    clear: both;
+  }
+
+  .signup {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: $cream;
+    font-family: ubuntu;
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 16px;
+    padding-right: 45px;
+    width: 100%;
+    height: 60px;
+    cursor: pointer; 
+    cursor: hand;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    @media (max-width: 550px) {
+      padding-right: 25px;
+    }
+    
+    &:hover {
+      color: $mainBackground;
+      -webkit-transition-delay: .2s; /* Safari */
+      transition-delay: .2s;
     }
   }
 }
