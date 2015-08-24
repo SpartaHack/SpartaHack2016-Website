@@ -10,7 +10,7 @@ $('#faq article h2').click(function() {
 
 $('.anchorLink').click(function(){
   $('html, body').animate({
-    scrollTop: $( $(this).attr('href') ).offset().top
+    scrollTop: $( $(this).attr('href') ).offset().top - 58
   }, 500);
   return false;
 });
