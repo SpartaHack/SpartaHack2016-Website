@@ -153,8 +153,14 @@
   }
 
   .tail {
-    width: 100%;
-    text-align: center;
+    margin-bottom: 75px;
+    @media (max-width: 550px) {
+      margin-bottom: 25px;
+    }
+  }
+
+  #last-span {
+    padding-bottom: 0px;
   }
 
   .faq-top {
