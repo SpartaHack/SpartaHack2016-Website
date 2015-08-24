@@ -12,6 +12,7 @@
   background: $mainBackground;
   border-bottom: solid 1px $mutedCream;
   position: fixed;
+  top: 0;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -81,6 +82,18 @@
 
   .home {
     stroke-dashoffset: -165;
+  }
+
+  .signup {
+    stroke-dashoffset: -190;
+  }
+
+  .login {
+    stroke-dashoffset: -170;
+  }
+
+  #signup-wrapper, #login-wrapper, #sponsor-wrapper{
+    border-left: solid 1px $mutedCream;
   }
 
   .active {
