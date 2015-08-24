@@ -85,7 +85,7 @@
     display: inline-block;
     border: solid 1px $mutedCream;
     margin-top: 35px;
-    margin-bottom: 0px;
+    margin-bottom: 100px;
     text-align:left; 
     font-size: 14px; 
     font-weight: lighter;
@@ -99,21 +99,9 @@
     }
   }
 
-  #note {
-    width: 86%;
-    text-align: left;
-    font-size: 14px; 
-    -webkit-appearance: none;
-    -webkit-font-smoothing: antialiased;
-    margin-top: 5px;
-    margin-bottom: 0px;
-    @media (min-width: 560px) {
-      width: 530px;
-    }
-  }
-
   .inner {
     width: 92%;
+    margin-top: 35px;
     @media (min-width: 560px) {
       width: 555px;
     }
@@ -167,33 +155,12 @@
 
   }
 
-  #emailinput {
-    margin-bottom: 50px;
-    @media (min-width: 560px) {
-      margin-bottom: 100px;
-    }
-  }
-
   .top {
     margin-top: 0px;
   }
 
-  #mail {
-    margin-top: 35px;
-    width: 86%;
-    color: $cream;
-    text-align: center;
-    font-family: MoonDance;
-    font-size: 24px;
-    @media (max-width: 340px) {
-      font-size: 14px;
-    }
-    @media (min-width: 341px) and (max-width: 560px) {
-      font-size: 18px;
-    }
-    @media (min-width: 560px) {
-      width: 530px;
-    }
+  #send-message {
+    padding-right: 45px;
   }
 
   input[type=submit] {
@@ -211,6 +178,9 @@
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
+    @media (max-width: 550px) {
+      padding-right: 25px;
+    }
   }
 
 }
