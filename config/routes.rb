@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
- # get 'signup'  => 'users#new'
- # get 'login'  => 'users#login'
- # post 'auth'  => 'users#auth'
- # get 'app'  => 'users#app'
- # post 'save' => 'users#save'
- # resources :users
+  get 'signup'  => 'users#new'
+  get 'login'  => 'users#login'
+  post 'auth'  => 'users#auth'
+  get 'app'  => 'users#app'
+  post 'save' => 'users#save'
+  resources :users
   
   root :to => 'pages#index', :as => :index
   post 'subscribe' => 'pages#subscribe'
