@@ -20,7 +20,6 @@
     align-items: center;
     @media (max-width: 1000px){
       width: 100%;
-      line-height: 250%; 
     }   
   }  
 
@@ -49,7 +48,7 @@
         .a-hline {
           border-top: solid 1px $mutedCream;
           background: none;
-          width: 15%;
+          width: 40%;
         }
 
       } 
@@ -81,7 +80,7 @@
     width: 70%;
 
     @media (max-width: 550px) {
-      width: 15%;
+      width: 40%;
     }
   }
 
@@ -103,10 +102,9 @@
     }
 
     @media (max-width: 550px) {
-      padding: 0;
+      padding: 20px;
       margin: 0 5%;
       background-color: transparent;
-      min-height: 50px;
 
       span{
         padding: .4em;
