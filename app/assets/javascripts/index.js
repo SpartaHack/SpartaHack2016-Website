@@ -35,6 +35,19 @@ $(".svg-wrapper").hover(
 
 );
 
+if ($(window).width() < 550) {
+  $("#header").headroom({
+    "offset": 205,
+    "tolerance": 5,
+    "classes": {
+      "initial": "animated",
+      "pinned": "slideDown",
+      "unpinned": "slideUp"
+    }
+  });
+}
+
+
 $(window).scroll(function() {
   if ($(window).width() > 550) {
     var halfHeight = $(this).scrollTop() + ($(this).height() / 1.7);
