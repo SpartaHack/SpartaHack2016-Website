@@ -26,7 +26,7 @@
     padding-right: 1em;
   }
 
-  ::-moz-placeholder {  /* Firefox 19+ */
+  ::-moz-placeholder {  /* Firefox 19 */
     color: $cream;
     font-family: ubuntu;
     font-weight: lighter;
@@ -79,6 +79,12 @@
     }
   }
 
+  input:focus, textarea:focus {
+    border-color: rgba(128, 295, 219, 0.8) !important;
+    box-shadow: 0 1px 1px rgba(128, 295, 219, 0.075) inset, 0 0 8px rgba(128, 295, 219, 0.6) !important;
+    outline: 0 none !important;
+  }  
+
   #message {
     width: 86%;
     height: 150px;
@@ -122,24 +128,30 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    text-align: left;
-    font-family: MoonDance;;
-    font-size: 24px;
+    justify-content: center;
     margin-top: 35px;
+    @media (min-width: 560px) {
+      width: 530px;
+    }
+  }
+
+  .email-type {
+    text-align: left;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    font-size: 24px;
     @media (max-width: 340px) {
       font-size: 14px;
     }
     @media (min-width: 341px) and (max-width: 560px) {
       font-size: 18px;
     }
-    @media (min-width: 560px) {
-      width: 530px;
-    }
-  }
+  }  
 
   #email {
-    padding-left: 50px;
+    padding-left: 25px;
     color: $mutedCream;
     font-family: ubuntu;
     font-weight: 100;
@@ -159,8 +171,18 @@
     margin-top: 0px;
   }
 
+  .tail {
+    padding-bottom: 50px;
+    @media (max-width: 560px) {
+      padding-bottom: 25px;
+    }
+  }
+
   #send-message {
     padding-right: 45px;
+    @media (max-width: 550px) {
+      padding-right: 25px;
+    }
   }
 
   input[type=submit] {
@@ -178,9 +200,6 @@
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    @media (max-width: 550px) {
-      padding-right: 25px;
-    }
   }
 
 }
