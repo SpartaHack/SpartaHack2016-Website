@@ -18,6 +18,7 @@ $('.anchorLink').click(function(){
 var desktop_menu = [
   {"scroll_to": "#home-nav", "elem": $("#hero")},
   {"scroll_to": "#faq-nav", "elem": $("#faq")},
+  {"scroll_to": "#mobile-nav", "elem": $("#mobile")},
   {"scroll_to": "#contact-nav", "elem": $("#contact")},
 ];
 

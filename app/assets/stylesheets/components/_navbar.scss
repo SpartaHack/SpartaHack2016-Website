@@ -76,6 +76,10 @@
     transition: stroke-width 1s, stroke-dashoffset 1s, stroke-dasharray 1s;
   }
 
+  .mobile-nav {
+    stroke-dashoffset: -190;
+  }
+
   .contact {
     stroke-dashoffset: -218;
   }
@@ -84,15 +88,15 @@
     stroke-dashoffset: -165;
   }
 
-  .signup {
-    stroke-dashoffset: -190;
+  .apply {
+    stroke-dashoffset: -175;
   }
 
   .login {
     stroke-dashoffset: -170;
   }
 
-  #signup-wrapper, #login-wrapper, #sponsor-wrapper{
+  #apply-wrapper, #login-wrapper, #sponsor-wrapper{
     border-left: solid 1px $mutedCream;
   }
 
