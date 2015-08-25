@@ -123,7 +123,15 @@
   nav li:hover, nav li a:hover {
     background-color: #80FFDB;
     color: #030316;
+    text-shadow: none;
   }  
+
+  .mobile {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border: solid $mutedCream;
+    border-width: 0px 0px 1px 0px;
+  }
 
   nav div#pull {
     display: none;
@@ -170,11 +178,6 @@
       display: block;
       padding-left: 0px;
       width: 100%;
-    }
-
-    nav li:last-child {
-      border: solid $mutedCream;
-      border-width: 0px 0px 1px 0px;
     }
 
     nav li a {
