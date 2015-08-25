@@ -1,33 +1,6 @@
 @import 'components/colorScheme';
 @import 'components/fonts';
 
-// @keyframes "pulse_animation" {
-//         0% { transform: scale(1); }
-//         25% { transform: scale(1.08); }
-//         50% { transform: scale(1); }
-//         75% { transform: scale(1.08); }
-//         100% { transform: scale(1); }
-// }
-
-// .pulse:hover {
-//   animation-name: 'pulse_animation';
-//         animation-duration: 2500ms;
-//         transform-origin:50% 50%;
-//         animation-iteration-count: infinite;
-//         animation-timing-function: linear;
-// }
-
-// @keyframes 'wiggle'{
-//   0%{transform:rotate(2deg);}
-//   50%{transform:rotate(-2deg);}
-//   100%{transform:rotate(2deg);}
-// }
-
-// .wiggle:hover {
-//   animation:'wiggle' .3s 2;
-//         animation-iteration-count: infinite;
-// }
-
 /* Sweep To Right */
 .hvr-sweep-to-right {
   -webkit-transform: translateZ(0);
@@ -39,8 +12,8 @@
   position: relative;
   -webkit-transition-property: color;
   transition-property: color;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
 }
 .hvr-sweep-to-right:before {
   content: "";
@@ -57,8 +30,8 @@
   transform-origin: 0 50%;
   -webkit-transition-property: transform;
   transition-property: transform;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.1s;
+  transition-duration: 0.1s;
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
@@ -67,8 +40,8 @@
 
   #send-message {
     color: $mainBackground;
-    -webkit-transition-delay: .2s; /* Safari */
-    transition-delay: .2s;
+    -webkit-transition-delay: .1s; /* Safari */
+    transition-delay: .1s;
   }
 }
 .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
