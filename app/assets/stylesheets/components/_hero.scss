@@ -3,7 +3,6 @@
 
 #hero {
   @media (max-width: 550px) {
-    line-height: 0px;
 
     .section-head {
       margin: 25px 0px; 
@@ -24,10 +23,25 @@
   .title-text {
     height: 30px;
     width: 87%;
+
   }
 
-  #title-subtext {
+  #title-desc, #title-hashtag {
+    font-size: 110%;
+    color: $mutedCream;
+    margin: 10px 0px;
+    @media (max-width: 550px) {
+      font-size: 90%;
+      margin: 5px 0px;
+    }
+  }
+
+  #title-date {
     font-size: 140%;
+    margin: 0px;
+    @media (max-width: 550px) {
+      font-size: 120%;
+    }
   }
 
   h2, p{
@@ -68,7 +82,7 @@
     display: block;
 
     .title {
-      margin-bottom: 25px;
+      margin-bottom: 10px;
     }
 
   }
@@ -98,6 +112,7 @@
     width: 100%;
     line-height: 250%;
     margin-bottom: 100px;
+    margin-top: -50px;
 
     @media (max-width: 1024px) {
       width: 87%;
