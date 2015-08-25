@@ -127,15 +127,16 @@
     color: #fff;
     display: inline-block;
     width: 100vw;
-    text-align: left;
+    text-align: center;
     text-decoration: none;
     line-height: 40px;
     text-shadow: 1px 1px 0px #283744;
   }
 
-  nav li:hover {
-    background-color: #8c99a4;
-  }  
+  nav li:hover, nav li a:hover {
+    background-color: #80FFDB;
+    color: #030316;
+   }   
 
   nav div#pull {
     display: none;
@@ -180,7 +181,7 @@
 
     nav li {
       display: block;
-      padding-left: 15px;
+      padding-left: 0px;
       width: 100%;
     }
 
