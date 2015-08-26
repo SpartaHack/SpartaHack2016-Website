@@ -5,22 +5,16 @@
   @media (max-width: 550px) {
     margin-top: 30px;
   }
-
-  .wrap {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    color: $cream;
-  }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: $cream;
+  
 
   font-family: ubuntu;
 
   #logo-wrap {
-    display: flex;
     flex-direction: column;
-    left:0;
-    right: 0;
-    height: 40%;
     text-align: center;
     display: block;
 
@@ -126,7 +120,7 @@
     width:40%;
     height: 36px;
     @media (min-width: 560px) {
-      width: 235px;
+      width: 220px;
     }
   }
 
