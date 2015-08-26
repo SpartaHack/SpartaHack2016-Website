@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'signup'  => 'users#new'
+  get 'apply'  => 'users#new'
   get 'login'  => 'users#login'
   post 'auth'  => 'users#auth'
   get 'app'  => 'users#app'

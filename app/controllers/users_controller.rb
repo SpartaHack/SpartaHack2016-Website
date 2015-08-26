@@ -9,14 +9,14 @@ class UsersController < ApplicationController
 
   #create a user and redirect them to application process
   def create
-    if user_signup_params['password'] == user_signup_params['password_confirmation']
+    if user_apply_params['password'] == user_apply_params['password_confirmation']
     	begin
-				signup = Parse::User.new({
-				  :username => user_signup_params['username'],
-				  :email => user_signup_params['email'],
-				  :password => user_signup_params['password'],
+				apply = Parse::User.new({
+				  :username => user_apply_params['username'],
+				  :email => user_apply_params['email'],
+				  :password => user_apply_params['password'],
 				})
-				response = signup.save
+				response = apply.save
 				cookies.signed[:spartaUser] = { value: response["objectId"], expires: (Time.now.getgm + 86400) }
 				redirect_to '/app'	
 			rescue Parse::ParseProtocolError => e
@@ -25,12 +25,12 @@ class UsersController < ApplicationController
 			  elsif e.to_s.split(":").first == "203"
 			  	flash[:error] = "Email is taken"
 			  end
-			  redirect_to '/signup'
+			  redirect_to '/apply'
 			end
 			
     else
     	flash[:error] = "Passwords do not match"
-      redirect_to '/signup'
+      redirect_to '/apply'
     end
   end
 
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   def app
     if !cookies.signed[:spartaUser]
       flash[:error] = "Please sign up to create an application."
-      redirect_to '/signup'
+      redirect_to '/apply'
     else
       begin
         @application = Parse::Query.new("Application").tap do |q|
@@ -104,14 +104,14 @@ class UsersController < ApplicationController
       redirect_to '/app'  
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
-      redirect_to '/signup'
+      redirect_to '/apply'
     end
 
   end    
 
   private
 
-    def user_signup_params
+    def user_apply_params
       params.require(:user).permit(:username, :email, :password,
                                    :password_confirmation)
     end
