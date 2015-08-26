@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 				redirect_to '/app'	
 			rescue Parse::ParseProtocolError => e
 				if e.to_s.split(":").first == '202'
-			  	flash[:error] = "Username is taken"
+			  	flash[:error] = "Email is taken"
 			  elsif e.to_s.split(":").first == "203"
 			  	flash[:error] = "Email is taken"
 			  end
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 			redirect_to '/app'	
 		rescue Parse::ParseProtocolError => e
 			if e.to_s.split(":").first == '101'
-		  	flash[:error] = "Username or password is incorrect"
+		  	flash[:error] = "Password is incorrect"
 		  	redirect_to '/login'
 		  end
 		end
