@@ -36,15 +36,16 @@ class UsersController < ApplicationController
 
   def login
     if cookies.signed[:spartaUser]
-      redirect_to '/app'
+      redirect_to '/app' and return
+    else
+      render layout: false
     end
-  	@user = User.new
   end
 
   # authenticate user and redirect them to their application
   def auth
   	begin
-			login = Parse::User.authenticate(user_login_params['username'],user_login_params['password'])
+			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
       cookies.signed[:spartaUser] = { value: login["objectId"], expires: (Time.now.getgm + 86400) }
 			redirect_to '/app'	
 		rescue Parse::ParseProtocolError => e
@@ -123,6 +124,6 @@ class UsersController < ApplicationController
     end
 
     def user_login_params
-      params.require(:user).permit(:username, :password)
+      params.permit(:email, :password)
     end
 end

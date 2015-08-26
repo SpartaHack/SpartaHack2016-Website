@@ -1,0 +1,204 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+#login{
+  @media (max-width: 550px) {
+    margin-top: 30px;
+  }
+
+  .wrap {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: $cream;
+  }
+
+  font-family: ubuntu;
+
+  #logo-wrap {
+    display: flex;
+    flex-direction: column;
+    left:0;
+    right: 0;
+    height: 40%;
+    text-align: center;
+    display: block;
+
+    .title {
+      margin-bottom: 10px;
+    }
+
+  }  
+
+  .row {
+    width: 87%;
+    @media (min-width: 560px) {
+      width: 530px;
+    }
+  }
+
+  .title-text {
+    height: 30px;
+    width: 87%;
+
+  }
+
+  #title-desc, #title-hashtag {
+    font-size: 110%;
+    color: $mutedCream;
+    margin: 10px 0px;
+    @media (max-width: 550px) {
+      font-size: 90%;
+      margin: 5px 0px;
+    }
+  }
+
+  #title-date {
+    font-size: 140%;
+    margin: 0px;
+    @media (max-width: 550px) {
+      font-size: 120%;
+    }
+  }  
+
+  .logo{
+    min-width: 185px;
+    width: 70%;
+    margin-top: -35px;
+
+    @media (max-width: 550px) {
+      width: 50%;
+      margin-top: -25px;
+    }
+  }
+
+  ::-webkit-input-placeholder {
+    color: $cream;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 14px;
+    padding-right: 1em;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: $cream;
+    font-family: ubuntu;
+    font-size: 14px;
+    font-weight: lighter;
+    padding-right: 1em;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19 */
+    color: $cream;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 14px;
+    padding-right: 1em;
+  }
+
+  :-ms-input-placeholder { 
+    color: $cream;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 14px;
+    padding-right: 1em;
+  }
+
+  #inner {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  input {
+    text-align:left; 
+    border: solid 1px $mutedCream; 
+    font-size: 14px; 
+    font-weight: 100;
+    color: $cream;
+    background: none;
+    padding: 8px 0px 8px 25px; 
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #email, #password {
+    width:40%;
+    height: 36px;
+    @media (min-width: 560px) {
+      width: 235px;
+    }
+  }
+
+  .top {
+    margin-top: -20px;
+    @media (max-width: 550px) {
+      margin-top: -25px;
+    }
+  }
+
+  input:focus {
+    border-color: rgba(128, 295, 219, 0.8) !important;
+    box-shadow: 0 1px 1px rgba(128, 295, 219, 0.075) inset, 0 0 8px rgba(128, 295, 219, 0.6) !important;
+    outline: 0 none !important;
+  }
+
+  #send-message {
+    padding-right: 45px;
+    @media (max-width: 550px) {
+      padding-right: 25px;
+    }
+  }
+
+  input[type=submit] {
+    background: none;
+    border-style: none;
+    text-align: center;
+    border: solid 1px $mutedCream;
+    color: $cream;
+    font-weight: 100;
+    font-size: 15px;
+    border-radius: 0;
+    height: 60px;
+    width: 100%;
+    margin-top: 35px;
+    cursor: pointer; 
+    cursor: hand;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }  
+
+  input[type=submit]:hover {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 0px;
+    -webkit-box-shadow:0 0 5px $cream; 
+    -moz-box-shadow: 0 0 5px $cream; 
+    box-shadow:0 0 5px $cream;
+  }
+
+  #error-wrapper {
+    width: 87%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    color: $cream;
+    @media (min-width: 560px){
+      width: 530px;
+    }
+
+    div a {
+      text-decoration: none;
+      color: $cream;
+    }
+  }
+
+  .error {
+    margin-bottom: 15px;
+  }
+}
+
