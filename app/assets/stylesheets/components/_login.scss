@@ -144,8 +144,10 @@
     margin-top: -20px;
     @media (max-width: 550px) {
       margin-top: -25px;
+      font-size: 120%;
       @media (max-height: 550px) and (max-width: 320px) {
         margin-top: 15px;
+        font-size: 120%;
       }
     }
   }
