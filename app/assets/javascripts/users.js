@@ -38,3 +38,18 @@ if ($(window).width() < 550) {
     }
   });
 }
+
+$(function() {
+    var pull        = $('#pull');
+        menu        = $('.mobile');
+ 
+    $(pull).on('click', function(e) {
+        e.preventDefault();
+        menu.slideToggle();
+    });
+
+    $('.mobile li a').on('click', function(e) {
+        menu.slideToggle();
+    });
+
+});
