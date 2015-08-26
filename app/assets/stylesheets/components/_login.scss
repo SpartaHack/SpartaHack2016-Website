@@ -26,7 +26,7 @@
 
   .row {
     width: 87%;
-    @media (min-width: 560px) {
+    @media (min-width: 550px) {
       width: 530px;
     }
   }
@@ -39,12 +39,19 @@
 
   #title-desc, #title-hashtag {
     font-size: 110%;
-    color: $mutedCream;
     margin: 10px 0px;
     @media (max-width: 550px) {
       font-size: 90%;
       margin: 5px 0px;
     }
+  }
+
+  #title-desc {
+    color: $mutedCream;
+  }
+
+  #title-hashtag {
+    color: $cream;
   }
 
   #title-date {
@@ -102,6 +109,9 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    @media (max-width: 550px) {
+      flex-direction: column;
+    }
   }
 
   input {
@@ -117,10 +127,16 @@
   }
 
   #email, #password {
-    width:40%;
     height: 36px;
-    @media (min-width: 560px) {
+    @media (min-width: 550px) {
       width: 220px;
+      margin-bottom: 0px;
+    }
+  }
+
+  #email {
+    @media (max-width: 550px) {
+      margin-bottom: 15px;
     }
   }
 
@@ -128,6 +144,9 @@
     margin-top: -20px;
     @media (max-width: 550px) {
       margin-top: -25px;
+      @media (max-height: 550px) and (max-width: 320px) {
+        margin-top: 15px;
+      }
     }
   }
 
@@ -160,6 +179,9 @@
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
+    @media (min-width: 550px) {
+      width: 530px;
+    }
   }  
 
   input[type=submit]:hover {
@@ -180,12 +202,15 @@
     font-weight: 100;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    @media (min-width: 560px){
+    @media (min-width: 550px){
       width: 530px;
+    }
+    @media (max-width: 320px) {
+      width: 98%;
     }
 
     div a {
-      text-decoration: none;
+      text-decoration: underline;
       color: $cream;
     }
   }
