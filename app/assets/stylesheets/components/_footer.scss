@@ -4,15 +4,18 @@
 .footer {
   text-align: center;
   padding: .75em 0;
-  font-family: ubuntu;
+  font-family: Lato;
   font-weight: 100;
-  -webkit-appearance: none;
-  -webkit-font-smoothing: antialiased;
-  background-color: transparent;
+  background-color: $footer;
   color: $cream;
   font-size: .9em;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 999999;
 
-  .fa-heart, .fa-code {
+  .fa-code {
     color: $belizeHole;
   }
 
@@ -26,3 +29,9 @@
     }
   }
 }
+
+  .rails {
+    height: 20px;
+    width: auto;
+    margin-bottom: -5px;
+  }

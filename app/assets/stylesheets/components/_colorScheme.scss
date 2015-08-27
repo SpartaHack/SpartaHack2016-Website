@@ -1,6 +1,6 @@
 //whites
-$cream: rgb(128,295,219);
-$mutedCream: rgba(128,295,219,.3);
+$cream: #F7E8DE;
+$mutedCream: rgba(247,232,222, .3);
 $butter: #d8bca7;
 
 //browns
@@ -9,15 +9,14 @@ $lightBrown: #5d4f43;
 $chocolateSea: #3f332b;
 
 //blues
-$mainBackground: #030316;
-
 $peterRiver: #3498db;
 $belizeHole: #2980b9;
 $devilsTeal: #1b3c4c;
 
 
+$heroBackground: $mediumBrown;
 $heroLink: $cream;
-$heroMain: #030316;
+$heroMain: $cream;
 $heroMainDark: $cream;
 $heroAccent: $cream;
 
@@ -26,7 +25,8 @@ $buttonText: $mediumBrown;
 
 
 
-$faqText: $cream;
+$faqBackground: $butter;
+$faqText: $lightBrown;
 
 $sponsorBackground: $mediumBrown;
 $sponsorForeground: #939599;
