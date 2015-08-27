@@ -6,19 +6,15 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>SpartaHack</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
 
-        <%= favicon_link_tag 'favicon.ico' %>
-
-        <%= stylesheet_link_tag "//fonts.googleapis.com/css?family=Raleway" %>
-        <%= stylesheet_link_tag "//fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic" %>
-        <%= stylesheet_link_tag "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" %>
+        <%= favicon_link_tag 'favicon.png' %>
+        <%= stylesheet_link_tag "font-awesome.min" %>
 
         <%= stylesheet_link_tag "site" %>
-        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.js" %>
         
         
         
@@ -29,48 +25,72 @@
             <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div id="header" class="header">
-            <nav id="nav">
-                <ul class="nav navbar-nav">
-                    <li class="center-content"><a href="#top" class="button">2016</a></li>
-                    <li><a href="#faq" class="button">FAQ</a></li>
-                    <li><a href="#schedule" class="button">SCHEDULE</a></li>
-                    <li><a href="#judges" class="button">JUDGES</a></li>
-                    <li><a href="#sponsors" class="button">SPONSORS</a></li>
-                    <li><a href="#mobile" class="button">MOBILE</a></li>
-                    <li><a href="#contact" class="button">CONTACT</a></li>
+            <div class="navbar-nav left">
+                <a href="#hero" class="anchorLink">
+                  <div id="home-nav" class="svg-wrapper active">
+                    <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape home" height="60" width="85" />
+                      <div class="text">2016</div>
+                    </svg>
+                  </div>
+                </a>
+
+                <a href="#faq" class="anchorLink">
+                  <div id="faq-nav" class="svg-wrapper">
+                    <svg height="60" width="80" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape" height="60" width="80" />
+                      <div class="text">FAQ</div>
+                    </svg>
+                  </div>
+                </a>
+                
+                <a href="#contact" class="anchorLink">
+                  <div id="contact-nav" class="svg-wrapper">
+                    <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape contact" height="60" width="120" />
+                      <div class="text">CONTACT</div>
+                    </svg>
+                  </div>
+                </a>
+            </div>
+            
+            <div class="navbar-nav right">
+              <div id="sponsor-wrapper">
+                <a href="http://bit.ly/1L8UZfr" target="_blank">
+                  <div id="sponsor-nav" class="svg-wrapper">
+                    <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape contact" height="60" width="120" />
+                      <div class="text">SPONSOR</div>
+                    </svg>
+                  </div>
+                </a>  
+              </div>
+            </div>
+
+            <nav >
+                <ul class="mobile">
+                    <li><a href="#hero" class="anchorLink">Home</a></li>
+                    <li><a href="#faq" class="anchorLink">FAQ</a></li>
+                    <li><a href="#contact" class="anchorLink">Contact</a></li>
+                    <li><a href="http://bit.ly/1L8UZfr" target="_blank">Sponsor</a></li>  
                 </ul>
+                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
         <section class="wrap-main">
-            <section id="hero">
-              <div class="wrap">
-                
-                <div id="logo-wrap">
-                    <h2 id="title-text">< SPARTAHACK /></h2>
-                    <p id="title-subtext">February 26-28</p>
-                    <%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
-                    <p id="intro">
-                        SpartaHack is Michigan State University’s official hackathon. For one weekend, 300 students from a wide range of disciplines and skill levels will team up to build creative, innovative technological projects from scratch.
-                    </p>
-                </div>
-            </section>
 
-           <<%= render partial: "pages/index_faq" %>
+
+          <%= render partial: "pages/index_head" %>
+          <%= render partial: "pages/index_faq" %>
+          <%= render partial: "pages/index_contact" %>
+      
        </section>
-        
-        <div id="mailing">
-            <form action="//spartahack.us9.list-manage.com/subscribe/post?u=03bbf4682a83a01eb78a6f8ae&amp;id=69e2029eba" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="YOUR EMAIL" required>
-                <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                <div style="position: absolute; left: -4000px;">
-                    <input type="text" name="b_03bbf4682a83a01eb78a6f8ae_69e2029eba" tabindex="-1" value="">
-                </div>
-                <div class="clear"><input type="submit" value="SEND MESSAGE  >" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-            </form>
-        </div>
-        <!-- <= render partial: "pages/index_end" %> -->
 
-        <footer class="footer">
+
+        <!-- <= render partial: "pages/index_end" %> -->
+        <!--End mc_embed_signup-->
+
+<!--         <footer class="footer">
           <div class="wrap">
             <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by SpartaHack
             &copy;<script>new Date().getFullYear()>document.write(new Date().getFullYear());</script>, Spartan Hackers&nbsp;&nbsp;
@@ -78,9 +98,10 @@
             <a href="https://twitter.com/spartahack"><i class="fa fa-twitter"></i></a>
             <a href="https://github.com/SpartaHack"><i class="fa fa-github"></i></a>
           </div>
-        </footer>
-        <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" %>
-        <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js" %>
+        </footer> -->
+        <%= javascript_include_tag "jquery-1.11.3.min" %>
+        <%= javascript_include_tag "headroom.min" %>
+        <%= javascript_include_tag "jquery-headroom" %>
         <%= javascript_include_tag "index.js" %>
     </body>
 </html>

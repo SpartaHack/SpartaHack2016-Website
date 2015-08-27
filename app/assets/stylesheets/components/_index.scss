@@ -10,6 +10,27 @@
 
 .wrap-main {
   background: image-url("glitch.gif") no-repeat center 10px fixed;
+  background-size: cover;
+  @media (max-width: 550px) {
+    background:none;
+  }
+}
+
+.section-head {
+  margin: 100px 0px 50px 0px;
+  padding: 0px;
+  width: 100%;
+  min-width: 200px;
+  font-size: 220%;
+  font-family: MoonDance;
+  font-weight: 100;
+  text-align: center;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  @media (max-width: 560px) {
+    margin: 50px 0px 25px 0px;
+    font-size: 180%;
+  }
 }
 
 
@@ -18,16 +39,13 @@ body {
   margin: 0 auto;
 }
 
-.mirrorX {
-  transform: scaleX(-1);
-  filter: FlipH;
-}
-
-.mirrorY {
-  transform: scaleY(-1);
-  filter: FlipV;
-}
-
 a {
   text-decoration: none;
+}
+
+input:required {
+    box-shadow:none;
+}
+input:invalid {
+    box-shadow:0 0 0px red;
 }
