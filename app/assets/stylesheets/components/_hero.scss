@@ -2,69 +2,55 @@
 @import 'components/fonts';
 
 #hero {
-  @media (max-width: 550px) {
-
-    .section-head {
-      margin: 25px 0px; 
-    }
-  }
 
   display: flex;
+  height: 100vh;
   border-collapse: collapse;
   border-spacing: 0;
   background-color: transparent;
+  overflow: hidden;
   text-align: center;
   letter-spacing: .05em;
   
   .wrap {
-    margin-top: 61px;
+    margin-top: 100px;
   }
 
-  .title-text {
-    height: 30px;
-    width: 87%;
-
+  #title-text {
+    width: 60%;
   }
 
-  #title-desc, #title-hashtag {
-    font-size: 110%;
-    color: $mutedCream;
-    margin: 10px 0px;
-    @media (max-width: 550px) {
-      font-size: 90%;
-      margin: 5px 0px;
-    }
-  }
-
-  #title-date {
-    font-size: 140%;
-    margin: 0px;
-    @media (max-width: 550px) {
-      font-size: 120%;
-    }
-  }
-
-  h2, p{
+  h1, h2, p{
     margin: auto;
   }
 
-  h2{
+  h1, h2{
     color: $heroAccent;
     font-family: MoonDance;
     font-weight: 100;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
+  }
+
+  h1 {
+    width: 60%;
+    min-width: 300px;
+    font-size: 500%;
+    letter-spacing: .15em;
+  }
+
+  h2 {
     width: 35%;
     min-width: 200px;
     font-size: 180%;
   }
 
   p {
-    width: 100%;
+    width: 20%;
     min-width: 140px;
     font-size: 110%;
     margin-top: .5em;
-    margin-bottom: 25px;
+    margin-bottom: -1em;
     font-family: ubuntu;
     font-weight: 100;
     -webkit-appearance: none;
@@ -79,11 +65,7 @@
     right: 0;
     height: 40%;
     text-align: center;
-    display: block;
-
-    .title {
-      margin-bottom: 10px;
-    }
+    display: block
 
   }
 
@@ -94,33 +76,31 @@
     @media (min-width: 600px) {
       margin-top: -5vh;
     }
-    @media (max-width: 550px) {
-      width: 70%;
-      margin-top: -25px;
-    }
   }
 
   a {
-    color: $faqText;
-    text-decoration: underline;
-    &:visited {
-      color: $faqText;
+    display: inline-block;
+    color: $heroLink;
+    padding: 0 .4em;
+    text-transform: lowercase;
+    font-size: 150%;
+    text-decoration: none;
+    border-bottom: 2px solid $heroLink;
+
+    &:hover {
+      color: $heroAccent;
+    }
+
+    &.anchorLink {
+      display: block;
+      font-size: 350%;
+      margin-top: 1em;
+      border: none;
     }
   }
 
   #intro {
-    width: 100%;
+    width: 70%;
     line-height: 250%;
-    margin-bottom: 100px;
-    margin-top: -50px;
-
-    @media (max-width: 1024px) {
-      width: 87%;
-      line-height: 150%;
-      margin-top: -25px;
-    }
-    @media (max-width: 550px) {
-      margin-bottom: 50px;
-    }
   }
 }

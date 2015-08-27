@@ -1,77 +1,12 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <title>SpartaHack</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
+<html>
+<head>
+  <title>SpartaHack II Web</title>
 
-        <%= favicon_link_tag 'favicon.png' %>
-        <%= stylesheet_link_tag "font-awesome.min" %>
+</head>
+<body>
 
-        <%= stylesheet_link_tag "site" %>
-        
-        
-        
+<%= yield %>
 
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <div id="header" class="header">
-            <div class="navbar-nav left">
-                <div id="home-nav" class="svg-wrapper active">
-                  <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
-                    <rect class="shape home" height="60" width="85" />
-                    <div class="text"><a href="#hero" class="anchorLink">2016</a></div>
-                  </svg>
-                </div>
-                <div id="faq-nav" class="svg-wrapper">
-                  <svg height="60" width="80" xmlns="http://www.w3.org/2000/svg">
-                    <rect class="shape" height="60" width="80" />
-                    <div class="text"><a href="#faq" class="anchorLink">FAQ</a></div>
-                  </svg>
-                </div>
-                <div id="contact-nav" class="svg-wrapper">
-                  <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
-                    <rect class="shape contact" height="60" width="120" />
-                    <div class="text"><a href="#contact" class="anchorLink">CONTACT</a></div>
-                  </svg>
-                </div>
-            </div>
-            
-            <div class="navbar-nav right">
-              <div id="sponsor-wrapper">
-                  <div id="contact-nav" class="svg-wrapper">
-                    <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
-                      <rect class="shape contact" height="60" width="120" />
-                      <div class="text"><a href="http://bit.ly/1L8UZfr" target="_blank">SPONSOR</a></div>
-                    </svg>
-                  </div>
-              </div>
-            </div>
-
-            <nav>
-                <ul class="mobile">
-                    <li><a href="#hero" class="anchorLink">Home</a></li>
-                    <li><a href="#faq" class="anchorLink">FAQ</a></li>
-                    <li><a href="#contact" class="anchorLink">Contact</a></li>
-                    <li><a href="http://bit.ly/1L8UZfr" target="_blank">Sponsor</a></li>  
-                </ul>
-                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
-            </nav>
-        </div>
-
-		    <%= yield %>
-
-        <%= javascript_include_tag "jquery-1.11.3.min" %>
-        <%= javascript_include_tag "index.js" %>
-    </body>
+</body>
 </html>
