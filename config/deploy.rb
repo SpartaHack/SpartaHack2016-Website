@@ -1,10 +1,11 @@
 server '104.131.101.186', port: 22, roles: [:web, :app, :db], primary: true
 
 set :use_sudo, false
-set :repo_url,        'git@github.com:SpartaHack/SpartaHackII-Web.git'
-set :branch,          "turnover"
-set :application,     'SpartaHack2016-turnover'
-set :user,            'turnover'
+set :repo_url,        'git@github.com:SpartaHack/SpartaHack2016-Website.git'
+#set :branch,          "turnover"
+set :application,     'SpartaHackII-Web'
+set :user,            'deploy'
+
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
 
@@ -12,10 +13,10 @@ set :puma_workers,    0
 set :pty,             true
 set :use_sudo,        false
 set :stage,           :production
-set :branch,          :turnover
+#set :branch,          :turnover
 set :deploy_via,      :remote_cache
-set :deploy_to,       "/home/#{fetch(:user)}/apps/#{fetch(:application)}"
-set :puma_bind,       "unix:///home/turnover/apps/SpartaHack2016-turnover/shared/tmp/sockets/#{fetch(:application)}-puma.sock"
+set :deploy_to,       "/home/#{fetch(:user)}/#{fetch(:application)}"
+set :puma_bind,       "unix:///home/deploy/SpartaHackII-Web/shared/tmp/sockets/#{fetch(:application)}-puma.sock"
 set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.access.log"
@@ -27,7 +28,7 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 
 ## Defaults:
 # set :scm,             :git
-set :branch,          :turnover
+#set :branch,          :turnover
 # set :format,        :pretty
 # set :log_level,     :debug
 # set :keep_releases, 5
