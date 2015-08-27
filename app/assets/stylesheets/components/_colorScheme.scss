@@ -1,3 +1,6 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
 //whites
 $cream: #F7E8DE;
 $mutedCream: rgba(247,232,222, .3);
@@ -14,7 +17,7 @@ $belizeHole: #2980b9;
 $devilsTeal: #1b3c4c;
 
 
-$heroBackground: $mediumBrown;
+$mainBackground: $mediumBrown;
 $heroLink: $cream;
 $heroMain: $cream;
 $heroMainDark: $cream;
