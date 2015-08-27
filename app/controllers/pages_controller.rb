@@ -1,21 +1,4 @@
-class PagesController < ApplicationController
-	require 'mailchimp'
-
+class PagesController < ActionController::Base
   def index
-  	render layout: false
   end
-
-  def subscribe 
-  	render layout: false
-  	mailchimp = Mailchimp::API.new(ENV["MAILCHIMP_API_KEY"])
-		mailchimp.lists.subscribe(ENV["MAILCHIMP_LIST_ID"], 
-		                   { "email" => subscribe_params['emailinput']
-		                   },{'FNAME' => subscribe_params['fname'] , "LNAME" => subscribe_params['lname'] })
-	end
-
-  private
-
-  def subscribe_params
-    params.permit(:emailinput, :fname, :lname)
-  end		
 end

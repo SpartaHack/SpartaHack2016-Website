@@ -53,22 +53,6 @@ Run the following commands
 
 **Postgres must be running in the background to run SpartaHack locally.**
 
-##### Setting your Environmental Variables
-Set the following environmental variables:
-	
-	export PROD_SECRET='YOUR PRODUCTION SECRET'
-	
-	export PARSE_API_KEY='YOUR PARSE API KEY'
-	
-	export PARSE_APP_ID='YOUR PARSE APP ID'
-	
-	export MAILCHIMP_API_KEY='YOUR MAILCHIMP API KEY'
-	
-	export MAILCHIMP_LIST_ID='YOUR MAILCHIMP LIST ID'
-
-
-If you're a SpartaHack organizer, contact the Webmaster for the correct credentials.
-
 ##### Running SpartaHack locally
 
 Clone Spartahack and `cd` into it.

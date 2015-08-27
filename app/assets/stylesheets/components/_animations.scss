@@ -1,50 +1,26 @@
-@import 'components/colorScheme';
-@import 'components/fonts';
+@keyframes "pulse_animation" {
+        0% { transform: scale(1); }
+        25% { transform: scale(1.08); }
+        50% { transform: scale(1); }
+        75% { transform: scale(1.08); }
+        100% { transform: scale(1); }
+}
 
-/* Sweep To Right */
-.hvr-sweep-to-right {
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  -webkit-transition-property: color;
-  transition-property: color;
-  -webkit-transition-duration: 0.1s;
-  transition-duration: 0.1s;
+.pulse:hover {
+  animation-name: 'pulse_animation';
+        animation-duration: 2500ms;
+        transform-origin:50% 50%;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
 }
-.hvr-sweep-to-right:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: $cream;
-  -webkit-transform: scaleX(0);
-  transform: scaleX(0);
-  -webkit-transform-origin: 0 50%;
-  transform-origin: 0 50%;
-  -webkit-transition-property: transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.1s;
-  transition-duration: 0.1s;
-  -webkit-transition-timing-function: ease-out;
-  transition-timing-function: ease-out;
-}
-.hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
-  color: white;
 
-  #send-message {
-    color: $mainBackground;
-    -webkit-transition-delay: .1s; /* Safari */
-    transition-delay: .1s;
-  }
+@keyframes 'wiggle'{
+  0%{transform:rotate(2deg);}
+  50%{transform:rotate(-2deg);}
+  100%{transform:rotate(2deg);}
 }
-.hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
-  -webkit-transform: scaleX(1);
-  transform: scaleX(1);
+
+.wiggle:hover {
+  animation:'wiggle' .3s 2;
+        animation-iteration-count: infinite;
 }
