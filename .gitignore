@@ -17,9 +17,4 @@
 /tmp
 .DS_Store
 .sass-cache/
-/releases/
-/repo/
-/shared 
-/current
-config/nginx.conf
-/public
+parse_config.rb
