@@ -22,4 +22,5 @@
 /shared 
 /current
 config/nginx.conf
+config/deploy.rb
 /public
