@@ -1,7 +1,7 @@
 server '104.131.101.186', port: 22, roles: [:web, :app, :db], primary: true
 
 set :use_sudo, false
-set :repo_url,        'git@github.com:SpartaHack/SpartaHackII-Web.git'
+set :repo_url,        'git@github.com:SpartaHack/SpartaHack2016-Website.git'
 set :branch,          "turnover"
 set :application,     'SpartaHack2016-turnover'
 set :user,            'turnover'
