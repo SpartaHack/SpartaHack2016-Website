@@ -94,7 +94,7 @@
     width: 100%;
   }
 
-  h2 {
+  h3 {
     font-size: 100%;
 
     @media (min-width: 875px) {
@@ -126,27 +126,6 @@
     @media (min-width: 550px) {
       display: block;
       padding: 0;
-    }
-  }
-
-  .full {
-    text-align: center;
-    font-size: 120%;
-    padding-bottom: 1em;
-    line-height: 100%;
-
-    h2 {
-      font-size: 275%;
-      padding-bottom: .3em;
-    }
-
-    p {
-      display: block;
-    }
-
-    @media (min-width: 550px) {
-      font-size: 210%;
-      line-height: 120%;
     }
   }
 

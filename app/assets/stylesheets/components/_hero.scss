@@ -46,23 +46,9 @@
     }
    }
 
-  h2, p{
-    margin: auto;
-  }
-
-  h2{
-    color: $heroAccent;
-    font-family: MoonDance;
-    font-weight: 100;
-    -webkit-appearance: none;
-    -webkit-font-smoothing: antialiased;
-    width: 35%;
-    min-width: 200px;
-    font-size: 180%;
-  }
-
   p {
     width: 100%;
+    margin: auto;
     min-width: 140px;
     font-size: 110%;
     margin-top: .5em;
