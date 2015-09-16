@@ -6,12 +6,16 @@
       <div class="email-us tail"><div class="email-type">SPONSOR</div><div class='email'>sponsor@spartahack.com</div></div> 
       
       <div class="inner">
+        <%= label_tag 'fname', 'First Name', class: 'no-label' %>
         <%= text_field_tag 'fname', nil, placeholder: 'FIRST NAME', :required => true%>
+        <%= label_tag 'lname', 'Last Name', class: 'no-label' %>
         <%= text_field_tag 'lname', nil, placeholder: 'LAST NAME', :required => true%>                
       </div>
-
+      
+      <%= label_tag 'emailinput', 'Email', class: 'no-label' %>
       <%= email_field_tag 'emailinput', nil, placeholder: 'YOUR EMAIL', :required => true, :class => "tail"%>
     
+      <%= label_tag 'message', 'Your Message', class: 'no-label' %>
       <%= text_area_tag 'message', nil, placeholder: 'YOUR MESSAGE', :required => true%>
 
     </div>
