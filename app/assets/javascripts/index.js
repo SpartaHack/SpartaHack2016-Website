@@ -4,7 +4,7 @@
 if (navigator.appVersion.indexOf("Win")!=-1) {
   $('#hero').find('a').addClass( "windowsCenter" );
 }
-$('#faq article h2').click(function() {
+$('#faq article h3').click(function() {
   $(this).next().slideToggle();
 });
 
