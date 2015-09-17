@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<html lang="en-us">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+<!--[if gt IE 8]>      <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,9 +30,9 @@
                   <div id="home-nav" class="svg-wrapper active">
                     <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
                       <rect class="shape home" height="60" width="85" />
-                      <div class="text">2016</div>
                     </svg>
                   </div>
+                  <div class="text">2016</div>
                 </a>
 
             </div>
@@ -42,9 +43,9 @@
                   <div id="sponsor-nav" class="svg-wrapper">
                     <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
                       <rect class="shape contact" height="60" width="120" />
-                      <div class="text">SPONSOR</div>
                     </svg>
                   </div>
+                  <div class="text">SPONSOR</div>
                 </a>  
               </div>
 
@@ -53,9 +54,9 @@
                   <div id="apply-nav" class="svg-wrapper">
                     <svg height="60" width="95" xmlns="http://www.w3.org/2000/svg">
                       <rect class="shape apply" height="60" width="95" />
-                      <div class="text">APPLY</div>
                     </svg>
                   </div>
+                  <div class="text">APPLY</div>
                 </a>
               </div>
 
@@ -83,7 +84,10 @@
               <% end %>
               <%= form_tag("/auth", method: "post" ) do %>
                 <div id="inner">
+                  <%= label_tag 'email', 'Email', class: 'no-label' %>
                   <%= email_field_tag 'email', nil, placeholder: 'EMAIL'%>
+
+                  <%= label_tag 'password', 'Password', class: 'no-label' %>
                   <%= password_field_tag 'password', nil, placeholder: "PASSWORD"%>
                 </div>
                 <%= submit_tag "LOGIN", id: "log" %>
