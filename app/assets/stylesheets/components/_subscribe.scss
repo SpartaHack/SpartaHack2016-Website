@@ -12,6 +12,7 @@
   }
 
   display: flex;
+  display: -webkit-flex;
   border-collapse: collapse;
   border-spacing: 0;
   background-color: transparent;
@@ -61,7 +62,9 @@
 
   #logo-wrap {
     display: flex;
+    display: -webkit-flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
     left:0;
     right: 0;
     height: 40%;

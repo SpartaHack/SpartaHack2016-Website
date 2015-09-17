@@ -6,8 +6,11 @@
 
   background-color: transparent;
   display: flex;
+  display: -webkit-flex;
   align-items: center;
+  -webkit-align-items: center;
   flex-direction: column;
+  -webkit-flex-direction: column;
   text-align: center; 
   color: $faqText;
   position: relative;
@@ -16,8 +19,11 @@
     width: 960px;
     padding-top: 0px;
     display: flex;
+    display: -webkit-flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
     align-items: center;
+    -webkit-align-items: center;
     @media (max-width: 1000px){
       width: 100%;
       line-height: 250%; 
@@ -34,7 +40,7 @@
   }
 
   .hline-full {
-    border-top: solid 1px $mutedCream;
+    border-top: solid 1px $mutedOutline;
     background: none;
     position: absolute;
     left:0;
@@ -50,10 +56,15 @@
 
   #apps {
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     align-items: center;
+    -webkit-align-items: center;
     align-content: center;
+    -webkit-align-content: center;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
     width: 30%;
     margin-top: 50px;
     margin-bottom: 100px;

@@ -10,11 +10,13 @@
 
   z-index: 999;
   background: $mainBackground;
-  border-bottom: solid 1px $mutedCream;
+  border-bottom: solid 1px $mutedOutline;
   position: fixed;
   top: 0;
   display: flex;
+  display: -webkit-flex;
   flex-direction: row;
+  -webkit-flex-direction: row;
   width: 100%;
   transition: all .2s ease-in-out;
  
@@ -39,8 +41,11 @@
   .right{
     width: 50%;
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     justify-content: flex-end;
+    -webkit-justify-content: flex-end;
 
     #sponsor-wrapper {
       float: right;
@@ -50,10 +55,14 @@
 
   .left {
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     width: 50%;
     align-content: left;
+    -webkit-align-content: left;
     justify-content: left;
+    -webkit-justify-content: left;
   }
 
   // svg desktop menu tabs ----------------------------------------
@@ -97,7 +106,7 @@
   }
 
   #apply-wrapper, #login-wrapper, #sponsor-wrapper{
-    border-left: solid 1px $mutedCream;
+    border-left: solid 1px $mutedOutline;
   }
 
   .active {
@@ -145,7 +154,7 @@
   .mobile {
     margin-top: 10px;
     padding-bottom: 10px;
-    border: solid $mutedCream;
+    border: solid $mutedOutline;
     border-width: 0px 0px 1px 0px;
   }
 
@@ -167,6 +176,7 @@
     }
     nav div#pull {
       display: flex;
+      display: -webkit-flex;
       font-family: MoonDance;
       font-weight: 100;
       -webkit-appearance: none;
@@ -176,7 +186,9 @@
       height: 60px;
       width: 100vw;
       align-items: center;
+      -webkit-align-items: center;
       justify-content: space-between;
+      -webkit-justify-content: space-between;
       padding-left: 15px;
 
       #year {

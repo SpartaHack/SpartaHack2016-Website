@@ -35,7 +35,9 @@
 
   .media-grid {
     align-items: flex-end;
+    -webkit-align-items: flex-end;
     justify-content: center;
+    -webkit-justify-content: center;
   }
 }
 

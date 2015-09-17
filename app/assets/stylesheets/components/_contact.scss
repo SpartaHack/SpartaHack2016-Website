@@ -5,8 +5,11 @@
 
   .wrap {
     display: flex;
+    display: -webkit-flex;
     align-items: center;
+    -webkit-align-items: center;
     flex-direction: column;
+    -webkit-flex-direction: column;
     color: $cream;
   }
 
@@ -45,7 +48,7 @@
   input[type=email] {
     width: 86%;
     display: inline-block;
-    border: solid 1px $mutedCream;
+    border: solid 1px $mutedOutline;
     margin-top: 35px;
     margin-bottom: 0px;
     text-align:left; 
@@ -64,7 +67,7 @@
 
   input[type=text] {
     text-align:left; 
-    border: solid $mutedCream;
+    border: solid $mutedOutline;
     font-size: 14px; 
     font-weight: 100;
     color: $cream;
@@ -89,7 +92,7 @@
     width: 86%;
     height: 150px;
     display: inline-block;
-    border: solid 1px $mutedCream;
+    border: solid 1px $mutedOutline;
     margin-top: 35px;
     margin-bottom: 100px;
     text-align:left; 
@@ -126,9 +129,13 @@
   .email-us {
     width: 86%;
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     align-items: center;
+    -webkit-align-items: center;
     justify-content: center;
+    -webkit-justify-content: center;
     margin-top: 35px;
     @media (min-width: 560px) {
       width: 530px;
@@ -152,7 +159,7 @@
 
   .email {
     padding-left: 25px;
-    color: $mutedCream;
+    color: $mutedText;
     font-family: ubuntu;
     font-weight: 100;
     -webkit-appearance: none;
@@ -193,7 +200,7 @@
     background: none;
     border-style: none;
     text-align: right;
-    border-top: solid 1px $mutedCream;
+    border-top: solid 1px $mutedOutline;
     color: $cream;
     font-weight: 100;
     font-size: 15px;

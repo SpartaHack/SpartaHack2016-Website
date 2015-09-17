@@ -6,8 +6,11 @@
     margin-top: 30px;
   }
   display: flex;
+  display: -webkit-flex;
   align-items: center;
+  -webkit-align-items: center;
   flex-direction: column;
+  -webkit-flex-direction: column;
   color: $cream;
   
 
@@ -15,6 +18,7 @@
 
   #logo-wrap {
     flex-direction: column;
+    -webkit-flex-direction: column;
     text-align: center;
     display: block;
 
@@ -47,7 +51,7 @@
   }
 
   #title-desc {
-    color: $mutedCream;
+    color: $mutedText;
   }
 
   #title-hashtag {
@@ -108,15 +112,18 @@
   #inner {
     width: 100%;
     display: flex;
+    display: -webkit-flex;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
     @media (max-width: 550px) {
       flex-direction: column;
+      -webkit-flex-direction: column;
     }
   }
 
   input {
     text-align:left; 
-    border: solid 1px $mutedCream; 
+    border: solid 1px $mutedOutline; 
     font-size: 14px; 
     font-weight: 100;
     color: $cream;
@@ -169,7 +176,7 @@
     background: none;
     border-style: none;
     text-align: center;
-    border: solid 1px $mutedCream;
+    border: solid 1px $mutedOutline;
     color: $cream;
     font-weight: 100;
     font-size: 15px;
@@ -198,8 +205,11 @@
   #error-wrapper {
     width: 87%;
     display: flex;
+    display: -webkit-flex;
     flex-direction: row;
+    -webkit-flex-direction: row;
     justify-content: space-between;
+    -webkit-justify-content: space-between;
     font-family: ubuntu;
     font-weight: 100;
     -webkit-appearance: none;

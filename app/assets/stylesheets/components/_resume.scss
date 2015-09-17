@@ -3,12 +3,15 @@
 
 .resume-container {
   display: flex;
+  display: -webkit-flex;
   height: 100vh;
   font-family: Raleway;
 
   form {
     display: flex;
+    display: -webkit-flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
     margin: auto;
   }
 

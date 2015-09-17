@@ -45,7 +45,7 @@
       text-decoration: none;
 
       .at {
-        color: $mutedCream;
+        color: $mutedOutline;
       }
     }
   }
@@ -68,7 +68,9 @@
 
   .media-grid {
     align-items: flex-end;
+    -webkit-align-items: flex-end;
     justify-content: center;
+    -webkit-justify-content: center;
   }
 
   .judge-photo {

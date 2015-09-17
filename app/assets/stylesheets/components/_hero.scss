@@ -9,9 +9,12 @@
   }
 
   display: flex;
+  display: -webkit-flex;
   flex-direction: column;
+  -webkit-flex-direction: column;
   border-collapse: collapse;
   justify-content: space-between;
+  -webkit-justify-content: space-between;
   border-spacing: 0;
   min-height: 100vh;
   background-color: transparent;
@@ -23,14 +26,14 @@
   }
 
   .title-text {
-    height: 30px;
-    width: 87%;
+    height: 35px;
+
 
   }
 
   #title-desc, #title-hashtag {
-    font-size: 110%;
-    color: $mutedCream;
+    font-size: 130%;
+    color: $mutedText;
     margin: 10px 0px;
     @media (max-width: 550px) {
       font-size: 90%;
@@ -39,7 +42,7 @@
   }
 
   #title-date {
-    font-size: 140%;
+    font-size: 160%;
     margin: 0px;
     @media (max-width: 550px) {
       font-size: 120%;
@@ -112,19 +115,23 @@
     background: none;
     border-style: none;
     text-align: right;
-    border-top: solid 1px $mutedCream;
-    border-bottom: solid 1px $mutedCream;
+    border-top: solid 1px $mutedOutline;
+    border-bottom: solid 1px $mutedOutline;
     border-radius: 0;
     width: 100%;
     height: 60px;
     display: flex;
+    display: -webkit-flex;
     clear: both;
   }
 
   .apply {
     display: flex;
+    display: -webkit-flex;
     align-items: center;
+    -webkit-align-items: center;
     justify-content: flex-end;
+    -webkit-justify-content: flex-end;
     color: $cream;
     font-family: ubuntu;
     text-decoration: none;
