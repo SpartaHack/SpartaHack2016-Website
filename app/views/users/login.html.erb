@@ -71,36 +71,28 @@
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
-        <section class="wrap-main">
+        <div class="wrap-main">
           <section id="login">
-            <div id="logo-wrap">
-              <h1 class="section-head title"><%= image_tag "sparathack2016.svg", alt: "SpartaHack", :class => "title-text" %></h1>
-              <p id="title-desc">Michigan State University’s official hackathon</p>
-              <p id="title-hashtag">#livebythecode</p>
-              <%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
-            </div>
-
-            <h1 class="section-head top">LOG IN</h1> 
-            <% if flash[:error] %>
-              <div id="error-wrapper">
-                <div class="error"><%= flash[:error] %></div>
-                <div id="forgot"><a href="/forgot">Forgot Password?</a></div>
-              </div>
-            <% end %>
-
             <div class="row">
+              <h1 class="section-head">LOGIN</h1> 
+              <% if flash[:error] %>
+                <div id="error-wrapper">
+                  <div class="error"><%= flash[:error] %></div>
+                  <div id="forgot"><a href="/forgot">Forgot Password?</a></div>
+                </div>
+              <% end %>
               <%= form_tag("/auth", method: "post" ) do %>
                 <div id="inner">
                   <%= email_field_tag 'email', nil, placeholder: 'EMAIL'%>
                   <%= password_field_tag 'password', nil, placeholder: "PASSWORD"%>
                 </div>
-                <%= submit_tag "LOG IN", id: "log" %>
+                <%= submit_tag "LOGIN", id: "log" %>
               <% end %>
             </div>
 
 
           </section>
-        </section>
+        </div>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>

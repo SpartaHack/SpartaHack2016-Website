@@ -12,68 +12,16 @@
   flex-direction: column;
   -webkit-flex-direction: column;
   color: $cream;
-  
+  height: 100vh;  
 
   font-family: ubuntu;
 
-  #logo-wrap {
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    text-align: center;
-    display: block;
-
-    .title {
-      margin-bottom: 10px;
-    }
-
-  }  
-
   .row {
     width: 87%;
+    margin-top: 50px;
     @media (min-width: 550px) {
       width: 530px;
-    }
-  }
-
-  .title-text {
-    height: 30px;
-    width: 87%;
-
-  }
-
-  #title-desc, #title-hashtag {
-    font-size: 110%;
-    margin: 10px 0px;
-    @media (max-width: 550px) {
-      font-size: 90%;
-      margin: 5px 0px;
-    }
-  }
-
-  #title-desc {
-    color: $mutedText;
-  }
-
-  #title-hashtag {
-    color: $cream;
-  }
-
-  #title-date {
-    font-size: 140%;
-    margin: 0px;
-    @media (max-width: 550px) {
-      font-size: 120%;
-    }
-  }  
-
-  .logo{
-    min-width: 185px;
-    width: 70%;
-    margin-top: -35px;
-
-    @media (max-width: 550px) {
-      width: 50%;
-      margin-top: -25px;
+      margin-top: 300px;
     }
   }
 
@@ -147,26 +95,14 @@
     }
   }
 
-  .top {
-    margin-top: -20px;
-    @media (max-width: 550px) {
-      margin-top: -25px;
-      font-size: 120%;
-      @media (max-height: 550px) and (max-width: 320px) {
-        margin-top: 15px;
-        font-size: 120%;
-      }
-    }
-  }
-
   input:focus {
-    border-color: rgba(128, 295, 219, 0.8) !important;
+    border-color: rgba(128, 295, 219, 1) !important;
     box-shadow: 0 1px 1px rgba(128, 295, 219, 0.075) inset, 0 0 8px rgba(128, 295, 219, 0.6) !important;
     outline: 0 none !important;
   }
 
   #log {
-    padding-right: 45px;
+    padding-right: 30px;
     @media (max-width: 550px) {
       padding-right: 25px;
     }
@@ -194,16 +130,16 @@
   }  
 
   input[type=submit]:hover {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
     border-radius: 0px;
-    -webkit-box-shadow:0 0 5px $cream; 
-    -moz-box-shadow: 0 0 5px $cream; 
-    box-shadow:0 0 5px $cream;
+    -webkit-box-shadow:0 0 8px $cream; 
+    -moz-box-shadow: 0 0 8px $cream; 
+    box-shadow:0 0 8px $cream;
   }
 
   #error-wrapper {
-    width: 87%;
+    width: 98%;
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
@@ -216,9 +152,6 @@
     -webkit-font-smoothing: antialiased;
     @media (min-width: 550px){
       width: 530px;
-    }
-    @media (max-width: 320px) {
-      width: 98%;
     }
 
     div a {
