@@ -29,9 +29,9 @@
                   <div id="home-nav" class="svg-wrapper active">
                     <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
                       <rect class="shape home" height="60" width="85" />
-                      <div class="text">2016</div>
                     </svg>
                   </div>
+                  <div class="text">2016</div>
                 </a>
 
             </div>
@@ -42,9 +42,9 @@
                   <div id="sponsor-nav" class="svg-wrapper">
                     <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
                       <rect class="shape contact" height="60" width="120" />
-                      <div class="text">SPONSOR</div>
                     </svg>
                   </div>
+                  <div class="text">SPONSOR</div>
                 </a>  
               </div>
 
@@ -53,9 +53,9 @@
                   <div id="login-nav" class="svg-wrapper">
                     <svg height="60" width="93" xmlns="http://www.w3.org/2000/svg">
                       <rect class="shape login" height="60" width="93" />
-                      <div class="text">LOGIN</div>
                     </svg>
                   </div>
+                  <div class="text">LOGIN</div>
                 </a>
               </div>
 
@@ -65,36 +65,42 @@
             <nav>
                 <ul class="mobile">
                     <li><a href="/" class="anchorLink">HOME</a></li>
-                    <li><a href="/apply">APPLY</a></li>
+                    <li><a href="/login">LOGIN</a></li>
                     <li><a href="http://bit.ly/1L8UZfr" target="_blank">SPONSOR</a></li>  
                 </ul>
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
-        <section class="wrap-main">
+        <div class="wrap-main">
 
           <section id="new">
-              <% if flash[:error] %>
-                <div class="error"><%= flash[:error] %></div>
-              <% end %>
+
             <div class="row">
+            <h1 class="section-head">APPLY</h1> 
+            <% if flash[:error] %>
+              <div class="error"><%= flash[:error] %></div>
+            <% end %>
               <div>
                 <%= form_tag("/create", method: "post" ) do %>
+                  <div class="inner_wrap top">
+                    <%= email_field_tag 'email', nil, placeholder: 'EMAIL'%>
+                  </div>
+                  <div class="inner_wrap">
+                    <%= password_field_tag 'password', nil, placeholder: "PASSWORD"%>
+                    <%= password_field_tag 'password_confirmation', nil, placeholder: "CONFIRM PASSWORD"%>                    
+                  </div>
 
-                  <%= email_field_tag 'email', nil, placeholder: 'EMAIL'%>
-                  <%= password_field_tag 'password', nil, placeholder: "PASSWORD"%>
-                  <%= password_field_tag 'password_confirmation', nil, placeholder: "CONFIRM PASSWORD"%>
                   <%= submit_tag "NEXT", id: "continue" %>
                 <% end %>
               </div>
             </div>            
           </section>
 
-        </section>
+        </div>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
-        <%= javascript_include_tag "users" %>
+  
     </body>
 </html>              
