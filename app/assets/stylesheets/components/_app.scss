@@ -1,7 +1,7 @@
 @import 'components/colorScheme';
 @import 'components/fonts';
 
-#login{
+#app{
   @media (max-width: 550px) {
     margin-top: 30px;
   }
@@ -21,7 +21,6 @@
     margin-top: 50px;
     @media (min-width: 550px) {
       width: 530px;
-      margin-top: 300px;
     }
   }
 
@@ -111,7 +110,7 @@
   input[type=submit] {
     background: none;
     border-style: none;
-    text-align: right;
+    text-align: center;
     border: solid 1px $mutedOutline;
     color: $cream;
     font-weight: 100;
@@ -139,7 +138,7 @@
   }
 
   #error-wrapper {
-    width: 100%;
+    width: 98%;
     display: flex;
     display: -webkit-flex;
     flex-direction: row;

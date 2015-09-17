@@ -77,13 +77,19 @@
           <section id="new">
 
             <div class="row">
-            <h1 class="section-head">APPLY</h1> 
-            <% if flash[:error] %>
-              <div class="error"><%= flash[:error] %></div>
-            <% end %>
+              <h1 class="section-head">APPLY</h1> 
+              <% if flash[:error] %>
+                <div id="error-wrapper">
+                  <div class="error"><%= flash[:error] %></div>
+                  <% if flash[:error] == 'Email is taken' %>
+                    <div id="forgot"><a href="/forgot">Forgot Password?</a></div>
+                  <% end %>                
+                </div> 
+              <% end %>            
+ 
               <div>
                 <%= form_tag("/create", method: "post" ) do %>
-                  <div class="inner_wrap top">
+                  <div class="inner_wrap">
                     <%= label_tag 'email', 'Email', class: 'no-label' %>
                     <%= email_field_tag 'email', nil, placeholder: 'EMAIL'%>
                   </div>

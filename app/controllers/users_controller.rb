@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if user_apply_params['password'] == user_apply_params['password_confirmation']
     	begin
 				apply = Parse::User.new({
-				  :username => user_apply_params['username'],
+				  :username => user_apply_params['email'],
 				  :email => user_apply_params['email'],
 				  :password => user_apply_params['password'],
 				})
@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 				cookies.signed[:spartaUser] = { value: response["objectId"], expires: (Time.now.getgm + 86400) }
 				redirect_to '/app'	
 			rescue Parse::ParseProtocolError => e
+        puts e.to_s
 				if e.to_s.split(":").first == '202'
 			  	flash[:error] = "Email is taken"
 			  elsif e.to_s.split(":").first == "203"
@@ -71,6 +72,7 @@ class UsersController < ApplicationController
             "objectId"  => cookies.signed[:spartaUser]
           }))
         end.get
+        render layout: false
       rescue Parse::ParseProtocolError => e
         flash[:error] = e.message
         redirect_to '/login'
@@ -114,8 +116,7 @@ class UsersController < ApplicationController
   private
 
     def user_apply_params
-      params.require(:user).permit(:username, :email, :password,
-                                   :password_confirmation)
+      params.permit(:email, :password, :password_confirmation)
     end
 
     def user_app_params
