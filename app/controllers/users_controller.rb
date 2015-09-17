@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
 	require 'parse_config'
   require 'monkey_patch'
+
   def new
+    render layout: false
     cookies.delete :spartaUser
   	@user = User.new
   	@error = flash[:error]
