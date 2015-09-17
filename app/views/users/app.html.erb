@@ -104,11 +104,21 @@
               <input id="dob" name="dob" type="date" min="1950-01-01" max="2002-12-31" value=<%= "#{@application[0]['dob'] if @application[0]}" %> />
             </div>
             <div>
-              <%= check_box_tag "firstHackathon", 1, @application[0]['firstHackathon'] if @application[0] %>
-              <%= label_tag(:firstHackathon, "Is this your first hackathon?") %>
+              <%= render partial: "users/app_university" %>
             </div>
             <div>
-              <%= render partial: "users/app_university" %>
+              <%= label_tag(:otherUniversity, "University not listed?") %>
+              <%= text_field_tag 'otherUniversity', "#{@application[0]['otherUniversity'] if @application[0]}" %>
+            </div>            
+            <div>
+              <select id="major" name="major">
+                <option></option>
+                <option>Major 1</option>
+                <option>Major 2</option>
+                <option>Major 3</option>
+                <option>Major 4</option>
+                <option>Major 5 sdfjkhaslkdfhaskjdfh</option>
+              </select>
             </div>
             <div>
               <select id="gradeLevel" name="gradeLevel">
@@ -121,14 +131,18 @@
               </select>
             </div>
             <div>
-              <select id="major" name="major">
+              <select id="hackathons" name="hackathons">
                 <option></option>
-                <option>Major 1</option>
-                <option>Major 2</option>
-                <option>Major 3</option>
-                <option>Major 4</option>
-                <option>Major 5 sdfjkhaslkdfhaskjdfh</option>
+                <option>SpartaHack 2015</option>
+                <option>MHacks IV</option>
+                <option>MHacks V</option>
+                <option>Hack Illinois</option>
+                <option>PennApps</option>
               </select>
+            </div>
+            <div>
+              <%= label_tag(:aboutMe, "Anything interesting about yourself?") %>
+              <%= text_field_tag 'aboutMe', "#{@application[0]['aboutMe'] if @application[0]}" %>
             </div>
             <div>
               <%= label_tag(:github, "What's your github? http://github.com/") %>
@@ -143,8 +157,16 @@
               <%= text_field_tag 'website', "#{@application[0]['website'] if @application[0]}" %>
             </div>
             <div>
-              <%= label_tag(:favProj, "What's your favorite project?") %>
-              <%= text_field_tag 'favProj', "#{@application[0]['favProj'] if @application[0]}" %>
+              <%= label_tag(:coolLink, "And a cool link?") %>
+              <%= text_field_tag 'coolLink', "#{@application[0]['coolLink'] if @application[0]}" %>
+            </div>
+            <div>
+              <%= label_tag(:devPost, "And your DevPost?") %>
+              <%= text_field_tag 'devPost', "#{@application[0]['devPost'] if @application[0]}" %>
+            </div>
+            <div>
+              <%= label_tag(:whyAttend, "Why do you want to attend?") %>
+              <%= text_field_tag 'whyAttend', "#{@application[0]['whyAttend'] if @application[0]}" %>
             </div>
             <%= submit_tag("Save Application") %>
           <% end %>      
@@ -167,5 +189,6 @@
     $("#university").val("<%= @application[0]['university'] if @application[0] %>").trigger("change")
     $("#gradeLevel").val("<%= @application[0]['gradeLevel'] if @application[0] %>").trigger("change")
     $("#gender").val("<%= @application[0]['gender'] if @application[0] %>").trigger("change")
+    $("#hackathons").val("<%= @application[0]['hackathons'] if @application[0] %>").trigger("change")
   <% end %>   
 </html>

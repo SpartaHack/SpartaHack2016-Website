@@ -84,7 +84,9 @@ class UsersController < ApplicationController
   def save
     begin
       fields = [ "firstName", "lastName", "gender", "dob", "university", 
-                                "gradeLevel", "github", "linkedIn", "website", "favProj"]
+                                "otherUniversity", "major", "gradeLevel", "aboutMe", 
+                                "hackathons", "github", "linkedIn", "website", "devPost", 
+                                "coolLink", "whyAttend"]
 
       application = Parse::Query.new("Application").tap do |q|
                       q.eq("userId", Parse::Pointer.new({
@@ -98,7 +100,6 @@ class UsersController < ApplicationController
       fields.each do |field|
         application[field] = user_app_params[field]
       end
-      application["firstHackathon"] = user_app_params["firstHackathon"].to_bool
       response = application.save
 
       application = Parse::Query.new("Application").eq("objectId", response["objectId"]).get.first
@@ -120,10 +121,10 @@ class UsersController < ApplicationController
     end
 
     def user_app_params
-      params.permit(:firstName, :lastName,
-                                   :gender, :dob, :firstHackathon, 
-                                   :university, :gradeLevel, :github, 
-                                   :linkedIn, :website, :favProj)
+      params.permit(:firstName, :lastName, :gender, :dob, :university, 
+                                   :otherUniversity, :major, :gradeLevel, 
+                                   :aboutMe, :hackathons, :github, :linkedIn, 
+                                   :website, :devPost, :coolLink, :whyAttend)     
     end
 
     def user_login_params
