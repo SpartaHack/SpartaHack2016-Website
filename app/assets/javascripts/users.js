@@ -15,6 +15,10 @@ $(document).ready(function() {
 	  placeholder: "Year in School", 
 	  allowClear: true
 	});
+	$('#hackathons').select2({
+	  placeholder: "What hackathons have you attended", 
+	  allowClear: true
+	});
 })
 
 if ($(window).width() < 321) {
