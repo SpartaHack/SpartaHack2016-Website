@@ -26,13 +26,12 @@
   }
 
   .title-text {
-    height: 35px;
-
-
+    height: 30px;
+    width: 87%;
   }
 
   #title-desc, #title-hashtag {
-    font-size: 130%;
+    font-size: 110%;
     color: $mutedText;
     margin: 10px 0px;
     @media (max-width: 550px) {
@@ -42,7 +41,7 @@
   }
 
   #title-date {
-    font-size: 160%;
+    font-size: 140%;
     margin: 0px;
     @media (max-width: 550px) {
       font-size: 120%;
