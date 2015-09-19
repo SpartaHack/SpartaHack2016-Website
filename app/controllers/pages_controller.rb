@@ -6,11 +6,15 @@ class PagesController < ApplicationController
   end
 
   def subscribe 
-  	render layout: false
-  	mailchimp = Mailchimp::API.new(ENV["MAILCHIMP_API_KEY"])
-		mailchimp.lists.subscribe(ENV["MAILCHIMP_LIST_ID"], 
-		                   { "email" => subscribe_params['emailinput']
-		                   },{'FNAME' => subscribe_params['fname'] , "LNAME" => subscribe_params['lname'] })
+    begin
+    	mailchimp = Mailchimp::API.new(ENV["MAILCHIMP_API_KEY"])
+  		mailchimp.lists.subscribe(ENV["MAILCHIMP_LIST_ID"], 
+  		                   { "email" => subscribe_params['emailinput']
+  		                   },{'FNAME' => subscribe_params['fname'] , "LNAME" => subscribe_params['lname'] })
+      render layout: false
+      rescue Mailchimp::ListAlreadySubscribedError => e
+        redirect_to '/subscribed'
+      end
 	end
 
   private

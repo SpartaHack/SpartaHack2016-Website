@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>SpartaHack</title>
+        <meta name="description" content="">
+        <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
+
+        <%= favicon_link_tag 'favicon.png' %>
+        <%= stylesheet_link_tag "font-awesome.min" %>
+
+        <%= stylesheet_link_tag "site" %>
+        
+        
+        
+
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="header" class="header">
+            <div class="navbar-nav left">
+                <div id="home-nav" class="svg-wrapper active">
+                  <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="shape home" height="60" width="85" />
+                    <div class="text"><a href="/" class="anchorLink">2016</a></div>
+                  </svg>
+                </div>
+            </div>
+
+            <nav>
+                <ul class="mobile">
+                    <li><a href="/" class="anchorLink">Home</a></li>
+                </ul>
+                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+            </nav>
+        </div>
+        <section class="wrap-main">
+
+
+					<section id="subscribe">
+						<div class="wrap">
+						  
+						  <div id="logo-wrap">
+						      <h1 class="section-head title"><%= image_tag "sparathack2016.svg", alt: "SpartaHack", :class => "title-text" %></h1>
+						      <p id="title-subtext">February 26-28</p>
+						      <%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
+						      <p id="intro">
+										Thank you for your interest in SpartaHack 2016! Looks like you've already subscribed to this mailing list!
+						      </p>
+						  </div>
+						</div>
+					</section>
+
+       </section>
+
+        <%= javascript_include_tag "jquery-1.11.3.min" %>
+        <%= javascript_include_tag "index.js" %>
+    </body>
+</html>
