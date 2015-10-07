@@ -13,8 +13,10 @@
     <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
 
     <%= favicon_link_tag 'favicon.png' %>
-    <%= stylesheet_link_tag "font-awesome.min" %>
-    <%= stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" %>
+    <!--<= stylesheet_link_tag "font-awesome.min" %>-->
+    <%= stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" %>
+    <!--= stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" %>-->
+    <%= stylesheet_link_tag "select2-modified" %>
     <%= stylesheet_link_tag "users" %>
       
       
@@ -80,95 +82,95 @@
         <div class="row">
       
           <h1 class="section-head">APPLICATION</h1> 
-          <div><%= @cook %></div>
           <%= form_tag("/save", method: "post", id: "save_app", class: "save_app") do %>
-            <div>
-              <%= label_tag(:firstName, "First Name:") %>
-              <%= text_field_tag 'firstName', "#{@application[0]['firstName'] if @application[0]}" %>
+            <div class="inner">
+              <%= label_tag(:firstName, "First Name", class: 'no-label') %>
+              <%= text_field_tag 'firstName', "#{@application[0]['firstName'] if @application[0]}", placeholder: 'First Name' %>
+              <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
+              <%= text_field_tag 'lastName', "#{@application[0]['lastName'] if @application[0]}", placeholder: 'Last Name'  %>
             </div>
-            <div>
-              <%= label_tag(:lastName, "Last Name:") %>
-              <%= text_field_tag 'lastName', "#{@application[0]['lastName'] if @application[0]}" %>
-            </div>
-            <div>
-              <select id="gender" name="gender">
+
+            <div class="inner add-margin">
+              <select id="gender" name="gender" style="display=none;">
                  <option></option>
                  <option value="male">Male</option>
                  <option value="female">Female</option>
                  <option value="non-binary">Non-binary</option>
                  <option value="prefer-not">Prefer not to say</option>
               </select>
+              <%= label_tag(:dob, "Date of Birth (eg: 08/11/1993)", class: 'no-label') %>
+              <input id="dob" name="dob" type="date" min="1950-01-01" max="2002-12-31" placeholder='Date of Birth (eg: 08/11/1993)' 
+              value=<%= "#{@application[0] ? @application[0]['dob'] : nil}"%> />
             </div>
-            <div>
-              <%= label_tag(:dob, "Date of Birth:") %>
-              <input id="dob" name="dob" type="date" min="1950-01-01" max="2002-12-31" value=<%= "#{@application[0]['dob'] if @application[0]}" %> />
+
+            <div class="add-margin">
+            <!-- render partial: "users/app_hackathon" %> -->
             </div>
-            <div>
-              <%= render partial: "users/app_university" %>
+
+            <div class="add-margin">
+              <!-- render partial: "users/app_university" %> -->
             </div>
-            <div>
-              <%= label_tag(:otherUniversity, "University not listed?") %>
-              <%= text_field_tag 'otherUniversity', "#{@application[0]['otherUniversity'] if @application[0]}" %>
+
+            <div class="add-margin">
+              <%= label_tag(:otherUniversity, "School not listed above? Enter it here.", class: 'no-label') %>
+              <%= text_field_tag 'otherUniversity', "#{@application[0]['otherUniversity'] if @application[0]}", placeholder: 'School not listed above? Enter it here.' %>
             </div>            
-            <div>
-              <select id="major" name="major">
-                <option></option>
-                <option>Major 1</option>
-                <option>Major 2</option>
-                <option>Major 3</option>
-                <option>Major 4</option>
-                <option>Major 5 sdfjkhaslkdfhaskjdfh</option>
-              </select>
+            <div class="add-margin">
+              <%= render partial: "users/app_major" %>
             </div>
-            <div>
+
+            <div class="add-margin">
               <select id="gradeLevel" name="gradeLevel">
                 <option></option>
-                <option>Freshman</option>
-                <option>Sophomore</option>
-                <option>Junior</option>
-                <option>Senior</option>
+                <option>First Year</option>
+                <option>Second Year</option>
+                <option>Third Year</option>
+                <option>Fourth Year</option>
                 <option>Fifth Year +</option>
+                <option>Graduate Student</option>
+                <option>Not a Student</option>
               </select>
             </div>
-            <div>
-              <select id="hackathons" name="hackathons">
-                <option></option>
-                <option>SpartaHack 2015</option>
-                <option>MHacks IV</option>
-                <option>MHacks V</option>
-                <option>Hack Illinois</option>
-                <option>PennApps</option>
-              </select>
+
+            <div class="add-margin">
+              <%= label_tag(:whyAttend, "Why do you want to attend SpartaHack 2016?", class: 'no-label') %>
+              <%= text_area_tag 'whyAttend', "#{@application[0]['whyAttend'] if @application[0]}", placeholder: 'Why do you want to attend SpartaHack 2016?' %>
             </div>
-            <div>
-              <%= label_tag(:aboutMe, "Anything interesting about yourself?") %>
-              <%= text_field_tag 'aboutMe', "#{@application[0]['aboutMe'] if @application[0]}" %>
+
+            <div class="under-textarea">
+              <%= label_tag(:github, "http://www.github.com/What is your GitHub?", class: 'no-label') %>
+              <%= text_field_tag 'github', "#{@application[0]['github'] if @application[0]}", placeholder: 'http://www.github.com/WHat is your GitHub?' %>
             </div>
-            <div>
-              <%= label_tag(:github, "What's your github? http://github.com/") %>
-              <%= text_field_tag 'github', "#{@application[0]['github'] if @application[0]}" %>
+
+            <div class="add-margin">
+              <%= label_tag(:linkedIn, "https://www.linkedin.com/in/What about your LinkedIn?", class: 'no-label') %>
+              <%= text_field_tag 'linkedIn', "#{@application[0]['linkedIn'] if @application[0]}", placeholder: 'https://www.linkedin.com/in/What about your LinkedIn?' %>
             </div>
-            <div>
-              <%= label_tag(:linkedIn, "What about a linkedin?") %>
-              <%= text_field_tag 'linkedIn', "#{@application[0]['linkedIn'] if @application[0]}" %>
+
+            <div class="add-margin">
+              <%= label_tag(:devPost, "http://www.devpost.com/your DevPost?", class: 'no-label') %>
+              <%= text_field_tag 'devPost', "#{@application[0]['devPost'] if @application[0]}", placeholder: 'http://www.devpost.com/your DevPost?' %>
             </div>
-            <div>
-              <%= label_tag(:website, "And your personal website?") %>
-              <%= text_field_tag 'website', "#{@application[0]['website'] if @application[0]}" %>
+
+            <div class="add-margin">
+              <%= label_tag(:website, "http://www.your personal website?", class: 'no-label') %>
+              <%= text_field_tag 'website', "#{@application[0]['website'] if @application[0]}", placeholder: 'http://www.your personal website?' %>
             </div>
-            <div>
-              <%= label_tag(:coolLink, "And a cool link?") %>
-              <%= text_field_tag 'coolLink', "#{@application[0]['coolLink'] if @application[0]}" %>
+
+            <div class="add-margin">
+              <%= label_tag(:coolLink, "A cool link you\'d like to share?", class: 'no-label') %>
+              <%= text_field_tag 'coolLink', "#{@application[0]['coolLink'] if @application[0]}", placeholder: 'A cool link you\'d like to share?' %>
             </div>
-            <div>
-              <%= label_tag(:devPost, "And your DevPost?") %>
-              <%= text_field_tag 'devPost', "#{@application[0]['devPost'] if @application[0]}" %>
+
+            <div class="add-margin">
+              <%= label_tag(:aboutMe, "Anything interesting about yourself you\'d like to tell us? You could talk about your favorite project, clubs, past time, etc., or whatever you really want.", class: 'no-label') %>
+              <%= text_area_tag 'aboutMe', "#{@application[0]['aboutMe'] if @application[0]}", placeholder: 'Anything interesting about yourself you\'d like to tell us? You could talk about your favorite project, clubs, past time, etc., or whatever you really want.' %>
             </div>
-            <div>
-              <%= label_tag(:whyAttend, "Why do you want to attend?") %>
-              <%= text_field_tag 'whyAttend', "#{@application[0]['whyAttend'] if @application[0]}" %>
+
+            <div class="hvr-sweep-to-right" id="save-app">
+              <%= submit_tag("Save Application", :id => "application") %>
             </div>
-            <%= submit_tag("Save Application") %>
+
           <% end %>      
 
         </div>
@@ -187,6 +189,7 @@
 
   <%= javascript_tag do %>
     $("#university").val("<%= @application[0]['university'] if @application[0] %>").trigger("change")
+    $("#major").val("<%= @application[0]['major'] if @application[0] %>").trigger("change")
     $("#gradeLevel").val("<%= @application[0]['gradeLevel'] if @application[0] %>").trigger("change")
     $("#gender").val("<%= @application[0]['gender'] if @application[0] %>").trigger("change")
     $("#hackathons").val("<%= @application[0]['hackathons'] if @application[0] %>").trigger("change")
