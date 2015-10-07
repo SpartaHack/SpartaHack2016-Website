@@ -38,7 +38,7 @@
 .hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
   color: white;
 
-  #send-message {
+  #send-message, #application {
     color: $mainBackground;
     -webkit-transition-delay: .1s; /* Safari */
     transition-delay: .1s;
