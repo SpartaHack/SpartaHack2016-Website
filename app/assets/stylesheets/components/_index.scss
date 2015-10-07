@@ -9,11 +9,7 @@
 }
 
 .wrap-main {
-  background: image-url("glitch.gif") no-repeat center 10px fixed;
-  background-size: cover;
-  @media (max-width: 550px) {
-    background:none;
-  }
+ background-color: transparent;
 }
 
 .section-head {
@@ -35,7 +31,11 @@
 
 
 body {
-  background: $mainBackground;
+  background: image-url("glitch.gif") no-repeat center 10px fixed;
+  background-size: cover;
+  @media (max-width: 550px) {
+    background-color: $mainBackground;
+  }
   margin: 0 auto;
 }
 
