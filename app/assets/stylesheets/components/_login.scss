@@ -63,7 +63,9 @@
     display: -webkit-flex;
     justify-content: space-between;
     -webkit-justify-content: space-between;
+    padding-bottom: 25px;
     @media (max-width: 550px) {
+      padding-bottom: 15px;
       flex-direction: column;
       -webkit-flex-direction: column;
     }
@@ -84,7 +86,7 @@
   #email, #password {
     height: 36px;
     @media (min-width: 550px) {
-      width: 220px;
+      width: 225px;
       margin-bottom: 0px;
     }
   }
@@ -119,7 +121,6 @@
     border-radius: 0;
     height: 60px;
     width: 100%;
-    margin-top: 35px;
     cursor: pointer; 
     cursor: hand;
     -webkit-appearance: none;
