@@ -5,21 +5,28 @@
       <div class="email-us top"><div class="email-type">EMAIL</div><div id='email'>hello@spartahack.com</div></div>
       <div class="email-us tail"><div class="email-type">SPONSOR</div><div id='email'>sponsor@spartahack.com</div></div>   
       <h1 id="mail">MAILING LIST SIGNUP</h1>
-      <div class="inner">
-        <%= text_field_tag 'fname', nil, placeholder: 'FIRST NAME', :required => true%>
-        <%= text_field_tag 'lname', nil, placeholder: 'LAST NAME', :required => true%>                
+      <div id="outer">
+        
+        <div class="inner">
+          <%= label_tag 'fname', 'First Name', class: 'no-label' %>
+          <%= text_field_tag 'fname', nil, placeholder: 'FIRST NAME', :required => true%>
+          <%= label_tag 'lname', 'Last Name', class: 'no-label' %>
+          <%= text_field_tag 'lname', nil, placeholder: 'LAST NAME', :required => true%>                
+        </div>
+
+        <%= label_tag 'emailinput', 'Email', class: 'no-label' %>
+        <%= email_field_tag 'emailinput', nil, placeholder: 'YOUR EMAIL', :required => true%>
+      
+        <div class="hvr-sweep-to-right" id="submit-wrap">
+          <%= submit_tag "SIGN UP  >", id: "send-message"%>
+        </div>
+
+
+
       </div>
-
-      <%= email_field_tag 'emailinput', nil, placeholder: 'YOUR EMAIL', :required => true, :class => "tail"%>
-    
-      <!--<= text_area_tag 'message', nil, placeholder: 'YOUR MESSAGE (OPTIONAL)'%>
-      <div id="note">* Omit message for mailing list.</div>-->
-
     </div>
 
-    <div class="hvr-sweep-to-right">
-      <%= submit_tag "SIGN UP  >", id: "send-message"%>
-    </div>
+
     
   <% end %>
 </section>
