@@ -61,8 +61,10 @@
     display: flex;
     display: -webkit-flex;
     justify-content: space-between;
+    padding-bottom: 25px;
     -webkit-justify-content: space-between;
     @media (max-width: 550px) {
+      padding-bottom: 0px;
       flex-direction: column;
       -webkit-flex-direction: column;
     }
@@ -83,7 +85,7 @@
   #password, #password_confirmation {
     height: 36px;
     @media (min-width: 550px) {
-      width: 230px;
+      width: 225px;
       margin-bottom: 0px;
     }
   }
@@ -92,7 +94,6 @@
     height: 36px;
     margin: 0px;
     @media (min-width: 550px) {
-      margin-bottom: 15px;
       width: 503px;
     }
   }
@@ -105,6 +106,9 @@
 
   #password_confirmation {
     margin: 0px;
+    @media (max-width: 550px) {
+      margin: 0px 0px 15px 0px;
+    }
   }
 
   input:focus {
@@ -123,7 +127,7 @@
   input[type=submit] {
     background: none;
     border-style: none;
-    text-align: center;
+    text-align: right;
     border: solid 1px $mutedOutline;
     color: $cream;
     font-weight: 100;
@@ -131,7 +135,6 @@
     border-radius: 0;
     height: 60px;
     width: 100%;
-    margin-top: 25px;
     cursor: pointer; 
     cursor: hand;
     -webkit-appearance: none;
