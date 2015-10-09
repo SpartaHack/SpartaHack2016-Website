@@ -2,6 +2,8 @@
 @import 'components/fonts';
 
 #hero {
+  min-height: 100vh;
+  border-bottom: solid 1px $mutedCream;
   @media (max-width: 550px) {
 
     .section-head {
@@ -28,7 +30,7 @@
 
   #title-desc, #title-hashtag {
     font-size: 110%;
-    color: $mutedCream;
+    color: $mutedText;
     margin: 10px 0px;
     @media (max-width: 550px) {
       font-size: 75%;
