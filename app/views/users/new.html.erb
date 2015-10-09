@@ -100,8 +100,9 @@
                     <%= label_tag 'password_confirmation', 'Confirm Password', class: 'no-label' %>
                     <%= password_field_tag 'password_confirmation', nil, placeholder: "CONFIRM PASSWORD"%>                    
                   </div>
-
-                  <%= submit_tag "NEXT", id: "continue" %>
+                  <div class="hvr-sweep-to-right">
+                    <%= submit_tag "NEXT", id: "continue" %>
+                  </div>
                 <% end %>
               </div>
             </div>            
@@ -112,6 +113,8 @@
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
+        <%= javascript_include_tag "users" %>
+
   
     </body>
 </html>              
