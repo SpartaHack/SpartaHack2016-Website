@@ -81,6 +81,11 @@
   a {
     color: $faqText;
     text-decoration: underline;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+
     &:visited {
       color: $faqText;
     }
@@ -157,5 +162,35 @@
     @media (max-width: 550px) {
       margin-bottom: 25px;
     }
+  }
+
+  #last-year {
+    width: 325px;
+    margin: 3vh 0;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    -webkit-justify-content: center;
+
+    a {
+      font-size: 120%;
+    }
+
+    a:hover {
+      -webkit-transition: all .5s ease-in-out;
+      -moz-transition: all .5s ease-in-out;
+      -o-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+      opacity: .4;
+    }
+
+    @media (max-width: 550px) {
+      flex-direction: column;
+      -webkit-flex-direction: column;
+
+      a {
+        padding: 5px 0px;
+      }
+    }    
   }
 }
