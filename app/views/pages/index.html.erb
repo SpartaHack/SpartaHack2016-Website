@@ -13,7 +13,6 @@
         <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
 
         <%= favicon_link_tag 'favicon.png' %>
-        <%= stylesheet_link_tag "font-awesome.min" %>
 
         <%= stylesheet_link_tag "site" %>
         
@@ -37,19 +36,16 @@
       
        </div>
 
+      <footer class="footer">
+        <div class="wrap">
+          <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by SpartaHack
+          &copy;<script>new Date().getFullYear()>document.write(new Date().getFullYear());</script>, Spartan Hackers&nbsp;&nbsp;
+          <a href="https://www.facebook.com/spartahackmsu"><i class="fa fa-facebook-square"></i></a>
+          <a href="https://twitter.com/spartahack"><i class="fa fa-twitter"></i></a>
+          <a href="https://github.com/SpartaHack"><i class="fa fa-github"></i></a>
+        </div>
+      </footer>
 
-        <!-- <= render partial: "pages/index_end" %> -->
-        <!--End mc_embed_apply-->
-
-<!--         <footer class="footer">
-          <div class="wrap">
-            <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> by SpartaHack
-            &copy;<script>new Date().getFullYear()>document.write(new Date().getFullYear());</script>, Spartan Hackers&nbsp;&nbsp;
-            <a href="https://www.facebook.com/spartahackmsu"><i class="fa fa-facebook-square"></i></a>
-            <a href="https://twitter.com/spartahack"><i class="fa fa-twitter"></i></a>
-            <a href="https://github.com/SpartaHack"><i class="fa fa-github"></i></a>
-          </div>
-        </footer> -->
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
