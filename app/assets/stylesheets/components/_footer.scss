@@ -8,13 +8,16 @@
   font-weight: 100;
   -webkit-appearance: none;
   -webkit-font-smoothing: antialiased;
-  background-color: transparent;
+  background-color: $mainBackground;
   color: $cream;
   font-size: .9em;
+  z-index: 999999;
 
-  .fa-heart, .fa-code {
-    color: $belizeHole;
+  .fa-code, .fa-heart, .fa-facebook-square, 
+  .fa-twitter, .fa-github {
+    color: $mutedText;
   }
+
 
   a {
     color: $cream;
@@ -26,3 +29,9 @@
     }
   }
 }
+
+  .rails {
+    height: 20px;
+    width: auto;
+    margin-bottom: -5px;
+  }
