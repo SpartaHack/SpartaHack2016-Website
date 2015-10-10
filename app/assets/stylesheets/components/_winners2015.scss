@@ -1,0 +1,140 @@
+@import 'components/colorScheme';
+@import 'components/fonts';
+
+#projects {
+  position: relative;
+  padding: 10vh .5em;
+  overflow: hidden;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center; 
+  color: $faqText;
+  position: relative;
+  font-family: ubuntu;
+
+  img {
+    max-width: 100%;
+    max-height: 195px;
+  }
+
+  & > section {
+    margin-bottom: 3em;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 350%;
+    font-family: PhantLight;
+    text-transform: lowercase;
+    padding: 0;
+    margin-bottom: 1em;
+    //color: $sponsorText;
+    color: #80ffdb;
+    font-weight: bold;
+
+    @media (min-width: 550px){
+      font-size: 500%;
+    }
+  }
+
+  .section-head {
+    margin: 2em 0px 50px 0px;
+    padding: 0px;
+    width: 100%;
+    min-width: 200px;
+    font-size: 220%;
+    font-family: MoonDance;
+    font-weight: 100;
+    text-align: center;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    @media (max-width: 560px) {
+      margin: 50px 0px 25px 0px;
+      font-size: 180%;
+    }
+  }
+
+
+  .wrap {
+    width: 960px;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @media (max-width: 1000px){
+      width: 100%;
+    }   
+  }  
+
+  .column {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    article {
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+      width: 30%;
+      font-family: ubuntu;
+      font-weight: 100;
+      -webkit-appearance: none;
+      -webkit-font-smoothing: antialiased;
+      @media (min-width: 550px) {
+        margin: 3vh 0;
+      }
+
+      @media (max-width: 550px) {
+        width: 100%;
+        align-items: center;
+
+        .a-hline {
+          border-top: solid 1px $mutedCream;
+          background: none;
+          width: 30%;
+        }
+
+      } 
+
+    }
+
+    @media (max-width: 1000px) {
+      width: 87%;
+    }
+
+    @media (max-width: 550px) {
+      flex-direction: column;
+      width: 100%
+    }    
+
+  }
+
+  a {
+    color: $faqText;
+    text-decoration: underline;
+    &:visited {
+      color: $faqText;
+    }
+  }
+  
+  .hline {
+    border-top: solid 1px $mutedCream;
+    background: none;
+    width: 70%;
+
+    @media (max-width: 550px) {
+      width: 40%;
+    }
+  }
+
+  .hline-full {
+    border-top: solid 1px $mutedCream;
+    background: none;
+    position: absolute;
+    left:0;
+    width: 100%;
+  }
+
+}

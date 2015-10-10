@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>SpartaHack</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width" />
+
+        <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
+
+        <%= favicon_link_tag 'favicon.png' %>
+        <%= stylesheet_link_tag "font-awesome.min" %>
+
+        <%= stylesheet_link_tag "site" %>
+        
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="header" class="header">
+            <div class="navbar-nav left">
+                <div id="home-nav" class="svg-wrapper active">
+                  <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+                    <rect class="shape home" height="60" width="85" />
+                    <div class="text"><a href="/" class="anchorLink">2016</a></div>
+                  </svg>
+                </div>
+            </div>
+
+            <nav>
+                <ul class="mobile">
+                    <li><a href="/" class="anchorLink">Home</a></li>
+                </ul>
+                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+            </nav>
+        </div>
+        <section class="wrap-main">
+            <section id="projects">
+                <div class="wrap">
+                    <h1 class="section-head">Winners 2015</h1>
+                    <div class="column">
+                        <article>
+                            <a href="http://devpost.com/software/drivethruplus">
+                                <img src="http://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/000/236/793/datas/gallery.jpg">
+                            </a>
+                            <h2>
+                                <span>DriveThru Plus</span>
+                            </h2>
+                            The DriveThru Plus, reinvented
+                            <div class="a-hline"></div>
+                        </article>
+
+                        <article>
+                            <a href="http://devpost.com/software/myoluminati">
+                                <img src="https://firefly-challengepost.netdna-ssl.com/usercontent/fill/333/222/cGhvdG9zL3Byb2R1Y3Rpb24vc29mdHdhcmVfdGh1bWJuYWlsX3Bob3Rvcy8wMDAvMjMzLzIwMi9kYXRhcy9vcmlnaW5hbC5qcGc=/FullSizeRender.jpg?signature=1b54f63b153c4cb44f910f19e99d724832c087e3">
+                            </a>
+                            <h2>
+                                <span>MyoLuminati</span>
+                            </h2>
+                            Full-body enlightenment through Myo and Intel Edison
+                            <div class="a-hline"></div>
+                        </article>
+
+                        <article>
+                            <a href="http://devpost.com/software/pokemon-rift">
+                                <img src="https://firefly-challengepost.netdna-ssl.com/usercontent/fill/333/222/cGhvdG9zL3Byb2R1Y3Rpb24vc29mdHdhcmVfdGh1bWJuYWlsX3Bob3Rvcy8wMDAvMjMzLzI1OC9kYXRhcy9vcmlnaW5hbC5wbmc=/Screenshot_2015-03-29_05.32.42.png?signature=edf7f2ff042a373037120625f63669d69d834caf">
+                            </a>
+                            <h2>
+                                <span>Pokemon Rift</span>
+                            </h2>
+                            <p>A 3D Pokemon battle game for the Oculus Rift, Myo, and Leap Motion</p>
+                            <div class="a-hline"></div>
+                        </article>
+                </div>
+
+                <div class="column">
+                    <article>
+                        <a href="http://devpost.com/software/project-vitality-i06li">
+                            <img src="https://firefly-challengepost.netdna-ssl.com/usercontent/fill/333/222/cGhvdG9zL3Byb2R1Y3Rpb24vc29mdHdhcmVfdGh1bWJuYWlsX3Bob3Rvcy8wMDAvMjMzLzE3MS9kYXRhcy9vcmlnaW5hbC5KUEc=/IMG_2067.JPG?signature=f4d89faa128ac0a3f44fbd2b6d5ebf3ec934b2aa">
+                        </a>
+                        <h2>
+                            <span>Project Vitality</span>
+                        </h2>
+                        <p>A hardware and software based solution for Android to increase the longevity of your device's battery over time</p>
+                        <div class="a-hline"></div>
+                    </article>
+
+                    <article>
+                        <a href="http://devpost.com/software/datlas-ogvqt">
+                            <img src="https://firefly-challengepost.netdna-ssl.com/usercontent/fill/333/222/cGhvdG9zL3Byb2R1Y3Rpb24vc29mdHdhcmVfdGh1bWJuYWlsX3Bob3Rvcy8wMDAvMjMzLzEzNC9kYXRhcy9vcmlnaW5hbC5wbmc=/open_book.png?signature=9bd213752c2d4ba447531bf035df681e46847e6b">
+                        </a>
+                        <h2>
+                            <span>Datlas</span>
+                        </h2>
+                        <p>The solution to expand your coding horizons with a single click</p>
+                        <div class="a-hline"></div>
+                    </article>
+
+                    <article>
+                        <a href="http://devpost.com/software/matterhorn">
+                            <img src="https://firefly-challengepost.netdna-ssl.com/usercontent/fill/333/222/cGhvdG9zL3Byb2R1Y3Rpb24vc29mdHdhcmVfdGh1bWJuYWlsX3Bob3Rvcy8wMDAvMjMzLzI1MC9kYXRhcy9vcmlnaW5hbC5wbmc=/logo.fw.png?signature=f652cb70b59c90a01476d279ef1e3aa236cb50fc">
+                        </a>
+                        <h2>
+                            <span>Phazor</span>
+                        </h2>
+                        <p>A Gravity-Defying Physics Puzzler</p>
+                        <div class="a-hline"></div>
+                    </article>
+
+                </div>
+                <p id="intro">
+                    View the full list of submitted hacks at the official <a href="http://spartahack.devpost.com/submissions">SpartaHack devpost page</a>.
+                </p>
+
+            </section>
+        </section>
+        <%= javascript_include_tag "jquery-1.11.3.min" %>
+        <%= javascript_include_tag "index.js" %>
+    </body>
+</html>
