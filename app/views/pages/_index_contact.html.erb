@@ -1,7 +1,7 @@
 <section id="contact">
   <%= form_tag("/subscribe", method: "post", id: "send_contact") do %>
     <div class="wrap column">  
-      <h2 class="section-head tail">CONTACT</h2> 
+      <h2 class="section-head">CONTACT</h2> 
       <div class="email-us top"><div class="email-type">EMAIL</div><div class='email'>hello@spartahack.com</div></div>
       <div class="email-us tail"><div class="email-type">SPONSOR</div><div class='email'>sponsor@spartahack.com</div></div> 
       
@@ -18,10 +18,10 @@
       <%= label_tag 'message', 'Your Message', class: 'no-label' %>
       <%= text_area_tag 'message', nil, placeholder: 'YOUR MESSAGE', :required => true%>
 
-    </div>
+      <div class="hvr-sweep-to-right inner" id="submit-wrap">
+        <%= submit_tag "SEND MESSAGE  >", id: "send-message"%>
+      </div>
 
-    <div class="hvr-sweep-to-right">
-      <%= submit_tag "SEND MESSAGE  >", id: "send-message"%>
     </div>
     
   <% end %>
