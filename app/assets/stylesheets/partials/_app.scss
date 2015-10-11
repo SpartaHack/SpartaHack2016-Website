@@ -1,3 +1,6 @@
+@import 'partials/colorScheme';
+@import 'partials/fonts';
+
 #app{
   background-color: transparent;
   @media (max-width: 550px) {
