@@ -1,23 +1,29 @@
 <!DOCTYPE html>
+<html lang="en-us">
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+<!--[if gt IE 8]>      <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="SpartaHack 2016" />
+        <meta property="og:site_name" content="SpartaHack" />
+        <meta property="og:url" content="https://www.spartahack.com" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the page that notifies you that you've registered for our mailing list." />
+        <meta property="og:image" content="<%=image_url("facebook.png")%>" />
+
+
+
+
         <title>SpartaHack</title>
-        <meta name="description" content="">
-        <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
 
         <%= favicon_link_tag 'favicon.png' %>
-        <%= stylesheet_link_tag "font-awesome.min" %>
-
         <%= stylesheet_link_tag "site" %>
-        
-        
-        
 
     </head>
     <body>

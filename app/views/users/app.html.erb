@@ -4,23 +4,24 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>SpartaHack</title>
-    <meta name="description" content="">
-    <!-- <meta property="og:image" content="static/img/logo-supertech.png" /> -->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <%= favicon_link_tag 'favicon.png' %>
-    <!--<= stylesheet_link_tag "font-awesome.min" %>-->
-    <%= stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" %>
-    <!--= stylesheet_link_tag "//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" %>-->
-    <%= stylesheet_link_tag "select2-modified" %>
-    <%= stylesheet_link_tag "users" %>
-      
-      
-      
+        <!-- Open Graph -->
+        <meta property="og:title" content="SpartaHack 2016" />
+        <meta property="og:site_name" content="SpartaHack" />
+        <meta property="og:url" content="https://www.spartahack.com" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the application to be considered for admittance. " />
+        <meta property="og:image" content="<%=image_url("facebook.png")%>" />
+
+        <title>SpartaHack</title>
+
+        <%= favicon_link_tag 'favicon.png' %>
+        <%= stylesheet_link_tag "select2-modified" %>
+        <%= stylesheet_link_tag "users" %>
 
   </head>
   <body>
@@ -104,11 +105,11 @@
             </div>
 
             <div class="add-margin">
-            <!-- render partial: "users/app_hackathon" %> -->
+            <%= render partial: "users/app_hackathon" %>
             </div>
 
             <div class="add-margin">
-              <!-- render partial: "users/app_university" %> -->
+              <%= render partial: "users/app_university" %>
             </div>
 
             <div class="add-margin">
