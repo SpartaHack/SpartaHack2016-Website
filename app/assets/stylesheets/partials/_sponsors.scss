@@ -1,33 +1,24 @@
 @import 'partials/colorScheme';
-@import 'partials/fonts';
+@import 'partials/fonts';   
 
 #sponsors {
-  //background: #AEDCC9;
-  background: $belizeHole;
+  padding: .1em;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  text-align: center; 
+  color: $faqText;
   position: relative;
-  padding: 10vh .5em;
-  overflow: hidden;
 
   & > section {
     margin-bottom: 3em;
   }
 
-  h1 {
-    text-align: center;
-    font-size: 350%;
-    font-family: PhantLight;
-    text-transform: lowercase;
-    padding: 0;
-    margin-bottom: 1em;
-    //color: $sponsorText;
-    color: #433830;
-    text-decoration: underline;
-    font-weight: bold;
-
-    @media (min-width: 550px){
-      font-size: 500%;
-    }
-  }
 
   article {
     position: relative;
@@ -35,58 +26,28 @@
 
   .media-grid {
     align-items: flex-end;
-    -webkit-align-items: flex-end;
     justify-content: center;
-    -webkit-justify-content: center;
   }
 }
 
-.ship {
-  width: 100%;
-  margin-top: -23%;
-}
-
-.sponsor-logo {
+.logo-sponsor {
   display: block;
   width: 65%;
   margin: auto;
 }
 
-.waves {
-  position: absolute;
-  left: 0;
-  bottom: 5%;
-  width: 100%;
-}
-
 .gold {
 
-  .waves {
-    position: absolute;
-    left: 0;
-    bottom: 7%;
-    width: 100%;
-  }
+
 }
 
 .sub {
 
-  .ship {
-    width: 74%;
-    margin-left: 13%;
-    margin-right: 13%;
-    margin-bottom: .55em;
-  }
-
-  .waves {
-    width: 74%;
-    margin-left: 13%;
-    margin-right: 13%;
-  }
-
-  .sponsor-logo {
-    width: 45%;
+  .logo-sponsor {
+    width: 125px;
     margin-bottom: 1.25em;
+    margin-left: 40px;
+    margin-right: 40px;
   }
 
   
@@ -94,25 +55,11 @@
 
 .bronze {
 
-  .ship {
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-bottom: .5em;
-  }
-
-  .waves {
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
-  }
-
-  .sponsor-logo {
+  .logo-sponsor {
     width: 55%;
     margin-bottom: .5em;
   }
 
   
 }
-
 
