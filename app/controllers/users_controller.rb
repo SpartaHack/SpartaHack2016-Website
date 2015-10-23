@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 				  :username => user_apply_params['email'],
 				  :email => user_apply_params['email'],
 				  :password => user_apply_params['password'],
+          :role => "attendee"
 				})
 				response = apply.save
 				cookies.signed[:spartaUser] = { value: response["objectId"], expires: (Time.now.getgm + 86400) }
@@ -50,7 +51,11 @@ class UsersController < ApplicationController
   	begin
 			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
       cookies.signed[:spartaUser] = { value: login["objectId"], expires: (Time.now.getgm + 86400) }
-			redirect_to '/app'	
+      if login["role"] == "admin"
+			  redirect_to '/admin'
+      else
+        redirect_to '/app'
+      end
 		rescue Parse::ParseProtocolError => e
 			if e.to_s.split(":").first == '101'
 		  	flash[:error] = "Password is incorrect"
