@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   root :to => 'pages#index', :as => :index
   post 'subscribe' => 'pages#subscribe'
   get 'winners2015' => 'pages#winners2015'
+  
+  get 'admin' => 'admin#admin'
+  post 'addsponsor' => 'admin#addsponsor'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
