@@ -12,13 +12,13 @@ class PagesController < ApplicationController
     companies = Parse::Query.new("Company").get
 
     companies.each do |c|
-      if c["level"] = "partner"
+      if c["level"] == "partner"
         @partner.push([c["url"], c["img"].url, c["name"]])
-      elsif c["level"] = "trainee"
+      elsif c["level"] == "trainee"
         @trainee.push([c["url"], c["img"].url, c["name"]])
-      elsif c["level"] = "warrior"
+      elsif c["level"] == "warrior"
         @warrior.push([c["url"], c["img"].url, c["name"]])
-      elsif c["level"] = "commander"
+      elsif c["level"] == "commander"
         @commander.push([c["url"], c["img"].url, c["name"]])    
       end
     end
