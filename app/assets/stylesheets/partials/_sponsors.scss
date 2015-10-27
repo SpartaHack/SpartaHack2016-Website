@@ -2,64 +2,108 @@
 @import 'partials/fonts';   
 
 #sponsors {
-  padding: .1em;
   width: 100%;
   background-color: transparent;
   display: flex;
   display: -webkit-flex;
   align-items: center;
   -webkit-align-items: center;
+  justify-content: center; 
+  -webkit-justify-content: center;
   flex-direction: column;
   -webkit-flex-direction: column;
   text-align: center; 
   color: $faqText;
   position: relative;
 
-  & > section {
+  section {
     margin-bottom: 3em;
+
   }
 
-
-  article {
-    position: relative;
+  #sponsor-wrap {
+    width: 70%;
+    @media (max-width: 550px) {
+      width: 100%;
+    }
   }
 
   .media-grid {
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
+    @media (max-width: 550px) {
+      flex-direction: column;
+    }
   }
+}
+
+.center {
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  align-content: center;
 }
 
 .logo-sponsor {
   display: block;
-  width: 65%;
   margin: auto;
-}
-
-.gold {
-
-
 }
 
 .sub {
 
   .logo-sponsor {
-    width: 125px;
-    margin-bottom: 1.25em;
-    margin-left: 40px;
-    margin-right: 40px;
+    width: 130px;
+    margin-bottom: 0px;
+    margin-left: 25px;
+    margin-right: 25px;
   }
 
   
 }
 
 .bronze {
-
   .logo-sponsor {
-    width: 55%;
-    margin-bottom: .5em;
+    width: 170px;
+    max-height: 62px;
+    margin: 0px 25px 25px 25px;
   }
 
   
 }
+
+.silver {
+  .logo-sponsor {
+    width: 250px;
+    max-height: 91px;
+    margin: 0px 25px 25px 25px;
+  }
+
+  
+}
+
+.gold {
+  .logo-sponsor {
+    max-height: 145px;
+    width: 400px;
+    margin: 0px 25px 25px 25px;
+
+    @media (max-width: 550px) {
+      max-width: 325px;
+      margin: 0px 0px 25px 0px;
+    }
+  }
+
+  
+}
+
+#partner-head {
+  font-size: 220%;
+  font-family: MoonDance;
+  font-weight: 100;
+  text-align: center;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: 50px;
+}
+
 
