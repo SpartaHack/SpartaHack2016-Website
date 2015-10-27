@@ -77,6 +77,10 @@ class UsersController < ApplicationController
             "objectId"  => cookies.signed[:spartaUser]
           }))
         end.get.first
+        print @application["major"]
+        print "\n"
+        @application["major"] = @application["major"].to_a
+        print @application["major"]
         render layout: false
       rescue Parse::ParseProtocolError => e
         flash[:error] = e.message
@@ -129,8 +133,8 @@ class UsersController < ApplicationController
 
     def user_app_params
       params.permit(:firstName, :lastName, :gender, :birthday, :birthmonth, :birthyear, 
-                                  :university, :otherUniversity, :major, :gradeLevel, 
-                                  :whyAttend, :hackathons, :github, :linkedIn, 
+                                  :university, :otherUniversity, {:major => []}, :gradeLevel, 
+                                  :whyAttend, {:hackathons => []}, :github, :linkedIn, 
                                   :website, :devPost, :coolLink)     
     end
 
