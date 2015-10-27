@@ -86,23 +86,36 @@
           <%= form_tag("/save", method: "post", id: "save_app", class: "save_app") do %>
             <div class="inner">
               <%= label_tag(:firstName, "First Name", class: 'no-label') %>
-              <%= text_field_tag 'firstName', "#{@application[0]['firstName'] if @application[0]}", placeholder: 'First Name' %>
+              <%= text_field_tag 'firstName', "#{@application['firstName'] if @application}", placeholder: 'First Name' %>
               <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
-              <%= text_field_tag 'lastName', "#{@application[0]['lastName'] if @application[0]}", placeholder: 'Last Name'  %>
+              <%= text_field_tag 'lastName', "#{@application['lastName'] if @application}", placeholder: 'Last Name'  %>
             </div>
 
-            <div class="inner add-margin">
+            <div class="add-margin">
               <select id="gender" name="gender" style="display=none;">
-                 <option></option>
-                 <option value="male">Male</option>
-                 <option value="female">Female</option>
-                 <option value="non-binary">Non-binary</option>
-                 <option value="prefer-not">Prefer not to say</option>
+                <option></option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="non-binary">Non-binary</option>
+                <option value="prefer-not">Prefer not to say</option>
               </select>
-              <%= label_tag(:dob, "Date of Birth (eg: 08/11/1993)", class: 'no-label') %>
-              <input id="dob" name="dob" type="date" min="1950-01-01" max="2002-12-31" placeholder='Date of Birth (eg: 08/11/1993)' 
-              value=<%= "#{@application[0] ? @application[0]['dob'] : nil}"%> />
             </div>
+
+            <div class="add-margin" id="birthdate-wrap">
+              <select id="birthday" name="birthday">
+                <option></option>
+                <%= options_for_select((1..31).to_a)%>
+              </select>
+              <select id="birthmonth" name="birthmonth">
+                <option></option>
+                <%= options_for_select(Date::MONTHNAMES[1..12]) %>
+              </select>
+              <select id="birthyear" name="birthyear">
+                <option></option>
+                <%= options_for_select((1950..2000).to_a.reverse) %>
+              </select>
+            </div>
+
 
             <div class="add-margin">
             <%= render partial: "users/app_hackathon" %>
@@ -114,7 +127,7 @@
 
             <div class="add-margin">
               <%= label_tag(:otherUniversity, "School not listed above? Enter it here.", class: 'no-label') %>
-              <%= text_field_tag 'otherUniversity', "#{@application[0]['otherUniversity'] if @application[0]}", placeholder: 'School not listed above? Enter it here.' %>
+              <%= text_field_tag 'otherUniversity', "#{@application['otherUniversity'] if @application}", placeholder: 'School not listed above? Enter it here.' %>
             </div>            
             <div class="add-margin">
               <%= render partial: "users/app_major" %>
@@ -135,37 +148,32 @@
 
             <div class="add-margin">
               <%= label_tag(:whyAttend, "Why do you want to attend SpartaHack 2016?", class: 'no-label') %>
-              <%= text_area_tag 'whyAttend', "#{@application[0]['whyAttend'] if @application[0]}", placeholder: 'Why do you want to attend SpartaHack 2016?' %>
+              <%= text_area_tag 'whyAttend', "#{@application['whyAttend'] if @application}", placeholder: 'Why do you want to attend SpartaHack 2016?' %>
             </div>
 
             <div class="under-textarea">
-              <%= label_tag(:github, "http://www.github.com/What is your GitHub?", class: 'no-label') %>
-              <%= text_field_tag 'github', "#{@application[0]['github'] if @application[0]}", placeholder: 'http://www.github.com/WHat is your GitHub?' %>
+              <%= label_tag(:github, "What is your GitHub handle?", class: 'no-label') %>
+              <%= text_field_tag 'github', "#{@application['github'] if @application}", placeholder: 'What is your GitHub handle?' %>
             </div>
 
             <div class="add-margin">
-              <%= label_tag(:linkedIn, "https://www.linkedin.com/in/What about your LinkedIn?", class: 'no-label') %>
-              <%= text_field_tag 'linkedIn', "#{@application[0]['linkedIn'] if @application[0]}", placeholder: 'https://www.linkedin.com/in/What about your LinkedIn?' %>
+              <%= label_tag(:linkedIn, "What about your LinkedIn handle?", class: 'no-label') %>
+              <%= text_field_tag 'linkedIn', "#{@application['linkedIn'] if @application}", placeholder: 'What about your LinkedIn handle?' %>
             </div>
 
             <div class="add-margin">
-              <%= label_tag(:devPost, "http://www.devpost.com/your DevPost?", class: 'no-label') %>
-              <%= text_field_tag 'devPost', "#{@application[0]['devPost'] if @application[0]}", placeholder: 'http://www.devpost.com/your DevPost?' %>
+              <%= label_tag(:devPost, "And your DevPost handle?", class: 'no-label') %>
+              <%= text_field_tag 'devPost', "#{@application['devPost'] if @application}", placeholder: 'And your DevPost handle?' %>
             </div>
 
             <div class="add-margin">
-              <%= label_tag(:website, "http://www.your personal website?", class: 'no-label') %>
-              <%= text_field_tag 'website', "#{@application[0]['website'] if @application[0]}", placeholder: 'http://www.your personal website?' %>
+              <%= label_tag(:website, "What is your personal website?", class: 'no-label') %>
+              <%= text_field_tag 'website', "#{@application['website'] if @application}", placeholder: 'What is your personal website?' %>
             </div>
 
             <div class="add-margin">
               <%= label_tag(:coolLink, "A cool link you\'d like to share?", class: 'no-label') %>
-              <%= text_field_tag 'coolLink', "#{@application[0]['coolLink'] if @application[0]}", placeholder: 'A cool link you\'d like to share?' %>
-            </div>
-
-            <div class="add-margin">
-              <%= label_tag(:aboutMe, "Anything interesting about yourself you\'d like to tell us? You could talk about your favorite project, clubs, past time, etc., or whatever you really want.", class: 'no-label') %>
-              <%= text_area_tag 'aboutMe', "#{@application[0]['aboutMe'] if @application[0]}", placeholder: 'Anything interesting about yourself you\'d like to tell us? You could talk about your favorite project, clubs, past time, etc., or whatever you really want.' %>
+              <%= text_field_tag 'coolLink', "#{@application['coolLink'] if @application}", placeholder: 'A cool link you\'d like to share?' %>
             </div>
 
             <div class="hvr-sweep-to-right" id="save-app">
@@ -189,10 +197,13 @@
   </body>
 
   <%= javascript_tag do %>
-    $("#university").val("<%= @application[0]['university'] if @application[0] %>").trigger("change")
-    $("#major").val("<%= @application[0]['major'] if @application[0] %>").trigger("change")
-    $("#gradeLevel").val("<%= @application[0]['gradeLevel'] if @application[0] %>").trigger("change")
-    $("#gender").val("<%= @application[0]['gender'] if @application[0] %>").trigger("change")
-    $("#hackathons").val("<%= @application[0]['hackathons'] if @application[0] %>").trigger("change")
+    $("#university").val("<%= @application['university'] if @application %>").trigger("change")
+    $("#major").val("<%= @application['major'] if @application %>").trigger("change")
+    $("#birthday").val("<%= @application['birthday'] if @application %>").trigger("change")
+    $("#birthmonth").val("<%= @application['birthmonth'] if @application %>").trigger("change")
+    $("#birthyear").val("<%= @application['birthyear'] if @application %>").trigger("change")
+    $("#gradeLevel").val("<%= @application['gradeLevel'] if @application %>").trigger("change")
+    $("#gender").val("<%= @application['gender'] if @application %>").trigger("change")
+    $("#hackathons").val("<%= @application['hackathons'] if @application %>").trigger("change")
   <% end %>   
 </html>
