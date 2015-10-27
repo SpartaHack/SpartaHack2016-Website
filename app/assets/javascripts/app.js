@@ -69,11 +69,6 @@ $(document).ready(function() {
 		}
 	})
 
-	$("#application").on("click", function(e){
-		e.preventDefault();
-		console.log($('#major').val())
-	})
-
 })
 
 $(window).resize(function() {
