@@ -1,4 +1,4 @@
-$(document).ready(function() {	
+function createSelects() {
 	$('#university').select2({
 	  placeholder: "What university do you attend?", 
 	  allowClear: true
@@ -6,6 +6,18 @@ $(document).ready(function() {
 	$('#gender').select2({
 	  placeholder: "Gender", 
 	  allowClear: true,
+	});
+	$('#birthmonth').select2({
+	  placeholder: "Birth Month", 
+	  allowClear: true
+	});
+	$('#birthday').select2({
+	  placeholder: "Birth Day", 
+	  allowClear: true
+	});
+	$('#birthyear').select2({
+	  placeholder: "Birth Year", 
+	  allowClear: true
 	});
 	$('#major').select2({
 	  placeholder: "Field of study", 
@@ -17,8 +29,12 @@ $(document).ready(function() {
 	});
 	$('#hackathons').select2({
 	  placeholder: "What other MLH hackathons have you attended?", 
-	  allowClear: true
+	  multiple:true
 	});
+}
+
+$(document).ready(function() {	
+	createSelects();
 
 	$('b[role="presentation"]').hide();
 	$('.select2-selection__arrow').append('<i class="fa fa-angle-down"></i>');	
@@ -53,8 +69,16 @@ $(document).ready(function() {
 		}
 	})
 
+	$("#application").on("click", function(e){
+		e.preventDefault();
+		console.log($('#major').val())
+	})
+
 })
 
+$(window).resize(function() {
+	createSelects();
+})
 
 if ($(window).width() < 550) {
   $("#header").headroom({
