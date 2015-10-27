@@ -152,7 +152,7 @@
       margin-bottom: 7.5px;
     }     
   }
-  
+
   #birthday, #birthmonth, #birthyear{
     width: 100%;
     @media (min-width: 550px) {
@@ -186,6 +186,29 @@
       width: 503px;
       margin-bottom: 0px;
     } 
+  }
+
+  .has-icon {
+    position: relative;
+  }
+
+  .icon {
+    position: absolute;
+    height: 36px;
+    top: 0px;
+    right: 8px;
+    bottom: 0px;
+    margin: auto;
+    @media (max-width: 550px) {
+      margin-top: 8px;
+    } 
+
+  }
+
+  .icon path {
+    fill: $mutedOutline;
+    stroke: $mutedOutline;
+
   }
 
   .add-margin {
