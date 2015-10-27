@@ -1,5 +1,4 @@
-//jQuery("#title-text").fitText(1);
-//jQuery(".responsive-text").fitText(1);
+console.log("Ha you're funny, looking under the hood")
 
 if (navigator.appVersion.indexOf("Win")!=-1) {
   $('#hero').find('a').addClass( "windowsCenter" );
@@ -19,6 +18,7 @@ var desktop_menu = [
   {"scroll_to": "#home-nav", "elem": $("#hero")},
   {"scroll_to": "#faq-nav", "elem": $("#faq")},
   {"scroll_to": "#contact-nav", "elem": $("#contact")},
+  {"scroll_to": "#sponsor-nav", "elem": $("#sponsors")},
 ];
 
 var current = "#home-nav";
