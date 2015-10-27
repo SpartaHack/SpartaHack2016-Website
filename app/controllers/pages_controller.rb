@@ -40,4 +40,5 @@ class PagesController < ApplicationController
   def subscribe_params
     params.permit(:emailinput, :fname, :lname)
   end
+  
 end
