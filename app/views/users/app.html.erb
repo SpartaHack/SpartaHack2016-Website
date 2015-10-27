@@ -151,27 +151,32 @@
               <%= text_area_tag 'whyAttend', "#{@application['whyAttend'] if @application}", placeholder: 'Why do you want to attend SpartaHack 2016?' %>
             </div>
 
-            <div class="under-textarea">
+            <div class="under-textarea has-icon">
+              <%= image_tag "github.svg", alt: "Github Icon", :class => "icon" %>
               <%= label_tag(:github, "What is your GitHub handle?", class: 'no-label') %>
               <%= text_field_tag 'github', "#{@application['github'] if @application}", placeholder: 'What is your GitHub handle?' %>
             </div>
 
-            <div class="add-margin">
+            <div class="add-margin has-icon">
+              <%= image_tag "linkedin.svg", alt: "LinkedIn Icon", :class => "icon" %>
               <%= label_tag(:linkedIn, "What about your LinkedIn handle?", class: 'no-label') %>
               <%= text_field_tag 'linkedIn', "#{@application['linkedIn'] if @application}", placeholder: 'What about your LinkedIn handle?' %>
             </div>
 
-            <div class="add-margin">
+            <div class="add-margin has-icon">
+              <%= image_tag "devpost.svg", alt: "DevPost Icon", :class => "icon" %>
               <%= label_tag(:devPost, "And your DevPost handle?", class: 'no-label') %>
               <%= text_field_tag 'devPost', "#{@application['devPost'] if @application}", placeholder: 'And your DevPost handle?' %>
             </div>
 
-            <div class="add-margin">
+            <div class="add-margin has-icon">
+              <%= image_tag "website.svg", alt: "Personal Website Icon", :class => "icon" %>
               <%= label_tag(:website, "What is your personal website?", class: 'no-label') %>
               <%= text_field_tag 'website', "#{@application['website'] if @application}", placeholder: 'What is your personal website?' %>
             </div>
 
-            <div class="add-margin">
+            <div class="add-margin has-icon">
+              <%= image_tag "coollink.svg", alt: "Cool Link Icon", :class => "icon" %>
               <%= label_tag(:coolLink, "A cool link you\'d like to share?", class: 'no-label') %>
               <%= text_field_tag 'coolLink', "#{@application['coolLink'] if @application}", placeholder: 'A cool link you\'d like to share?' %>
             </div>
