@@ -76,7 +76,7 @@ class UsersController < ApplicationController
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser]
           }))
-        end.get
+        end.get.first
         render layout: false
       rescue Parse::ParseProtocolError => e
         flash[:error] = e.message
@@ -88,10 +88,11 @@ class UsersController < ApplicationController
 
   def save
     begin
-      fields = [ "firstName", "lastName", "gender", "dob", "university", 
-                                "otherUniversity", "major", "gradeLevel", "aboutMe", 
-                                "hackathons", "github", "linkedIn", "website", "devPost", 
-                                "coolLink", "whyAttend"]
+      fields = [ "firstName", "lastName", "gender", "birthday", "birthmonth", "birthyear", 
+                                "university", "otherUniversity", "major", "gradeLevel", 
+                                "whyAttend", "hackathons", "github", "linkedIn", 
+                                "website", "devPost", "coolLink",]
+      print user_app_params["hackathons"]
 
       application = Parse::Query.new("Application").tap do |q|
                       q.eq("userId", Parse::Pointer.new({
@@ -111,6 +112,7 @@ class UsersController < ApplicationController
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser]).get.first
       application.array_add_relation("userId", user.pointer)
       application.save
+
       redirect_to '/app'  
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
@@ -126,10 +128,10 @@ class UsersController < ApplicationController
     end
 
     def user_app_params
-      params.permit(:firstName, :lastName, :gender, :dob, :university, 
-                                   :otherUniversity, :major, :gradeLevel, 
-                                   :aboutMe, :hackathons, :github, :linkedIn, 
-                                   :website, :devPost, :coolLink, :whyAttend)     
+      params.permit(:firstName, :lastName, :gender, :birthday, :birthmonth, :birthyear, 
+                                  :university, :otherUniversity, :major, :gradeLevel, 
+                                  :whyAttend, :hackathons, :github, :linkedIn, 
+                                  :website, :devPost, :coolLink)     
     end
 
     def user_login_params
