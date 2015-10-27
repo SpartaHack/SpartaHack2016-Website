@@ -1,60 +1,61 @@
 <section id="sponsors">
+  <div id="sponsor-wrap">
+    
+    <h2 class="section-head">
+        SPONSORS
+    </h2>
 
-  <h2 class="section-head">
-      SPONSORS
-  </h2>
 
-
-<!--     <section id="gold">
-    < @gold.each do |sponsor|  %>
-      <div class="wrap media-grid">
+    <section id="gold">
+      <div class="media-grid">
+        <% @commander.each do |sponsor|  %>
           <article class="gold">
-            <a href="<= sponsor[0] %>" target="_blank">
-              <= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
-              <= image_tag "sponsor_ship_sub.svg", alt: "Sponsor Ship", :class => "ship wiggle" %>
-              <= image_tag "waves_sub.svg", alt: "Sponsor Waves", :class => "waves" %>
+            <a href="<%= sponsor[0] %>" target="_blank">
+              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
+            </a>  
+          </article>
+        <% end %>
+      </div>
+    </section>
+
+    <section id="silver">
+      <div class="media-grid">
+        <% @warrior.each do |sponsor|  %>
+          <article class="silver">
+            <a href="<%= sponsor[0] %>" target="_blank">
+              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
             </a>
           </article>
+        <% end %>
       </div>
-    < end %>
-  </section>
+    </section>
 
-  <section id="silver">
-    <div class="wrap media-grid">
-      < @silver.each do |sponsor|  %>
-        <article class="silver">
-          <a href="<= sponsor[0] %> " target="_blank">
-            <= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
-            <= image_tag "sponsor_ship_sub.svg", alt: "Sponsor Ship", :class => "ship wiggle" %>
-            <= image_tag "waves_sub.svg", alt: "Sponsor Waves", :class => "waves" %>
-          </a>
-        </article>
-      < end %>
-    </div>
-  </section> -->
+    <section id="bronze">
+      <div class="media-grid">
+        <% @trainee.each do |sponsor|  %>
+          <article class="bronze">
+            <a href="<%= sponsor[0] %>" target="_blank">
+              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
+            </a>
+          </article>
+        <% end %>
+      </div>
+    </section>
 
-  <section id="bronze">
-    <div class="wrap media-grid">
-      <% @trainee.each do |sponsor|  %>
-        <article class="bronze">
-          <a href="<%= sponsor[0] %>" target="_blank">
-            <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
-          </a>
-        </article>
-      <% end %>
-    </div>
-  </section>
+    <h2 id="partner-head">
+        PARTNERS
+    </h2>
+    <section id="sub"> 
+      <div class="media-grid">
+        <% @partner.each do |sponsor|  %>
+          <article class="sub">
+            <a href="<%= sponsor[0] %>" target="_blank">
+              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
+            </a>
+          </article>
+        <% end %>
+      </div>
+    </section>
 
-  <section id="sub"> 
-    <div class="wrap media-grid">
-      <% @partner.each do |sponsor|  %>
-        <article class="sub">
-          <a href="<%= sponsor[0] %>" target="_blank">
-            <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
-          </a>
-        </article>
-      <% end %>
-    </div>
-  </section>
-
+  </div>
 </section>
