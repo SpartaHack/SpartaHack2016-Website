@@ -2,9 +2,10 @@
   <%= form_tag("/subscribe", method: "post", id: "send_contact") do %>
     <div class="wrap column">  
       <h2 class="section-head">CONTACT</h2> 
-      <div class="email-us top"><div class="email-type">EMAIL</div><div class='email'>hello@spartahack.com</div></div>
-      <div class="email-us tail"><div class="email-type">SPONSOR</div><div class='email'>sponsor@spartahack.com</div></div> 
+      <div class="email-us top"><div class="email-type">EMAIL</div><a href="mailto:hello@spartahack.com"><div class='email'>hello@spartahack.com</div></a></div>
+      <div class="email-us tail"><div class="email-type">SPONSOR</div><a href="mailto:sponsor@spartahack.com"><div class='email'>sponsor@spartahack.com</div></a></div> 
       
+      <h1 id="mail">VOLUNTEER MAILING LIST SIGNUP</h1>
       <div class="inner">
         <%= label_tag 'fname', 'First Name', class: 'no-label' %>
         <%= text_field_tag 'fname', nil, placeholder: 'FIRST NAME', :required => true%>
@@ -15,11 +16,8 @@
       <%= label_tag 'emailinput', 'Email', class: 'no-label' %>
       <%= email_field_tag 'emailinput', nil, placeholder: 'YOUR EMAIL', :required => true, :class => "tail"%>
     
-      <%= label_tag 'message', 'Your Message', class: 'no-label' %>
-      <%= text_area_tag 'message', nil, placeholder: 'YOUR MESSAGE', :required => true%>
-
-      <div class="hvr-sweep-to-right inner" id="submit-wrap">
-        <%= submit_tag "SEND MESSAGE  >", id: "send-message"%>
+      <div class="hvr-underline-from-center inner" id="submit-wrap">
+        <%= submit_tag "SIGN UP TO BE A VOLUNTEER", id: "send-message"%>
       </div>
 
     </div>
