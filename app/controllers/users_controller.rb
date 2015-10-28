@@ -120,7 +120,11 @@ class UsersController < ApplicationController
       redirect_to '/apply'
     end
 
-  end    
+  end  
+
+  def forgot
+    render layout: false
+  end  
 
   private
 
