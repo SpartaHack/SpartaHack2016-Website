@@ -35,6 +35,15 @@
       flex-direction: column;
     }
   }
+
+  a {
+    color: $mutedText;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+  }
 }
 
 .center {
@@ -105,5 +114,17 @@
   -webkit-font-smoothing: antialiased;
   margin-bottom: 50px;
 }
+
+#sponsor-us {
+  font-family: ubuntu;
+  font-weight: 100;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  margin-top: 0px;
+  margin-bottom: 50px;
+}
+
+
 
 
