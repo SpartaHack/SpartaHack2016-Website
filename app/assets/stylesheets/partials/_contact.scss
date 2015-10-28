@@ -52,7 +52,7 @@
     width: 86%;
     display: inline-block;
     border: solid 1px $mutedOutline;
-    margin-top: 35px;
+    margin-top: 25px;
     margin-bottom: 0px;
     text-align:left; 
     font-size: 14px; 
@@ -81,7 +81,7 @@
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
     @media (min-width: 560px) {
-      width: 235px;
+      width: 240px;
     }
   }
 
@@ -91,29 +91,28 @@
     outline: 0 none !important;
   }  
 
-  #message {
+  #mail {
+
     width: 86%;
-    height: 150px;
-    display: inline-block;
-    border: solid 1px $mutedOutline;
-    margin-top: 35px;
-    margin-bottom: 0px;
-    text-align:left; 
-    font-size: 14px; 
-    font-weight: lighter;
     color: $cream;
-    background: none;
-    padding: 18px 0px 8px 25px; 
+    text-align: center;
+    font-family: ubuntu;
+    font-weight: 100;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    @media (min-width: 560px) {
-      width: 530px;
+    font-size: 24px;
+    margin-bottom: 0px;
+    @media (max-width: 340px) {
+      font-size: 14px;
+    }
+    @media (min-width: 341px) and (max-width: 560px) {
+      font-size: 18px;
     }
   }
 
   .inner {
     width: 92%;
-    margin-top: 35px;
+    margin-top: 25px;
     @media (min-width: 560px) {
       width: 557px;
     }
@@ -139,7 +138,7 @@
     -webkit-align-items: center;
     justify-content: center;
     -webkit-justify-content: center;
-    margin-top: 35px;
+    margin-top: 25px;
     @media (min-width: 560px) {
       width: 530px;
     }
@@ -188,12 +187,6 @@
     }
   }
 
-  #send-message {
-    padding-right: 25px;
-    @media (max-width: 550px) {
-      padding-right: 25px;
-    }
-  }
 
   .no-label {
     display: none;
@@ -202,7 +195,7 @@
   input[type=submit] {
     background: none;
     border-style: none;
-    text-align: right;
+    text-align: center;
     -moz-box-sizing: border-box; 
     box-sizing: border-box; 
     display: block; 
@@ -211,12 +204,11 @@
     width: 100%;
     font-weight: 100;
     font-size: 15px;
-    height: 54px;
+    height: 60px;
     cursor: pointer; 
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    padding-right: 25px;
     @media (min-width: 560px) {
       width: 557px;
     }
