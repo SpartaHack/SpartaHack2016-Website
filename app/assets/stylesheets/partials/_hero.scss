@@ -12,10 +12,10 @@
   display: -webkit-flex;
   flex-direction: column;
   -webkit-flex-direction: column;
+  border-bottom: 1px solid $mutedOutline;
   border-collapse: collapse;
   justify-content: space-between;
   -webkit-justify-content: space-between;
-  border-spacing: 0;
   min-height: 100vh;
   background-color: transparent;
   text-align: center;
@@ -112,32 +112,36 @@
 
   .apply-wrapper {
     background: none;
-    border-style: none;
+    margin: auto;
     text-align: right;
-    border-top: solid 1px $mutedOutline;
-    border-bottom: solid 1px $mutedOutline;
-    border-radius: 0;
-    width: 100%;
+    border: solid 1px $mutedOutline;
+    display: block; 
+    color: $cream;
+    width: 90%;
+    font-weight: 100;
+    font-size: 15px;
     height: 60px;
-    display: flex;
-    display: -webkit-flex;
-    clear: both;
+    cursor: pointer; 
+    cursor: hand;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    @media (min-width: 560px) {
+      width: 557px;
+    }
   }
 
   .apply {
     display: flex;
     display: -webkit-flex;
-    align-items: center;
     -webkit-align-items: center;
-    justify-content: flex-end;
-    -webkit-justify-content: flex-end;
+    justify-content: center;
+    -webkit-justify-content: center;
     color: $cream;
     font-family: ubuntu;
+    text-align: center;
     text-decoration: none;
     font-weight: 300;
     font-size: 16px;
-    padding-right: 45px;
-    width: 100%;
     height: 60px;
     cursor: pointer; 
     cursor: hand;
@@ -147,10 +151,5 @@
       padding-right: 25px;
     }
     
-    &:hover {
-      color: $mainBackground;
-      -webkit-transition-delay: .2s; /* Safari */
-      transition-delay: .2s;
-    }
   }
 }
