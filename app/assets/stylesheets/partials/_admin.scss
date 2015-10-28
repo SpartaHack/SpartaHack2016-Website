@@ -152,6 +152,7 @@
 
   #addsponsor {
     padding-right: 25px;
+    text-align: center;
     width: 100%;
     @media (min-width: 550px) {
       padding-right: 30px;
@@ -204,7 +205,7 @@
 
   @keyframes border-pulsate {
     0%   { border-color: rgba(243, 70, 74, 1); color: rgba(243, 70, 74, 1);}
-    50% { border-color: rgba(243, 70, 74, 0); color: rgba(243, 70, 74, 0);}
+    50% { border-color: rgba(243, 70, 74, .5); color: rgba(243, 70, 74, .5);}
     100%   { border-color: rgba(243, 70, 74, 1); color: rgba(243, 70, 74, 1);}
   }
 
