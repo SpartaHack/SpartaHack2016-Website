@@ -94,7 +94,10 @@
 					<div id="submit-wrap">
                         <%= hidden_field_tag 'object' , @sponsor["objectId"]  %>  
                         <%= submit_tag "Delete", id: "deletesponsor" %>
-						<%= submit_tag "Submit", id: "editsponsor" %>
+                        <div class="hvr-underline-from-center">
+                            <%= submit_tag "Submit", id: "editsponsor" %>    
+                        </div>
+						
 					</div>
 				<% end %>
 			</div>
