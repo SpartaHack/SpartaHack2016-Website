@@ -53,17 +53,6 @@
             </a>  
           </div>
 
-          <div id="apply-wrapper">
-            <a href="/apply">
-              <div id="apply-nav" class="svg-wrapper">
-                <svg height="60" width="95" xmlns="http://www.w3.org/2000/svg">
-                  <rect class="shape apply" height="60" width="95" />
-                </svg>
-              </div>
-              <div class="text">APPLY</div>
-            </a>
-          </div>
-
         </div>
 
 
@@ -181,7 +170,7 @@
               <%= text_field_tag 'coolLink', "#{@application['coolLink'] if @application}", placeholder: 'A cool link you\'d like to share?' %>
             </div>
 
-            <div class="hvr-sweep-to-right" id="save-app">
+            <div class="hvr-underline-from-center" id="save-app">
               <%= submit_tag("Save Application", :id => "application") %>
             </div>
 
@@ -202,29 +191,31 @@
   </body>
 
   <%= javascript_tag do %>
-    <% if @application['university'] %>
-      $("#university").val("<%= @application['university'] %>").trigger("change")
-    <% end %>
-    <% if @application['major'] %>
-      $("#major").val(<%= raw @application['major'].to_a.to_json %>).trigger("change")
-    <% end %>
-    <% if @application['birthday'] %>
-      $("#birthday").val("<%= @application['birthday'] %>").trigger("change")
-    <% end %>
-    <% if @application['birthmonth'] %>
-      $("#birthmonth").val("<%= @application['birthmonth'] %>").trigger("change")
-    <% end %>
-    <% if @application['birthyear'] %>
-      $("#birthyear").val("<%= @application['birthyear'] %>").trigger("change")
-    <% end %>
-    <% if @application['gradeLevel'] %>
-      $("#gradeLevel").val("<%= @application['gradeLevel'] %>").trigger("change")
-    <% end %>
-    <% if @application['gender'] %>
-      $("#gender").val("<%= @application['gender'] %>").trigger("change")
-    <% end %>
-    <% if @application['hackathons'] %>
-      $("#hackathons").val(<%= raw @application['hackathons'] %>).trigger("change")
+    <% if @application %>
+      <% if @application['university'] %>
+        $("#university").val("<%= @application['university'] %>").trigger("change")
+      <% end %>
+      <% if @application['major'] %>
+        $("#major").val(<%= raw @application['major'].to_a.to_json %>).trigger("change")
+      <% end %>
+      <% if @application['birthday'] %>
+        $("#birthday").val("<%= @application['birthday'] %>").trigger("change")
+      <% end %>
+      <% if @application['birthmonth'] %>
+        $("#birthmonth").val("<%= @application['birthmonth'] %>").trigger("change")
+      <% end %>
+      <% if @application['birthyear'] %>
+        $("#birthyear").val("<%= @application['birthyear'] %>").trigger("change")
+      <% end %>
+      <% if @application['gradeLevel'] %>
+        $("#gradeLevel").val("<%= @application['gradeLevel'] %>").trigger("change")
+      <% end %>
+      <% if @application['gender'] %>
+        $("#gender").val("<%= @application['gender'] %>").trigger("change")
+      <% end %>
+      <% if @application['hackathons'] %>
+        $("#hackathons").val(<%= raw @application['hackathons'] %>).trigger("change")
+      <% end %>
     <% end %>
   <% end %>   
 </html>
