@@ -80,16 +80,11 @@
   }
 
   a {
-    color: $faqText;
     text-decoration: underline;
     font-family: ubuntu;
     font-weight: 100;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-
-    &:visited {
-      color: $faqText;
-    }
   }
   
   .hline {
