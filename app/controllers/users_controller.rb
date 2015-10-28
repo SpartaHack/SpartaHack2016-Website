@@ -126,6 +126,17 @@ class UsersController < ApplicationController
     render layout: false
   end  
 
+  def requestreset
+    begin
+      Parse::User.reset_password(forgot_password_params[:email])
+      render layout: false
+    rescue Parse::ParseProtocolError => e
+      message = e.to_s.split(": ")[1]
+      flash[:error] = message.slice(0,1).capitalize + message.slice(1..-1)
+      redirect_to '/forgot'
+    end
+  end
+
   private
 
     def user_apply_params
@@ -141,5 +152,9 @@ class UsersController < ApplicationController
 
     def user_login_params
       params.permit(:email, :password)
+    end
+
+    def forgot_password_params
+      params.permit(:email)
     end
 end
