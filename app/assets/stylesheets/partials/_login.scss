@@ -103,17 +103,11 @@
     outline: 0 none !important;
   }
 
-  #log {
-    padding-right: 30px;
-    @media (max-width: 550px) {
-      padding-right: 25px;
-    }
-  }
 
   input[type=submit] {
     background: none;
     border-style: none;
-    text-align: right;
+    text-align: center;
     border: solid 1px $mutedOutline;
     color: $cream;
     font-weight: 100;
@@ -123,6 +117,7 @@
     width: 100%;
     cursor: pointer; 
     cursor: hand;
+    padding: 0px;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
     @media (min-width: 550px) {
@@ -137,6 +132,10 @@
     -webkit-box-shadow:0 0 8px $cream; 
     -moz-box-shadow: 0 0 8px $cream; 
     box-shadow:0 0 8px $cream;
+  }
+
+  #full {
+    width: 100%;
   }
 
   #error-wrapper {
