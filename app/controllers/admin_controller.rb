@@ -7,10 +7,10 @@ class AdminController < ApplicationController
     if cookies.signed[:spartaUser]
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser]).get.first
       if user['role'] != "admin"
-        redirect_to '/login'
+        redirect_to '/login' and return
       end
     else
-      redirect_to '/login'
+      redirect_to '/login' and return
     end
 
     @sponsors = []

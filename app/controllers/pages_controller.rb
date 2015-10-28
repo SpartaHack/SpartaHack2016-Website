@@ -29,7 +29,7 @@ class PagesController < ApplicationController
   def subscribe 
   	render layout: false
   	mailchimp = Mailchimp::API.new(ENV["MAILCHIMP_API_KEY"])
-		mailchimp.lists.subscribe(ENV["MAILCHIMP_LIST_ID"], 
+		mailchimp.lists.subscribe(ENV["MAILCHIMP_VOL_LIST_ID"], 
 		                   { "email" => subscribe_params['emailinput']
 		                   },{'FNAME' => subscribe_params['fname'] , "LNAME" => subscribe_params['lname'] })
 	end

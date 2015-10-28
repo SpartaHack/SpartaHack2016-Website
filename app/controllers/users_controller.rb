@@ -52,9 +52,9 @@ class UsersController < ApplicationController
 			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
       cookies.signed[:spartaUser] = { value: login["objectId"], expires: (Time.now.getgm + 86400) }
       if login["role"] == "admin"
-			  redirect_to '/admin'
+			  redirect_to '/admin' and return
       else
-        redirect_to '/app'
+        redirect_to '/app' and return
       end
 		rescue Parse::ParseProtocolError => e
 			if e.to_s.split(":").first == '101'
@@ -77,10 +77,7 @@ class UsersController < ApplicationController
             "objectId"  => cookies.signed[:spartaUser]
           }))
         end.get.first
-        print @application["major"]
-        print "\n"
-        @application["major"] = @application["major"].to_a
-        print @application["major"]
+
         render layout: false
       rescue Parse::ParseProtocolError => e
         flash[:error] = e.message
