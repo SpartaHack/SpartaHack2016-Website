@@ -18,6 +18,7 @@ Rails.application.config.assets.precompile += %w( headroom.min.js )
 Rails.application.config.assets.precompile += %w( jquery-headroom.js )
 Rails.application.config.assets.precompile += %w( index.js )
 Rails.application.config.assets.precompile += %w( users.js )
+Rails.application.config.assets.precompile += %w( new.js )
 Rails.application.config.assets.precompile += %w( app.js )
 Rails.application.config.assets.precompile += %w( admin.js )
 
