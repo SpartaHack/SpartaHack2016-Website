@@ -228,7 +228,7 @@
   input[type=submit] {
     background: none;
     border-style: none;
-    text-align: right;
+    text-align: center;
     border: solid 1px $mutedOutline;
     color: $cream;
     font-weight: 200;
@@ -240,7 +240,6 @@
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    padding-right: 30px;
     @media (min-width: 550px) {
       width: 530px;
       padding-right: 25px;
@@ -307,7 +306,7 @@
   color: #000000;
   position: absolute;
   top: 17px;
-  right: 8px;
+  right: 5px;
   width: 20px;
 }
 
