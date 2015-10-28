@@ -127,11 +127,11 @@
   }
 
   .apply {
-    display: flex;
-    display: -webkit-flex;
-    -webkit-align-items: center;
-    justify-content: center;
-    -webkit-justify-content: center;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 557px;
+    margin: auto;
     color: $cream;
     font-family: ubuntu;
     text-align: center;
@@ -143,9 +143,6 @@
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    @media (max-width: 550px) {
-      padding-right: 25px;
-    }
     
   }
 }
