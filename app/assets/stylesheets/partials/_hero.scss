@@ -79,13 +79,10 @@
 
   .logo{
     min-width: 185px;
+    max-width: 400px;
     width: 50%;
-
-    @media (min-width: 600px) {
-      margin-top: -5vh;
-    }
+    margin-top: -5vh;
     @media (max-width: 550px) {
-      width: 70%;
       margin-top: -25px;
     }
   }
@@ -125,8 +122,10 @@
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
+    margin-bottom: 50px;
     @media (min-width: 560px) {
       width: 557px;
+      margin-bottom: 100px;
     }
   }
 
