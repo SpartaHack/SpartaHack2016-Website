@@ -143,31 +143,31 @@
             <div class="under-textarea has-icon">
               <%= image_tag "github.svg", alt: "Github Icon", :class => "icon" %>
               <%= label_tag(:github, "What is your GitHub handle?", class: 'no-label') %>
-              <%= text_field_tag 'github', "#{@application['github'] if @application}", placeholder: 'What is your GitHub handle?' %>
+              <%= text_field_tag 'github', "#{@application['github'] if @application}", placeholder: 'GitHub handle?' %>
             </div>
 
             <div class="add-margin has-icon">
               <%= image_tag "linkedin.svg", alt: "LinkedIn Icon", :class => "icon" %>
-              <%= label_tag(:linkedIn, "What about your LinkedIn handle?", class: 'no-label') %>
-              <%= text_field_tag 'linkedIn', "#{@application['linkedIn'] if @application}", placeholder: 'What about your LinkedIn handle?' %>
+              <%= label_tag(:linkedIn, "What is your LinkedIn handle?", class: 'no-label') %>
+              <%= text_field_tag 'linkedIn', "#{@application['linkedIn'] if @application}", placeholder: 'LinkedIn handle?' %>
             </div>
 
             <div class="add-margin has-icon">
               <%= image_tag "devpost.svg", alt: "DevPost Icon", :class => "icon" %>
-              <%= label_tag(:devPost, "And your DevPost handle?", class: 'no-label') %>
-              <%= text_field_tag 'devPost', "#{@application['devPost'] if @application}", placeholder: 'And your DevPost handle?' %>
+              <%= label_tag(:devPost, "What is your DevPost handle?", class: 'no-label') %>
+              <%= text_field_tag 'devPost', "#{@application['devPost'] if @application}", placeholder: 'DevPost handle?' %>
             </div>
 
             <div class="add-margin has-icon">
               <%= image_tag "website.svg", alt: "Personal Website Icon", :class => "icon" %>
               <%= label_tag(:website, "What is your personal website?", class: 'no-label') %>
-              <%= text_field_tag 'website', "#{@application['website'] if @application}", placeholder: 'What is your personal website?' %>
+              <%= text_field_tag 'website', "#{@application['website'] if @application}", placeholder: 'Your personal website?' %>
             </div>
 
             <div class="add-margin has-icon">
               <%= image_tag "coollink.svg", alt: "Cool Link Icon", :class => "icon" %>
               <%= label_tag(:coolLink, "A cool link you\'d like to share?", class: 'no-label') %>
-              <%= text_field_tag 'coolLink', "#{@application['coolLink'] if @application}", placeholder: 'A cool link you\'d like to share?' %>
+              <%= text_field_tag 'coolLink', "#{@application['coolLink'] if @application}", placeholder: 'A cool link?' %>
             </div>
 
             <div class="hvr-underline-from-center full" id="save-app">
