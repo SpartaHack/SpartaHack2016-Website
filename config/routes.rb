@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'forgot'  => 'users#forgot'
   post 'requestreset'  => 'users#requestreset'
   post 'save' => 'users#save'
-  get 'resetpassword' => 'users#resetpassword'
   resources :users
   
   root :to => 'pages#index', :as => :index
