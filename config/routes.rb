@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'auth'  => 'users#auth'
   get 'app'  => 'users#app'
   get 'forgot'  => 'users#forgot'
+  post 'requestreset'  => 'users#requestreset'
   post 'save' => 'users#save'
   resources :users
   
