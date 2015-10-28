@@ -81,7 +81,12 @@
           <section id="forgot">
             <div class="row">
               <h1 class="section-head">PASSWORD RESET</h1> 
-              <%= form_tag("/resetrequest", method: "post" ) do %>
+              <% if flash[:error] %>
+                <div id="error-wrapper">
+                  <div class="error"><%= flash[:error] %></div>
+                </div>
+              <% end %>
+              <%= form_tag("/requestreset", method: "post" ) do %>
                 <%= label_tag 'email', 'Email', class: 'no-label' %>
                 <%= email_field_tag 'email', nil, placeholder: 'EMAIL'%>
                 <div class="hvr-underline-from-center" id="full">
