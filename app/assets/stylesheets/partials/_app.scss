@@ -74,7 +74,7 @@
     }
   }
 
-  input {
+  input[type=text]{
     height: 36px;
     text-align:left; 
     border: solid 1px $mutedOutline; 
@@ -133,6 +133,60 @@
     } 
   }
 
+  #highschool {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  #enrollment-wrap {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    justify-content: center;
+    -webkit-justify-content: center;
+    border: solid 1px $mutedOutline;
+    font-weight: 100;
+    font-weight: lighter;
+    -webkit-font-smoothing: antialiased;
+    height: 60px;
+    margin-bottom: 15px;
+    @media (max-width: 550px) {
+      height: 75px;
+    }
+  }
+
+  input[type=radio]{
+    /* Hide original inputs */
+    visibility: hidden;
+    position: absolute;
+  }
+  input[type=radio] + label:before{
+    height:12px;
+    width:12px;
+    margin-right: 2px;
+    content: " ";
+    display:inline-block;
+    vertical-align: baseline;
+    border:1px solid $mutedCream;
+    border-radius:50%;
+  }
+
+  input[type=radio]:checked + label:before{
+    background: $mutedText;
+  }
+
+
+  #radio-wrap {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    align-items: center;
+    -webkit-align-items:center;
+  }
+
   #birthdate-wrap {
     display: flex;
     display: -webkit-flex;
@@ -167,7 +221,7 @@
     }
   }
 
-  input:focus, textarea:focus, option:focus, select:focus, span:focus, span input:focus {
+  input[type=text]:focus, textarea:focus, option:focus, select:focus, span:focus, span input:focus {
     border-color: rgba(128, 295, 219, 1) !important;
     box-shadow: 0 1px 1px rgba(128, 295, 219, 0.075) inset, 0 0 8px rgba(128, 295, 219, 0.6) !important;
     outline: 0 none !important;
@@ -256,6 +310,9 @@
     box-shadow:0 0 8px $cream;
   }
 
+  input[type=submit]:focus {
+    border: solid 1px $mutedOutline;  }
+
   #error-wrapper {
     width: 98%;
     display: flex;
@@ -315,4 +372,28 @@
   border-style: none;
 }
 
+#popup {
+  position: fixed;
+  display: none;
+  z-index: 9;
+  background-color: $mainBackground;
+  border: 1px solid $mutedOutline;
+  border-radius: 1px;
+  overflow-y: hidden;
+  color: $cream;
+  font-family: ubuntu;
+  font-size: 18px;
+  font-weight: 100;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  padding: 28px 0px;
+  width: 528px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  @media (max-width: 550px) {
+    width: 87%;
 
+  }
+}
