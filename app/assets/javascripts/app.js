@@ -33,41 +33,30 @@ function createSelects() {
 	});
 }
 
+function popUpTop() {
+	$("#popup").css("top", "60px")
+	$("#popup").css("bottom", "")
+	$("#popup").fadeIn("fast");
+	$('#popup').delay(2500).fadeOut('slow');	
+}
+
+function popUpBottom() {
+	$("#popup").css("bottom", "170px");
+	$("#popup").css("top", "")
+	$("#popup").fadeIn("fast");
+	$('#popup').delay(2500).fadeOut('slow');	
+}
+
 $(document).ready(function() {	
 	createSelects();
 
+	// hide old selection arrow;
 	$('b[role="presentation"]').hide();
 	$('.select2-selection__arrow').append('<i class="fa fa-angle-down"></i>');	
 	$('.select2-container--open').append('<i class="fa fa-angle-up"></i>');	
 
-	$("#github").click(function() {
-		if ($("#github").val() === "") {
-			$("#github").val('http://www.github.com/');
-		}
-	})
-	$("#linkedIn").click(function() {
-		if ($("#linkedIn").val() === "") {
-			$("#linkedIn").val('https://www.linkedin.com/in/');
-		}
-	})
 
-	$("#devPost").click(function() {
-		if ($("#devPost").val() === "") {
-			$("#devPost").val('http://www.devpost.com/');
-		}
-	})
-
-	$("#website").click(function() {
-		if ($("#website").val() === "") {
-			$("#website").val('http://www.');
-		}
-	})
-
-	$("#coolLink").click(function() {
-		if ($("#coolLink").val() === "") {
-			$("#coolLink").val('http://');
-		}
-	})
+	// Create inline svg;
 
 	jQuery('img.icon').each(function(){
 	    var $img = jQuery(this);
@@ -102,6 +91,59 @@ $(document).ready(function() {
 	    }, 'xml');
 
 	});
+
+	//validation for form submit
+
+	$('#save-app').click(function(e){
+		e.preventDefault();
+
+		if ($("#firstName").val().length == 0 || $("#lastName").val().length == 0) {
+			$("#popup").html("You must input your full name.")
+			popUpBottom()
+		} else 	if ($("#gender").val().length == 0 ) {
+			$("#popup").html("Gender is required.")
+			popUpBottom()
+		} else if ($("#birthday").val().length == 0 || $("#birthyear").val().length == 0 || $("#birthmonth").val().length == 0) {
+			$("#popup").html("Your full birthdate is required.")
+			popUpBottom()
+		} else if (!document.getElementById('highschool-student').checked && !document.getElementById('university-student').checked) {
+			$("#popup").html("Please indicate your current enrollment.")
+			popUpBottom()
+		} else if (document.getElementById('university-student').checked && $("#university").val().length == 0 && $("#otherUniversity").val().length == 0) {
+			$("#popup").html("Please indicate your university.")
+			popUpBottom()
+		} else if ($("#major").val() == null || $("#major").val().length == 0) {
+			$("#popup").html("Please indicate your university.")
+			popUpBottom()
+		} else if ($("#gradeLevel").val().length == 0) {
+			$("#popup").html("Please indicate your year in school.")
+			popUpBottom()
+		} else {
+			$('#save_app').trigger('submit.rails');
+		}
+	})
+
+	$('#highschool-student').click(function(){
+		$('.university-enrolled').fadeOut("fast")
+		$("#university").prop('required',false);
+		createSelects();
+	})
+
+	$('#university-student').click(function(){
+		$('.university-enrolled').fadeIn("fast")
+		$("#university").prop('required',true);
+		createSelects();
+	})
+
+	if (document.getElementById('university-student').checked) {
+		$('.university-enrolled').fadeIn("fast")
+		$("#university").prop('required',true);
+		createSelects();
+	} else {
+		$('.university-enrolled').fadeOut("fast")
+		$("#university").prop('required',false);
+		createSelects();
+	}
 
 })
 
