@@ -13,7 +13,11 @@
 			</p>
 	  	</div>
 		<div class="hvr-underline-from-center apply-wrapper">
-	      <a class="apply" href="/apply">APPLY NOW</a>
+		<% if cookies.signed[:spartaUser] %>
+			<a class="hero-link" href="/app">VIEW APPLICATION</a>
+		<% else %>
+	      <a class="hero-link" href="/apply">APPLY NOW</a>
+	    <% end %>
 	    </div>
 	</div>
 </section>
