@@ -20,7 +20,7 @@ class UsersController < ApplicationController
           :role => "attendee"
 				})
 				response = apply.save
-				cookies.signed[:spartaUser] = { value: response["objectId"], expires: (Time.now.getgm + 86400) }
+				cookies.signed[:spartaUser] = { value: response["objectId"] }
 				redirect_to '/app'	
 			rescue Parse::ParseProtocolError => e
         puts e.to_s
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   def auth
   	begin
 			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
-      cookies.signed[:spartaUser] = { value: login["objectId"], expires: (Time.now.getgm + 86400) }
+      cookies.signed[:spartaUser] = { value: login["objectId"] }
       if login["role"] == "admin"
 			  redirect_to '/admin' and return
       else
@@ -78,6 +78,14 @@ class UsersController < ApplicationController
           }))
         end.get.first
 
+        if @application
+          if @application["university"].length > 0 
+            @application["universitystudent"] = true
+          else 
+            @application["universitystudent"] = false
+          end
+        end
+
         render layout: false
       rescue Parse::ParseProtocolError => e
         flash[:error] = e.message
@@ -90,10 +98,9 @@ class UsersController < ApplicationController
   def save
     begin
       fields = [ "firstName", "lastName", "gender", "birthday", "birthmonth", "birthyear", 
-                                "university", "otherUniversity", "major", "gradeLevel", 
-                                "whyAttend", "hackathons", "github", "linkedIn", 
-                                "website", "devPost", "coolLink",]
-      print user_app_params["hackathons"]
+                                "major", "gradeLevel", "whyAttend", "hackathons", 
+                                "github", "linkedIn", "website", "devPost", "coolLink", 
+                                "universitystudent"]
 
       application = Parse::Query.new("Application").tap do |q|
                       q.eq("userId", Parse::Pointer.new({
@@ -105,6 +112,10 @@ class UsersController < ApplicationController
         application = Parse::Object.new("Application")
       end
       fields.each do |field|
+        if field == "universitystudent" && application[field]
+          application["university"] = user_app_params["university"]
+          application["otherUniversity"] = user_app_params["otherUniversity"]
+        end
         application[field] = user_app_params[field]
       end
       response = application.save
@@ -114,7 +125,8 @@ class UsersController < ApplicationController
       application.array_add_relation("userId", user.pointer)
       application.save
 
-      redirect_to '/app'  
+      flash[:popup] = "Application saved successfully."
+      redirect_to '/app'
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
       redirect_to '/apply'
@@ -147,7 +159,7 @@ class UsersController < ApplicationController
       params.permit(:firstName, :lastName, :gender, :birthday, :birthmonth, :birthyear, 
                                   :university, :otherUniversity, {:major => []}, :gradeLevel, 
                                   :whyAttend, {:hackathons => []}, :github, :linkedIn, 
-                                  :website, :devPost, :coolLink)     
+                                  :website, :devPost, :coolLink, :universitystudent)     
     end
 
     def user_login_params
