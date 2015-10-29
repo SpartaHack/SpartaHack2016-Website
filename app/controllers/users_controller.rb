@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   def new
     render layout: false
     cookies.delete :spartaUser
-  	@user = User.new
   	@error = flash[:error]
   end
 
@@ -44,6 +43,11 @@ class UsersController < ApplicationController
     else
       render layout: false
     end
+  end
+
+  def logout
+    cookies.delete :spartaUser
+    redirect_to "/"
   end
 
   # authenticate user and redirect them to their application
