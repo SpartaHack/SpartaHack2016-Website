@@ -195,6 +195,9 @@
     width: 257px;
     text-align: center;
     padding: 0px;
+    @media (max-width: 550px) {
+      width: 190px;
+    }
   }
 
   #deletesponsor {
