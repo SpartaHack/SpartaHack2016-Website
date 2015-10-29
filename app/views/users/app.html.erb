@@ -64,17 +64,16 @@
             <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
         </nav>
     </div>
-
+    <div id="popup"></div>
     <div class="wrap-main">
       <section id="app" >
-        
         <div class="row">
       
           <h1 class="section-head">APPLICATION</h1> 
-          <%= form_tag("/save", method: "post", id: "save_app", class: "save_app") do %>
+          <%= form_tag("/save", method: "post", id: "save_app", class: "save_app", :remote => true, :authenticity_token => true) do %>
             <div class="inner">
               <%= label_tag(:firstName, "First Name", class: 'no-label') %>
-              <%= text_field_tag 'firstName', "#{@application['firstName'] if @application}", placeholder: 'First Name' %>
+              <%= text_field_tag 'firstName', "#{@application['firstName'] if @application}", placeholder: 'First Name', required:true %>
               <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
               <%= text_field_tag 'lastName', "#{@application['lastName'] if @application}", placeholder: 'Last Name'  %>
             </div>
@@ -106,14 +105,28 @@
 
 
             <div class="add-margin">
-            <%= render partial: "users/app_hackathon" %>
+              <%= render partial: "users/app_hackathon" %>
             </div>
 
-            <div class="add-margin">
+            <div class="add-margin" id="enrollment-wrap">
+              <label id="highschool">Which of the following best describes your current enrollment?</label>
+              <div id="radio-wrap">
+                <div>
+                  <input type="radio" name="universitystudent" id="highschool-student" value="false" >
+                  <label for="highschool-student">High School</label>                  
+                </div>
+                <div>
+                  <input type="radio" name="universitystudent" id="university-student" value="true" >
+                  <label for="university-student">University</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="add-margin university-enrolled" style="display:none;">
               <%= render partial: "users/app_university" %>
             </div>
 
-            <div class="add-margin">
+            <div class="add-margin university-enrolled" style="display:none;">
               <%= label_tag(:otherUniversity, "School not listed above? Enter it here.", class: 'no-label') %>
               <%= text_field_tag 'otherUniversity', "#{@application['otherUniversity'] if @application}", placeholder: 'School not listed above? Enter it here.' %>
             </div>            
@@ -185,36 +198,44 @@
     <%= javascript_include_tag "jquery-headroom" %>
     <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js" %>
     <%= javascript_include_tag "app" %>
-    
 
-  </body>
+    <%= javascript_tag do %>
+      <% if @application %>
+        <% if @application['university'] %>
+          $("#university").val("<%= @application['university'] %>").trigger("change")
+        <% end %>
+        <% if @application['major'] %>
+          $("#major").val(<%= raw @application['major'].to_a.to_json %>).trigger("change")
+        <% end %>
+        <% if @application['birthday'] %>
+          $("#birthday").val("<%= @application['birthday'] %>").trigger("change")
+        <% end %>
+        <% if @application['birthmonth'] %>
+          $("#birthmonth").val("<%= @application['birthmonth'] %>").trigger("change")
+        <% end %>
+        <% if @application['birthyear'] %>
+          $("#birthyear").val("<%= @application['birthyear'] %>").trigger("change")
+        <% end %>
+        <% if @application['gradeLevel'] %>
+          $("#gradeLevel").val("<%= @application['gradeLevel'] %>").trigger("change")
+        <% end %>
+        <% if @application['gender'] %>
+          $("#gender").val("<%= @application['gender'] %>").trigger("change")
+        <% end %>
+        <% if @application['hackathons'] %>
+          $("#hackathons").val(<%= raw @application['hackathons'] %>).trigger("change")
+        <% end %>
+        <% if @application['universitystudent'] %>
+          document.getElementById("university-student").checked = true;
+        <% else %>
+          document.getElementById("highschool-student").checked = true;
+        <% end %>
+        <% if flash[:popup] %>
+          $("#popup").html("<%= "#{flash[:popup]}" %>")
+          popUpTop()
+        <% end %>
+      <% end %>
+    <% end %>     
 
-  <%= javascript_tag do %>
-    <% if @application %>
-      <% if @application['university'] %>
-        $("#university").val("<%= @application['university'] %>").trigger("change")
-      <% end %>
-      <% if @application['major'] %>
-        $("#major").val(<%= raw @application['major'].to_a.to_json %>).trigger("change")
-      <% end %>
-      <% if @application['birthday'] %>
-        $("#birthday").val("<%= @application['birthday'] %>").trigger("change")
-      <% end %>
-      <% if @application['birthmonth'] %>
-        $("#birthmonth").val("<%= @application['birthmonth'] %>").trigger("change")
-      <% end %>
-      <% if @application['birthyear'] %>
-        $("#birthyear").val("<%= @application['birthyear'] %>").trigger("change")
-      <% end %>
-      <% if @application['gradeLevel'] %>
-        $("#gradeLevel").val("<%= @application['gradeLevel'] %>").trigger("change")
-      <% end %>
-      <% if @application['gender'] %>
-        $("#gender").val("<%= @application['gender'] %>").trigger("change")
-      <% end %>
-      <% if @application['hackathons'] %>
-        $("#hackathons").val(<%= raw @application['hackathons'] %>).trigger("change")
-      <% end %>
-    <% end %>
-  <% end %>   
+  </body>  
 </html>
