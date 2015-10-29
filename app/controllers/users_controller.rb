@@ -19,7 +19,7 @@ class UsersController < ApplicationController
           :role => "attendee"
 				})
 				response = apply.save
-				cookies.signed[:spartaUser] = { value: response["objectId"] }
+				cookies.permanent.signed[:spartaUser] = { value: [response["objectId"], "attendee"] }
 				redirect_to '/app'	
 			rescue Parse::ParseProtocolError => e
         puts e.to_s
@@ -54,10 +54,11 @@ class UsersController < ApplicationController
   def auth
   	begin
 			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
-      cookies.signed[:spartaUser] = { value: login["objectId"] }
       if login["role"] == "admin"
+        cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "admin"] }
 			  redirect_to '/admin' and return
       else
+        cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
         redirect_to '/app' and return
       end
 		rescue Parse::ParseProtocolError => e
@@ -78,7 +79,7 @@ class UsersController < ApplicationController
         @application = Parse::Query.new("Application").tap do |q|
           q.eq("userId", Parse::Pointer.new({
             "className" => "_User",
-            "objectId"  => cookies.signed[:spartaUser]
+            "objectId"  => cookies.signed[:spartaUser][0]
           }))
         end.get.first
 
@@ -109,7 +110,7 @@ class UsersController < ApplicationController
       application = Parse::Query.new("Application").tap do |q|
                       q.eq("userId", Parse::Pointer.new({
                         "className" => "_User",
-                        "objectId"  => cookies.signed[:spartaUser]
+                        "objectId"  => cookies.signed[:spartaUser][0]
                       }))
                     end.get.first
       if !application
@@ -125,7 +126,7 @@ class UsersController < ApplicationController
       response = application.save
 
       application = Parse::Query.new("Application").eq("objectId", response["objectId"]).get.first
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser]).get.first
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       application.array_add_relation("userId", user.pointer)
       application.save
 

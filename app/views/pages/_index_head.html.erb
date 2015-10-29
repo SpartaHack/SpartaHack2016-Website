@@ -13,11 +13,15 @@
 			</p>
 	  	</div>
 		<div class="hvr-underline-from-center apply-wrapper">
-		<% if cookies.signed[:spartaUser] %>
-			<a class="hero-link" href="/app">VIEW APPLICATION</a>
+	<% if cookies.signed[:spartaUser] %>
+		<% if cookies.signed[:spartaUser][1] == "admin" %>
+			<a class="hero-link" href="/admin">VIEW ADMIN DASHBOARD</a>
 		<% else %>
+			<a class="hero-link" href="/app">VIEW APPLICATION</a>
+		<% end %>
+	<% else %>
 	      <a class="hero-link" href="/apply">APPLY NOW</a>
-	    <% end %>
+	<% end %>
 	    </div>
 	</div>
 </section>
