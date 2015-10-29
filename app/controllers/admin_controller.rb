@@ -4,8 +4,8 @@ class AdminController < ApplicationController
   require 'monkey_patch'
 
   def admin
-    if cookies.signed[:spartaUser]
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser]).get.first
+    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       if user['role'] != "admin"
         redirect_to '/login' and return
       end
