@@ -84,7 +84,7 @@ class UsersController < ApplicationController
         end.get.first
 
         if @application
-          if @application["university"].length > 0 
+          if @application["university"]
             @application["universitystudent"] = true
           else 
             @application["universitystudent"] = false
@@ -116,10 +116,23 @@ class UsersController < ApplicationController
       if !application
         application = Parse::Object.new("Application")
       end
+      print "\n"
+      print "\n"
+      print "\n"
+      print "\n"
+
+      print user_app_params["universitystudent"].to_bool
+      print "\n"
+      print "\n"
+      print "\n"
+      print "\n"
       fields.each do |field|
-        if field == "universitystudent" && application[field]
+        if field == "universitystudent" && user_app_params[field].to_bool == true
           application["university"] = user_app_params["university"]
           application["otherUniversity"] = user_app_params["otherUniversity"]
+        else
+          application["university"] = nil
+          application["otherUniversity"] = nil
         end
         application[field] = user_app_params[field]
       end
@@ -131,7 +144,7 @@ class UsersController < ApplicationController
       application.save
 
       flash[:popup] = "Application saved successfully."
-      redirect_to '/app'
+      redirect_to '/app'  and return
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
       redirect_to '/apply'
