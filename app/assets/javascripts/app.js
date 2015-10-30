@@ -96,6 +96,7 @@ $(document).ready(function() {
 
 	$('#save-app').click(function(e){
 		e.preventDefault();
+		console.log(document.getElementById('university-student').checked)
 
 		if ($("#firstName").val().length == 0 || $("#lastName").val().length == 0) {
 			$("#popup").html("You must input your full name.")
@@ -113,7 +114,7 @@ $(document).ready(function() {
 			$("#popup").html("Please indicate your university.")
 			popUpBottom()
 		} else if ($("#major").val() == null || $("#major").val().length == 0) {
-			$("#popup").html("Please indicate your university.")
+			$("#popup").html("Please indicate your major.")
 			popUpBottom()
 		} else if ($("#gradeLevel").val().length == 0) {
 			$("#popup").html("Please indicate your year in school.")
@@ -125,23 +126,19 @@ $(document).ready(function() {
 
 	$('#highschool-student').click(function(){
 		$('.university-enrolled').fadeOut("fast")
-		$("#university").prop('required',false);
 		createSelects();
 	})
 
 	$('#university-student').click(function(){
 		$('.university-enrolled').fadeIn("fast")
-		$("#university").prop('required',true);
 		createSelects();
 	})
 
 	if (document.getElementById('university-student').checked) {
 		$('.university-enrolled').fadeIn("fast")
-		$("#university").prop('required',true);
 		createSelects();
 	} else {
 		$('.university-enrolled').fadeOut("fast")
-		$("#university").prop('required',false);
 		createSelects();
 	}
 
