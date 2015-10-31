@@ -37,6 +37,9 @@
 body {
   background: image-url("glitch.gif") no-repeat center 10px fixed;
   background-size: cover;
+  @media (max-width: 740px) {
+    background-size: contain;
+  }
   margin: 0 auto;
 }
 
