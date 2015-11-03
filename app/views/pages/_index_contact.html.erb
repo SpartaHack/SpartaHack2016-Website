@@ -6,15 +6,20 @@
       <div class="email-us tail"><div class="email-type">SPONSOR</div><a href="mailto:sponsor@spartahack.com"><div class='email'>sponsor@spartahack.com</div></a></div> 
       
       <h1 id="mail">VOLUNTEER MAILING LIST SIGNUP</h1>
+      <% if flash[:error] %>
+        <div id="error-wrapper">
+          <div class="error"><%= flash[:error] %></div>
+        </div>
+      <% end %>
       <div class="inner">
         <%= label_tag 'fname', 'First Name', class: 'no-label' %>
-        <%= text_field_tag 'fname', nil, placeholder: 'FIRST NAME', :required => true%>
+        <%= text_field_tag 'fname', "#{flash[:fname] if flash[:fname]}", placeholder: 'FIRST NAME', required: true%>
         <%= label_tag 'lname', 'Last Name', class: 'no-label' %>
-        <%= text_field_tag 'lname', nil, placeholder: 'LAST NAME', :required => true%>                
+        <%= text_field_tag 'lname', "#{flash[:lname] if flash[:lname]}", placeholder: 'LAST NAME', required: true%>                
       </div>
       
       <%= label_tag 'emailinput', 'Email', class: 'no-label' %>
-      <%= email_field_tag 'emailinput', nil, placeholder: 'YOUR EMAIL', :required => true, :class => "tail"%>
+      <%= email_field_tag 'emailinput', "#{flash[:email] if flash[:email]}", placeholder: 'YOUR EMAIL',  :class => "tail", required: true%>
     
       <div class="hvr-underline-from-center inner" id="submit-wrap">
         <%= submit_tag "SIGN UP TO BE A VOLUNTEER", id: "send-message"%>

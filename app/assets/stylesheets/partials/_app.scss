@@ -236,6 +236,7 @@
 
   #whyAttend, #github, #linkedIn, #devPost,
   #website, #coolLink, #aboutMe, #otherUniversity {
+    width:100%;
     @media (min-width: 550px) {
       width: 503px;
       margin-bottom: 0px;

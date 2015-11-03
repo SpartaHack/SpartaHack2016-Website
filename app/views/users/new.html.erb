@@ -89,10 +89,10 @@
                   </div>
                   <div class="inner_wrap">
                     <%= label_tag 'password', 'Password', class: 'no-label' %>
-                    <%= password_field_tag 'password', nil, placeholder: "PASSWORD"%>
+                    <%= password_field_tag 'password', nil, placeholder: "PASSWORD", minlength: "6"%>
 
                     <%= label_tag 'password_confirmation', 'Confirm Password', class: 'no-label' %>
-                    <%= password_field_tag 'password_confirmation', nil, placeholder: "CONFIRM PASSWORD"%>                    
+                    <%= password_field_tag 'password_confirmation', nil, placeholder: "CONFIRM PASSWORD", minlength: "6"%>                    
                   </div>
                   <div class="hvr-underline-from-center full">
                     <%= submit_tag "NEXT", id: "continue" %>
