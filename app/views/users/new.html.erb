@@ -85,14 +85,14 @@
                 <%= form_tag("/create", method: "post" ) do %>
                   <div class="inner_wrap">
                     <%= label_tag 'email', 'Email', class: 'no-label' %>
-                    <%= email_field_tag 'email', nil, placeholder: 'EMAIL'%>
+                    <%= email_field_tag 'email', nil, placeholder: 'EMAIL', required: true%>
                   </div>
                   <div class="inner_wrap">
                     <%= label_tag 'password', 'Password', class: 'no-label' %>
-                    <%= password_field_tag 'password', nil, placeholder: "PASSWORD", minlength: "6"%>
+                    <%= password_field_tag 'password', nil, placeholder: "PASSWORD", minlength: "6", required: true%>
 
                     <%= label_tag 'password_confirmation', 'Confirm Password', class: 'no-label' %>
-                    <%= password_field_tag 'password_confirmation', nil, placeholder: "CONFIRM PASSWORD", minlength: "6"%>                    
+                    <%= password_field_tag 'password_confirmation', nil, placeholder: "CONFIRM PASSWORD", minlength: "6", required: true%>                    
                   </div>
                   <div class="hvr-underline-from-center full">
                     <%= submit_tag "NEXT", id: "continue" %>
