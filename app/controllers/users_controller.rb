@@ -11,6 +11,10 @@ class UsersController < ApplicationController
   #create a user and redirect them to application process
   def create
     if user_apply_params['password'] == user_apply_params['password_confirmation']
+      if user_apply_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+        flash[:error] = "You must apply using a valid email."
+        redirect_to '/apply'
+      end
     	begin
 				apply = Parse::User.new({
 				  :username => user_apply_params['email'],
@@ -116,16 +120,7 @@ class UsersController < ApplicationController
       if !application
         application = Parse::Object.new("Application")
       end
-      print "\n"
-      print "\n"
-      print "\n"
-      print "\n"
 
-      print user_app_params["universitystudent"].to_bool
-      print "\n"
-      print "\n"
-      print "\n"
-      print "\n"
       fields.each do |field|
         if field == "universitystudent" && user_app_params[field].to_bool == true
           application["university"] = user_app_params["university"]
