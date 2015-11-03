@@ -10,34 +10,33 @@ class UsersController < ApplicationController
 
   #create a user and redirect them to application process
   def create
-    if user_apply_params['password'] == user_apply_params['password_confirmation']
-      if user_apply_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-        flash[:error] = "You must apply using a valid email."
+    if user_apply_params['email'] == "" && user_apply_params['password'] == "" && user_apply_params['password_confirmation'] == ""
+        flash[:error] = "You cannot submit an empty application."
         redirect_to '/apply'
-      end
-    	begin
-				apply = Parse::User.new({
-				  :username => user_apply_params['email'],
-				  :email => user_apply_params['email'],
-				  :password => user_apply_params['password'],
-          :role => "attendee"
-				})
-				response = apply.save
-				cookies.permanent.signed[:spartaUser] = { value: [response["objectId"], "attendee"] }
-				redirect_to '/app'	
-			rescue Parse::ParseProtocolError => e
-        puts e.to_s
-				if e.to_s.split(":").first == '202'
-			  	flash[:error] = "Email is taken"
-			  elsif e.to_s.split(":").first == "203"
-			  	flash[:error] = "Email is taken"
-			  end
-			  redirect_to '/apply'
-			end
-			
-    else
+    elsif user_apply_params['password'] != user_apply_params['password_confirmation']
     	flash[:error] = "Passwords do not match"
       redirect_to '/apply'
+    else
+      if user_apply_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+        flash[:error] = "You must use a valid email."
+        redirect_to '/apply'
+      end
+      begin
+        apply = Parse::User.new({
+          :username => user_apply_params['email'],
+          :email => user_apply_params['email'],
+          :password => user_apply_params['password'],
+          :role => "attendee"
+        })
+        response = apply.save
+        cookies.permanent.signed[:spartaUser] = { value: [response["objectId"], "attendee"] }
+        redirect_to '/app'  
+      rescue Parse::ParseProtocolError => e
+        if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
+          flash[:error] = "Email is taken"
+        end
+        redirect_to '/apply'
+      end
     end
   end
 
@@ -67,7 +66,7 @@ class UsersController < ApplicationController
       end
 		rescue Parse::ParseProtocolError => e
 			if e.to_s.split(":").first == '101'
-		  	flash[:error] = "Password is incorrect"
+		  	flash[:error] = "Invalid credentials."
 		  	redirect_to '/login'
 		  end
 		end
