@@ -37,14 +37,12 @@ function popUpTop() {
 	$("#popup").css("top", "60px")
 	$("#popup").css("bottom", "")
 	$("#popup").fadeIn("fast");
-	$('#popup').delay(2500).fadeOut('slow');	
 }
 
 function popUpBottom() {
 	$("#popup").css("bottom", "170px");
 	$("#popup").css("top", "")
-	$("#popup").fadeIn("fast");
-	$('#popup').delay(2500).fadeOut('slow');	
+	$("#popup").fadeIn("fast");	
 }
 
 $(document).ready(function() {	
@@ -174,3 +172,7 @@ $(function() {
     });
 
 });
+
+$(window).scroll(function() {
+	$("#popup").fadeOut('fast');
+})
