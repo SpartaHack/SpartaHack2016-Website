@@ -35,12 +35,12 @@
         <% @trainee.each do |sponsor|  %>
           <article class="bronze">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
+              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor sponsor-img" %>
             </a>
           </article>
         <% end %>
       </div>
-      <h3 id="sponsor-us">Interested in sponsoring? Email us at <a href="mailto:sponsor@spartahack.com">sponsor@spartahack.com.</a></h3>
+      <h3 id="sponsor-us">Interested in sponsoring? Email us at <a id="sponsor-email" href="mailto:sponsor@spartahack.com">sponsor@spartahack.com.</a></h3>
     </section>
 
     <h2 id="partner-head">

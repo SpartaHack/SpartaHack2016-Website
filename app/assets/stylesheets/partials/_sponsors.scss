@@ -34,6 +34,7 @@
     @media (max-width: 550px) {
       flex-direction: column;
     }
+
   }
 
   a {
@@ -45,13 +46,7 @@
     font-size: 18px;
   }
 
-  a:hover {
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
-    opacity: .7;
-  }
+
 }
 
 .center {
@@ -76,9 +71,17 @@
 
 .bronze {
   .logo-sponsor {
-    width: 170px;
-    max-height: 62px;
+    min-width: 160px;
+    max-width: 400px;
+    height: 52px;
     margin: 0px 25px 25px 25px;
+
+    @media (max-width: 550px) {
+      min-width: 160px;
+      max-width: 200px;
+      height: auto;
+      margin: 0px 0px 25px 0px;
+    }
   }
 
   
@@ -86,9 +89,17 @@
 
 .silver {
   .logo-sponsor {
-    width: 250px;
-    max-height: 91px;
+    min-width: 240px;
+    max-width: 400px;
+    height: 81px;
     margin: 0px 25px 25px 25px;
+
+    @media (max-width: 550px) {
+      min-width: 240px;
+      max-width: 250px;
+      height: auto;
+      margin: 0px 0px 25px 0px;
+    }
   }
 
   
@@ -96,12 +107,15 @@
 
 .gold {
   .logo-sponsor {
-    max-height: 145px;
-    width: 400px;
+    height: 95px;
+    min-width: 300px;
+    max-width: 600px;
     margin: 0px 25px 25px 25px;
 
     @media (max-width: 550px) {
+      min-width: 300px;
       max-width: 325px;
+      height: auto;
       margin: 0px 0px 25px 0px;
     }
   }
@@ -129,6 +143,26 @@
   margin-bottom: 50px;
 }
 
+#sponsor-email:hover {
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    opacity: .7;
+  }
+
+.logo-sponsor {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);  /* For Webkit browsers */
+  filter: gray;  /* For IE 6 - 9 */
+  -webkit-transition: all .6s ease;  /* Transition for Webkit browsers */
+}
+
+.logo-sponsor:hover {
+  filter: grayscale(0%);
+  -webkit-filter: grayscale(0%);
+  filter: none;
+}
 
 
 
