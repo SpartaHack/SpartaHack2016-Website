@@ -12,14 +12,14 @@ class UsersController < ApplicationController
   def create
     if user_apply_params['email'] == "" && user_apply_params['password'] == "" && user_apply_params['password_confirmation'] == ""
         flash[:error] = "You cannot submit an empty application."
-        redirect_to '/apply'
+        redirect_to '/apply' and return
     elsif user_apply_params['password'] != user_apply_params['password_confirmation']
     	flash[:error] = "Passwords do not match"
-      redirect_to '/apply'
+      redirect_to '/apply' and return
     else
       if user_apply_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
         flash[:error] = "You must use a valid email."
-        redirect_to '/apply'
+        redirect_to '/apply' and return
       end
       begin
         apply = Parse::User.new({
@@ -30,13 +30,15 @@ class UsersController < ApplicationController
         })
         response = apply.save
         cookies.permanent.signed[:spartaUser] = { value: [response["objectId"], "attendee"] }
-        redirect_to '/app'  
       rescue Parse::ParseProtocolError => e
+        print e
         if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
           flash[:error] = "Email is taken"
+          redirect_to '/apply' and return
         end
-        redirect_to '/apply'
+        
       end
+      redirect_to '/app' and return
     end
   end
 
