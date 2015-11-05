@@ -12,6 +12,8 @@
   background: $mainBackground;
   border-bottom: solid 1px $mutedOutline;
   position: fixed;
+  overflow:hidden;
+  -webkit-overflow-scrolling:touch;
   top: 0;
   display: flex;
   display: -webkit-flex;
