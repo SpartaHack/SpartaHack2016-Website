@@ -43,8 +43,7 @@ body {
   background-size: cover;
   @media (max-width: 740px) {
     background-color: $mainBackground;
-    overflow:hidden;
-    -webkit-overflow-scrolling:touch;
+    background-image: none !important;
   }
   margin: 0 auto;
 }
