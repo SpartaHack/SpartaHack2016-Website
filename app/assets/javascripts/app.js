@@ -175,8 +175,13 @@ $(function() {
 
 $(window).scroll(function() {$("#popup").fadeOut('fast');});
 
-$('body').on({
-    'touchmove': function(e) { 
-        $("#popup").fadeOut('fast');
-    }
-});
+document.addEventListener("touchmove", ScrollStart, false);
+document.addEventListener("scroll", Scroll, false);
+
+function ScrollStart() {
+    $("#popup").fadeOut('fast');
+}
+
+function Scroll() {
+	$("#popup").fadeOut('fast');
+}
