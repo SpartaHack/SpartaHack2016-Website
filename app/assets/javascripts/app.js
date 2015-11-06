@@ -174,4 +174,9 @@ $(function() {
 });
 
 $(window).scroll(function() {$("#popup").fadeOut('fast');});
-document.addEventListener("touchmove", function(){$("#popup").fadeOut('fast');}, false);
+
+$('body').on({
+    'touchmove': function(e) { 
+        $("#popup").fadeOut('fast');
+    }
+});
