@@ -4,8 +4,16 @@
 #sponsors {
   width: 100%;
   background-color: transparent;
-  display: flex;
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (doesn't work very well) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
   display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
   align-items: center;
   -webkit-align-items: center;
   justify-content: center; 
@@ -31,6 +39,8 @@
   .media-grid {
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
     @media (max-width: 550px) {
       flex-direction: column;
     }
@@ -50,8 +60,16 @@
 }
 
 .center {
-  display: flex;
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (doesn't work very well) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
   display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
   align-items: center;
   align-content: center;
 }
