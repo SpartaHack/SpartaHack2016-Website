@@ -173,6 +173,5 @@ $(function() {
 
 });
 
-$(window).scroll(function() {
-	$("#popup").fadeOut('fast');
-})
+$(window).scroll(function() {$("#popup").fadeOut('fast');});
+document.addEventListener("touchmove", function(){$("#popup").fadeOut('fast');}, false);
