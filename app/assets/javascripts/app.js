@@ -1,30 +1,30 @@
 function createSelects() {
 	$('#university').select2({
-	  placeholder: "What university do you attend?", 
+	  placeholder: "What university do you attend? *", 
 	  allowClear: true
 	});
 	$('#gender').select2({
-	  placeholder: "Gender", 
+	  placeholder: "Gender *", 
 	  allowClear: true,
 	});
 	$('#birthmonth').select2({
-	  placeholder: "Birth Month", 
+	  placeholder: "Birth Month *", 
 	  allowClear: true
 	});
 	$('#birthday').select2({
-	  placeholder: "Birth Day", 
+	  placeholder: "Birth Day *", 
 	  allowClear: true
 	});
 	$('#birthyear').select2({
-	  placeholder: "Birth Year", 
+	  placeholder: "Birth Year *", 
 	  allowClear: true
 	});
 	$('#major').select2({
-	  placeholder: "Field of study", 
+	  placeholder: "Field of study *", 
 	  allowClear: true
 	});
 	$('#gradeLevel').select2({
-	  placeholder: "Year of school", 
+	  placeholder: "Year of school *", 
 	  allowClear: true
 	});
 	$('#hackathons').select2({
@@ -111,13 +111,15 @@ $(document).ready(function() {
 		} else if (document.getElementById('university-student').checked && $("#university").val().length == 0 && $("#otherUniversity").val().length == 0) {
 			$("#popup").html("Please indicate your university.")
 			popUpBottom()
-		} else if ($("#major").val() == null || $("#major").val().length == 0) {
+		} else if (document.getElementById('university-student').checked && $("#major").val() == null || document.getElementById('university-student').checked && $("#major").val().length == 0) {
 			$("#popup").html("Please indicate your major.")
 			popUpBottom()
-		} else if ($("#gradeLevel").val().length == 0) {
+		} else if (document.getElementById('university-student').checked && $("#gradeLevel").val().length == 0) {
 			$("#popup").html("Please indicate your year in school.")
 			popUpBottom()
 		} else {
+			$("#popup").html("Saving Application...")
+			popUpBottom()
 			$('#save_app').trigger('submit.rails');
 		}
 	})
