@@ -1,6 +1,6 @@
 function createSelects() {
 	$('#university').select2({
-	  placeholder: "What university do you attend? *", 
+	  placeholder: "Which university do you attend *", 
 	  allowClear: true
 	});
 	$('#gender').select2({
