@@ -25,6 +25,14 @@
       width: 530px;
     }
   }
+  
+  #required {
+    text-align: center;
+    margin-top: -20px;
+    font-family: ubuntu;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 100;
+  }
 
   ::-webkit-input-placeholder {
     color: $cream;
@@ -118,7 +126,7 @@
     }
   }
 
-  #firstName, #lastName, #dob{
+  #firstName, #lastName{
     @media (min-width: 550px) {
       width: 225px;
       margin-bottom: 0px;
@@ -371,7 +379,9 @@
 
 .select2-search__field {
   border-style: none;
+  font-weight: 100 !important;
 }
+
 
 #popup {
   position: fixed;
