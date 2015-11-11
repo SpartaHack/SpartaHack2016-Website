@@ -4,19 +4,23 @@ function createSelects() {
 	  allowClear: true
 	});
 	$('#gender').select2({
-	  placeholder: "Gender *", 
+	  placeholder: "Gender *",
+	  minimumResultsForSearch: -1, 
 	  allowClear: true,
 	});
 	$('#birthmonth').select2({
 	  placeholder: "Birth Month *", 
+	  minimumResultsForSearch: -1,
 	  allowClear: true
 	});
 	$('#birthday').select2({
-	  placeholder: "Birth Day *", 
+	  placeholder: "Birth Day *",
+	  minimumResultsForSearch: -1,
 	  allowClear: true
 	});
 	$('#birthyear').select2({
 	  placeholder: "Birth Year *", 
+	  minimumResultsForSearch: -1,
 	  allowClear: true
 	});
 	$('#major').select2({
@@ -31,6 +35,11 @@ function createSelects() {
 	  placeholder: "What other MLH hackathons have you attended?", 
 	  multiple:true
 	});
+
+	// hide old selection arrow;
+	$('b[role="presentation"]').hide();
+	$('.select2-selection__arrow').append('<i class="fa fa-angle-down"></i>');	
+	$('.select2-container--open').append('<i class="fa fa-angle-up"></i>');	
 }
 
 function popUpTop() {
@@ -47,12 +56,6 @@ function popUpBottom() {
 
 $(document).ready(function() {	
 	createSelects();
-
-	// hide old selection arrow;
-	$('b[role="presentation"]').hide();
-	$('.select2-selection__arrow').append('<i class="fa fa-angle-down"></i>');	
-	$('.select2-container--open').append('<i class="fa fa-angle-up"></i>');	
-
 
 	// Create inline svg;
 
