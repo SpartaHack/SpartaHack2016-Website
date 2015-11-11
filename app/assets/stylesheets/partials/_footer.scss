@@ -25,7 +25,11 @@
     padding: 0 2px;
 
     &:hover {
-      color: darken($cream, 20%);
+      -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      opacity: .7;
     }
   }
 }
