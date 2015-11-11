@@ -71,12 +71,13 @@
         <div class="row">
       
           <h1 class="section-head">APPLICATION</h1> 
+          <h4 id="required">* fields are required.</h4>
           <%= form_tag("/save", method: "post", id: "save_app", class: "save_app", :remote => true, :authenticity_token => true) do %>
             <div class="inner">
               <%= label_tag(:firstName, "First Name", class: 'no-label') %>
-              <%= text_field_tag 'firstName', "#{@application['firstName'] if @application}", placeholder: 'First Name', required:true %>
+              <%= text_field_tag 'firstName', "#{@application['firstName'] if @application}", placeholder: 'First Name *', required:true %>
               <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
-              <%= text_field_tag 'lastName', "#{@application['lastName'] if @application}", placeholder: 'Last Name'  %>
+              <%= text_field_tag 'lastName', "#{@application['lastName'] if @application}", placeholder: 'Last Name *'  %>
             </div>
 
             <div class="add-margin">
@@ -104,13 +105,8 @@
               </select>
             </div>
 
-
-            <div class="add-margin">
-              <%= render partial: "users/app_hackathon" %>
-            </div>
-
             <div class="add-margin" id="enrollment-wrap">
-              <label id="highschool">Which of the following best describes your current enrollment?</label>
+              <label id="highschool">Which of the following best describes your current enrollment? *</label>
               <div id="radio-wrap">
                 <div>
                   <input type="radio" name="universitystudent" id="highschool-student" value="false" >
@@ -131,11 +127,11 @@
               <%= label_tag(:otherUniversity, "School not listed above? Enter it here.", class: 'no-label') %>
               <%= text_field_tag 'otherUniversity', "#{@application['otherUniversity'] if @application}", placeholder: 'School not listed above? Enter it here.' %>
             </div>            
-            <div class="add-margin">
+            <div class="add-margin university-enrolled">
               <%= render partial: "users/app_major" %>
             </div>
 
-            <div class="add-margin">
+            <div class="add-margin university-enrolled">
               <select id="gradeLevel" name="gradeLevel">
                 <option></option>
                 <option>First Year</option>
@@ -146,6 +142,10 @@
                 <option>Graduate Student</option>
                 <option>Not a Student</option>
               </select>
+            </div>
+
+            <div class="add-margin">
+              <%= render partial: "users/app_hackathon" %>
             </div>
 
             <div class="add-margin">
