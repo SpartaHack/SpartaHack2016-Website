@@ -32,6 +32,9 @@
     font-family: ubuntu;
     -webkit-font-smoothing: antialiased;
     font-weight: 100;
+    @media (min-width: 550px) {
+      margin-top: -40px;
+    }
   }
 
   ::-webkit-input-placeholder {
