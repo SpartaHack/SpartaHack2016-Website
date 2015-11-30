@@ -404,12 +404,7 @@
     height: 20px;
     top: 0;
     border-radius: 4px;
-
-    background: -webkit-linear-gradient(top, $mutedText 0%, $mutedText 100%);
-    background: -moz-linear-gradient(top, $mutedText 0%, $mutedText 100%);
-    background: -o-linear-gradient(top, $mutedText 0%, $mutedText 100%);
-    background: -ms-linear-gradient(top, $mutedText 0%, $mutedText 100%);
-    background: linear-gradient(top, $mutedText 0%, $mutedText 100%);
+    background: $mutedText;
   }
 
   #mlh-text {
