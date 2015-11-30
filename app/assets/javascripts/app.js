@@ -45,13 +45,13 @@ function createSelects() {
 function popUpTop() {
 	$("#popup").css("top", "60px")
 	$("#popup").css("bottom", "")
-	$("#popup").fadeIn("fast");
+	$("#popup-wrapper").fadeIn("fast");
 }
 
 function popUpBottom() {
 	$("#popup").css("bottom", "170px");
 	$("#popup").css("top", "")
-	$("#popup").fadeIn("fast");	
+	$("#popup-wrapper").fadeIn("fast");	
 }
 
 $(document).ready(function() {	
@@ -97,7 +97,6 @@ $(document).ready(function() {
 
 	$('#save-app').click(function(e){
 		e.preventDefault();
-		console.log(document.getElementById('university-student').checked)
 
 		if ($("#firstName").val().length == 0 || $("#lastName").val().length == 0) {
 			$("#popup").html("You must input your full name.")
@@ -120,10 +119,16 @@ $(document).ready(function() {
 		} else if (document.getElementById('university-student').checked && $("#gradeLevel").val().length == 0) {
 			$("#popup").html("Please indicate your year in school.")
 			popUpBottom()
+		} else if (!document.getElementById('agree').checked) {
+			$("#popup").html("Please agree to the MLH Code of Conduct.")
+			popUpTop()
 		} else {
 			$("#popup").html("Saving Application...")
 			popUpBottom()
-			$('#save_app').trigger('submit.rails');
+	        setTimeout(function () {
+	            $('#save_app').trigger('submit.rails');
+	        }, 500);
+			
 		}
 	})
 
@@ -178,15 +183,15 @@ $(function() {
 
 });
 
-$(window).scroll(function() {$("#popup").fadeOut('fast');});
+$(window).scroll(function() {$("#popup-wrapper").fadeOut('fast');});
 
 document.addEventListener("touchmove", ScrollStart, false);
 document.addEventListener("scroll", Scroll, false);
 
 function ScrollStart() {
-    $("#popup").fadeOut('fast');
+    $("#popup-wrapper").fadeOut('fast');
 }
 
 function Scroll() {
-	$("#popup").fadeOut('fast');
+	$("#popup-wrapper").fadeOut('fast');
 }
