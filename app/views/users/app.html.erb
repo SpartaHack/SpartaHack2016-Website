@@ -65,7 +65,18 @@
             <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
         </nav>
     </div>
-    <div id="popup"></div>
+    <% if flash[:popup] %>
+      <div id="popup-error-wrapper">
+        <div id="popup-error">
+          <%= "#{flash[:popup]}" %>
+        </div>
+      </div>
+    <% else %>
+      <div id="popup-wrapper">
+        <div id="popup"></div>
+      </div>
+    <% end %>
+    
     <div class="wrap-main">
       <section id="app" >
         <div class="row">
@@ -183,6 +194,13 @@
               <%= text_field_tag 'coolLink', "#{@application['coolLink'] if @application}", placeholder: 'A cool link?' %>
             </div>
 
+            <div class="add-margin" id="mlh-wrap">
+              <div class="agree">
+                <input type="checkbox" value="true" id="agree" name="mlh" />
+                <label for="agree"><div id="mlh-text">I agree to the <a href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct</a> *</div></label>
+              </div>
+            </div>
+
             <div class="hvr-underline-from-center full" id="save-app">
               <%= submit_tag("Save Application", :id => "application") %>
             </div>
@@ -231,9 +249,8 @@
         <% else %>
           document.getElementById("highschool-student").checked = true;
         <% end %>
-        <% if flash[:popup] %>
-          $("#popup").html("<%= "#{flash[:popup]}" %>")
-          popUpTop()
+        <% if @application['mlh'] %>
+          document.getElementById("agree").checked = true;
         <% end %>
       <% end %>
     <% end %>     
