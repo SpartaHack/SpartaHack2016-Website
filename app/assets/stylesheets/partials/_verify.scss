@@ -1,0 +1,123 @@
+@import 'partials/colorScheme';
+@import 'partials/fonts';
+
+#verify {
+
+  @media (max-width: 550px) {
+    line-height: 0px;
+
+    .section-head {
+      margin: 25px 0px; 
+    }
+  }
+
+  display: flex;
+  display: -webkit-flex;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: transparent;
+  text-align: center;
+  letter-spacing: .05em;
+  
+  .wrap {
+    margin-top: 61px;
+  }
+
+  .title-text {
+    height: 30px;
+    width: 87%;
+  }
+
+  #title-subtext {
+    font-size: 140%;
+  }
+
+  h2, p{
+    margin: auto;
+  }
+
+  h2{
+    color: $heroAccent;
+    font-family: MoonDance;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    width: 35%;
+    min-width: 200px;
+    font-size: 180%;
+  }
+
+  p {
+    width: 100%;
+    min-width: 140px;
+    font-size: 110%;
+    margin-top: .5em;
+    margin-bottom: 25px;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    color: $cream;
+  }
+
+  #logo-wrap {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    left:0;
+    right: 0;
+    height: 40%;
+    text-align: center;
+    display: block;
+
+    .title {
+      margin-bottom: 25px;
+    }
+  }
+
+  .logo{
+    min-width: 185px;
+    width: 50%;
+
+    @media (min-width: 600px) {
+      margin-top: -50px;
+    }
+    @media (max-width: 550px) {
+      width: 70%;
+      margin-top: -25px;
+    }
+  }
+
+  a {
+    color: $faqText;
+    text-decoration: underline;
+    &:visited {
+      color: $faqText;
+    }
+    
+    &:hover {
+      -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      opacity: .7;
+    }
+  }
+
+  #intro {
+    width: 100%;
+    line-height: 250%;
+
+    @media (max-width: 1024px) {
+      width: 87%;
+      line-height: 150%;
+      margin-top: -25px;
+    }
+  }
+
+  strong {
+    color: $mutedText;
+  }
+
+}
