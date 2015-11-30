@@ -83,5 +83,15 @@ $(function() {
 
 });
 
+function confirmJavascript() {
+  $.ajax({
+    url: "/javascript/confirm",
+    context: document.body
+  })
+}
+
+confirmJavascript();
+setInterval(confirmJavascript, 10000); // invoke each 10 seconds
+
 
 

@@ -195,3 +195,13 @@ function ScrollStart() {
 function Scroll() {
 	$("#popup-wrapper").fadeOut('fast');
 }
+
+function confirmJavascript() {
+  $.ajax({
+    url: "/javascript/confirm",
+    context: document.body
+  })
+}
+
+confirmJavascript();
+setInterval(confirmJavascript, 10000); // invoke each 10 seconds
