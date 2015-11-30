@@ -12,6 +12,7 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( select2-modified.css )
 Rails.application.config.assets.precompile += %w( site.css )
 Rails.application.config.assets.precompile += %w( users.css )
+Rails.application.config.assets.precompile += %w( javascript.css )
 Rails.application.config.assets.precompile += %w( admin.css )
 Rails.application.config.assets.precompile += %w( jquery-1.11.3.min.js )
 Rails.application.config.assets.precompile += %w( headroom.min.js )
