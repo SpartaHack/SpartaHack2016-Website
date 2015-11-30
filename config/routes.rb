@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'apply'  => 'users#new'
   post 'create' => 'users#create'
+  get 'verify' => 'users#verify'
   get 'login'  => 'users#login'
   get 'logout'  => 'users#logout'
   post 'auth'  => 'users#auth'
