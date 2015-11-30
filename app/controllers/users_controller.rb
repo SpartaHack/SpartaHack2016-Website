@@ -59,6 +59,7 @@ class UsersController < ApplicationController
   def auth
   	begin
 			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
+      print login
       if login["role"] == "admin"
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "admin"] }
 			  redirect_to '/admin' and return
@@ -80,6 +81,12 @@ class UsersController < ApplicationController
       flash[:error] = "Please sign up to create an application."
       redirect_to '/apply'
     else
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      print user
+      if user["emailVerified"] == false
+        redirect_to '/verify' and return
+      end
+
       begin
         @application = Parse::Query.new("Application").tap do |q|
           q.eq("userId", Parse::Pointer.new({
@@ -104,13 +111,27 @@ class UsersController < ApplicationController
     end
   end
 
+  def verify
+    user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+    @email = user["email"]
+    print @email
+    render layout: false
+  end
 
   def save
+
+    if user_app_params["firstName"].blank? || user_app_params["lastName"].blank? || user_app_params["gender"].blank? || 
+        user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? || 
+        user_app_params["universitystudent"].blank? || user_app_params["mlh"].blank?
+      flash[:popup] = "You must fill in all the required fields."
+      redirect_to '/app'  and return
+    end
+
     begin
       fields = [ "firstName", "lastName", "gender", "birthday", "birthmonth", "birthyear", 
                                 "major", "gradeLevel", "whyAttend", "hackathons", 
                                 "github", "linkedIn", "website", "devPost", "coolLink", 
-                                "universitystudent"]
+                                "universitystudent", "mlh"]
 
       application = Parse::Query.new("Application").tap do |q|
                       q.eq("userId", Parse::Pointer.new({
@@ -173,7 +194,7 @@ class UsersController < ApplicationController
       params.permit(:firstName, :lastName, :gender, :birthday, :birthmonth, :birthyear, 
                                   :university, :otherUniversity, {:major => []}, :gradeLevel, 
                                   :whyAttend, {:hackathons => []}, :github, :linkedIn, 
-                                  :website, :devPost, :coolLink, :universitystudent)     
+                                  :website, :devPost, :coolLink, :universitystudent, :mlh)     
     end
 
     def user_login_params
