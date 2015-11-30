@@ -3,9 +3,13 @@ class UsersController < ApplicationController
   require 'monkey_patch'
 
   def new
-    render layout: false
-    cookies.delete :spartaUser
-  	@error = flash[:error]
+    if !@javascript_active
+      redirect_to '/noJS'
+    else
+      render layout: false
+      cookies.delete :spartaUser
+    	@error = flash[:error]
+    end
   end
 
   #create a user and redirect them to application process
@@ -45,6 +49,8 @@ class UsersController < ApplicationController
   def login
     if cookies.signed[:spartaUser]
       redirect_to '/app' and return
+    elsif !@javascript_active
+      redirect_to '/noJS'
     else
       render layout: false
     end
@@ -77,9 +83,12 @@ class UsersController < ApplicationController
   end  
 
   def app
+    print 
     if !cookies.signed[:spartaUser]
       flash[:error] = "Please sign up to create an application."
       redirect_to '/apply'
+    elsif !@javascript_active
+      redirect_to '/noJS'
     else
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       print user
