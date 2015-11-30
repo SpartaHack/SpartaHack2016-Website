@@ -388,11 +388,15 @@
     }
   }
 
+  #agree {
+    position: absolute;
+    left: -9999;
+  }
+
   .agree {
     width: 20px;
     margin-left: 25px;
-    position: absolute;
-    left: -9999;
+    position: relative;
     @media (max-width: 400px) {
       margin-bottom: 15px;
     }
