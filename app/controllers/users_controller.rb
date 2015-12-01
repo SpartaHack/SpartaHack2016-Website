@@ -159,6 +159,9 @@ class UsersController < ApplicationController
           application["universitystudent"] = "true"
           application["university"] = user_app_params["university"]
           application["otherUniversity"] = user_app_params["otherUniversity"]
+        elsif field == "universitystudent" && user_app_params["universitystudent"].to_bool == false
+          application["university"] = nil
+          application["otherUniversity"] = nil 
         else
           application[field] = user_app_params[field]
         end
