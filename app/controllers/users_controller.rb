@@ -105,6 +105,8 @@ class UsersController < ApplicationController
         end.get.first
 
         if @application
+          print @application["universitystudent"]
+          print "------------------------"
           if @application["university"]
             @application["universitystudent"] = true
           else 
@@ -153,14 +155,14 @@ class UsersController < ApplicationController
       end
 
       fields.each do |field|
-        if field == "universitystudent" && user_app_params[field].to_bool == true
+        if field == "universitystudent" && user_app_params["universitystudent"].to_bool == true
+          application["universitystudent"] = "true"
           application["university"] = user_app_params["university"]
           application["otherUniversity"] = user_app_params["otherUniversity"]
         else
-          application["university"] = nil
-          application["otherUniversity"] = nil
+          application[field] = user_app_params[field]
         end
-        application[field] = user_app_params[field]
+        
       end
       response = application.save
 
