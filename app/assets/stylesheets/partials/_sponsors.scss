@@ -87,9 +87,8 @@
 .sub {
   min-width: 130px;
   .logo-sponsor {
-    width: 130px;
+    max-width: 130px;
     height: auto;
-    min-height: 20px;
     margin-bottom: 0px;
     margin-left: 25px;
     margin-right: 25px;
@@ -102,7 +101,7 @@
 }
 
 .bronze {
-  min-width: 400px;
+  max-width: 450px;
   .logo-sponsor {
     min-width: 160px;
     max-width: 400px;
@@ -121,7 +120,7 @@
 }
 
 .silver {
-  min-width: 400px;
+  max-width: 450px;
   .logo-sponsor {
     min-width: 240px;
     max-width: 400px;
@@ -140,7 +139,7 @@
 }
 
 .gold {
-  min-width: 600px;
+  max-width: 650px;
   .logo-sponsor {
     height: 95px;
     min-width: 300px;
