@@ -3,13 +3,9 @@ class UsersController < ApplicationController
   require 'monkey_patch'
 
   def new
-    if !@javascript_active
-      redirect_to '/noJS'
-    else
-      render layout: false
-      cookies.delete :spartaUser
-    	@error = flash[:error]
-    end
+    render layout: false
+    cookies.delete :spartaUser
+  	@error = flash[:error]
   end
 
   #create a user and redirect them to application process
