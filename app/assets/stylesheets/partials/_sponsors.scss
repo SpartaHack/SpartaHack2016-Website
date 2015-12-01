@@ -123,11 +123,10 @@
 }
 
 .silver {
-  max-width: 450px;
+  min-width: 450px;
   .logo-sponsor {
-    min-width: 240px;
-    max-width: 400px;
-    height: 81px;
+    max-width: 450px;
+    height: auto;
     margin: 0px 25px 25px 25px;
 
     @media (max-width: 550px) {
