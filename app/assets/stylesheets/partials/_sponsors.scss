@@ -53,6 +53,7 @@
     -webkit-justify-content: center;
     flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     @media (max-width: 550px) {
       flex-direction: column;
       -webkit-flex-direction: column;
@@ -104,14 +105,12 @@
 }
 
 .bronze {
-  width: auto;
+  display: inline-block;
   .logo-sponsor {
     min-width: 160px;
     max-width: 400px;
     height: 52px;
-    margin-left: 25px;
-    margin-right: 25px;
-    margin-bottom: 25px;
+    margin: 0px 25px 25px 25px;
 
     @media (max-width: 550px) {
       min-width: 160px;
