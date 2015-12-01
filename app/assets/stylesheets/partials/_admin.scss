@@ -26,6 +26,7 @@
 
   ::-webkit-input-placeholder {
     color: $cream;
+    opacity: 1;
     font-family: ubuntu;
     font-weight: lighter;
     font-size: 14px;
@@ -34,6 +35,7 @@
 
   :-moz-placeholder { /* Firefox 18- */
     color: $cream;
+    opacity: 1;
     font-family: ubuntu;
     font-size: 14px;
     font-weight: lighter;
@@ -42,6 +44,7 @@
 
   ::-moz-placeholder {  /* Firefox 19 */
     color: $cream;
+    opacity: 1;
     font-family: ubuntu;
     font-weight: lighter;
     font-size: 14px;
@@ -50,6 +53,7 @@
 
   :-ms-input-placeholder { 
     color: $cream;
+    opacity: 1;
     font-family: ubuntu;
     font-weight: lighter;
     font-size: 14px;

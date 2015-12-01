@@ -57,37 +57,37 @@
 
   ::-webkit-input-placeholder {
     color: $cream;
+    opacity: 1;
     font-family: ubuntu;
     font-weight: lighter;
     font-size: 15px;
-    opacity: 1;
     padding-right: 1em;
   }
 
   :-moz-placeholder { /* Firefox 18- */
     color: $cream;
+    opacity: 1;
     font-family: ubuntu;
     font-size: 15px;
-    opacity: 1;
-    font-weight: 100;
+    font-weight: lighter;
     padding-right: 1em;
   }
 
   ::-moz-placeholder {  /* Firefox 19 */
     color: $cream;
-    font-family: ubuntu;
-    font-weight: 100;
-    font-size: 15px;
     opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 15px;
     padding-right: 1em;
   }
 
   :-ms-input-placeholder { 
     color: $cream;
-    font-family: ubuntu;
-    font-weight: 100;
-    font-size: 15px;
     opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 15px;
     padding-right: 1em;
   }
 
