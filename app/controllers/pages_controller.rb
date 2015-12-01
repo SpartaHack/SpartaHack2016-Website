@@ -12,7 +12,6 @@ class PagesController < ApplicationController
     companies = Parse::Query.new("Company").get
 
     companies.each do |c|
-      c["url"] = c["url"].sub('http://', 'https://s3.amazonaws.com/')
       if c["level"] == "partner"
         @partner.push([c["url"], c["img"].url, c["name"]])
       elsif c["level"] == "trainee"

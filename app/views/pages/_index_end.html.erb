@@ -11,7 +11,7 @@
         <% @commander.each do |sponsor|  %>
           <article class="gold">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
+              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor" %>
             </a>  
           </article>
         <% end %>
@@ -23,7 +23,7 @@
         <% @warrior.each do |sponsor|  %>
           <article class="silver">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
+              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor" %>
             </a>
           </article>
         <% end %>
@@ -35,7 +35,7 @@
         <% @trainee.each do |sponsor|  %>
           <article class="bronze">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor sponsor-img" %>
+              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor sponsor-img" %>
             </a>
           </article>
         <% end %>
@@ -47,7 +47,7 @@
         <% @partner.each do |sponsor|  %>
           <article class="sub">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
+              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor" %>
             </a>
           </article>
         <% end %>
