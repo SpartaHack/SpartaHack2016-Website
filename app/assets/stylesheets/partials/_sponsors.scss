@@ -48,11 +48,14 @@
     display: flex;
     /* NEW, Spec - Opera 12.1, Firefox 20+ */
     align-items: center;
+    -webkit-align-items: center;
     justify-content: center;
+    -webkit-justify-content: center;
     flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     @media (max-width: 550px) {
       flex-direction: column;
+      -webkit-flex-direction: column;
     }
 
   }
@@ -85,9 +88,9 @@
 }
 
 .sub {
-  min-width: 130px;
+  min-width: 170px;
   .logo-sponsor {
-    max-width: 130px;
+    max-width: 170px;
     height: auto;
     margin-bottom: 0px;
     margin-left: 25px;
@@ -101,7 +104,7 @@
 }
 
 .bronze {
-  max-width: 450px;
+  width: auto;
   .logo-sponsor {
     min-width: 160px;
     max-width: 400px;
