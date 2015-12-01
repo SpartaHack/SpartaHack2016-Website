@@ -107,9 +107,8 @@
 .bronze {
   display: inline-block;
   .logo-sponsor {
-    min-width: 160px;
-    max-width: 400px;
-    height: 52px;
+    width: 225px;
+    height: auto;
     margin: 0px 25px 25px 25px;
 
     @media (max-width: 550px) {
