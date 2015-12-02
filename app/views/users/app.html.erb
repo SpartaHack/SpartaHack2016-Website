@@ -69,6 +69,7 @@
       <div id="popup-error-wrapper">
         <div id="popup-error">
           <%= "#{flash[:popup]}" %>
+          <div id="sub-text"><%= "#{flash[:sub]}" %></div>
         </div>
       </div>
     <% else %>
@@ -202,7 +203,7 @@
             </div>
 
             <div class="hvr-underline-from-center full" id="save-app">
-              <%= submit_tag("Save Application", :id => "application") %>
+              <%= submit_tag("#{@application ? 'Update Application' : 'Submit Application'}", :id => "application") %>
             </div>
 
           <% end %>      

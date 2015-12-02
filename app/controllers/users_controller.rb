@@ -101,8 +101,6 @@ class UsersController < ApplicationController
         end.get.first
 
         if @application
-          print @application["universitystudent"]
-          print "------------------------"
           if @application["university"]
             @application["universitystudent"] = true
           else 
@@ -147,7 +145,12 @@ class UsersController < ApplicationController
                       }))
                     end.get.first
       if !application
+        flash[:popup] = "Application successfully submitted."
+        flash[:sub] = "You may continue to edit your application."
         application = Parse::Object.new("Application")
+      else 
+        flash[:popup] = "Application updated."
+        flash[:sub] = "You may continue to edit your application."
       end
 
       fields.each do |field|
@@ -170,7 +173,6 @@ class UsersController < ApplicationController
       application.array_add_relation("userId", user.pointer)
       application.save
 
-      flash[:popup] = "Application saved successfully."
       redirect_to '/app'  and return
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
