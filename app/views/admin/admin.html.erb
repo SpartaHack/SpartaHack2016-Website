@@ -14,7 +14,7 @@
         <meta property="og:site_name" content="SpartaHack" />
         <meta property="og:url" content="https://www.spartahack.com" />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the login page for the admin dashboard." />
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the page for the admin dashboard." />
         <meta property="og:image" content="<%=image_url("facebook.png")%>" />
 
 
@@ -67,60 +67,28 @@
         </div>
 
         <div class="wrap-main">
-			<section id="hero">
+            <section id="user-stat">
+                <div class="row">
+                    <div class="inner-wrap">
+                        <div class="box" ><%= @users_total %></div>
+                        <div class="stat-text">Users</div>
+                    </div>
+                    <div class="inner-wrap">
+                        <div class="box" ><%= @apps_total %></div>
+                        <div class="stat-text">Applications</div>
+                    </div>                 
+                </div>
+            </section>
+			<section id="topic-selection">
 				<div class="row">
-					<h1 class="section-head">ADD SPONSOR</h1> 
-
-					<%= form_tag({action: :addsponsor}, multipart: true) do %>
-						<div class="inner-wrap">
-							<div>
-								<div id="outer-wrap">
-									<%= label_tag(:name, "Sponsor Name", class: 'no-label') %>
-									<%= text_field_tag 'name', nil , placeholder: 'Company Name' %>
-
-									<select id="level" name="level">
-										<option disabled selected></option>
-										<option value="partner">Partner</option>
-										<option value="trainee">Trainee</option>
-										<option value="warrior">Warrior</option>
-										<option value="commander">Commander</option>
-									</select>
-								</div>
-
-								<div id="url-wrap">
-									<%= label_tag(:url, "Website Url", class: 'no-label') %>
-									<%= text_field_tag 'url', nil , placeholder: 'Website URL' %>	
-								</div>
-							</div>	
-
-			               	<div class="thumbnail"> 				
-			               		<%= image_tag "company-logo.svg", alt: "Image Preview", :id => "img_prev" %>
-								<div class="form-group-file">				        
-									<%= file_field_tag 'picture', :onchange => 'readURL(this);' %>
-								</div>
-							</div>					
-						</div>
+					<h1 class="section-head">Pick a topic</h1> 
 
 
-						<div class="hvr-underline-from-center full">
-							<%= submit_tag "Submit", id: "addsponsor" %>
-						</div>
-					<% end %>
+					<div class="hvr-underline-from-center full">
+						<div id="sponsorship-panel"><a href="/admin/sponsorship">Sponsorship</a></div>
+					</div>
 				</div>
 
-				<div class="row">
-					<h1 class="section-head">EDIT SPONSOR</h1> 
-						<div id="sponsor-wrap">
-					      <% @sponsors.each do |sponsor|  %>
-				        	<%= form_tag({action: :viewsponsor}, multipart: true) do %>
-				        		<%= hidden_field_tag 'object' , sponsor[0]  %>	
-				            	<%= submit_tag sponsor[1], id: "viewsponsor" %>
-				            <% end %>
-
-					      <% end %>
-						</div>
-
-				</div>
 			</section>
         </div>
 
