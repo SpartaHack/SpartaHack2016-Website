@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'winners2015' => 'pages#winners2015'
 
   get 'admin' => 'admin#admin'
+  get 'admin/sponsorship' => 'admin#sponsorship'
   post 'addsponsor' => 'admin#addsponsor'
   post 'viewsponsor' => 'admin#viewsponsor'
   post 'editsponsor' => 'admin#editsponsor'
