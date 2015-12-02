@@ -101,10 +101,10 @@ class UsersController < ApplicationController
         end.get.first
 
         if @application
-          if @application["university"]
-            @application["universitystudent"] = true
-          else 
+          if @application["university"].blank? && @application["otherUniversity"].blank?
             @application["universitystudent"] = false
+          else 
+            @application["universitystudent"] = true
           end
         end
 
@@ -159,6 +159,7 @@ class UsersController < ApplicationController
           application["university"] = user_app_params["university"]
           application["otherUniversity"] = user_app_params["otherUniversity"]
         elsif field == "universitystudent" && user_app_params["universitystudent"].to_bool == false
+          application["universitystudent"] = "false"
           application["university"] = nil
           application["otherUniversity"] = nil 
         else
