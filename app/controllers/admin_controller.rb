@@ -13,6 +13,13 @@ class AdminController < ApplicationController
       redirect_to '/login' and return
     end
 
+    @users_total = Parse::Query.new("_User").get.length
+    @apps_total = Parse::Query.new("Application").get.length
+
+    render layout: false
+  end
+
+  def sponsorship
     @sponsors = []
 
     companies = Parse::Query.new("Company").get
