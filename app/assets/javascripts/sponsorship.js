@@ -22,7 +22,7 @@ $(document).ready(function() {
 	$('.select2-container--open').append('<i class="fa fa-angle-up"></i>');	
 
 
-	if ($(window).width() < 550) {
+	if ($(window).width() < 775) {
 	  $("#header").headroom({
 	    "offset": 205,
 	    "tolerance": 5,

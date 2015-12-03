@@ -156,7 +156,7 @@ $(window).resize(function() {
 	createSelects();
 })
 
-if ($(window).width() < 550) {
+if ($(window).width() < 775) {
   $("#header").headroom({
     "offset": 205,
     "tolerance": 5,

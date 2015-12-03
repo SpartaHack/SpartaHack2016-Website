@@ -1,6 +1,6 @@
 $(document).ready(function() {	
 
-	if ($(window).width() < 550) {
+	if ($(window).width() < 775) {
 	  $("#header").headroom({
 	    "offset": 205,
 	    "tolerance": 5,
