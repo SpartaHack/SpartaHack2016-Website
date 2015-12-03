@@ -13,8 +13,13 @@ class AdminController < ApplicationController
       redirect_to '/login' and return
     end
 
-    @users_total = Parse::Query.new("_User").get.length
-    @apps_total = Parse::Query.new("Application").get.length
+    @users_total = Parse::Query.new("_User").tap do |q|
+      q.limit = 1000
+    end.get.length
+    
+    @apps_total = Parse::Query.new("Application").tap do |q|
+      q.limit = 1000
+    end.get.length
 
     render layout: false
   end
