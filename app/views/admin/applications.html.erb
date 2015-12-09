@@ -44,7 +44,7 @@
                   </div>
                   <div class="text">2016</div>
                 </a>
-                <div id="admin-panel">Admin</div>
+                <div id="admin-panel">Admin: Applications</div>
             </div>
             
             <div class="navbar-nav right">
@@ -113,10 +113,55 @@
                             <td><%= !app['gradeLevel'].blank? ? app['gradeLevel'] : "N/A" %></td>
                             <td><%= !app['hackathons'].blank? ? app['hackathons'].join(", ") : "N/A" %></td>
                             <td><%= !app['whyAttend'].blank? ? app['whyAttend'] : "N/A" %></td>
-                            <td><%= !app['github'].blank? ? app['github'] : "N/A" %></td>
-                            <td><%= !app['linkedIn'].blank? ? app['linkedIn'] : "N/A" %></td>
-                            <td><%= !app['devPost'].blank? ? !app['devPost'].index('?').blank? ? app['devPost'].slice(0..(app['devPost'].index('?')-1)) : app['devPost'] : "N/A" %></td>
-                            <td><%= !app['website'].blank? ? app['website'] : "N/A" %></td>
+                            <td>
+                                <a target="_blank" href=
+                                    <% if !app['github'].blank? %>
+                                        <% if app['github'].index("http://").blank? && app['github'].index("https://").blank? && app['github'].index(".com").blank? %>
+                                            <%= "https://github.com/#{app['github']}" %>
+                                        <% elsif app['github'].index("http://").blank? && app['github'].index("https://").blank? %>
+                                            <%= "https://#{app['github']}" %>
+                                        <% else %>
+                                            <%= "#{app['github']}" %>
+                                        <% end %>
+                                    <% else %>
+                                        <%= "#" %>
+                                    <% end %> > <%= !app['github'].blank? ? app['github'] : "N/A" %> 
+                                </a>
+                            </td>
+
+                            <td>
+                                <a target="_blank" href=
+                                    <% if !app['linkedIn'].blank? %>
+                                        <% if app['linkedIn'].index("http://").blank? && app['linkedIn'].index("https://").blank? && app['linkedIn'].index(".com").blank? %>
+                                            <%= "https://linkedin.com/in/#{app['linkedIn']}" %>
+                                        <% elsif app['linkedIn'].index("http://").blank? && app['linkedIn'].index("https://").blank? %>
+                                            <%= "https://#{app['linkedIn']}" %>
+                                        <% else %>
+                                            <%= "#{app['linkedIn']}" %>
+                                        <% end %>
+                                    <% else %>
+                                        <%= "#" %>
+                                    <% end %> > <%= !app['linkedIn'].blank? ? app['linkedIn'] : "N/A" %> 
+                                </a>
+                            </td>
+
+                            <td>
+                                <a target="_blank" href=
+                                    <% if !app['devPost'].blank? %>
+                                        <% if app['devPost'].index("http://").blank? && app['devPost'].index("https://").blank? && app['devPost'].index(".com").blank? %>
+                                            <%= "http://devpost.com/#{app['devPost']}" %>
+                                        <% elsif app['devPost'].index("http://").blank? && app['devPost'].index("https://").blank? %>
+                                            <%= "http://#{app['devPost']}" %>
+                                        <% else %>
+                                            <%= "#{app['devPost']}" %>
+                                        <% end %>
+                                    <% else %>
+                                        <%= "#" %>
+                                    <% end %> > <%= !app['devPost'].blank? ? !app['devPost'].index('?').blank? ? app['devPost'].slice(0..(app['devPost'].index('?')-1)) : app['devPost'] : "N/A" %> 
+                                </a>
+                            </td>
+
+                            <td><a target="_blank" href=<%= !app['website'].blank? ? app['website'].index("http://").blank? && app['website'].index("https://").blank? ? "http://#{app['website']}" : app['website'] : "#" %> ><%= !app['website'].blank? ? app['website'] : "N/A" %></a></td>
                             <td><a target="_blank" href=<%= !app['coolLink'].blank? ? app['coolLink'].index("http://").blank? && app['coolLink'].index("https://").blank? ? "http://#{app['coolLink']}" : app['coolLink'] : "#" %> ><%= !app['coolLink'].blank? ? app['coolLink'] : "N/A" %></a></td>
                         </tr>
                         <% end %>

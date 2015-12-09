@@ -18,35 +18,56 @@
     }
   }
 
-
-  #outer-wrap {
-
-    display: flex;
-    display: -webkit-flex;
-    justify-content: space-between;
-    -webkit-justify-content: space-between;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    padding-bottom: 0px;
-    margin-right: 15px;
-    @media (max-width: 550px) {
-      padding-bottom: 0px;
-      margin-right: 0px;
-
-    }
+  ::-webkit-input-placeholder {
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 15px;
+    padding-right: 1em;
   }
 
-  .inner-wrap {
-    display: flex;
-    display: -webkit-flex;
-    justify-content: space-between;
-    padding-bottom: 15px;
-    -webkit-justify-content: space-between;
-    @media (max-width: 550px) {
-      padding-bottom: 0px;
-      flex-direction: column-reverse;
-      -webkit-flex-direction: column-reverse;
-    }
+  :-moz-placeholder { /* Firefox 18- */
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-size: 15px;
+    font-weight: lighter;
+    padding-right: 1em;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19 */
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 15px;
+    padding-right: 1em;
+  }
+
+  :-ms-input-placeholder { 
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 15px;
+    padding-right: 1em;
+  }
+
+  input[type=search]{
+    height: 60px;
+    width: 400px;
+    text-align:left; 
+    border: solid 1px $mutedOutline; 
+    font-size: 15px; 
+    font-weight: 100;
+    color: $cream;
+    background: none;
+    padding: 8px 0px 8px 15px; 
+    margin-bottom: 15px !important;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    margin-bottom: 0px;
   }
 
   #my-final-table {

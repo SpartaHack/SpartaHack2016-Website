@@ -4,11 +4,14 @@ $(document).ready( function () {
         scrollY: "800px",
         scrollX:"100%",
         paging: false,
-        select: true
+        select: true,
+        "oLanguage": { "sSearch": "" }
     });
 	
 	new $.fn.dataTable.FixedColumns( table, {
         leftColumns: 2
     } );
+
+    $('input').attr('placeholder', "Search")
  
 } );
