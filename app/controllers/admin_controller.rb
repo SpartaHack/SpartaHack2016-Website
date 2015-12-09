@@ -7,6 +7,7 @@ class AdminController < ApplicationController
     if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       if user['role'] != "admin"
+        flash[:error] = "You're not an admin."
         redirect_to '/login' and return
       end
     else
@@ -25,6 +26,16 @@ class AdminController < ApplicationController
   end
 
   def sponsorship
+    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      if user['role'] != "admin"
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
+
     @sponsors = []
 
     companies = Parse::Query.new("Company").get
@@ -60,6 +71,16 @@ class AdminController < ApplicationController
   end
 
   def viewsponsor
+    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      if user['role'] != "admin"
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
+
     object = view_sponsor_params['object']
     @sponsor = Parse::Query.new("Company").eq("objectId", object).get[0]
 
@@ -98,6 +119,16 @@ class AdminController < ApplicationController
   end
 
   def applications
+    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      if user['role'] != "admin"
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
+    
     @apps = Parse::Query.new("Application").tap do |q|
       q.limit = 1000
     end.get
