@@ -97,6 +97,14 @@ class AdminController < ApplicationController
 
   end
 
+  def applications
+    @apps = Parse::Query.new("Application").tap do |q|
+      q.limit = 1000
+    end.get
+
+    render layout: false
+  end
+
   private
 
   def add_sponsor_params

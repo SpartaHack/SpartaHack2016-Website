@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="SpartaHack 2016" />
+        <meta property="og:site_name" content="SpartaHack" />
+        <meta property="og:url" content="https://www.spartahack.com" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the login page for the admin dashboard." />
+        <meta property="og:image" content="<%=image_url("facebook.png")%>" />
+
+
+
+
+        <title>SpartaHack</title>
+
+        <%= favicon_link_tag 'favicon.png' %>
+        <%= stylesheet_link_tag "select2-modified" %>
+        <%= stylesheet_link_tag  "//cdn.datatables.net/1.10.5/css/jquery.dataTables.css" %>
+      
+        <%= stylesheet_link_tag  "//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" %>
+        <%= stylesheet_link_tag "admin" %>
+
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="header" class="header">
+            <div class="navbar-nav left">
+                <a href="/" class="anchorLink">
+                  <div id="home-nav" class="svg-wrapper active">
+                    <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape home" height="60" width="85" />
+                    </svg>
+                  </div>
+                  <div class="text">2016</div>
+                </a>
+                <div id="admin-panel">Admin</div>
+            </div>
+            
+            <div class="navbar-nav right">
+                <div id="login-wrapper">
+                    <a href="/logout">
+                        <div id="login-nav" class="svg-wrapper">
+                            <svg height="60" width="110" xmlns="http://www.w3.org/2000/svg">
+                                <rect class="shape login" height="60" width="110" />
+                            </svg>
+                        </div>
+                        <div class="text">LOG OUT</div>
+                    </a>
+                </div>  
+            </div>
+
+
+            <nav>
+                <ul class="mobile">
+                    <li><a href="/" class="anchorLink">HOME</a></li>
+                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
+                </ul>
+                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+            </nav>
+        </div>
+
+		<section id="applications">
+			<div class="row">
+
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Gender</th>
+                            <th>Birth Month</th>
+                            <th>Birth Day</th>
+                            <th>Birth Year</th>
+                            <th>University Student</th>
+                            <th id="university">University</th>
+                            <th>Other University</th>
+                            <th id="major">Major</th>
+                            <th>Grade Level</th>
+                            <th id="hackathons">Hackathons</th>
+                            <th id="whyAttend">Why Attend</th>
+                            <th>Github</th>
+                            <th>LinkedIn</th>
+                            <th>DevPost</th>
+                            <th>Personal Website</th>
+                            <th>Cool Link</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% @apps.each do |app|  %>
+                        <tr>
+                            <td><%= app['firstName'] %></td>
+                            <td><%= app['lastName'] %></td>
+                            <td><%= app['gender'] %></td>
+                            <td><%= app['birthmonth'] %></td>
+                            <td><%= app['birthday'] %></td>
+                            <td><%= app['birthyear'] %></td>
+                            <td><%= app['universitystudent'] %></td>
+                            <td><%= !app['university'].blank? ? app['university'] : "N/A" %></td>
+                            <td><%= !app['otherUniversity'].blank? ? app['otherUniversity'] : "N/A" %></td>
+                            <td><%= !app['major'].blank? ? app['major'].join(", ") : "N/A" %></td>
+                            <td><%= !app['gradeLevel'].blank? ? app['gradeLevel'] : "N/A" %></td>
+                            <td><%= !app['hackathons'].blank? ? app['hackathons'].join(", ") : "N/A" %></td>
+                            <td><%= !app['whyAttend'].blank? ? app['whyAttend'] : "N/A" %></td>
+                            <td><%= !app['github'].blank? ? app['github'] : "N/A" %></td>
+                            <td><%= !app['linkedIn'].blank? ? app['linkedIn'] : "N/A" %></td>
+                            <td><%= !app['devPost'].blank? ? !app['devPost'].index('?').blank? ? app['devPost'].slice(0..(app['devPost'].index('?')-1)) : app['devPost'] : "N/A" %></td>
+                            <td><%= !app['website'].blank? ? app['website'] : "N/A" %></td>
+                            <td><a target="_blank" href=<%= !app['coolLink'].blank? ? app['coolLink'].index("http://").blank? && app['coolLink'].index("https://").blank? ? "http://#{app['coolLink']}" : app['coolLink'] : "#" %> ><%= !app['coolLink'].blank? ? app['coolLink'] : "N/A" %></a></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+
+                </table>
+
+			</div>
+        </section>
+
+        <%= javascript_include_tag "jquery-1.11.3.min" %>
+        <%= javascript_include_tag "headroom.min" %>
+        <%= javascript_include_tag "jquery-headroom" %> 
+
+        <%= javascript_include_tag "//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js" %>
+        <%= javascript_include_tag "//cdn.datatables.net/select/1.1.0/js/dataTables.select.min.js" %>
+        <%= javascript_include_tag "//cdn.datatables.net/fixedcolumns/3.0.3/js/dataTables.fixedColumns.min.js" %>
+        <%= javascript_include_tag "//cdn.datatables.net/colreorder/1.1.2/js/dataTables.colReorder.min.js" %>
+        <%= javascript_include_tag "//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js" %>
+
+        <%= javascript_include_tag "admin-apps" %>
+    </body>
+</html>   
