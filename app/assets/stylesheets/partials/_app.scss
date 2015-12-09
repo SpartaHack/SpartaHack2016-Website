@@ -415,6 +415,11 @@
     color: $cream;
     font-family: ubuntu;
     font-weight: 100;
+    font-size: 15px;
+    
+    a {
+      font-size: 15px;
+    }
   }
 
 
@@ -430,6 +435,7 @@
     position: relative;
     @media (max-width: 400px) {
       margin-bottom: 15px;
+      margin-left: 5px;
     }
   }
 
@@ -446,11 +452,15 @@
   #mlh-text {
     position: absolute;
     margin-left: 30px;
-    width: 300px;
+    width: 380px;
     word-wrap: normal;
-    @media (max-width: 400px) {
-      width: 87%;
-      width: 250px;
+    @media (max-width: 440px) {
+      width: 260px;
+      word-wrap: normal;
+    }
+
+    @media (min-width: 441px) and (max-width: 550px) {
+      width: 320px;
       word-wrap: normal;
     }
 
