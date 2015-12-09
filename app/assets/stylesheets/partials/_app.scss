@@ -388,6 +388,36 @@
     }
   }
 
+  #mlh-disclaimer {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    border-style: none;
+    border: solid 1px $mutedOutline;
+    border-radius: 0;
+    height: 150px;
+    width: 100%;
+    @media (max-width: 550px){
+      margin-bottom: 15px;
+      height: 190px;
+    }
+  }
+
+  #mlh-disclaimer-text {
+    margin-left: 15px;
+    word-wrap: normal;
+
+  }
+
+  #mlh-text, #mlh-disclaimer-text {
+    -webkit-font-smoothing: antialiased;
+    color: $cream;
+    font-family: ubuntu;
+    font-weight: 100;
+  }
+
+
   #agree {
     position: absolute;
     left: -9999;
