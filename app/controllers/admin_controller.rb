@@ -136,6 +136,12 @@ class AdminController < ApplicationController
     render layout: false
   end
 
+  def status 
+      app = Parse::Query.new("Application").eq("objectId", status_params["object"]).get.first
+      app['status'] = status_params["status-select"]
+      app.save
+  end
+
   private
 
   def add_sponsor_params
@@ -149,5 +155,9 @@ class AdminController < ApplicationController
   def view_sponsor_params
     params.permit(:object)
   end   
+
+  def status_params
+    params.permit(:object, :"status-select")
+  end 
 
 end

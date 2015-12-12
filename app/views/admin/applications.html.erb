@@ -25,7 +25,6 @@
         <%= favicon_link_tag 'favicon.png' %>
         <%= stylesheet_link_tag "select2-modified" %>
         <%= stylesheet_link_tag  "//cdn.datatables.net/1.10.5/css/jquery.dataTables.css" %>
-      
         <%= stylesheet_link_tag  "//cdn.datatables.net/colvis/1.1.1/css/dataTables.colVis.css" %>
         <%= stylesheet_link_tag "admin" %>
 
@@ -82,13 +81,19 @@
         </div>
 
 		<section id="applications">
+          <div id="popup-wrapper">
+            <div id="popup"></div>
+          </div>
 			<div class="row">
-
+            
                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
                     <thead>
                         <tr>
+                            <th id="number">#</th>
                             <th>First Name</th>
                             <th>Last Name</th>
+                            <th>Status</th>
+                            <th id="created">Created</th>
                             <th>Gender</th>
                             <th>Birth Month</th>
                             <th>Birth Day</th>
@@ -109,10 +114,18 @@
                     </thead>
 
                     <tbody>
-                        <% @apps.each do |app|  %>
+                        <% @apps.each_with_index do |app, index|  %>
                         <tr>
+                            <td><%= index.to_i + 1 %></td>
                             <td><%= app['firstName'] %></td>
                             <td><%= app['lastName'] %></td>
+                            <td id=<%= index.to_i + 1 %> >
+                                <%= form_tag("/admin/applications/status", :remote => true, :authenticity_token => true, class: "status") do %>
+                                    <%= hidden_field_tag 'object' , app["objectId"]  %>  
+                                    <%= select_tag "status-select", options_for_select(["", "Accepted", "Waitlisted", "Denied"], selected: "#{app['status']}"), class: "status-select" %>
+                                <% end %>
+                            </td>
+                            <td><%= app['createdAt'] %></td>
                             <td><%= app['gender'] %></td>
                             <td><%= app['birthmonth'] %></td>
                             <td><%= app['birthday'] %></td>
@@ -179,6 +192,16 @@
                     </tbody>
 
                 </table>
+                <div id="multi-wrapper">
+                    <%= form_tag("/", class: "multi-set") do %>
+                         <%= text_field_tag 'start', "", placeholder: 'Start #' %>
+                         <div>to</div>
+                         <%= text_field_tag 'end', "", placeholder: 'End #' %>
+                        <%= select_tag "status-multi", options_for_select(["", "Accepted", "Waitlisted", "Denied"]), class: "status-multi" %>
+                    <% end %>  
+
+                    <div>* Page will refresh on completion.</div>  
+                </div>
 
 			</div>
         </section>
@@ -189,10 +212,10 @@
 
         <%= javascript_include_tag "//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js" %>
         <%= javascript_include_tag "//cdn.datatables.net/select/1.1.0/js/dataTables.select.min.js" %>
-        <%= javascript_include_tag "//cdn.datatables.net/fixedcolumns/3.0.3/js/dataTables.fixedColumns.min.js" %>
+        <%= javascript_include_tag "//cdn.datatables.net/fixedcolumns/3.2.0/js/dataTables.fixedColumns.min.js" %>
         <%= javascript_include_tag "//cdn.datatables.net/colreorder/1.1.2/js/dataTables.colReorder.min.js" %>
         <%= javascript_include_tag "//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js" %>
-
+        <%= javascript_include_tag "select2.full.min" %>  
         <%= javascript_include_tag "admin-apps" %>
     </body>
 </html>   

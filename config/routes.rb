@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get 'admin' => 'admin#admin'
   get 'admin/sponsorship' => 'admin#sponsorship'
   get 'admin/applications' => 'admin#applications'
+  post 'admin/applications/status' => 'admin#status'
   get 'admin/qrcode' => 'admin#qrcode'
   post 'addsponsor' => 'admin#addsponsor'
   post 'viewsponsor' => 'admin#viewsponsor'
