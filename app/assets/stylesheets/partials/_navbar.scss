@@ -229,6 +229,21 @@
 
 }
 
+#mlh-trust-badge {
+  position:fixed;
+  display:block;
+  z-index:10000;
+  top:61px;
+  right:10px;
+  max-width:80px;
+  width:10%;
+  min-width: 50px;
+  @media only screen and (min-width : 776px) {
+    right:45px;
+  }
+}
+
+
   .animated {
     -webkit-animation-duration: 0.5s;
        -moz-animation-duration: 0.5s;

@@ -1,9 +1,4 @@
 function createSelects() {
-    $('.status-select').select2({
-      placeholder: "No Status", 
-      minimumResultsForSearch: -1,
-      allowClear: true
-    });
 
     $('.status-multi').select2({
       placeholder: "No Status", 
@@ -62,6 +57,6 @@ $(document).ready( function () {
         location.reload();
     })
 
-    setTimeout(function(){$('#popup-wrapper').fadeOut('slow')}, 10000)
+    setTimeout(function(){$('#popup-wrapper').fadeOut('slow')}, 500)
 } );
 
