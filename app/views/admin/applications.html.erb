@@ -122,7 +122,7 @@
                             <td id=<%= index.to_i + 1 %> >
                                 <%= form_tag("/admin/applications/status", :remote => true, :authenticity_token => true, class: "status") do %>
                                     <%= hidden_field_tag 'object' , app["objectId"]  %>  
-                                    <%= select_tag "status-select", options_for_select(["", "Accepted", "Waitlisted", "Denied"], selected: "#{app['status']}"), class: "status-select" %>
+                                    <%= select_tag "status-select", options_for_select([["No Status", ""], ["Accepted", "Accepted"], ["Waitlisted", "Waitlisted"], ["Denied", "Denied"]], selected: "#{app['status']}"), class: "status-select" %>
                                 <% end %>
                             </td>
                             <td><%= app['createdAt'] %></td>
