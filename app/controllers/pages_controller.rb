@@ -23,6 +23,22 @@ class PagesController < ApplicationController
       end
     end
 
+    @partner= @partner.sort do |a,b|
+      a[2] <=> b[2]
+    end
+
+    @trainee= @trainee.sort do |a,b|
+      a[2] <=> b[2]
+    end
+
+    @warrior= @warrior.sort do |a,b|
+      a[2] <=> b[2]
+    end
+
+    @commander= @commander.sort do |a,b|
+      a[2] <=> b[2]
+    end
+
     render layout: false
   end
 
