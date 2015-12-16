@@ -85,17 +85,25 @@
   display: flex;
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
   align-items: center;
+  -webkit-align-items: center;
+  
   align-content: center;
+  -webkit-align-content: center;
+
+  justify-content: center;
+  -webkit-justify-content: center;
 }
 
 .sub {
-  min-width: 170px;
+  width: 150px;
+  height: 70px;
+  margin: 15px 25px;
   .logo-sponsor {
-    max-width: 170px;
+    max-width: 150px;
+    max-height: 70px;
     height: auto;
+    width: 100%;
     margin-bottom: 0px;
-    margin-left: 25px;
-    margin-right: 25px;
     @media (max-width: 550px) {
       margin: 0px 0px 25px 0px;
     }
@@ -105,17 +113,19 @@
 }
 
 .bronze {
-  min-width: 225px;
-  .logo-sponsor {
-    max-width: 225px;
-    height: auto;
-    margin: 0px 25px 25px 25px;
+  width: 250px;
+  height: 100px;
+  margin: 15px 25px;
 
+  .logo-sponsor {
+    max-width: 250px;
+    max-height: 100px;
+    height: auto;
+    width: 100%;
     @media (max-width: 550px) {
       min-width: 160px;
       max-width: 200px;
       height: auto;
-      margin: 0px 0px 25px 0px;
     }
   }
 
@@ -123,11 +133,14 @@
 }
 
 .silver {
-  min-width: 450px;
+  width: 300px;
+  height: 150px;
+  margin: 15px 25px;
   .logo-sponsor {
-    max-width: 450px;
+    max-width: 300px;
+    max-height: 150px;
     height: auto;
-    margin: 0px 25px 25px 25px;
+    width: 100%;
 
     @media (max-width: 550px) {
       min-width: 240px;
@@ -144,12 +157,14 @@
 }
 
 .gold {
-  max-width: 650px;
+  width: 585px;
+  height: 175px;
+  margin: 15px 25px;
   .logo-sponsor {
-    height: 95px;
-    min-width: 300px;
-    max-width: 600px;
-    margin: 0px 25px 25px 25px;
+    max-width: 585px;
+    max-height: 175px;
+    height: auto;
+    width: 100%;
 
     @media (max-width: 550px) {
       min-width: 300px;
