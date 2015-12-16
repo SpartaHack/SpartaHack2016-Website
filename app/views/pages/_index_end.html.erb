@@ -9,7 +9,7 @@
     <section id="gold">
       <div class="media-grid">
         <% @commander.each do |sponsor|  %>
-          <article class="gold">
+          <article class="gold center">
             <a href="<%= sponsor[0] %>" target="_blank">
               <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor" %>
             </a>  
@@ -21,7 +21,7 @@
     <section id="silver">
       <div class="media-grid">
         <% @warrior.each do |sponsor|  %>
-          <article class="silver">
+          <article class="silver center">
             <a href="<%= sponsor[0] %>" target="_blank">
               <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor" %>
             </a>
@@ -33,7 +33,7 @@
     <section id="bronze">
       <div class="media-grid">
         <% @trainee.each do |sponsor|  %>
-          <article class="bronze">
+          <article class="bronze center">
             <a href="<%= sponsor[0] %>" target="_blank">
               <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor sponsor-img" %>
             </a>
@@ -45,7 +45,7 @@
     <section id="sub"> 
       <div class="media-grid">
         <% @partner.each do |sponsor|  %>
-          <article class="sub">
+          <article class="sub center">
             <a href="<%= sponsor[0] %>" target="_blank">
               <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor" %>
             </a>
