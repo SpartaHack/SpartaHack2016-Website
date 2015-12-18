@@ -102,9 +102,9 @@ class UsersController < ApplicationController
 
         if @application
           if @application["university"].blank? && @application["otherUniversity"].blank?
-            @application["universitystudent"] = false
+            @application["universityStudent"] = false
           else 
-            @application["universitystudent"] = true
+            @application["universityStudent"] = true
           end
         end
 
@@ -127,7 +127,7 @@ class UsersController < ApplicationController
 
     if user_app_params["firstName"].blank? || user_app_params["lastName"].blank? || user_app_params["gender"].blank? || 
         user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? || 
-        user_app_params["universitystudent"].blank? || user_app_params["mlh"].blank?
+        user_app_params["universityStudent"].blank? || user_app_params["mlh"].blank?
       flash[:popup] = "You must fill in all the required fields."
       redirect_to '/app'  and return
     end
@@ -136,7 +136,7 @@ class UsersController < ApplicationController
       fields = [ "firstName", "lastName", "gender", "birthday", "birthmonth", "birthyear", 
                                 "major", "gradeLevel", "whyAttend", "hackathons", 
                                 "github", "linkedIn", "website", "devPost", "coolLink", 
-                                "universitystudent", "mlh"]
+                                "universityStudent", "mlh"]
 
       application = Parse::Query.new("Application").tap do |q|
                       q.eq("userId", Parse::Pointer.new({
@@ -154,12 +154,20 @@ class UsersController < ApplicationController
       end
 
       fields.each do |field|
-        if field == "universitystudent" && user_app_params["universitystudent"].to_bool == true
-          application["universitystudent"] = "true"
-          application["university"] = user_app_params["university"]
-          application["otherUniversity"] = user_app_params["otherUniversity"]
-        elsif field == "universitystudent" && user_app_params["universitystudent"].to_bool == false
-          application["universitystudent"] = "false"
+        if field == "universityStudent" && user_app_params["universityStudent"].to_bool == true
+          application["universityStudent"] = "true"
+          if user_app_params["otherUniversityConfirm"].to_bool == true
+            application["otherUniversityConfirm"] = "true"
+            application["otherUniversity"] = user_app_params["otherUniversity"]
+            application["university"] = nil
+          else
+            application["otherUniversityConfirm"] = "false"
+            application["university"] = user_app_params["university"]
+            application["otherUniversity"] = nil
+          end
+        elsif field == "universityStudent" && user_app_params["universityStudent"].to_bool == false
+          application["universityStudent"] = "false"
+          pplication["otherUniversityConfirm"] = "false"
           application["university"] = nil
           application["otherUniversity"] = nil 
         else
@@ -205,9 +213,9 @@ class UsersController < ApplicationController
 
     def user_app_params
       params.permit(:firstName, :lastName, :gender, :birthday, :birthmonth, :birthyear, 
-                                  :university, :otherUniversity, {:major => []}, :gradeLevel, 
+                                  :university, :otherUniversityConfirm,:otherUniversity, {:major => []}, :gradeLevel, 
                                   :whyAttend, {:hackathons => []}, :github, :linkedIn, 
-                                  :website, :devPost, :coolLink, :universitystudent, :mlh)     
+                                  :website, :devPost, :coolLink, :universityStudent, :mlh)     
     end
 
     def user_login_params
