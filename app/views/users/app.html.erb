@@ -92,7 +92,7 @@
               <%= text_field_tag 'lastName', "#{@application['lastName'] if @application}", placeholder: 'Last Name *'  %>
             </div>
 
-            <div class="add-margin">
+            <div class="add-margin-top">
               <select id="gender" name="gender" style="display=none;">
                 <option></option>
                 <option value="male">Male</option>
@@ -102,7 +102,7 @@
               </select>
             </div>
 
-            <div class="add-margin" id="birthdate-wrap">
+            <div class="add-margin-top" id="birthdate-wrap">
               <select id="birthday" name="birthday">
                 <option></option>
                 <%= options_for_select((1..31).to_a)%>
@@ -117,33 +117,36 @@
               </select>
             </div>
 
-            <div class="add-margin" id="enrollment-wrap">
+            <div class="add-margin-top add-margin-bottom" id="enrollment-wrap">
               <label id="highschool">Which of the following best describes your current enrollment? *</label>
               <div id="radio-wrap">
-                <div>
-                  <input type="radio" name="universitystudent" id="highschool-student" value="false" >
+                  <input type="radio" name="universityStudent" id="highschool-student" value="false" >
                   <label for="highschool-student">High School</label>                  
-                </div>
-                <div>
-                  <input type="radio" name="universitystudent" id="university-student" value="true" >
-                  <label for="university-student">University</label>
-                </div>
+                  <input type="radio" name="universityStudent" id="university-student" value="true" >
+                  <label for="university-student">College/University</label>
               </div>
             </div>
 
-            <div class="add-margin university-enrolled" style="display:none;">
+            <div class="add-margin-bottom university-enrolled university" style="display:none;">
               <%= render partial: "users/app_university" %>
             </div>
 
-            <div class="add-margin university-enrolled" style="display:none;">
-              <%= label_tag(:otherUniversity, "School not listed above? Enter it here.", class: 'no-label') %>
-              <%= text_field_tag 'otherUniversity', "#{@application['otherUniversity'] if @application}", placeholder: 'School not listed above? Enter it here.' %>
+            <div class="university-enrolled" id="other-university-wrap">
+              <div class="check">
+                <input type="checkbox" value="true" id="other-university-confirm" name="otherUniversityConfirm" />
+                <label for="other-university-confirm"><div id="other-university-text">College/University not listed?</div></label>
+              </div>
+            </div>
+
+            <div class="add-margin-top other-university-enrolled" style="display:none;">
+              <%= label_tag(:otherUniversity, "College/University not listed above? Enter it here.", class: 'no-label') %>
+              <%= text_field_tag 'otherUniversity', "#{@application['otherUniversity'] if @application}", placeholder: 'Other College/University' %>
             </div>            
-            <div class="add-margin university-enrolled">
+            <div class="add-margin-top university-enrolled">
               <%= render partial: "users/app_major" %>
             </div>
 
-            <div class="add-margin university-enrolled">
+            <div class="add-margin-top add-margin-bottom university-enrolled">
               <select id="gradeLevel" name="gradeLevel">
                 <option></option>
                 <option>First Year</option>
@@ -156,11 +159,11 @@
               </select>
             </div>
 
-            <div class="add-margin">
+            <div >
               <%= render partial: "users/app_hackathon" %>
             </div>
 
-            <div class="add-margin">
+            <div class="add-margin-top">
               <%= label_tag(:whyAttend, "Why do you want to attend SpartaHack 2016?", class: 'no-label') %>
               <%= text_area_tag 'whyAttend', "#{@application['whyAttend'] if @application}", placeholder: 'Why do you want to attend SpartaHack 2016?' %>
             </div>
@@ -171,38 +174,38 @@
               <%= text_field_tag 'github', "#{@application['github'] if @application}", placeholder: 'GitHub handle?' %>
             </div>
 
-            <div class="add-margin has-icon">
+            <div class="add-margin-top has-icon">
               <%= image_tag "linkedin.svg", alt: "LinkedIn Icon", :class => "icon" %>
               <%= label_tag(:linkedIn, "What is your LinkedIn handle?", class: 'no-label') %>
               <%= text_field_tag 'linkedIn', "#{@application['linkedIn'] if @application}", placeholder: 'LinkedIn handle?' %>
             </div>
 
-            <div class="add-margin has-icon">
+            <div class="add-margin-top has-icon">
               <%= image_tag "devpost.svg", alt: "DevPost Icon", :class => "icon" %>
               <%= label_tag(:devPost, "What is your DevPost handle?", class: 'no-label') %>
               <%= text_field_tag 'devPost', "#{@application['devPost'] if @application}", placeholder: 'DevPost handle?' %>
             </div>
 
-            <div class="add-margin has-icon">
+            <div class="add-margin-top has-icon">
               <%= image_tag "website.svg", alt: "Personal Website Icon", :class => "icon" %>
               <%= label_tag(:website, "What is your personal website?", class: 'no-label') %>
               <%= text_field_tag 'website', "#{@application['website'] if @application}", placeholder: 'Your personal website?' %>
             </div>
 
-            <div class="add-margin has-icon">
+            <div class="add-margin-top has-icon">
               <%= image_tag "coollink.svg", alt: "Cool Link Icon", :class => "icon" %>
               <%= label_tag(:coolLink, "A cool link you\'d like to share?", class: 'no-label') %>
               <%= text_field_tag 'coolLink', "#{@application['coolLink'] if @application}", placeholder: 'A cool link?' %>
             </div>
 
-            <div class="add-margin" id="mlh-disclaimer">
+            <div class="add-margin-top" id="mlh-disclaimer">
               <div>
                 <div id="mlh-disclaimer-text">We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to share certain application/registration information for event administration, ranking, MLH administration, and occasional messages about hackathons in line with the <a href="https://mlh.io/privacy" target="_blank">MLH Privacy Policy.</a></div>
               </div>
             </div>
 
-            <div class="add-margin" id="mlh-wrap">
-              <div class="agree">
+            <div class="add-margin-top" id="mlh-wrap">
+              <div class="check check-mlh">
                 <input type="checkbox" value="true" id="agree" name="mlh" />
                 <label for="agree"><div id="mlh-text">I agree to the <a href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct</a> and <a href="https://mlh.io/privacy" target="_blank">Private Policy</a> *</div></label>
               </div>
@@ -251,10 +254,15 @@
         <% if @application['hackathons'] %>
           $("#hackathons").val(<%= raw @application['hackathons'] %>).trigger("change")
         <% end %>
-        <% if @application['universitystudent'] %>
+        <% if @application['universityStudent'] %>
           document.getElementById("university-student").checked = true;
         <% else %>
           document.getElementById("highschool-student").checked = true;
+        <% end %>
+        <% if @application['otherUniversityConfirm'].to_bool == true %>
+          $('#other-university-confirm').prop('checked', true);
+        <% else %>
+          $('#other-university-confirm').prop('checked', false);
         <% end %>
         <% if @application['mlh'] %>
           document.getElementById("agree").checked = true;
