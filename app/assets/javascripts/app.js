@@ -156,7 +156,7 @@ $(document).ready(function() {
 
 	$('#university-student').click(function(){
 		// $('.university-enrolled').fadeIn("fast")
-		$('.university-enrolled').slideDown("slow");
+		$('.university-enrolled').slideDown('slow');
 		createSelects();
 	})
 
@@ -174,19 +174,14 @@ $(document).ready(function() {
 		if ($(this).is(':checked')) {
 			$('.university').slideUp("slow", function() {
 				$('#university').val("").change();
-				$('.other-university-enrolled').slideDown("slow");
+				$('.other-university-enrolled').slideDown({duration:'slow', start: createSelects});
 			});
 			createSelects();
 		} else {
 			$('.other-university-enrolled').slideUp( "slow", function() {
-				$('.university').slideDown("slow");
+				$('.university').slideDown({duration:'slow', start: createSelects});
 				$('#otherUniversity').val("");
 			});
-			// $('.other-university-enrolled').fadeOut("fast", function() {
-			// 	$('.university').slideDown("slow");
-			// 	$('#otherUniversity').val("");
-			// });
-			createSelects();
 		}
 
 	});
