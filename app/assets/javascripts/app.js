@@ -132,23 +132,64 @@ $(document).ready(function() {
 		}
 	})
 
-	$('#highschool-student').click(function(){
-		$('.university-enrolled').fadeOut("fast")
-		createSelects();
-	})
-
-	$('#university-student').click(function(){
-		$('.university-enrolled').fadeIn("fast")
-		createSelects();
-	})
-
 	if (document.getElementById('university-student').checked) {
-		$('.university-enrolled').fadeIn("fast")
+		$('.university-enrolled').fadeIn("fast");
+		if (document.getElementById('other-university-confirm').checked) {
+			$('.university').css("display", "none");
+			$('.other-university-enrolled').fadeIn("fast");
+		} else {
+			$('.other-university-enrolled').fadeOut("fast");
+		}
 		createSelects();
 	} else {
-		$('.university-enrolled').fadeOut("fast")
+		$('.university-enrolled').fadeOut("fast");
 		createSelects();
 	}
+
+	$('#popup-wrapper').click(function(){
+		$('#popup-wrapper').fadeOut('fast');
+	});
+
+	$('#popup-error-wrapper').click(function(){
+		$('#popup-error-wrapper').fadeOut('fast');
+	});
+
+	$('#university-student').click(function(){
+		// $('.university-enrolled').fadeIn("fast")
+		$('.university-enrolled').slideDown("slow");
+		createSelects();
+	})
+
+	$('#highschool-student').click(function(){
+		$('.university-enrolled').slideUp("slow");
+		$('.other-university-enrolled').slideUp("slow");
+		$('#other-university-confirm').prop('checked', false);
+		$('#university').val("").change();
+		$('#otherUniversity').val("");
+
+		createSelects();
+	})
+
+	$('#other-university-confirm').change(function() {
+		if ($(this).is(':checked')) {
+			$('.university').slideUp("slow", function() {
+				$('#university').val("").change();
+				$('.other-university-enrolled').slideDown("slow");
+			});
+			createSelects();
+		} else {
+			$('.other-university-enrolled').slideUp( "slow", function() {
+				$('.university').slideDown("slow");
+				$('#otherUniversity').val("");
+			});
+			// $('.other-university-enrolled').fadeOut("fast", function() {
+			// 	$('.university').slideDown("slow");
+			// 	$('#otherUniversity').val("");
+			// });
+			createSelects();
+		}
+
+	});
 
 })
 
