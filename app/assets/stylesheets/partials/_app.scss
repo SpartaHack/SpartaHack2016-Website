@@ -158,6 +158,11 @@
     width: 100%;
     @media (min-width: 550px) {
       width: 530px;
+    } 
+  }
+
+  #hackathons, #major, #gender{
+    @media (min-width: 550px) {
       margin-bottom: 0px;
     } 
   }
@@ -306,6 +311,13 @@
   }
 
   .add-margin-bottom {
+    margin-bottom: 15px;
+    @media (min-width: 550px) {
+      margin-bottom: 26px;
+    } 
+  }
+
+  .university, #gradeLevel-wrap {
     margin-bottom: 0px;
     @media (min-width: 550px) {
       margin-bottom: 26px;
