@@ -167,7 +167,7 @@
     text-align: center;
   }
 
-  #enrollment-wrap {
+  #enrollment-wrap, #other-university-wrap {
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
@@ -179,7 +179,9 @@
     font-weight: lighter;
     -webkit-font-smoothing: antialiased;
     height: 60px;
-    margin-bottom: 15px;
+  }
+
+  #enrollment-wrap {
     @media (max-width: 550px) {
       height: 75px;
     }
@@ -296,10 +298,17 @@
 
   }
 
-  .add-margin {
+  .add-margin-top {
     margin-top: 0px;
     @media (min-width: 550px) {
       margin-top: 26px;
+    } 
+  }
+
+  .add-margin-bottom {
+    margin-bottom: 0px;
+    @media (min-width: 550px) {
+      margin-bottom: 26px;
     } 
   }
 
@@ -410,7 +419,7 @@
 
   }
 
-  #mlh-text, #mlh-disclaimer-text {
+  #mlh-text, #mlh-disclaimer-text, #other-university-text {
     -webkit-font-smoothing: antialiased;
     color: $cream;
     font-family: ubuntu;
@@ -422,24 +431,26 @@
     }
   }
 
-
-  #agree {
+  #agree, #other-university-confirm {
     position: absolute;
     left: -9999;
   }
 
-  .agree {
+  .check {
     width: 20px;
     margin-left: 25px;
     margin-top: -20px;
     position: relative;
+  }
+
+  .check-mlh {
     @media (max-width: 400px) {
       margin-bottom: 15px;
       margin-left: 5px;
     }
   }
 
-  .agree label {
+  .check label {
     cursor: pointer;
     position: absolute;
     width: 100%;
@@ -466,7 +477,16 @@
 
   }
 
-  .agree label:after {
+  #other-university-text {
+    position: absolute;
+    margin-left: 30px;
+    width: 380px;
+    @media (max-width: 440px) {
+      width: 260px;
+    }
+  }
+
+  .check label:after {
     filter: alpha(opacity=0);
     opacity: 0;
     content: '';
@@ -487,13 +507,13 @@
     transform: rotate(-45deg);
   }
 
-  .agree label:hover::after {
+  .check label:hover::after {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
     filter: alpha(opacity=30);
     opacity: 0.3;
   }
 
-  .agree input[type=checkbox]:checked + label:after {
+  .check input[type=checkbox]:checked + label:after {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     filter: alpha(opacity=100);
     opacity: 1;
