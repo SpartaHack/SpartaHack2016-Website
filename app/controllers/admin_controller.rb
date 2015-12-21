@@ -142,6 +142,62 @@ class AdminController < ApplicationController
       app.save
   end
 
+  def stats
+    # Only allow admins to view
+    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      if user['role'] != "admin"
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
+
+    # Gets all applications
+    @apps = Parse::Query.new("Application").tap do |q|
+      q.limit = 1000
+    end.get
+
+    # gender count [male, female, nonbinary]
+    @gender_count = {"male"=>0, "female"=>0, "nonbinary"=>0, "total"=>0}
+
+    # Hash of university => attendee count
+    @uni_applicants = {"High School"=>0}
+
+    # Gender
+    @apps.each do |app|
+      if !app['gender'].blank? && !@gender_count[app['gender']].blank?
+        @gender_count[app['gender']]+=1;
+        @gender_count["total"] +=1;
+      end
+    end
+
+
+
+    #fills uni_applicants hash
+    @apps.each do |app|
+      if !app['university'].blank?
+        if @uni_applicants[ app['university'] ]
+          @uni_applicants[ app['university'] ] += 1
+        else
+          @uni_applicants[ app['university'] ] = 1
+        end
+      else
+        @uni_applicants["High School"] += 1
+      end
+    end
+
+    #creates an array of arrays sorted with highest value first. 
+    @uni_applicants = @uni_applicants.sort_by {|_key, value| value}.reverse
+
+
+
+
+
+  end
+
+
   private
 
   def add_sponsor_params

@@ -1,0 +1,129 @@
+@import 'partials/colorScheme';
+@import 'partials/fonts';
+
+#stats {
+  margin-top: 4em;
+  font-family: ubuntu;
+  font-weight: 100;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  color: #80ffdb;
+
+
+  .wrap {
+    max-width: 1200px;
+  }
+  
+  p {
+    width: 100%;
+    margin: auto;
+    min-width: 140px;
+    font-size: 110%;
+    margin-top: .5em;
+    margin-bottom: 25px;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    color: #80ffdb;
+  }
+
+
+  .column {      
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    article {
+
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+      width: 48%;
+      font-family: ubuntu;
+      font-weight: 100;
+      -webkit-appearance: none;
+      -webkit-font-smoothing: antialiased;
+      @media (min-width: 550px) {
+        margin: 3vh 0;
+      }
+
+      @media (max-width: 550px) {
+        width: 100%;
+        align-items: center;
+
+        .a-hline {
+          border-top: solid 1px $mutedCream;
+          background: none;
+          width: 30%;
+        }
+
+      } 
+
+    }
+
+    @media (max-width: 1000px) {
+      width: 87%;
+    }
+
+    @media (max-width: 550px) {
+      flex-direction: column;
+      width: 100%
+    }    
+
+  }
+
+
+}
+
+
+
+.horizontal-bar-graph {
+  display: table;
+  width: 100%;
+}
+
+.horizontal-bar-graph-segment {
+  display: table-row;
+}
+
+.horizontal-bar-graph-label {
+  display: table-cell;
+  border-right: 1px solid silver; 
+  text-align: right;
+  padding: 4px 10px 4px 0;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.horizontal-bar-graph-value {
+  display: table-cell;
+  padding: 3px 0;
+  vertical-align: bottom;
+  width: 100%;
+}
+
+.horizontal-bar-graph-value-bar {
+  background: silver;
+  // @include box-sizing(padding-box);
+  padding: 4px 4px 3px;
+  height: 1.2em;
+  text-align: right;
+  color: white;
+  overflow: visible;
+  display: inline-block;
+  white-space: nowrap;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.4);
+
+  font-size: 18px;
+}
+
+.horizontal-bar-graph-segment:first-child {
+  .horizontal-bar-graph-label { padding-top: 12px; }
+  .horizontal-bar-graph-value { padding-top: 11px; }
+}
+.horizontal-bar-graph-segment:last-child {
+  .horizontal-bar-graph-label { padding-bottom: 12px; }
+  .horizontal-bar-graph-value { padding-bottom: 11px; }
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="SpartaHack 2016" />
+        <meta property="og:site_name" content="SpartaHack" />
+        <meta property="og:url" content="https://www.spartahack.com" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the page for the admin dashboard." />
+        <meta property="og:image" content="<%=image_url("facebook.png")%>" />
+
+        <title>SpartaStats</title>
+
+        <%= favicon_link_tag 'favicon.png' %>
+        <%= stylesheet_link_tag "select2-modified" %>
+        <%= stylesheet_link_tag "admin" %>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="header" class="header">
+            <div class="navbar-nav left">
+                <a href="/" class="anchorLink">
+                  <div id="home-nav" class="svg-wrapper active">
+                    <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape home" height="60" width="85" />
+                    </svg>
+                  </div>
+                  <div class="text">2016</div>
+                </a>
+                <div id="admin-panel">Admin</div>
+            </div>
+            
+            <div class="navbar-nav right">
+                <div id="login-wrapper">
+                    <a href="/logout">
+                        <div id="login-nav" class="svg-wrapper">
+                            <svg height="60" width="110" xmlns="http://www.w3.org/2000/svg">
+                                <rect class="shape login" height="60" width="110" />
+                            </svg>
+                        </div>
+                        <div class="text">LOG OUT</div>
+                    </a>
+                </div>  
+            </div>
+
+
+            <nav>
+                <ul class="mobile">
+                    <li><a href="/" class="anchorLink">HOME</a></li>
+                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
+                </ul>
+                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+            </nav>
+        </div>
+
+        <div class="wrap-main">
+
+            <section id="stats">
+                <div class="wrap">
+
+                    <div class="row">
+                        <h1 class="section-head">Statistics</h1> 
+                    </div>
+
+                    <div class="column">
+                        <article>
+                            <h2 class="center">Gender</h2>
+                            <div class="horizontal-bar-graph" id="gender-graph"></div>
+                            <p>Males make up <%= ( 100* (@gender_count["male"].to_f / @gender_count["total"].to_f).round(2) ) %>% of applicants.</p>
+                        </article>
+
+                        <article>
+                            <h2 class="center">Age</h2>
+                            <div class="horizontal-bar-graph" id="age-graph"></div>
+                        </article>
+                    </div>
+
+                    <div class="column">
+                        <article>
+                            <h2 class="center">Grade Level</h2>
+                            <div class="horizontal-bar-graph" id="grade-graph"></div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, suscipit. Voluptates pariatur labore, hic quaerat temporibus velit blanditiis modi officiis sunt suscipit molestias, eum dolorem eveniet? Aliquid cumque deleniti culpa?</p>
+                        </article>
+
+                        <article>
+                            <h2 class="center">Major</h2>
+                            <div class="horizontal-bar-graph" id="major-graph"></div>
+                        </article>
+                    </div>
+
+                    <div class="column">
+                        <article>
+                            <h2 class="center">Universities</h2>
+                            <div class="horizontal-bar-graph" id="university-graph"></div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, suscipit. Voluptates pariatur labore, hic quaerat temporibus velit blanditiis modi officiis sunt suscipit molestias, eum dolorem eveniet? Aliquid cumque deleniti culpa?</p>
+                        </article>
+
+                        <article>
+                            <h2 class="center">Year in School</h2>
+                            <div class="horizontal-bar-graph" id="school-year-graph"></div>
+                        </article>
+                    </div>
+
+                    <div class="column">
+                        <article>
+                            <h2 class="center">Number of Hackathons Attended</h2>
+                            <div class="horizontal-bar-graph" id="hackathon-graph"></div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, suscipit. Voluptates pariatur labore, hic quaerat temporibus velit blanditiis modi officiis sunt suscipit molestias, eum dolorem eveniet? Aliquid cumque deleniti culpa?</p>
+                        </article>
+
+                        <article>
+                            <h2 class="center">Percent who Submitted...</h2>
+                            <div class="horizontal-bar-graph" id="link-graph"></div>
+                        </article>
+                    </div>
+
+                    <div class="row">
+                        <h2 class="center">Daily Number of Applications</h2>
+                        <div class="horizontal-line-graph" id="applications-graph"></div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, suscipit. Voluptates pariatur labore, hic quaerat temporibus velit blanditiis modi officiis sunt suscipit molestias, eum dolorem eveniet? Aliquid cumque deleniti culpa?</p>
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+
+        <%= content_tag :div, class: "data_gender_count", data: {temp: @gender_count} do %>
+        <% end %>
+
+        <%= javascript_include_tag "jquery-1.11.3.min" %>
+        <%= javascript_include_tag "headroom.min" %>
+        <%= javascript_include_tag "jquery-headroom" %>
+    	<%= javascript_include_tag "select2.full.min" %>	
+        <%= javascript_include_tag "admin" %>
+        <%= javascript_include_tag "d3.min.js" %>
+        <%= javascript_include_tag "stats" %>
+    </body>
+</html>        

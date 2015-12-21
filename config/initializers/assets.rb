@@ -27,4 +27,5 @@ Rails.application.config.assets.precompile += %w( admin.js )
 Rails.application.config.assets.precompile += %w( sponsorship.js )
 Rails.application.config.assets.precompile += %w( admin-apps.js )
 Rails.application.config.assets.precompile += %w( qrcode.js )
-
+Rails.application.config.assets.precompile += %w( d3.min.js )
+Rails.application.config.assets.precompile += %w( stats.js )
