@@ -6,29 +6,22 @@
 @import 'partials/index';
 
 //Modules
+@import 'partials/fontfixes';
 @import 'partials/media-grid';
 @import 'partials/animations';
 
 @import 'partials/navbar';
-@import 'partials/hero';
-@import 'partials/subscribe';
-@import 'partials/winners2015';
-@import 'partials/contact';
+@import 'partials/pages/hero';
+@import 'partials/pages/subscribe';
+@import 'partials/pages/winners2015';
+@import 'partials/pages/contact';
 
 
 
-@import 'partials/FAQ';
-
-@import 'partials/mobile';
-
-@import 'partials/schedule';
-
-@import 'partials/judges';
-
-@import 'partials/sponsors';
-
-@import 'partials/footer';
-
-@import 'partials/fontfixes';
-
-@import 'partials/resume';
+@import 'partials/pages/FAQ';
+@import 'partials/pages/mobile';
+@import 'partials/pages/schedule';
+@import 'partials/pages/judges';
+@import 'partials/pages/sponsors';
+@import 'partials/pages/footer';
+@import 'partials/pages/resume';
