@@ -78,7 +78,7 @@
 
   } 
 
-  input[type=search], input[type=text]{
+  input[type=search], input[type=text], select {
     text-align:left; 
     border: solid 1px $mutedOutline; 
     font-size: 15px; 
@@ -88,6 +88,13 @@
     padding: 8px 0px 8px 15px; 
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
+  }
+
+  select {
+    background: image-url("arrow.svg") no-repeat right transparent;
+    background-size: 10px;
+    width: 5px;
+    background-position-x: 125px;
   }
 
   input[type=search] {
