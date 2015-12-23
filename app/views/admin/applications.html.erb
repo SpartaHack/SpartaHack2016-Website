@@ -120,9 +120,9 @@
                             <td><%= app['firstName'] %></td>
                             <td><%= app['lastName'] %></td>
                             <td id=<%= index.to_i + 1 %> >
-                                <%= form_tag("/admin/applications/status", :remote => true, :authenticity_token => true, class: "status") do %>
+                                <%= form_tag("/admipplications/status", :remote => true, :authenticity_token => true, class: "status") do %>
                                     <%= hidden_field_tag 'object' , app["objectId"]  %>  
-                                    <%= select_tag "status-select", options_for_select([["No Status", ""], ["Accepted", "Accepted"], ["Waitlisted", "Waitlisted"], ["Denied", "Denied"]], selected: "#{app['status']}"), class: "status-select" %>
+                                    <%= select_tag "status-select", options_for_select([["-", ""], ["Accepted", "Accepted"], ["Waitlisted", "Waitlisted"], ["Denied", "Denied"]], selected: "#{app['status']}"), class: "status-select" %>
                                 <% end %>
                             </td>
                             <td><%= app['createdAt'] %></td>
@@ -130,13 +130,13 @@
                             <td><%= app['birthmonth'] %></td>
                             <td><%= app['birthday'] %></td>
                             <td><%= app['birthyear'] %></td>
-                            <td><%= app['universitystudent'] %></td>
-                            <td><%= !app['university'].blank? ? app['university'] : "N/A" %></td>
-                            <td><%= !app['otherUniversity'].blank? ? app['otherUniversity'] : "N/A" %></td>
-                            <td><%= !app['major'].blank? ? app['major'].join(", ") : "N/A" %></td>
-                            <td><%= !app['gradeLevel'].blank? ? app['gradeLevel'] : "N/A" %></td>
-                            <td><%= !app['hackathons'].blank? ? app['hackathons'].join(", ") : "N/A" %></td>
-                            <td><%= !app['whyAttend'].blank? ? app['whyAttend'] : "N/A" %></td>
+                            <td><%= app['universityStudent'] %></td>
+                            <td><%= !app['university'].blank? ? app['university'] : "" %></td>
+                            <td><%= !app['otherUniversity'].blank? ? app['otherUniversity'] : "" %></td>
+                            <td><%= !app['major'].blank? ? app['major'].join(", ") : "" %></td>
+                            <td><%= !app['gradeLevel'].blank? ? app['gradeLevel'] : "" %></td>
+                            <td><%= !app['hackathons'].blank? ? app['hackathons'].join(", ") : "" %></td>
+                            <td><%= !app['whyAttend'].blank? ? app['whyAttend'] : "" %></td>
                             <td>
                                 <a target="_blank" href=
                                     <% if !app['github'].blank? %>
@@ -149,7 +149,7 @@
                                         <% end %>
                                     <% else %>
                                         <%= "#" %>
-                                    <% end %> > <%= !app['github'].blank? ? app['github'] : "N/A" %> 
+                                    <% end %> > <%= !app['github'].blank? ? app['github'] : "" %> 
                                 </a>
                             </td>
 
@@ -165,7 +165,7 @@
                                         <% end %>
                                     <% else %>
                                         <%= "#" %>
-                                    <% end %> > <%= !app['linkedIn'].blank? ? app['linkedIn'] : "N/A" %> 
+                                    <% end %> > <%= !app['linkedIn'].blank? ? app['linkedIn'] : "" %> 
                                 </a>
                             </td>
 
@@ -181,12 +181,12 @@
                                         <% end %>
                                     <% else %>
                                         <%= "#" %>
-                                    <% end %> > <%= !app['devPost'].blank? ? !app['devPost'].index('?').blank? ? app['devPost'].slice(0..(app['devPost'].index('?')-1)) : app['devPost'] : "N/A" %> 
+                                    <% end %> > <%= !app['devPost'].blank? ? !app['devPost'].index('?').blank? ? app['devPost'].slice(0..(app['devPost'].index('?')-1)) : app['devPost'] : "" %> 
                                 </a>
                             </td>
 
-                            <td><a target="_blank" href=<%= !app['website'].blank? ? app['website'].index("http://").blank? && app['website'].index("https://").blank? ? "http://#{app['website']}" : app['website'] : "#" %> ><%= !app['website'].blank? ? app['website'] : "N/A" %></a></td>
-                            <td><a target="_blank" href=<%= !app['coolLink'].blank? ? app['coolLink'].index("http://").blank? && app['coolLink'].index("https://").blank? ? "http://#{app['coolLink']}" : app['coolLink'] : "#" %> ><%= !app['coolLink'].blank? ? app['coolLink'] : "N/A" %></a></td>
+                            <td><a target="_blank" href=<%= !app['website'].blank? ? app['website'].index("http://").blank? && app['website'].index("https://").blank? ? "http://#{app['website']}" : app['website'] : "#" %> ><%= !app['website'].blank? ? app['website'] : "" %></a></td>
+                            <td><a target="_blank" href=<%= !app['coolLink'].blank? ? app['coolLink'].index("http://").blank? && app['coolLink'].index("https://").blank? ? "http://#{app['coolLink']}" : app['coolLink'] : "#" %> ><%= !app['coolLink'].blank? ? app['coolLink'] : "" %></a></td>
                         </tr>
                         <% end %>
                     </tbody>
