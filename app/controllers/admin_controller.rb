@@ -159,11 +159,10 @@ class AdminController < ApplicationController
       q.limit = 1000
     end.get
 
+
+
     # gender count [male, female, nonbinary]
     @gender_count = {"male"=>0, "female"=>0, "nonbinary"=>0, "total"=>0}
-
-    # Hash of university => attendee count
-    @uni_applicants = {"High School"=>0}
 
     # Gender
     @apps.each do |app|
@@ -174,6 +173,8 @@ class AdminController < ApplicationController
     end
 
 
+    # Hash of university => attendee count
+    @uni_applicants = {"High School"=>0};
 
     #fills uni_applicants hash
     @apps.each do |app|
@@ -192,7 +193,18 @@ class AdminController < ApplicationController
     @uni_applicants = @uni_applicants.sort_by {|_key, value| value}.reverse
 
 
+    @age_count = { };
 
+    @apps.each do |app|
+      if !app['birthyear'].blank?
+        if !@age_count[app['birthyear']].blank?
+          @age_count[ app['birthyear'] ] += 1
+        else
+          @age_count[ app['birthyear'] ] = 1
+        end
+      end
+    end
+    @age_count = @age_count.sort_by {|value, _key| value}
 
 
   end

@@ -81,7 +81,11 @@
 
                         <article>
                             <h2 class="center">Age</h2>
-                            <div class="horizontal-bar-graph" id="age-graph"></div>
+                            <div id="age-graph">
+                                <div id="tooltip" class="hidden">
+                                <p><span id="value">100</span>%</p>
+                            </div>
+                            <p><%= @age_count %></p>
                         </article>
                     </div>
 
@@ -103,6 +107,7 @@
                             <h2 class="center">Universities</h2>
                             <div class="horizontal-bar-graph" id="university-graph"></div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, suscipit. Voluptates pariatur labore, hic quaerat temporibus velit blanditiis modi officiis sunt suscipit molestias, eum dolorem eveniet? Aliquid cumque deleniti culpa?</p>
+                            <p><%= @uni_applicants[0..15] %>
                         </article>
 
                         <article>
@@ -138,12 +143,15 @@
         <%= content_tag :div, class: "data_gender_count", data: {temp: @gender_count} do %>
         <% end %>
 
+        <%= content_tag :div, class: "data_age_count", data: {temp: @age_count} do %>
+        <% end %>
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
     	<%= javascript_include_tag "select2.full.min" %>	
         <%= javascript_include_tag "admin" %>
         <%= javascript_include_tag "d3.min.js" %>
+        <%= javascript_include_tag "line-graph.js" %>
         <%= javascript_include_tag "stats" %>
     </body>
 </html>        
