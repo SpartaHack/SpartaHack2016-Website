@@ -142,7 +142,7 @@
               <%= label_tag(:otherUniversity, "College/University not listed above? Enter it here.", class: 'no-label') %>
               <%= text_field_tag 'otherUniversity', "#{@application['otherUniversity'] if @application}", placeholder: 'Other College/University' %>
             </div>            
-            <div class="add-margin-top university-enrolled">
+            <div class="university-enrolled">
               <%= render partial: "users/app_major" %>
             </div>
 
@@ -226,7 +226,7 @@
     <%= javascript_include_tag "headroom.min" %>
     <%= javascript_include_tag "jquery-headroom" %>
     <%= javascript_include_tag "select2.full.min" %>
-    <%= javascript_include_tag "app" %>
+    <%= javascript_include_tag "users-application" %>
 
     <%= javascript_tag do %>
       <% if @application %>

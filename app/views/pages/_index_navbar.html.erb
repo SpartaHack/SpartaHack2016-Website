@@ -62,7 +62,7 @@
       </div>
     <% else %>
       <div id="app-wrapper">
-        <a href="/app">
+        <a href="/application">
           <div id="app-nav" class="svg-wrapper">
             <svg height="60" width="142" xmlns="http://www.w3.org/2000/svg">
               <rect class="shape login" height="60" width="142" />
@@ -119,7 +119,7 @@
           <% if cookies.signed[:spartaUser][1] == "admin" %>
             <li><a href="/admin">ADMIN DASHBOARD</a></li>
           <% else %>
-            <li><a href="/app">APPLICATION</a></li>
+            <li><a href="/application">APPLICATION</a></li>
           <% end %>
             <li><a href="/logout">LOG OUT</a></li>
         <% else %>
