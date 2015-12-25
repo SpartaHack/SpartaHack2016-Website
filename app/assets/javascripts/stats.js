@@ -38,6 +38,24 @@ HorizontalBarGraph.prototype.draw = function() {
 
 };
 
+BigHorizontalBarGraph = function(el, series) {
+  series = series[0];
+  console.log(series);
+  var newSeries = [];
+  for(i=0;i<series.length;i++)
+  {
+    newSeries[i] = {label: series[i][0], inner_label: series[i][1], value: series[i][1], color: "#00EDAB" };
+  }
+  this.el = d3.select(el);
+  this.series = newSeries;
+};
+
+BigHorizontalBarGraph.prototype.draw = function() {
+  console.log(this.series);
+
+  return HorizontalBarGraph.prototype.draw();
+}
+
 var ageData = [$('.data_age_count').data('temp')];
 ageName =[];
 ageFreq = [];
@@ -48,65 +66,6 @@ for(i=0;i<ageData[0].length;i++)
     ageFreq[i] = ageData[0][i][1];
 }
 
-var margin = {top: 40, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-var formatPercent = d3.format(".0%");
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(formatPercent);
-
-var svg = d3.select("#age-graph").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-svg.append("g")
-      .attr("class", "x axis");
-
-svg.append("g")
-      .attr("class", "y axis");
-
-
-data = ageData[0];
-x.domain(data.map(function(d) { return d.letter; }));
-y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
-
-svg.select(".x.axis").data(data).transition()
-  .attr("transform", "translate(0," + height + ")")
-  .call(xAxis);
-
-
-var bars = svg.selectAll(".bar")
-  .data(data);
-
-bars.select('rect').transition()
-  .attr("y", function(d) { return y(d.frequency); })
-  .attr("height", function(d) { return height - y(d.frequency); })
-
-var bars = bars.enter()
-  .append("g")
-	 	  .attr('class', 'bar')
-  .append("rect")
-    .attr("x", function(d) { return x(d.letter); })
-    .attr("width", x.rangeBand())
-    .attr("y", function(d) { return y(d.frequency); })
-    .attr("height", function(d) { return height - y(d.frequency); });
-
 
 
 var genderValues = [$('.data_gender_count').data('temp')["male"], $('.data_gender_count').data('temp')["female"], $('.data_gender_count').data('temp')["nonbinary"]];
@@ -116,5 +75,32 @@ var genderGraph = new HorizontalBarGraph('#gender-graph', [
   {label: "nonbinary",  inner_label: genderValues[2],   value: genderValues[2],  color: "#FF8099" }
 ]);
 
+
+var ageValues = [$('.data_age_count').data('temp')][0];
+var ageGraph = new BigHorizontalBarGraph('#age-graph', [ageValues]);
+
+
+// $statsOrange: #FFCE80;
+// $statsOrange2: #FFBD54;
+// $statsPink: #FF8099;
+// $statsPink2: #FF5476;
+var gradeValues = [$('.data_grade_count').data('temp')][0];
+// First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
+var gradeGraph = new HorizontalBarGraph('#grade-graph', [
+  {label: "First Year", inner_label: gradeValues["First Year"], value: gradeValues["First Year"], color: "#00EDAB" },
+  {label: "Second Year",  inner_label: gradeValues["Second Year"],   value: gradeValues["Second Year"],  color: "#FFCE80" },
+  {label: "Third Year",  inner_label: gradeValues["Third Year"],   value: gradeValues["Third Year"],  color: "#FF8099" },
+  {label: "Fourth Year", inner_label: gradeValues["Fourth Year"], value: gradeValues["Fourth Year"], color: "#00EDAB" },
+  {label: "Fifth Year",  inner_label: gradeValues["Fifth Year"],   value: gradeValues["Fifth Year"],  color: "#FFCE80" },
+  {label: "Fifth Year +",  inner_label: gradeValues["Fifth Year +"],   value: gradeValues["Fifth Year +"],  color: "#00EDAB" },
+  {label: "Graduate Student",  inner_label: gradeValues["Graduate Student"],   value: gradeValues["Graduate Student"],  color: "#FFCE80" },
+  {label: "Not a Student",  inner_label: gradeValues["Not a Student"],   value: gradeValues["Not a Student"],  color: "#FF8099" }
+]);
+
+
 genderGraph.draw();
+
+// ageGraph.draw();
+
+gradeGraph.draw();
 

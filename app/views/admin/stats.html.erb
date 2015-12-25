@@ -82,10 +82,27 @@
                         <article>
                             <h2 class="center">Age</h2>
                             <div id="age-graph">
-                                <div id="tooltip" class="hidden">
-                                <p><span id="value">100</span>%</p>
                             </div>
-                            <p><%= @age_count %></p>
+                            <div class="row">
+                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                    <thead>
+                                        <tr>
+                                            <th>Age</th>
+                                            <th>Frequency</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% @age_count.each_with_index do |age_count, index|  %>
+                                        <tr>
+                                            <td><%= @curr_year - age_count[0].to_i %></td>
+                                            <td><%= age_count[1] %></td>
+                                        </tr>
+                                        <% end %>
+                                    </tbody>
+
+                                </table> *Top 20
+                            </div>
                         </article>
                     </div>
 
@@ -93,12 +110,53 @@
                         <article>
                             <h2 class="center">Grade Level</h2>
                             <div class="horizontal-bar-graph" id="grade-graph"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, suscipit. Voluptates pariatur labore, hic quaerat temporibus velit blanditiis modi officiis sunt suscipit molestias, eum dolorem eveniet? Aliquid cumque deleniti culpa?</p>
+                            <div class="row">
+                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                    <tbody>
+                                        <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                        <% @grade_count.each_with_index do |grade_count, index|  %>
+                                        <tr>
+                                            <td><%= grade_count[0] %></td>
+                                            <td><%= grade_count[1] %></td>
+                                        </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                            </div>
                         </article>
 
                         <article>
-                            <h2 class="center">Major</h2>
+                            <h2 class="center">Majors</h2>
                             <div class="horizontal-bar-graph" id="major-graph"></div>
+                            <div class="row">
+                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% @major_count[0..20].each_with_index do |major_count, index|  %>
+                                        <tr>
+                                            <td><%= major_count[0].join(",") %></td>
+                                            <td><%= major_count[1] %></td>
+                                        </tr>
+                                        <% end %>
+                                    </tbody>
+
+                                </table> *Top 20
+                            </div>
+
+
+
+
                         </article>
                     </div>
 
@@ -140,10 +198,13 @@
 
         </div>
 
+        <!-- Load ruby variables into javascript arrays -->
+        <!-- $('.data_gender_count').data('temp') -->
         <%= content_tag :div, class: "data_gender_count", data: {temp: @gender_count} do %>
         <% end %>
-
         <%= content_tag :div, class: "data_age_count", data: {temp: @age_count} do %>
+        <% end %>
+        <%= content_tag :div, class: "data_grade_count", data: {temp: @grade_count} do %>
         <% end %>
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>

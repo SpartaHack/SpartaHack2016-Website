@@ -109,6 +109,45 @@
   }
 
 
+  #my-final-table {
+    tr {
+      background-color: transparent;
+      min-width: 150px;
+    }
+
+    th {
+      min-width: 150px;
+    }
+
+    td {
+      padding-right: 0px;
+      border: 1px solid $mutedOutline;
+    }
+
+    #number {
+      max-width: 20px;
+    }
+
+    #university, #major {
+      min-width: 400px;
+    }
+
+    #hackathons {
+      min-width: 600px;
+    }
+
+    #whyAttend {
+      min-width: 1000px;;
+    }
+
+    #created {
+      min-width: 250px 
+    }
+  }
+
+  
+
+
 }
 
 

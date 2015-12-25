@@ -193,7 +193,11 @@ class AdminController < ApplicationController
     @uni_applicants = @uni_applicants.sort_by {|_key, value| value}.reverse
 
 
+    # Age
     @age_count = { };
+
+    # Get current year (ex 2015) to determine everyone's approx. age
+    @curr_year = Time.now.year
 
     @apps.each do |app|
       if !app['birthyear'].blank?
@@ -204,7 +208,41 @@ class AdminController < ApplicationController
         end
       end
     end
-    @age_count = @age_count.sort_by {|value, _key| value}
+    @age_count = @age_count.sort_by {|value, _key| value}.reverse
+
+
+
+    # First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
+    @grade_count = {"First Year"=>0,"Second Year"=>0,"Third Year"=>0,"Fourth Year"=>0,"Fifth Year"=>0,"Fifth Year +"=>0,"Graduate Student"=>0,"Not a Student"=>0};
+
+    @apps.each do |app|
+      if !app['gradeLevel'].blank?
+        if !@grade_count[app['gradeLevel']].blank?
+          @grade_count[ app['gradeLevel'] ] += 1
+        else
+          @grade_count[ app['gradeLevel'] ] = 1
+        end
+      end
+    end
+    # @grade_count = @grade_count.sort_by {|value, _key| value}
+
+
+    # Majors
+    @major_count = {};
+
+    @apps.each do |app|
+      if !app['major'].blank?
+        if !@major_count[app['major']].blank?
+          @major_count[ app['major'] ] += 1
+        else
+          @major_count[ app['major'] ] = 1
+        end
+      end
+    end
+    @major_count = @major_count.sort_by {|_key, value| value}.reverse
+
+
+
 
 
   end
