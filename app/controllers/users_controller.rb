@@ -31,20 +31,19 @@ class UsersController < ApplicationController
         response = apply.save
         cookies.permanent.signed[:spartaUser] = { value: [response["objectId"], "attendee"] }
       rescue Parse::ParseProtocolError => e
-        print e
         if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
           flash[:error] = "Email is taken"
           redirect_to '/apply' and return
         end
         
       end
-      redirect_to '/app' and return
+      redirect_to '/application' and return
     end
   end
 
   def login
     if cookies.signed[:spartaUser]
-      redirect_to '/app' and return
+      redirect_to '/application' and return
     elsif !@javascript_active
       redirect_to '/noJS'
     else
@@ -61,13 +60,12 @@ class UsersController < ApplicationController
   def auth
   	begin
 			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
-      print login
       if login["role"] == "admin"
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "admin"] }
 			  redirect_to '/admin' and return
       else
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
-        redirect_to '/app' and return
+        redirect_to '/application' and return
       end
 		rescue Parse::ParseProtocolError => e
 			if e.to_s.split(":").first == '101'
@@ -78,8 +76,7 @@ class UsersController < ApplicationController
 
   end  
 
-  def app
-    print 
+  def application
     if !cookies.signed[:spartaUser]
       flash[:error] = "Please sign up to create an application."
       redirect_to '/apply'
@@ -87,7 +84,44 @@ class UsersController < ApplicationController
       redirect_to '/noJS'
     else
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      print user
+
+      if user["emailVerified"] == false
+        redirect_to '/verify' and return
+      end
+
+      begin
+        @application = Parse::Query.new("Application").tap do |q|
+          q.eq("userId", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => cookies.signed[:spartaUser][0]
+          }))
+        end.get.first
+
+        if @application
+          if @application["university"].blank? && @application["otherUniversity"].blank?
+            @application["universityStudent"] = false
+          else 
+            @application["universityStudent"] = true
+          end
+        end
+
+        render layout: false
+      rescue Parse::ParseProtocolError => e
+        flash[:error] = e.message
+        redirect_to '/login'
+      end
+    end
+  end
+
+  def dashboard
+    if !cookies.signed[:spartaUser]
+      flash[:error] = "Please sign up to view your dashboard."
+      redirect_to '/apply'
+    elsif !@javascript_active
+      redirect_to '/noJS'
+    else
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      
       if user["emailVerified"] == false
         redirect_to '/verify' and return
       end
@@ -119,7 +153,6 @@ class UsersController < ApplicationController
   def verify
     user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
     @email = user["email"]
-    print @email
     render layout: false
   end
 
@@ -129,7 +162,7 @@ class UsersController < ApplicationController
         user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? || 
         user_app_params["universityStudent"].blank? || user_app_params["mlh"].blank?
       flash[:popup] = "You must fill in all the required fields."
-      redirect_to '/app'  and return
+      redirect_to '/application'  and return
     end
 
     begin
@@ -182,7 +215,7 @@ class UsersController < ApplicationController
       application.array_add_relation("userId", user.pointer)
       application.save
 
-      redirect_to '/app'  and return
+      redirect_to '/application'  and return
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
       redirect_to '/apply'
