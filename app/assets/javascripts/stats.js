@@ -38,36 +38,34 @@ HorizontalBarGraph.prototype.draw = function() {
 
 };
 
-VerticalBarGraph = function(el, series) {
+BigHorizontalBarGraph = function(el, series) {
+  series = series[0];
+  console.log(series);
+  var newSeries = [];
+  for(i=0;i<series.length;i++)
+  {
+    newSeries[i] = {label: series[i][0], inner_label: series[i][1], value: series[i][1], color: "#00EDAB" };
+  }
   this.el = d3.select(el);
-  this.series = series;
+  this.series = newSeries;
 };
 
-VerticalBarGraph.prototype.draw = function() {
-  var x = d3.scale.linear()
-    .domain([0, d3.max(this.series, function(d) { return d.value })])
-    .range([0, 100]);
+BigHorizontalBarGraph.prototype.draw = function() {
+  console.log(this.series);
 
-  var segment = this.el
-    .selectAll(".vertical-bar-graph-segment")
-      .data(this.series)
-    .enter()
-      .append("div").classed("vertical-bar-graph-segment", true);
+  return HorizontalBarGraph.prototype.draw();
+}
 
-  segment
-    .append("div").classed("vertical-bar-graph-label", true)
-      .text(function(d) { return d.label });
+var ageData = [$('.data_age_count').data('temp')];
+ageName =[];
+ageFreq = [];
 
-  segment
-    .append("div").classed("vertical-bar-graph-value", true)
-      .append("div").classed("vertical-bar-graph-value-bar", true)
-        .style("background-color", function(d) { return d.color })
-        .text(function(d) { return d.inner_label ? d.inner_label : "" })
-        .transition()
-          .duration(1000)
-          .style("min-width", function(d) { return x(d.value) + "%" });
+for(i=0;i<ageData[0].length;i++)
+{
+    ageName[i] = ageData[0][i][0];
+    ageFreq[i] = ageData[0][i][1];
+}
 
-};
 
 
 var genderValues = [$('.data_gender_count').data('temp')["male"], $('.data_gender_count').data('temp')["female"], $('.data_gender_count').data('temp')["nonbinary"]];
@@ -76,8 +74,33 @@ var genderGraph = new HorizontalBarGraph('#gender-graph', [
   {label: "female",  inner_label: genderValues[1],   value: genderValues[1],  color: "#FFCE80" },
   {label: "nonbinary",  inner_label: genderValues[2],   value: genderValues[2],  color: "#FF8099" }
 ]);
-var ageGraph = new HorizontalBarGraph('#age-graph', [
 
+
+var ageValues = [$('.data_age_count').data('temp')][0];
+var ageGraph = new BigHorizontalBarGraph('#age-graph', [ageValues]);
+
+
+// $statsOrange: #FFCE80;
+// $statsOrange2: #FFBD54;
+// $statsPink: #FF8099;
+// $statsPink2: #FF5476;
+var gradeValues = [$('.data_grade_count').data('temp')][0];
+// First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
+var gradeGraph = new HorizontalBarGraph('#grade-graph', [
+  {label: "First Year", inner_label: gradeValues["First Year"], value: gradeValues["First Year"], color: "#00EDAB" },
+  {label: "Second Year",  inner_label: gradeValues["Second Year"],   value: gradeValues["Second Year"],  color: "#FFCE80" },
+  {label: "Third Year",  inner_label: gradeValues["Third Year"],   value: gradeValues["Third Year"],  color: "#FF8099" },
+  {label: "Fourth Year", inner_label: gradeValues["Fourth Year"], value: gradeValues["Fourth Year"], color: "#00EDAB" },
+  {label: "Fifth Year",  inner_label: gradeValues["Fifth Year"],   value: gradeValues["Fifth Year"],  color: "#FFCE80" },
+  {label: "Fifth Year +",  inner_label: gradeValues["Fifth Year +"],   value: gradeValues["Fifth Year +"],  color: "#00EDAB" },
+  {label: "Graduate Student",  inner_label: gradeValues["Graduate Student"],   value: gradeValues["Graduate Student"],  color: "#FFCE80" },
+  {label: "Not a Student",  inner_label: gradeValues["Not a Student"],   value: gradeValues["Not a Student"],  color: "#FF8099" }
 ]);
+
+
 genderGraph.draw();
-ageGraph.draw();
+
+// ageGraph.draw();
+
+gradeGraph.draw();
+

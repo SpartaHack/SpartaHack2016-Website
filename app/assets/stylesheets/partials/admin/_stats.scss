@@ -29,6 +29,41 @@
   }
 
 
+  svg {
+    border: 1px dotted #999;
+    padding: 1em;
+    
+    rect {
+      fill: silver;
+      
+      &:hover {
+        fill: $statsOrange;
+      }
+    }
+  }
+
+  #tooltip {
+    font-family: sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: .25em;
+    pointer-events: none;
+    position: absolute;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, .4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, .4);
+    
+    & p {
+      margin: 0 1em;
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+
   .column {      
     display: flex;
     flex-direction: row;
@@ -72,6 +107,45 @@
     }    
 
   }
+
+
+  #my-final-table {
+    tr {
+      background-color: transparent;
+      min-width: 150px;
+    }
+
+    th {
+      min-width: 150px;
+    }
+
+    td {
+      padding-right: 0px;
+      border: 1px solid $mutedOutline;
+    }
+
+    #number {
+      max-width: 20px;
+    }
+
+    #university, #major {
+      min-width: 400px;
+    }
+
+    #hackathons {
+      min-width: 600px;
+    }
+
+    #whyAttend {
+      min-width: 1000px;;
+    }
+
+    #created {
+      min-width: 250px 
+    }
+  }
+
+  
 
 
 }
@@ -127,3 +201,9 @@
   .horizontal-bar-graph-label { padding-bottom: 12px; }
   .horizontal-bar-graph-value { padding-bottom: 11px; }
 }
+
+
+
+
+
+
