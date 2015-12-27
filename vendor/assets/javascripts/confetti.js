@@ -25,19 +25,6 @@ $(document).ready(function () {
     canvas.width = W;
     canvas.height = H;
 
-    for (var i = 0; i < mp; i++) {
-        particles.push({
-            x: 1 * W, //x-coordinate
-            y: 1 * H, //y-coordinate
-            r: randomFromTo(5, 30), //radius
-            d: (Math.random() * mp) + 10, //density
-            color: "rgba(" + Math.floor((Math.random() * 255)) + ", " + Math.floor((Math.random() * 255)) + ", " + Math.floor((Math.random() * 255)) + ", 0.7)",
-            tilt: Math.floor(Math.random() * 10) - 10,
-            tiltAngleIncremental: (Math.random() * 0.07) + .05,
-            tiltAngle: 0
-        });
-    }
-
     $('.box').hover(StartConfetti,StopConfetti);
     
 });
@@ -141,10 +128,25 @@ function update2() {
 }
 
 function StartConfetti() {
+    particles = [];
+    for (var i = 0; i < mp; i++) {
+        particles.push({
+            x: 1 * W, //x-coordinate
+            y: 1 * H, //y-coordinate
+            r: randomFromTo(5, 30), //radius
+            d: (Math.random() * mp) + 10, //density
+            color: "rgba(" + Math.floor((Math.random() * 255)) + ", " + Math.floor((Math.random() * 255)) + ", " + Math.floor((Math.random() * 255)) + ", 0.7)",
+            tilt: Math.floor(Math.random() * 10) - 10,
+            tiltAngleIncremental: (Math.random() * 0.07) + .05,
+            tiltAngle: 0
+        });
+    }
+
     W = window.innerWidth;
     H = window.innerHeight;
     canvas.width = W;
     canvas.height = H;
+    clearTimeout(confettiHandler);
     confettiHandler = setInterval(draw, 15);
 }
 function StopConfetti() {
