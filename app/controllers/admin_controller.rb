@@ -195,12 +195,17 @@ class AdminController < ApplicationController
 
     # Age
     @age_count = { };
+    @minor_count = 0;
 
     # Get current year (ex 2015) to determine everyone's approx. age
     @curr_year = Time.now.year
 
     @apps.each do |app|
       if !app['birthyear'].blank?
+        if (@curr_year.to_f - app['birthyear'].to_f) < 21
+          @minor_count+=1
+        end
+
         if !@age_count[app['birthyear']].blank?
           @age_count[ app['birthyear'] ] += 1
         else
