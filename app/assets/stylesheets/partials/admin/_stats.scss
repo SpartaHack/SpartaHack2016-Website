@@ -13,7 +13,7 @@
     margin-bottom: 0;
   }
 
-  #example {
+  .wordmap {
     @media (max-width: 1000px) {
       display: none;
     }
@@ -128,7 +128,7 @@
     @media (max-width: 550px) {
       flex-direction: column;
       width: 100%
-    }    
+    }
 
   }
 
@@ -140,6 +140,7 @@
     }
 
     th {
+      text-align: left;
       min-width: 150px;
     }
 
