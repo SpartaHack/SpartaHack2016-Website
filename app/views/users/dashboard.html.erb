@@ -14,272 +14,88 @@
         <meta property="og:site_name" content="SpartaHack" />
         <meta property="og:url" content="https://www.spartahack.com" />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the application to be considered for admittance. " />
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the page for the admin dashboard." />
         <meta property="og:image" content="<%=image_url("facebook.png")%>" />
+
+
+
 
         <title>SpartaHack</title>
 
         <%= favicon_link_tag 'favicon.png' %>
         <%= stylesheet_link_tag "select2-modified" %>
         <%= stylesheet_link_tag "users" %>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="header" class="header">
+            <div class="navbar-nav left">
+                <a href="/" class="anchorLink">
+                  <div id="home-nav" class="svg-wrapper active">
+                    <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape home" height="60" width="85" />
+                    </svg>
+                  </div>
+                  <div class="text">2016</div>
+                </a>
+                <div id="name"><%= @application['firstName'] %></div>
+            </div>
+            
+            <div class="navbar-nav right">
+                <div id="login-wrapper">
+                    <a href="/logout">
+                        <div id="login-nav" class="svg-wrapper">
+                            <svg height="60" width="110" xmlns="http://www.w3.org/2000/svg">
+                                <rect class="shape login" height="60" width="110" />
+                            </svg>
+                        </div>
+                        <div class="text">LOG OUT</div>
+                    </a>
+                </div>  
+            </div>
 
-  </head>
-  <body>
-    <!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <div id="header" class="header">
-        <div class="navbar-nav left">
-            <a href="/" class="anchorLink">
-              <div id="home-nav" class="svg-wrapper active">
-                <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
-                  <rect class="shape home" height="60" width="85" />
-                </svg>
-              </div>
-              <div class="text">2016</div>
-            </a>
 
+            <nav>
+                <ul class="mobile">
+                    <li><a href="/" class="anchorLink">HOME</a></li>
+                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
+                </ul>
+                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+            </nav>
         </div>
-        
-        <div class="navbar-nav right">
+        <% if @application['status'] == 'Accepted' %>
+          <canvas id="canvas"></canvas>
+        <% end %> 
+        <div class="wrap-main">
+            <section id="user-status">
+                <div class="row">
+                    <div class="inner-wrap">
+                        <div class="box" ><%= @application['status'].blank? ? "Application Received" : @application['status'] %></div>
+                        <div class="status-text">Application Status</div>
+                    </div>               
+                </div>
+            </section>
+      <section id="topic-selection">
+        <div class="row">
+          <h1 class="section-head">Pick a topic</h1> 
 
-          <div id="login-wrapper">
-            <a href="/logout">
-              <div id="login-nav" class="svg-wrapper">
-                <svg height="60" width="110" xmlns="http://www.w3.org/2000/svg">
-                  <rect class="shape login" height="60" width="110" />
-                </svg>
-              </div>
-              <div class="text">LOG OUT</div>
-            </a>
+          <div class="hvr-underline-from-center full">
+            <a href="/application"><div class="dash-link">My Application</div></a>
           </div>
 
         </div>
 
-
-        <nav>
-            <ul class="mobile">
-                <li><a href="/" class="anchorLink">HOME</a></li>
-                <li><a href="/logout">LOG OUT</a></li>  
-            </ul>
-            <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
-        </nav>
-    </div>
-    <% if flash[:popup] %>
-      <div id="popup-error-wrapper">
-        <div id="popup-error">
-          <%= "#{flash[:popup]}" %>
-          <div id="sub-text"><%= "#{flash[:sub]}" %></div>
-        </div>
-      </div>
-    <% else %>
-      <div id="popup-wrapper">
-        <div id="popup"></div>
-      </div>
-    <% end %>
-    
-    <div class="wrap-main">
-      <section id="app" >
-        <div class="row">
-      
-          <h1 class="section-head">APPLICATION</h1> 
-          <h4 id="required">* fields are required.</h4>
-          <%= form_tag("/save", method: "post", id: "save_app", class: "save_app", :remote => true, :authenticity_token => true) do %>
-            <div class="inner">
-              <%= label_tag(:firstName, "First Name", class: 'no-label') %>
-              <%= text_field_tag 'firstName', "#{@application['firstName'] if @application}", placeholder: 'First Name *', required:true %>
-              <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
-              <%= text_field_tag 'lastName', "#{@application['lastName'] if @application}", placeholder: 'Last Name *'  %>
-            </div>
-
-            <div class="add-margin-top">
-              <select id="gender" name="gender" style="display=none;">
-                <option></option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="non-binary">Non-binary</option>
-                <option value="prefer-not">Prefer not to say</option>
-              </select>
-            </div>
-
-            <div class="add-margin-top" id="birthdate-wrap">
-              <select id="birthday" name="birthday">
-                <option></option>
-                <%= options_for_select((1..31).to_a)%>
-              </select>
-              <select id="birthmonth" name="birthmonth">
-                <option></option>
-                <%= options_for_select(Date::MONTHNAMES[1..12]) %>
-              </select>
-              <select id="birthyear" name="birthyear">
-                <option></option>
-                <%= options_for_select((1950..2000).to_a.reverse) %>
-              </select>
-            </div>
-
-            <div class="add-margin-top add-margin-bottom" id="enrollment-wrap">
-              <label id="highschool">Which of the following best describes your current enrollment? *</label>
-              <div id="radio-wrap">
-                  <input type="radio" name="universityStudent" id="highschool-student" value="false" >
-                  <label for="highschool-student">High School</label>                  
-                  <input type="radio" name="universityStudent" id="university-student" value="true" >
-                  <label for="university-student">College/University</label>
-              </div>
-            </div>
-
-            <div class="add-margin-bottom university-enrolled university" style="display:none;">
-              <%= render partial: "users/app_university" %>
-            </div>
-
-            <div class="add-margin-bottom university-enrolled" id="other-university-wrap">
-              <div class="check">
-                <input type="checkbox" value="true" id="other-university-confirm" name="otherUniversityConfirm" />
-                <label for="other-university-confirm"><div id="other-university-text">College/University not listed?</div></label>
-              </div>
-            </div>
-
-            <div class="add-margin-top other-university-enrolled" style="display:none;">
-              <%= label_tag(:otherUniversity, "College/University not listed above? Enter it here.", class: 'no-label') %>
-              <%= text_field_tag 'otherUniversity', "#{@application['otherUniversity'] if @application}", placeholder: 'Other College/University' %>
-            </div>            
-            <div class="university-enrolled">
-              <%= render partial: "users/app_major" %>
-            </div>
-
-            <div class="add-margin-top university-enrolled" id="gradeLevel-wrap">
-              <select id="gradeLevel" name="gradeLevel">
-                <option></option>
-                <option>First Year</option>
-                <option>Second Year</option>
-                <option>Third Year</option>
-                <option>Fourth Year</option>
-                <option>Fifth Year +</option>
-                <option>Graduate Student</option>
-                <option>Not a Student</option>
-              </select>
-            </div>
-
-            <div>
-              <%= render partial: "users/app_hackathon" %>
-            </div>
-
-            <div class="add-margin-top">
-              <%= label_tag(:whyAttend, "Why do you want to attend SpartaHack 2016?", class: 'no-label') %>
-              <%= text_area_tag 'whyAttend', "#{@application['whyAttend'] if @application}", placeholder: 'Why do you want to attend SpartaHack 2016?' %>
-            </div>
-
-            <div class="under-textarea has-icon">
-              <%= image_tag "github.svg", alt: "Github Icon", :class => "icon" %>
-              <%= label_tag(:github, "What is your GitHub handle?", class: 'no-label') %>
-              <%= text_field_tag 'github', "#{@application['github'] if @application}", placeholder: 'GitHub handle?' %>
-            </div>
-
-            <div class="add-margin-top has-icon">
-              <%= image_tag "linkedin.svg", alt: "LinkedIn Icon", :class => "icon" %>
-              <%= label_tag(:linkedIn, "What is your LinkedIn handle?", class: 'no-label') %>
-              <%= text_field_tag 'linkedIn', "#{@application['linkedIn'] if @application}", placeholder: 'LinkedIn handle?' %>
-            </div>
-
-            <div class="add-margin-top has-icon">
-              <%= image_tag "devpost.svg", alt: "DevPost Icon", :class => "icon" %>
-              <%= label_tag(:devPost, "What is your DevPost handle?", class: 'no-label') %>
-              <%= text_field_tag 'devPost', "#{@application['devPost'] if @application}", placeholder: 'DevPost handle?' %>
-            </div>
-
-            <div class="add-margin-top has-icon">
-              <%= image_tag "website.svg", alt: "Personal Website Icon", :class => "icon" %>
-              <%= label_tag(:website, "What is your personal website?", class: 'no-label') %>
-              <%= text_field_tag 'website', "#{@application['website'] if @application}", placeholder: 'Your personal website?' %>
-            </div>
-
-            <div class="add-margin-top has-icon">
-              <%= image_tag "coollink.svg", alt: "Cool Link Icon", :class => "icon" %>
-              <%= label_tag(:coolLink, "A cool link you\'d like to share?", class: 'no-label') %>
-              <%= text_field_tag 'coolLink', "#{@application['coolLink'] if @application}", placeholder: 'A cool link?' %>
-            </div>
-
-            <div class="add-margin-top" id="mlh-disclaimer">
-              <div>
-                <div id="mlh-disclaimer-text">We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to share certain application/registration information for event administration, ranking, MLH administration, and occasional messages about hackathons in line with the <a href="https://mlh.io/privacy" target="_blank">MLH Privacy Policy.</a></div>
-              </div>
-            </div>
-
-            <div class="add-margin-top" id="mlh-wrap">
-              <div class="check check-mlh">
-                <input type="checkbox" value="true" id="agree" name="mlh" />
-                <label for="agree"><div id="mlh-text">I agree to the <a href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct</a> and <a href="https://mlh.io/privacy" target="_blank">Private Policy</a> *</div></label>
-              </div>
-            </div>
-
-            <div class="hvr-underline-from-center full" id="save-app">
-              <%= submit_tag("#{@application ? 'Update Application' : 'Submit Application'}", :id => "application") %>
-            </div>
-
-          <% end %>      
-
-        </div>
-
       </section>
-    </div>
+        </div>
 
-    <%= javascript_include_tag "jquery-1.11.3.min" %>
-    <%= javascript_include_tag "headroom.min" %>
-    <%= javascript_include_tag "jquery-headroom" %>
-    <%= javascript_include_tag "select2.full.min" %>
-    <%= javascript_include_tag "app" %>
-
-    <%= javascript_tag do %>
-      <% if @application %>
-        <% if @application['university'] %>
-          $("#university").val("<%= @application['university'] %>").trigger("change")
-        <% end %>
-        <% if @application['major'] %>
-          $("#major").val(<%= raw @application['major'].to_a.to_json %>).trigger("change")
-        <% end %>
-        <% if @application['birthday'] %>
-          $("#birthday").val("<%= @application['birthday'] %>").trigger("change")
-        <% end %>
-        <% if @application['birthmonth'] %>
-          $("#birthmonth").val("<%= @application['birthmonth'] %>").trigger("change")
-        <% end %>
-        <% if @application['birthyear'] %>
-          $("#birthyear").val("<%= @application['birthyear'] %>").trigger("change")
-        <% end %>
-        <% if @application['gradeLevel'] %>
-          $("#gradeLevel").val("<%= @application['gradeLevel'] %>").trigger("change")
-        <% end %>
-        <% if @application['gender'] %>
-          $("#gender").val("<%= @application['gender'] %>").trigger("change")
-        <% end %>
-        <% if @application['hackathons'] %>
-          $("#hackathons").val(<%= raw @application['hackathons'] %>).trigger("change")
-        <% end %>
-        <% if @application['universityStudent'] %>
-          document.getElementById("university-student").checked = true;
-        <% else %>
-          document.getElementById("highschool-student").checked = true;
-        <% end %>
-        <% if @application['otherUniversityConfirm'].to_bool == true %>
-          $('#other-university-confirm').prop('checked', true);
-        <% else %>
-          $('#other-university-confirm').prop('checked', false);
-        <% end %>
-        <% if @application['mlh'] %>
-          document.getElementById("agree").checked = true;
-        <% end %>
-      <% end %>
-    <% end %>     
-
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-70811550-1', 'auto');
-      ga('send', 'pageview');
-
-    </script>
-
-  </body>  
-</html>
+        <%= javascript_include_tag "jquery-1.11.3.min" %>
+        <%= javascript_include_tag "headroom.min" %>
+        <%= javascript_include_tag "jquery-headroom" %>
+        <% if @application['status'] == 'Accepted' %>
+          <%= javascript_include_tag "confetti" %>
+        <% end %> 
+        <%= javascript_include_tag "admin" %>
+    </body>
+</html>        

@@ -43,7 +43,24 @@ class UsersController < ApplicationController
 
   def login
     if cookies.signed[:spartaUser]
-      redirect_to '/application' and return
+      begin
+        @application = Parse::Query.new("Application").tap do |q|
+          q.eq("userId", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => cookies.signed[:spartaUser][0]
+          }))
+        end.get.first
+
+        if @application
+          redirect_to '/dashboard' and return
+        else
+          redirect_to '/application' and return
+        end
+        
+      rescue Parse::ParseProtocolError => e
+
+      end      
+
     elsif !@javascript_active
       redirect_to '/noJS'
     else
@@ -65,7 +82,24 @@ class UsersController < ApplicationController
 			  redirect_to '/admin' and return
       else
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
-        redirect_to '/application' and return
+        begin
+          @application = Parse::Query.new("Application").tap do |q|
+            q.eq("userId", Parse::Pointer.new({
+              "className" => "_User",
+              "objectId"  => login["objectId"]
+            }))
+          end.get.first
+
+          if @application
+            redirect_to '/dashboard' and return
+          else
+            redirect_to '/application' and return
+          end
+          
+        rescue Parse::ParseProtocolError => e
+
+        end  
+
       end
 		rescue Parse::ParseProtocolError => e
 			if e.to_s.split(":").first == '101'
@@ -114,40 +148,19 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    if !cookies.signed[:spartaUser]
-      flash[:error] = "Please sign up to view your dashboard."
-      redirect_to '/apply'
-    elsif !@javascript_active
-      redirect_to '/noJS'
-    else
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      
-      if user["emailVerified"] == false
-        redirect_to '/verify' and return
-      end
 
-      begin
-        @application = Parse::Query.new("Application").tap do |q|
-          q.eq("userId", Parse::Pointer.new({
-            "className" => "_User",
-            "objectId"  => cookies.signed[:spartaUser][0]
-          }))
-        end.get.first
+    @application = Parse::Query.new("Application").tap do |q|
+      q.eq("userId", Parse::Pointer.new({
+        "className" => "_User",
+        "objectId"  => cookies.signed[:spartaUser][0]
+      }))
+    end.get.first
 
-        if @application
-          if @application["university"].blank? && @application["otherUniversity"].blank?
-            @application["universityStudent"] = false
-          else 
-            @application["universityStudent"] = true
-          end
-        end
-
-        render layout: false
-      rescue Parse::ParseProtocolError => e
-        flash[:error] = e.message
-        redirect_to '/login'
-      end
+    if !@application
+      redirect_to '/application' and return
     end
+
+    render layout: false
   end
 
   def verify

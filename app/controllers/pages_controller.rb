@@ -4,6 +4,20 @@ class PagesController < ApplicationController
   require 'monkey_patch'
 
   def index
+    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "attendee"
+      begin
+        @application = Parse::Query.new("Application").tap do |q|
+          q.eq("userId", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => cookies.signed[:spartaUser][0]
+          }))
+        end.get.first
+        
+      rescue Parse::ParseProtocolError => e
+
+      end
+    end
+
     @partner = []
     @trainee = []
     @warrior = []

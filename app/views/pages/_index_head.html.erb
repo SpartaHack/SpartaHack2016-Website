@@ -17,7 +17,11 @@
 		<% if cookies.signed[:spartaUser][1] == "admin" %>
 			<a class="hero-link" href="/admin">VIEW ADMIN DASHBOARD</a>
 		<% else %>
-			<a class="hero-link" href="/application">VIEW APPLICATION</a>
+			<% if @application %>
+				<a class="hero-link" href="/dashboard">VIEW MY DASHBOARD</a>
+			<% else %>
+				<a class="hero-link" href="/application">COMPLETE MY APPLICATION</a>
+			<% end %>
 		<% end %>
 	<% else %>
 	      <a class="hero-link" href="/apply">APPLY NOW</a>

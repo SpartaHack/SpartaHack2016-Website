@@ -61,16 +61,29 @@
         </a>
       </div>
     <% else %>
-      <div id="app-wrapper">
-        <a href="/application">
-          <div id="app-nav" class="svg-wrapper">
-            <svg height="60" width="142" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape login" height="60" width="142" />
-            </svg>
-          </div>
-          <div class="text">APPLICATION</div>
-        </a>
-      </div>  
+      <% if @application %>
+        <div id="app-wrapper">
+          <a href="/dashboard">
+            <div id="app-nav" class="svg-wrapper">
+              <svg height="60" width="163" xmlns="http://www.w3.org/2000/svg">
+                <rect class="shape login" height="60" width="163" />
+              </svg>
+            </div>
+            <div class="text">MY DASHBOARD</div>
+          </a>
+        </div>  
+      <% else %>
+        <div id="app-wrapper">
+          <a href="/application">
+            <div id="app-nav" class="svg-wrapper">
+              <svg height="60" width="164" xmlns="http://www.w3.org/2000/svg">
+                <rect class="shape login" height="60" width="164" />
+              </svg>
+            </div>
+            <div class="text">MY APPLICATION</div>
+          </a>
+        </div> 
+      <% end %>
     <% end %>
       <div id="login-wrapper">
         <a href="/logout">
@@ -119,7 +132,11 @@
           <% if cookies.signed[:spartaUser][1] == "admin" %>
             <li><a href="/admin">ADMIN DASHBOARD</a></li>
           <% else %>
-            <li><a href="/application">APPLICATION</a></li>
+            <% if @application %>
+              <li><a href="/dashboard">MY DASHBOARD</a></li>
+            <% else %>
+              <li><a href="/application">MY APPLICATION</a></li>
+            <% end %>
           <% end %>
             <li><a href="/logout">LOG OUT</a></li>
         <% else %>
