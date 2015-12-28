@@ -9,9 +9,22 @@
   -webkit-font-smoothing: antialiased;
   color: #80ffdb;
 
+  h2 {
+    margin-bottom: 0;
+  }
+
 
   .wrap {
     max-width: 1200px;
+  }
+
+  .tablefooter {
+    text-align: right;
+    font-size: 75%;
+  }
+
+  .minorhighlight {
+    background-color: $statsPink;
   }
   
   p {
@@ -190,7 +203,7 @@
   -webkit-font-smoothing: antialiased;
   text-shadow: 1px 1px 0px rgba(0,0,0,0.4);
 
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .horizontal-bar-graph-segment:first-child {
@@ -202,6 +215,19 @@
   .horizontal-bar-graph-value { padding-bottom: 11px; }
 }
 
+
+// Word Cloud
+
+div.jqcloud span.w10 { font-size: 550%; }
+div.jqcloud span.w9 { font-size: 500%; }
+div.jqcloud span.w8 { font-size: 450%; }
+div.jqcloud span.w7 { font-size: 400%; }
+div.jqcloud span.w6 { font-size: 350%; }
+div.jqcloud span.w5 { font-size: 300%; }
+div.jqcloud span.w4 { font-size: 250%; }
+div.jqcloud span.w3 { font-size: 200%; }
+div.jqcloud span.w2 { font-size: 150%; }
+div.jqcloud span.w1 { font-size: 100%; }
 
 
 

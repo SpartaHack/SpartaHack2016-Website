@@ -74,9 +74,17 @@
 
                     <div class="column">
                         <article>
-                            <h2 class="center">Gender</h2>
-                            <div class="horizontal-bar-graph" id="gender-graph"></div>
-                            <p>Males make up <%= ( 100* (@gender_count["male"].to_f / @gender_count["total"].to_f).round(2) ) %>% of applicants.</p>
+                            <div>
+                                <h2 class="center">Gender</h2>
+                                <div class="horizontal-bar-graph" id="gender-graph"></div>
+                                <div class="tablefooter">
+                                    <p>*Males make up <%= ( 100* (@gender_count["male"].to_f / @gender_count["total"].to_f).round(2) ) %>% of applicants.</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h2 class="center">Grade Level</h2>
+                                <div class="horizontal-bar-graph" id="grade-graph"></div>
+                            </div>
                         </article>
 
                         <article>
@@ -88,46 +96,60 @@
                                     <thead>
                                         <tr>
                                             <th>Age</th>
-                                            <th>Frequency</th>
+                                            <th>Count</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
                                         <% @age_count.each_with_index do |age_count, index|  %>
-                                        <tr>
-                                            <td><%= @curr_year - age_count[0].to_i %></td>
-                                            <td><%= age_count[1] %></td>
-                                        </tr>
+                                            <% if @curr_year - age_count[0].to_i < 21 %>
+                                                <tr>
+                                                    <td class="minorhighlight"><%= @curr_year - age_count[0].to_i %></td>
+                                                    <td class="minorhighlight"><%= age_count[1] %></td>
+                                                </tr>
+                                            <% else %>
+                                                <tr>
+                                                    <td><%= @curr_year - age_count[0].to_i %></td>
+                                                    <td><%= age_count[1] %></td>
+                                                </tr>
+                                            <% end %>
                                         <% end %>
                                     </tbody>
 
-                                </table> *Top 20
+                                </table>
+                                <div class="tablefooter">
+                                    *Minors shown in red
+                                </div>
                             </div>
                         </article>
                     </div>
 
                     <div class="column">
                         <article>
-                            <h2 class="center">Grade Level</h2>
-                            <div class="horizontal-bar-graph" id="grade-graph"></div>
-                            <div class="row">
-                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                                    <tbody>
-                                        <thead>
-                                                <tr>
-                                                    <th></th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                        <% @grade_count.each_with_index do |grade_count, index|  %>
-                                        <tr>
-                                            <td><%= grade_count[0] %></td>
-                                            <td><%= grade_count[1] %></td>
-                                        </tr>
-                                        <% end %>
-                                    </tbody>
-                                </table>
+                            <h2 class="center">Universities</h2>
+                            <div class="horizontal-bar-graph" id="university-graph"></div>
+                            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                <thead>
+                                    <tr>
+                                        <th>University</th>
+                                        <th>Count</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @uni_applicants[0..20].each_with_index do |uni_applicants, index|  %>
+                                    <tr>
+                                        <td><%= uni_applicants[0] %></td>
+                                        <td><%= uni_applicants[1] %> or <%= number_to_percentage(100*(uni_applicants[1].to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></td>
+                                    </tr>
+                                    <% end %>
+                                </tbody>
+
+                            </table>
+                            <div class="tablefooter">
+                                    *Top 20
                             </div>
+
                         </article>
 
                         <article>
@@ -137,8 +159,8 @@
                                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
                                     <thead>
                                         <tr>
-                                            <th></th>
-                                            <th></th>
+                                            <th>Major</th>
+                                            <th>Count</th>
                                         </tr>
                                     </thead>
 
@@ -146,12 +168,15 @@
                                         <% @major_count[0..20].each_with_index do |major_count, index|  %>
                                         <tr>
                                             <td><%= major_count[0].join(",") %></td>
-                                            <td><%= major_count[1] %></td>
+                                            <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @major_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
                                         </tr>
                                         <% end %>
                                     </tbody>
 
-                                </table> *Top 20
+                                </table>
+                                <div class="tablefooter">
+                                    *Top 20
+                                </div>
                             </div>
 
 
@@ -162,37 +187,32 @@
 
                     <div class="column">
                         <article>
-                            <h2 class="center">Universities</h2>
-                            <div class="horizontal-bar-graph" id="university-graph"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, suscipit. Voluptates pariatur labore, hic quaerat temporibus velit blanditiis modi officiis sunt suscipit molestias, eum dolorem eveniet? Aliquid cumque deleniti culpa?</p>
-                            <p><%= @uni_applicants[0..15] %>
+                            <h2 class="center">Percent who Submitted</h2>
+                            <div class="horizontal-bar-graph" id="link-graph"></div>
                         </article>
 
-                        <article>
-                            <h2 class="center">Year in School</h2>
-                            <div class="horizontal-bar-graph" id="school-year-graph"></div>
-                        </article>
-                    </div>
-
-                    <div class="column">
                         <article>
                             <h2 class="center">Number of Hackathons Attended</h2>
                             <div class="horizontal-bar-graph" id="hackathon-graph"></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, suscipit. Voluptates pariatur labore, hic quaerat temporibus velit blanditiis modi officiis sunt suscipit molestias, eum dolorem eveniet? Aliquid cumque deleniti culpa?</p>
                         </article>
+                    </div>
 
-                        <article>
-                            <h2 class="center">Percent who Submitted...</h2>
-                            <div class="horizontal-bar-graph" id="link-graph"></div>
-                        </article>
+                    <div class="row">
+                        <br><br><br><br><br>
+                        <div class="center">
+                            <div id="example" style="width: 900px; height: 400px;"></div>
+                        </div>
+                        <br><br><br><br><br><br><br>
                     </div>
 
                     <div class="row">
                         <h2 class="center">Daily Number of Applications</h2>
                         <div class="horizontal-line-graph" id="applications-graph"></div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit, suscipit. Voluptates pariatur labore, hic quaerat temporibus velit blanditiis modi officiis sunt suscipit molestias, eum dolorem eveniet? Aliquid cumque deleniti culpa?</p>
+                            <div class="tablefooter">
+                                <p>WIP sorry</p>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </section>
 
@@ -206,13 +226,17 @@
         <% end %>
         <%= content_tag :div, class: "data_grade_count", data: {temp: @grade_count} do %>
         <% end %>
+        <%= content_tag :div, class: "data_hackathon_count", data: {temp: @hackathons_count} do %>
+        <% end %>
+        <%= content_tag :div, class: "data_common_words", data: {temp: @common_words} do %>
+        <% end %>
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
     	<%= javascript_include_tag "select2.full.min" %>	
         <%= javascript_include_tag "admin" %>
         <%= javascript_include_tag "d3.min.js" %>
-        <%= javascript_include_tag "line-graph.js" %>
+        <%= javascript_include_tag "jqcloud.min.js" %>
         <%= javascript_include_tag "stats" %>
     </body>
 </html>        
