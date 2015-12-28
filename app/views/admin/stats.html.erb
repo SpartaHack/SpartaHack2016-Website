@@ -117,9 +117,9 @@
                                     </tbody>
 
                                 </table>
-                                <div class="tablefooter">
-                                    *Minors shown in red
-                                </div>
+                                <p class="center">
+                                    There are <%= @minor_count %> minors, which make up <%= number_to_percentage(100*@minor_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %> of attendees.
+                                </p>
                             </div>
                         </article>
                     </div>
