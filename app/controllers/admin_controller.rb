@@ -211,7 +211,6 @@ class AdminController < ApplicationController
     @age_count = @age_count.sort_by {|value, _key| value}.reverse
 
 
-
     # First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
     @grade_count = {"First Year"=>0,"Second Year"=>0,"Third Year"=>0,"Fourth Year"=>0,"Fifth Year"=>0,"Fifth Year +"=>0,"Graduate Student"=>0,"Not a Student"=>0};
 
@@ -224,7 +223,6 @@ class AdminController < ApplicationController
         end
       end
     end
-    # @grade_count = @grade_count.sort_by {|value, _key| value}
 
 
     # Majors
@@ -242,9 +240,49 @@ class AdminController < ApplicationController
     @major_count = @major_count.sort_by {|_key, value| value}.reverse
 
 
+    # Number Hackathons attended
+    # { number => frequency }
+    @hackathons_count = {0=>0,1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0,12=>0,13=>0,14=>0,15=>0}
+
+    @apps.each do |app|
+      if !app['hackathons'].blank?
+        if !@hackathons_count[app['hackathons'].length].blank?
+          @hackathons_count[ app['hackathons'].length ] += 1
+        else
+          @hackathons_count[ app['hackathons'].length ] = 1
+        end
+      end
+    end
+    @hackathons_count = @hackathons_count.sort_by {|value,_key| value}
 
 
 
+
+    # Find most common words for word map
+    def most_common(str)
+      str.gsub(/./) do |c|
+        case c
+        when /\w/ then c.downcase
+        when /\s/ then c
+        else ''
+        end
+      end.split
+         .group_by {|w| w}
+         .map {|k,v| [k,v.size]}
+         .sort_by(&:last)
+         .reverse
+         .to_h
+    end
+
+    @master_string = ""
+
+    @apps.each do |app|
+      if !app['whyAttend'].blank?
+        @master_string += " " + app['whyAttend']
+      end
+    end
+    @common_words = most_common(@master_string)
+    @common_words = @common_words.sort_by {|_key, value| value}.reverse
   end
 
 

@@ -87,20 +87,57 @@ var ageGraph = new BigHorizontalBarGraph('#age-graph', [ageValues]);
 var gradeValues = [$('.data_grade_count').data('temp')][0];
 // First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
 var gradeGraph = new HorizontalBarGraph('#grade-graph', [
-  {label: "First Year", inner_label: gradeValues["First Year"], value: gradeValues["First Year"], color: "#00EDAB" },
-  {label: "Second Year",  inner_label: gradeValues["Second Year"],   value: gradeValues["Second Year"],  color: "#FFCE80" },
-  {label: "Third Year",  inner_label: gradeValues["Third Year"],   value: gradeValues["Third Year"],  color: "#FF8099" },
-  {label: "Fourth Year", inner_label: gradeValues["Fourth Year"], value: gradeValues["Fourth Year"], color: "#00EDAB" },
-  {label: "Fifth Year",  inner_label: gradeValues["Fifth Year"],   value: gradeValues["Fifth Year"],  color: "#FFCE80" },
-  {label: "Fifth Year +",  inner_label: gradeValues["Fifth Year +"],   value: gradeValues["Fifth Year +"],  color: "#00EDAB" },
-  {label: "Graduate Student",  inner_label: gradeValues["Graduate Student"],   value: gradeValues["Graduate Student"],  color: "#FFCE80" },
-  {label: "Not a Student",  inner_label: gradeValues["Not a Student"],   value: gradeValues["Not a Student"],  color: "#FF8099" }
+  {label: "First", inner_label: gradeValues["First Year"], value: gradeValues["First Year"], color: "#00EDAB" },
+  {label: "Second",  inner_label: gradeValues["Second Year"],   value: gradeValues["Second Year"],  color: "#FFCE80" },
+  {label: "Third",  inner_label: gradeValues["Third Year"],   value: gradeValues["Third Year"],  color: "#FF8099" },
+  {label: "Fourth", inner_label: gradeValues["Fourth Year"], value: gradeValues["Fourth Year"], color: "#00EDAB" },
+  {label: "Fifth",  inner_label: gradeValues["Fifth Year"],   value: gradeValues["Fifth Year"],  color: "#FFCE80" },
+  {label: "Fifth +",  inner_label: gradeValues["Fifth Year +"],   value: gradeValues["Fifth Year +"],  color: "#00EDAB" },
+  {label: "Graduate",  inner_label: gradeValues["Graduate Student"],   value: gradeValues["Graduate Student"],  color: "#FFCE80" },
+  {label: "N/A",  inner_label: gradeValues["Not a Student"],   value: gradeValues["Not a Student"],  color: "#FF8099" }
 ]);
 
+var hackathonValues = [$('.data_hackathon_count').data('temp')][0];
+// First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
+var hackathonGraph = new HorizontalBarGraph('#hackathon-graph', [
+  {label: "0",  inner_label: hackathonValues[0][1],   value: hackathonValues[0][1], color: "#00EDAB" },
+  {label: "1",  inner_label: hackathonValues[1][1],   value: hackathonValues[1][1],  color: "#FFCE80" },
+  {label: "2",  inner_label: hackathonValues[2][1],   value: hackathonValues[2][1],  color: "#FF8099" },
+  {label: "3",  inner_label: hackathonValues[3][1],   value: hackathonValues[3][1], color: "#00EDAB" },
+  {label: "4",  inner_label: hackathonValues[4][1],   value: hackathonValues[4][1],  color: "#FFCE80" },
+  {label: "5",  inner_label: hackathonValues[5][1],   value: hackathonValues[5][1],  color: "#00EDAB" },
+  {label: "6",  inner_label: hackathonValues[6][1],   value: hackathonValues[6][1],  color: "#FFCE80" },
+  {label: "7",  inner_label: hackathonValues[7][1],   value: hackathonValues[7][1],  color: "#FF8099" },
+  {label: "8",  inner_label: hackathonValues[8][1],   value: hackathonValues[8][1],  color: "#FF8099" },
+  {label: "9",  inner_label: hackathonValues[9][1],   value: hackathonValues[9][1], color: "#00EDAB" },
+  {label: "10",  inner_label: hackathonValues[10][1],   value: hackathonValues[10][1],  color: "#FFCE80" },
+  {label: "11",  inner_label: hackathonValues[11][1],   value: hackathonValues[11][1],  color: "#00EDAB" },
+  {label: "12",  inner_label: hackathonValues[12][1],   value: hackathonValues[12][1],  color: "#FFCE80" },
+  {label: "13",  inner_label: hackathonValues[13][1],   value: hackathonValues[13][1],  color: "#FF8099" },
+  {label: "14",  inner_label: hackathonValues[14][1],   value: hackathonValues[14][1],  color: "#00EDAB" }
+]);
 
 genderGraph.draw();
 
 // ageGraph.draw();
 
 gradeGraph.draw();
+
+hackathonGraph.draw();
+
+var word_array = [
+      ];
+
+
+
+var data_common_words = [$('.data_common_words').data('temp')][0].slice(12,82);
+for(i=0;i<70;i++)
+{
+    word_array[i] = {text: data_common_words[i][0], weight: data_common_words[i][1]}
+}
+
+$("#example").jQCloud(word_array, {
+  removeOverflowing: false
+});
+
 
