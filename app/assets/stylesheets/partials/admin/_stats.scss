@@ -107,6 +107,10 @@
         width: 100%;
         align-items: center;
 
+        // Fix silly mobile width issue.
+        width: 97%;
+        margin: 0 1%;
+
         .a-hline {
           border-top: solid 1px $mutedCream;
           background: none;
