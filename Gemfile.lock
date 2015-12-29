@@ -107,6 +107,8 @@ GEM
     jbuilder (2.3.0)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jqcloud-rails (1.0.0)
+      jquery-rails
     jquery-rails (4.0.4)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -235,6 +237,7 @@ DEPENDENCIES
   compass (~> 1.0)
   font-awesome-rails
   jbuilder (~> 2.0)
+  jqcloud-rails
   jquery-rails
   mailchimp-api (~> 2.0.6)
   parse-ruby-client
