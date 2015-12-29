@@ -163,6 +163,21 @@ class UsersController < ApplicationController
     render layout: false
   end
 
+  def rsvp
+    @application = Parse::Query.new("Application").tap do |q|
+      q.eq("userId", Parse::Pointer.new({
+        "className" => "_User",
+        "objectId"  => cookies.signed[:spartaUser][0]
+      }))
+    end.get.first
+
+    if !@application
+      redirect_to '/application' and return
+    end
+
+    render layout: false
+  end
+
   def verify
     user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
     @email = user["email"]
