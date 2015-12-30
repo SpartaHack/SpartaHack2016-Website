@@ -9,8 +9,27 @@
   -webkit-font-smoothing: antialiased;
   color: #80ffdb;
 
+  .svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+  }
+  .svg-content-responsive {
+      display: inline-block;
+      position: absolute;
+      top: 10px;
+      left: 0;
+  }
+
   h2 {
     margin-bottom: 0;
+  }
+
+  #applications-graph svg {
+    background-color: white;
   }
 
   .wordmap {
@@ -170,6 +189,25 @@
     }
   }
 
+
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
   
 
 
@@ -231,15 +269,15 @@
 // Word Cloud
 
 div.jqcloud span.w10 { font-size: 550%; }
-div.jqcloud span.w9 { font-size: 500%; }
-div.jqcloud span.w8 { font-size: 450%; }
-div.jqcloud span.w7 { font-size: 400%; }
-div.jqcloud span.w6 { font-size: 350%; }
-div.jqcloud span.w5 { font-size: 300%; }
-div.jqcloud span.w4 { font-size: 250%; }
-div.jqcloud span.w3 { font-size: 200%; }
-div.jqcloud span.w2 { font-size: 150%; }
-div.jqcloud span.w1 { font-size: 100%; }
+div.jqcloud span.w9 { font-size: 450%; }
+div.jqcloud span.w8 { font-size: 300%; }
+div.jqcloud span.w7 { font-size: 250%; }
+div.jqcloud span.w6 { font-size: 200%; }
+div.jqcloud span.w5 { font-size: 175%; }
+div.jqcloud span.w4 { font-size: 150%; }
+div.jqcloud span.w3 { font-size: 125%; }
+div.jqcloud span.w2 { font-size: 100%; }
+div.jqcloud span.w1 { font-size: 90%; }
 
 
 

@@ -38,23 +38,7 @@ HorizontalBarGraph.prototype.draw = function() {
 
 };
 
-BigHorizontalBarGraph = function(el, series) {
-  series = series[0];
-  console.log(series);
-  var newSeries = [];
-  for(i=0;i<series.length;i++)
-  {
-    newSeries[i] = {label: series[i][0], inner_label: series[i][1], value: series[i][1], color: "#00EDAB" };
-  }
-  this.el = d3.select(el);
-  this.series = newSeries;
-};
 
-BigHorizontalBarGraph.prototype.draw = function() {
-  console.log(this.series);
-
-  return HorizontalBarGraph.prototype.draw();
-}
 
 var ageData = [$('.data_age_count').data('temp')];
 ageName =[];
@@ -68,6 +52,83 @@ for(i=0;i<ageData[0].length;i++)
 
 
 
+var data = [{ date: "1-May-12" , close: 582.13 },
+{ date: "30-Apr-12", close: 583.98 },
+{ date: "27-Apr-12", close: 603.00 },
+{ date: "26-Apr-12", close: 607.70 },
+{ date: "25-Apr-12", close: 610.00 },
+{ date: "24-Apr-12", close: 560.28 },
+{ date: "23-Apr-12", close: 571.70 },
+{ date: "20-Apr-12", close: 572.98 },
+{ date: "19-Apr-12", close: 587.44 },
+{ date: "18-Apr-12", close: 608.34 },
+{ date: "17-Apr-12", close: 609.70 },
+{ date: "16-Apr-12", close: 580.13 },
+{ date: "13-Apr-12", close: 605.23 },
+{ date: "12-Apr-12", close: 622.77 },
+{ date: "11-Apr-12", close: 626.20 },
+{ date: "10-Apr-12", close: 628.44 }];
+
+var data2 = [];
+
+var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%d-%b-%y").parse;
+
+var x = d3.time.scale()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.close); });
+
+var svg = d3.select("#applications-graph").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+data.forEach(function(d) {
+  d.date = parseDate(d.date);
+  d.close = +d.close;
+});
+
+x.domain(d3.extent(data, function(d) { return d.date; }));
+y.domain(d3.extent(data, function(d) { return d.close; }));
+
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis)
+  .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 6)
+    .attr("dy", ".71em")
+    .style("text-anchor", "end")
+    .text("Applications submitted per day");
+
+svg.append("path")
+    .datum(data)
+    .attr("class", "line")
+    .attr("d", line);
+
 var genderValues = [$('.data_gender_count').data('temp')["male"], $('.data_gender_count').data('temp')["female"], $('.data_gender_count').data('temp')["nonbinary"]];
 var genderGraph = new HorizontalBarGraph('#gender-graph', [
   {label: "male", inner_label: genderValues[0], value: genderValues[0], color: "#00EDAB" },
@@ -77,7 +138,7 @@ var genderGraph = new HorizontalBarGraph('#gender-graph', [
 
 
 var ageValues = [$('.data_age_count').data('temp')][0];
-var ageGraph = new BigHorizontalBarGraph('#age-graph', [ageValues]);
+var ageGraph = new HorizontalBarGraph('#age-graph', [ageValues]);
 
 
 // $statsOrange: #FFCE80;
@@ -91,10 +152,9 @@ var gradeGraph = new HorizontalBarGraph('#grade-graph', [
   {label: "Second",  inner_label: gradeValues["Second Year"],   value: gradeValues["Second Year"],  color: "#FFCE80" },
   {label: "Third",  inner_label: gradeValues["Third Year"],   value: gradeValues["Third Year"],  color: "#FF8099" },
   {label: "Fourth", inner_label: gradeValues["Fourth Year"], value: gradeValues["Fourth Year"], color: "#00EDAB" },
-  {label: "Fifth",  inner_label: gradeValues["Fifth Year"],   value: gradeValues["Fifth Year"],  color: "#FFCE80" },
-  {label: "Fifth +",  inner_label: gradeValues["Fifth Year +"],   value: gradeValues["Fifth Year +"],  color: "#00EDAB" },
-  {label: "Graduate",  inner_label: gradeValues["Graduate Student"],   value: gradeValues["Graduate Student"],  color: "#FFCE80" },
-  {label: "N/A",  inner_label: gradeValues["Not a Student"],   value: gradeValues["Not a Student"],  color: "#FF8099" }
+  {label: "Fifth +",  inner_label: gradeValues["Fifth Year +"],   value: gradeValues["Fifth Year +"],  color: "#FFCE80" },
+  {label: "Graduate",  inner_label: gradeValues["Graduate Student"],   value: gradeValues["Graduate Student"],  color: "#00EDAB" },
+  {label: "N/A",  inner_label: gradeValues["Not a Student"],   value: gradeValues["Not a Student"],  color: "#FFCE80" }
 ]);
 
 var hackathonValues = [$('.data_hackathon_count').data('temp')][0];

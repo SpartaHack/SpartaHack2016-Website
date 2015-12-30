@@ -196,6 +196,7 @@ class AdminController < ApplicationController
     # Age
     @age_count = { };
     @minor_count = 0;
+    @adult_count = 0;
 
     # Get current year (ex 2015) to determine everyone's approx. age
     @curr_year = Time.now.year
@@ -204,6 +205,8 @@ class AdminController < ApplicationController
       if !app['birthyear'].blank?
         if (@curr_year.to_f - app['birthyear'].to_f) < 21
           @minor_count+=1
+        else
+          @adult_count+=1
         end
 
         if !@age_count[app['birthyear']].blank?
@@ -215,9 +218,11 @@ class AdminController < ApplicationController
     end
     @age_count = @age_count.sort_by {|value, _key| value}.reverse
 
+    @total_apps = @apps.length
+
 
     # First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
-    @grade_count = {"First Year"=>0,"Second Year"=>0,"Third Year"=>0,"Fourth Year"=>0,"Fifth Year"=>0,"Fifth Year +"=>0,"Graduate Student"=>0,"Not a Student"=>0};
+    @grade_count = {"First Year"=>0,"Second Year"=>0,"Third Year"=>0,"Fourth Year"=>0,"Fifth Year +"=>0,"Graduate Student"=>0,"Not a Student"=>0};
 
     @apps.each do |app|
       if !app['gradeLevel'].blank?
@@ -256,6 +261,8 @@ class AdminController < ApplicationController
         else
           @hackathons_count[ app['hackathons'].length ] = 1
         end
+      else
+        @hackathons_count[ 0 ] += 1
       end
     end
     @hackathons_count = @hackathons_count.sort_by {|value,_key| value}
