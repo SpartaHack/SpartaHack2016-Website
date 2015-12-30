@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="SpartaHack 2016" />
+        <meta property="og:site_name" content="SpartaHack" />
+        <meta property="og:url" content="https://www.spartahack.com" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the application to be considered for admittance. " />
+        <meta property="og:image" content="<%=image_url("facebook.png")%>" />
+
+        <title>SpartaHack</title>
+
+        <%= favicon_link_tag 'favicon.png' %>
+        <%= stylesheet_link_tag "select2-modified" %>
+        <%= stylesheet_link_tag "users" %>
+
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="header" class="header">
+        <div class="navbar-nav left">
+            <a href="/" class="anchorLink">
+              <div id="home-nav" class="svg-wrapper active">
+                <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+                  <rect class="shape home" height="60" width="85" />
+                </svg>
+              </div>
+              <div class="text">2016</div>
+            </a>
+
+        </div>
+        
+        <div class="navbar-nav right">
+
+          <div id="login-wrapper">
+            <a href="/logout">
+              <div id="login-nav" class="svg-wrapper">
+                <svg height="60" width="110" xmlns="http://www.w3.org/2000/svg">
+                  <rect class="shape login" height="60" width="110" />
+                </svg>
+              </div>
+              <div class="text">LOG OUT</div>
+            </a>
+          </div>
+
+        </div>
+
+
+        <nav>
+            <ul class="mobile">
+                <li><a href="/" class="anchorLink">HOME</a></li>
+                <li><a href="/logout">LOG OUT</a></li>  
+            </ul>
+            <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+        </nav>
+    </div>
+    <% if flash[:popup] %>
+      <div id="popup-error-wrapper">
+        <div id="popup-error">
+          <%= "#{flash[:popup]}" %>
+          <div id="sub-text"><%= "#{flash[:sub]}" %></div>
+        </div>
+      </div>
+    <% else %>
+      <div id="popup-wrapper">
+        <div id="popup"></div>
+      </div>
+    <% end %>
+    
+    <div class="wrap-main">
+      <section id="rsvp" >
+        <div class="row">
+      
+          <h1 class="section-head">APPLICATION</h1> 
+          <h4 id="required">* fields are required.</h4>
+          <%= form_tag("/save", method: "post", id: "save_app", class: "save_app", :remote => true, :authenticity_token => true) do %>
+
+            <div class="add-margin-top add-margin-bottom" id="attending-wrap">
+              <label id="attending">Will you be attending SpartaHack 2016?</label>
+              <div id="radio-wrap">
+                  <input type="radio" name="attending" id="yes-attending" value="true" >
+                  <label for="yes-attending">Yes</label>                  
+                  <input type="radio" name="attending" id="not-attending" value="false" >
+                  <label for="not-attending">No</label>
+              </div>
+            </div>
+
+            <div class="add-margin-top add-margin-bottom" id="travel-wrap" style="display:none">
+              <label id="attending">Will you need travel reimbursement?</label>
+              <div id="radio-wrap">
+                  <input type="radio" name="travel" id="yes-travel" value="true" >
+                  <label for="yes-travel">Yes</label>                  
+                  <input type="radio" name="travel" id="no-travel" value="false" >
+                  <label for="no-travel">No</label>
+              </div>
+            </div>            
+
+            <div class="add-margin-top restrictions" id="restrictions-wrap" style="display:none">
+              <select id="restrictions" name="restrictions" style="display=none;" multiple="multiple">
+                <option></option>
+                <option value="none">None</option>
+                <option value="gluten">Gluten Free</option>
+                <option value="kosher">Kosher</option>
+                <option value="lactose">Lactose intolerant</option>
+                <option value="vegan">Vegan</option>
+                <option value="vegetarian">Vegetarian</option>
+              </select>
+            </div>
+
+            <div class="add-margin-top restrictions" id="other-restriction-wrap" style="display:none">
+              <div class="check">
+                <input type="checkbox" value="true" id="other-restriction-confirm" name="otherRestrictionConfirm" />
+                <label for="other-restriction-confirm"><div id="other-restriction-text">Restriction not listed?</div></label>
+              </div>
+            </div>
+
+            <div class="add-margin-top other-restriction" style="display:none;">
+              <%= label_tag(:otherRestrictions, "Restrictions not listed above? Enter it here.", class: 'no-label') %>
+              <%= text_field_tag 'otherRestrictions', "", placeholder: 'Other Dietary Restrictions' %>
+            </div>            
+
+            <div class="add-margin-top" id="resume-instructions" style="display:none">
+              <div>
+                <div id="resume-instructions-text">Please upload your resume and a completed <a href="https://www.irs.gov/pub/irs-pdf/fw9.pdf" target="_blank">W9 Tax Form.</a> Acceptable formats are pdf, doc, and docx.</div>
+              </div>
+            </div>
+
+            <div id="upload-wrap" class="add-margin-top" style="display:none">
+              
+              <div class="thumbnail">         
+                <%= image_tag "resume-upload.svg", alt: "Resume Upload", :id => "img_prev" %>
+                <div class="form-group-file">               
+                  <%= file_field_tag 'resume', :onchange => 'readURL(this);', :accept => "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"%>
+                </div>
+              </div>  
+
+              <div class="thumbnail">         
+                <%= image_tag "w9-upload.svg", alt: "W9 Upload", :id => "img_prev" %>
+                <div class="form-group-file">               
+                  <%= file_field_tag 'w9Form', :onchange => 'readURL(this);', :accept => "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" %>
+                </div>
+              </div> 
+
+            </div> 
+
+            <div class="hvr-underline-from-center full" id="save-rsvp" style="display:none">
+              <%= submit_tag("#{@application ? 'Update RSVP' : 'Submit RSVP'}", :id => "rsvp-submit") %>
+            </div>
+
+          <% end %>      
+
+        </div>
+
+      </section>
+    </div>
+
+    <%= javascript_include_tag "jquery-1.11.3.min" %>
+    <%= javascript_include_tag "headroom.min" %>
+    <%= javascript_include_tag "jquery-headroom" %>
+    <%= javascript_include_tag "select2.full.min" %>
+    <%= javascript_include_tag "users-rsvp" %>
+
+    <%= javascript_tag do %>
+      <% if @application %>
+        <% if @application['otherUniversityConfirm'].to_bool == true %>
+          $('#other-university-confirm').prop('checked', true);
+        <% else %>
+          $('#other-university-confirm').prop('checked', false);
+        <% end %>
+      <% end %>
+    <% end %>     
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-70811550-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+  </body>  
+</html>

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'auth'  => 'users#auth'
   get 'application'  => 'users#application'
   get 'dashboard' => 'users#dashboard'
+  get 'rsvp' => 'users#rsvp'
   get 'forgot'  => 'users#forgot'
   post 'requestreset'  => 'users#requestreset'
   post 'save' => 'users#save'
