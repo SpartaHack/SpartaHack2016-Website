@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	require 'parse_config'
+	require 'parse_config_dev'
   require 'monkey_patch'
 
   def new
