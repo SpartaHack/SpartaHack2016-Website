@@ -77,9 +77,24 @@
                             <div>
                                 <h2 class="center">Gender</h2>
                                 <div class="horizontal-bar-graph" id="gender-graph"></div>
-                                <p>Males make up <%= ( 100* (@gender_count["male"].to_f / @gender_count["total"].to_f).round(2) ) %>% of applicants.</p>
-                                <p>Females make up <%= ( 100* (@gender_count["female"].to_f / @gender_count["total"].to_f).round(2) ) %>% of applicants.</p>
-                                    <p>Nonbinary makes up <%= ( 100* (@gender_count["nonbinary"].to_f / @gender_count["total"].to_f).round(2) ) %>% of applicants.</p>
+                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                <thead>
+                                    <tr>
+                                        <th>University</th>
+                                        <th>Count</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% @gender_count.each_with_index do |gender_count, index|  %>
+                                    <tr>
+                                        <td><%= gender_count[0] %></td>
+                                        <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @total_apps )) %></td>
+                                    </tr>
+                                    <% end %>
+                                </tbody>
+
+                            </table>
                             </div>
                             <div>
                                 <h2 class="center">Grade Level</h2>

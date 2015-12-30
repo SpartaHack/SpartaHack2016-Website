@@ -162,13 +162,14 @@ class AdminController < ApplicationController
 
 
     # gender count [male, female, nonbinary]
-    @gender_count = {"male"=>0, "female"=>0, "nonbinary"=>0, "total"=>0}
+    @gender_count = {"male"=>0, "female"=>0, "nonbinary"=>0}
 
     # Gender
     @apps.each do |app|
       if !app['gender'].blank? && !@gender_count[app['gender']].blank?
         @gender_count[app['gender']]+=1;
-        @gender_count["total"] +=1;
+      else
+        @gender_count["nonbinary"]+=1;
       end
     end
 
