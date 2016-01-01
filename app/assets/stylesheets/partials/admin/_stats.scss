@@ -9,6 +9,21 @@
   -webkit-font-smoothing: antialiased;
   color: #80ffdb;
 
+    .box {
+    width: 125px;
+    height: 75px;
+    margin: 20px 7.5px 0px 7.5px;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+    border: solid 1px $mutedOutline;
+    font-size: 24px;
+
+  }
+
   .svg-container {
     display: inline-block;
     position: relative;
