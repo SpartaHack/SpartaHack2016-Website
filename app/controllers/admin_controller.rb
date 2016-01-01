@@ -162,7 +162,7 @@ class AdminController < ApplicationController
 
 
     # gender count [male, female, nonbinary]
-    @gender_count = {"male"=>0, "female"=>0, "nonbinary"=>0}
+    @gender_count = {"male"=>0, "female"=>0, "non-binary"=>0, "prefer-not"=>0}
 
     # Gender
     @apps.each do |app|

@@ -129,11 +129,12 @@ svg.append("path")
     .attr("class", "line")
     .attr("d", line);
 
-var genderValues = [$('.data_gender_count').data('temp')["male"], $('.data_gender_count').data('temp')["female"], $('.data_gender_count').data('temp')["nonbinary"]];
+var genderValues = [$('.data_gender_count').data('temp')][0];
 var genderGraph = new HorizontalBarGraph('#gender-graph', [
-  {label: "male", inner_label: genderValues[0], value: genderValues[0], color: "#00EDAB" },
-  {label: "female",  inner_label: genderValues[1],   value: genderValues[1],  color: "#FFCE80" },
-  {label: "nonbinary",  inner_label: genderValues[2],   value: genderValues[2],  color: "#FF8099" }
+  {label: "male", inner_label: genderValues["male"], value: genderValues["male"], color: "#00EDAB" },
+  {label: "female",  inner_label: genderValues["female"],   value: genderValues["female"],  color: "#FFCE80" },
+  {label: "non-binary",  inner_label: genderValues["non-binary"],   value: genderValues["non-binary"],  color: "#FF8099" },
+  {label: "prefer-not",  inner_label: genderValues["prefer-not"],   value: genderValues["prefer-not"],  color: "#00EDAB" }
 ]);
 
 
