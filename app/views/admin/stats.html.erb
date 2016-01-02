@@ -95,7 +95,7 @@
                                     <% @gender_count.each_with_index do |gender_count, index|  %>
                                     <tr>
                                         <td><%= gender_count[0] %></td>
-                                        <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @total_apps )) %></td>
+                                        <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @total_apps ),precision: 1) %></td>
                                     </tr>
                                     <% end %>
                                 </tbody>
@@ -144,9 +144,9 @@
 
                                     <tbody>
                                         <% @age_count.each_with_index do |age_count, index|  %>
-                                            <% if @curr_year - age_count[0].to_i < 21 %>
+                                            <% if age_count[0] < 18 %>
                                                 <tr>
-                                                    <td class="minorhighlight"><%= @curr_year - age_count[0].to_i %>
+                                                    <td class="minorhighlight"><%= age_count[0].to_i %>
                                                     </td>
                                                     <td class="minorhighlight"><%= age_count[1] %>
                                                         or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
@@ -154,7 +154,7 @@
                                                 </tr>
                                             <% else %>
                                                 <tr>
-                                                    <td><%= @curr_year - age_count[0].to_i %></td>
+                                                    <td><%= age_count[0].to_i %></td>
                                                     <td><%= age_count[1] %>
                                                         or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
                                                     </td>

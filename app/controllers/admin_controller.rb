@@ -199,25 +199,35 @@ class AdminController < ApplicationController
     @minor_count = 0;
     @adult_count = 0;
 
-    # Get current year (ex 2015) to determine everyone's approx. age
-    @curr_year = Time.now.year
+    def age(dob,diq)
+      diq = diq.to_date
+      diq.year - dob.year - ((diq.month > dob.month || (diq.month == dob.month && diq.day >= dob.day)) ? 0 : 1)
+    end
+
+    # Get date of hackathon: feb 26
+    @start_date = Date.new(2016, 2, 26)
 
     @apps.each do |app|
       if !app['birthyear'].blank?
-        if (@curr_year.to_f - app['birthyear'].to_f) < 21
+        curr_bday = Time.zone.local(app['birthyear'].to_i, Date::MONTHNAMES.index(app['birthmonth'].to_i), app['birthday'].to_i, 0, 0)
+
+          # app['birthyear'].to_i, app['birthmonth'].to_i, app['birthday'].to_i, 0,0,0, "+09:00").utc
+        if age(curr_bday, @start_date) < 18
           @minor_count+=1
         else
           @adult_count+=1
         end
 
-        if !@age_count[app['birthyear']].blank?
-          @age_count[ app['birthyear'] ] += 1
+        if !@age_count[age(curr_bday, @start_date)].blank?
+          @age_count[ age(curr_bday, @start_date) ] += 1
         else
-          @age_count[ app['birthyear'] ] = 1
+          @age_count[ age(curr_bday, @start_date) ] = 1
         end
       end
+
+      puts @age_count
     end
-    @age_count = @age_count.sort_by {|value, _key| value}.reverse
+    @age_count = @age_count.sort_by {|value, _key| value}
 
     @total_apps = @apps.length
 
