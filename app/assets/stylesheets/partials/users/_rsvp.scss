@@ -43,18 +43,21 @@
       width: 530px;
     }
   }
-  
-  #required {
-    text-align: center;
-    margin-top: -20px;
-    font-family: ubuntu;
-    -webkit-font-smoothing: antialiased;
-    font-weight: 100;
+
+  .add-margin-top {
+    margin-top: 0px;
     @media (min-width: 550px) {
-      margin-top: -40px;
-    }
+      margin-top: 26px;
+    } 
   }
 
+  .add-margin-bottom {
+    margin-bottom: 15px;
+    @media (min-width: 550px) {
+      margin-bottom: 26px;
+    } 
+  }  
+  
   ::-webkit-input-placeholder {
     color: $cream;
     opacity: 1;
@@ -147,40 +150,6 @@
     }
   }
 
-  #restrictions{
-    width: 100%;
-    @media (min-width: 550px) {
-      width: 530px;
-    } 
-  }
-
-  #attending {
-    margin-bottom: 10px;
-    text-align: center;
-  }
-
-  #attending-wrap, #travel-wrap, #other-restriction-wrap {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    justify-content: center;
-    -webkit-justify-content: center;
-    border: solid 1px $mutedOutline;
-    font-weight: 100;
-    font-weight: lighter;
-    -webkit-font-smoothing: antialiased;
-    height: 60px;
-  }
-
-  #attending-wrap, #travel-wrap {
-    align-items: center;
-    -webkit-align-items: center;
-    @media (max-width: 550px) {
-      height: 75px;
-    }
-  }
-
   input[type=radio]{
     /* Hide original inputs */
     visibility: hidden;
@@ -189,7 +158,7 @@
   input[type=radio] + label:before{
     height:12px;
     width:12px;
-    margin-right: 2px;
+    margin-right: 7px;
     content: " ";
     display:inline-block;
     vertical-align: baseline;
@@ -199,17 +168,6 @@
 
   input[type=radio]:checked + label:before{
     background: $mutedText;
-  }
-
-
-  #radio-wrap {
-    width: 300px;
-    display: flex;
-    display: -webkit-flex;
-    justify-content: space-around;
-    -webkit-justify-content: space-around;
-    align-items: center;
-    -webkit-align-items:center;
   }
 
   span {
@@ -224,15 +182,66 @@
     outline: 0 none !important;
   }
 
+  #attending, #mentor {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  #attending-wrap, #other-restriction-wrap, #mentor-wrap {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    justify-content: center;
+    -webkit-justify-content: center;
+    border: solid 1px $mutedOutline;
+    font-weight: 100;
+    font-weight: lighter;
+    -webkit-font-smoothing: antialiased;
+    height: 60px;
+  }
+
+  #attending-wrap, #mentor-wrap {
+    align-items: center;
+    -webkit-align-items: center;
+    @media (max-width: 550px) {
+      height: 75px;
+    }
+  }
+
+  #radio-wrap {
+    width: 300px;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    align-items: center;
+    -webkit-align-items:center;
+  }  
+
+  #university {
+    width: 100%;
+    @media (min-width: 550px) {
+      width: 530px;
+    } 
+  }
+
+  #restrictions, #tshirt{
+    width: 100%;
+    @media (min-width: 550px) {
+      width: 530px;
+    } 
+  }  
+
   #otherRestrictions {
     width:100%;
     @media (min-width: 550px) {
       width: 503px;
       margin-bottom: 0px;
     } 
-  }
+  }  
 
-  #upload-wrap {
+  #upload-resume-wrap, #upload-form-wrap {
     display: flex;
     display: -webkit-flex;
     justify-content: space-around;
@@ -241,7 +250,7 @@
     -webkit-align-items:center;
   }
 
-  #resume-instructions {
+  #resume-instructions, #restriction-question-wrap {
     display: flex;
     display: -webkit-flex;
     align-items: center;
@@ -249,15 +258,14 @@
     border-style: none;
     border: solid 1px $mutedOutline;
     border-radius: 0;
-    height: 100px;
+    height: 54px;
     width: 100%;
     @media (max-width: 550px){
       margin-bottom: 15px;
-      height: 100px;
     }
   }
 
-  #resume-instructions-text {
+  #resume-instructions-text, #restriction-question-text {
     margin-left: 15px;
     word-wrap: normal;
     -webkit-font-smoothing: antialiased;
@@ -271,21 +279,28 @@
     }
   }  
 
-  .add-margin-top {
-    margin-top: 0px;
-    @media (min-width: 550px) {
-      margin-top: 26px;
-    } 
+  #citizen-wrap {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    border: solid 1px $mutedOutline;
+    font-weight: 100;
+    font-weight: lighter;
+    -webkit-font-smoothing: antialiased;
+    height: 100px;
+    @media (max-width: 550px) {
+      height: 130px;
+    }
   }
 
-  .add-margin-bottom {
-    margin-bottom: 15px;
-    @media (min-width: 550px) {
-      margin-bottom: 26px;
-    } 
+  #not-citizen + label, #yes-citizen + label  {
+    margin-left: 30px;
   }
 
-  .university, #gradeLevel-wrap, .other-university-enrolled { 
+  .university, #gradeLevel-wrap { 
     margin-bottom: 0px;
     @media (min-width: 550px) {
       margin-bottom: 26px;
@@ -445,13 +460,13 @@
     border: solid 1px $mutedOutline; 
     margin-right: 0px !important;
     @media (min-width: 550px) {
-      width: 190px;
+      width: 530px;
       height: 190px;
     }
       
   }
 
-  #img_prev {
+  #resume_prev, #form_prev {
     width: 180px;
     max-height: 180px;
   }
@@ -464,7 +479,7 @@
       margin-right: auto;
       width: 100%;
       @media (min-width: 550px) {
-        width: 192px;
+        width: 530px;
         height: 192px;
       }
   }
@@ -473,18 +488,44 @@
     width: 100% !important;;
     height: 192px;
     @media (min-width: 550px) {
-      width: 192px !important;
+      width: 530px !important;
     }
     opacity: 0 !important;
     cursor: pointer;
   }  
 
-  #save-rsvp {
-    margin-top: 0px;
-    margin-bottom: 100px;
-    @media (min-width: 550px) {
-      margin-top: 21px;
+  #form-text-wrap {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    border-style: none;
+    border: solid 1px $mutedOutline;
+    border-radius: 0;
+    height: 150px;
+    width: 100%;
+    @media (max-width: 550px){
+      margin-bottom: 15px;
+      height: 190px;
     }
+  }
+
+  #form-text{
+    -webkit-font-smoothing: antialiased;
+    margin-left: 15px;
+    word-wrap: normal;
+    color: $cream;
+    font-family: ubuntu;
+    font-weight: 100;
+    font-size: 15px;
+    
+    a {
+      font-size: 15px;
+    }
+  }
+
+  #save-rsvp {
+    margin-bottom: 100px;
   }
 
   #rsvp-submit {
@@ -502,6 +543,10 @@
 
 .select2-search__field {
   border-style: none;
+  color: $cream;
+}
+
+.fa-angle-down {
   color: $cream;
 }
 

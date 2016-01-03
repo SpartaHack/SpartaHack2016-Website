@@ -82,11 +82,10 @@
       <section id="rsvp" >
         <div class="row">
       
-          <h1 class="section-head">APPLICATION</h1> 
-          <h4 id="required">* fields are required.</h4>
-          <%= form_tag("/save", method: "post", id: "save_app", class: "save_app", :remote => true, :authenticity_token => true) do %>
+          <h1 class="section-head">RSVP</h1> 
+          <%= form_tag("/save", method: "post", id: "send_rsvp", class: "send_rsvp", :remote => true, :authenticity_token => true) do %>
 
-            <div class="add-margin-top add-margin-bottom" id="attending-wrap">
+            <div class="add-margin-top" id="attending-wrap">
               <label id="attending">Will you be attending SpartaHack 2016?</label>
               <div id="radio-wrap">
                   <input type="radio" name="attending" id="yes-attending" value="true" >
@@ -96,26 +95,28 @@
               </div>
             </div>
 
-            <div class="add-margin-top add-margin-bottom" id="travel-wrap" style="display:none">
-              <label id="attending">Will you need travel reimbursement?</label>
-              <div id="radio-wrap">
-                  <input type="radio" name="travel" id="yes-travel" value="true" >
-                  <label for="yes-travel">Yes</label>                  
-                  <input type="radio" name="travel" id="no-travel" value="false" >
-                  <label for="no-travel">No</label>
-              </div>
+            <div class="add-margin-top" id="travel-wrap" style="display:none">
+              <%= label_tag(:attending, "Which school is closest to where you’ll be traveling from?", class: 'no-label') %>
+              <%= render partial: "users/app_university" %>
             </div>            
 
+            <div class="add-margin-top" id="restriction-question-wrap" style="display:none">
+              <div>
+                <div id="restriction-question-text">Which dietary restrictions, if any, do you have?</div>
+              </div>
+            </div>
+
             <div class="add-margin-top restrictions" id="restrictions-wrap" style="display:none">
-              <select id="restrictions" name="restrictions" style="display=none;" multiple="multiple">
-                <option></option>
+              <select id="restrictions" name="restrictions" style="display=none;" multiple="true" data-multiple="true">
                 <option value="none">None</option>
                 <option value="gluten">Gluten Free</option>
                 <option value="kosher">Kosher</option>
                 <option value="lactose">Lactose intolerant</option>
+                <option value="lactose">Peanut Allergy</option>
                 <option value="vegan">Vegan</option>
                 <option value="vegetarian">Vegetarian</option>
               </select>
+
             </div>
 
             <div class="add-margin-top restrictions" id="other-restriction-wrap" style="display:none">
@@ -130,33 +131,67 @@
               <%= text_field_tag 'otherRestrictions', "", placeholder: 'Other Dietary Restrictions' %>
             </div>            
 
-            <div class="add-margin-top" id="resume-instructions" style="display:none">
-              <div>
-                <div id="resume-instructions-text">Please upload your resume and a completed <a href="https://www.irs.gov/pub/irs-pdf/fw9.pdf" target="_blank">W9 Tax Form.</a> Acceptable formats are pdf, doc, and docx.</div>
+            <div class="add-margin-top tshirt" id="tshirt-wrap" style="display:none">
+              <%= select_tag "tshirt", options_for_select(["","Men's XS", "Men's Small", "Men's Medium", "Men's Large", "Men's XL", "Men's XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
+            </div>
+
+            <div class="add-margin-top" id="mentor-wrap" style="display:none">
+              <label id="mentor">Do you want to be a mentor at the event?</label>
+              <div id="radio-wrap">
+                  <input type="radio" name="mentor" id="yes-mentor" value="true" >
+                  <label for="yes-mentor">Yes</label>                  
+                  <input type="radio" name="mentor" id="not-mentor" value="false" >
+                  <label for="not-mentor">No</label>
               </div>
             </div>
 
-            <div id="upload-wrap" class="add-margin-top" style="display:none">
+            <div class="add-margin-top" id="resume-instructions" style="display:none">
+              <div>
+                <div id="resume-instructions-text">Please upload your resume as a pdf.</div>
+              </div>
+            </div>
+
+            <div id="upload-resume-wrap" class="add-margin-top" style="display:none">
               
               <div class="thumbnail">         
-                <%= image_tag "resume-upload.svg", alt: "Resume Upload", :id => "img_prev" %>
+                <%= image_tag "resume-upload.svg", alt: "Resume Upload", :id => "resume_prev" %>
                 <div class="form-group-file">               
-                  <%= file_field_tag 'resume', :onchange => 'readURL(this);', :accept => "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"%>
+                  <%= file_field_tag 'resume', :accept => "application/pdf,application"%>
                 </div>
               </div>  
 
-              <div class="thumbnail">         
-                <%= image_tag "w9-upload.svg", alt: "W9 Upload", :id => "img_prev" %>
-                <div class="form-group-file">               
-                  <%= file_field_tag 'w9Form', :onchange => 'readURL(this);', :accept => "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" %>
-                </div>
-              </div> 
-
             </div> 
 
-            <div class="hvr-underline-from-center full" id="save-rsvp" style="display:none">
+            <div class="add-margin-top" id="citizen-wrap" style="display:none">
+                  <input type="radio" name="citizen" id="yes-citizen" value="true" >
+                  <label for="yes-citizen">I am a U.S. Citizen or permanent resident (does not include temporary/student visas)</label>               
+                  <input type="radio" name="citizen" id="not-citizen" value="false" >
+                  <label for="not-citizen">I am NOT a U.S. Citizen or permanent resident</label>
+            </div>
+
+            <div id="form-text-wrap" class="add-margin-top" style="display:none">
+              <div>
+                  <div id='form-text'>
+                  </div>
+              </div>              
+            </div>
+            
+            <div id="upload-form-wrap" class="add-margin-top" style="display:none">
+              <div class="thumbnail">         
+                <%= image_tag "w9-upload.svg", alt: "Tax Form Upload", :id => "form_prev" %>
+                <div class="form-group-file">               
+                  <%= file_field_tag 'form', :accept => "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" %>
+                </div>
+              </div> 
+            </div>
+
+            <div class="progress" id="progress"></div> 
+
+            <div class="hvr-underline-from-center full add-margin-top" id="save-rsvp" style="display:none">
               <%= submit_tag("#{@application ? 'Update RSVP' : 'Submit RSVP'}", :id => "rsvp-submit") %>
             </div>
+
+             
 
           <% end %>      
 
@@ -165,6 +200,7 @@
       </section>
     </div>
 
+    <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.5.6/dist/progressbar.js"></script>
     <%= javascript_include_tag "jquery-1.11.3.min" %>
     <%= javascript_include_tag "headroom.min" %>
     <%= javascript_include_tag "jquery-headroom" %>

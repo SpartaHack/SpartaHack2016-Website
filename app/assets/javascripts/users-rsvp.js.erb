@@ -1,0 +1,421 @@
+var line = new ProgressBar.Line('#progress', {  //progress bar
+	color: '#80FFDB'
+});
+
+function modelMatcher (params, data) {
+  data.parentText = data.parentText || "";
+
+  // Always return the object if there is nothing to compare
+  if ($.trim(params.term) === '') {
+    return data;
+  }
+
+  // Do a recursive check for options with children
+  if (data.children && data.children.length > 0) {
+    // Clone the data object if there are children
+    // This is required as we modify the object to remove any non-matches
+    var match = $.extend(true, {}, data);
+
+    // Check each child of the option
+    for (var c = data.children.length - 1; c >= 0; c--) {
+      var child = data.children[c];
+      child.parentText += data.parentText + " " + data.text;
+
+      var matches = modelMatcher(params, child);
+
+      // If there wasn't a match, remove the object in the array
+      if (matches == null) {
+        match.children.splice(c, 1);
+      }
+    }
+
+    // If any children matched, return the new object
+    if (match.children.length > 0) {
+      return match;
+    }
+
+    // If there were no matching children, check just the plain object
+    return modelMatcher(params, match);
+  }
+
+  // If the typed-in term matches the text of this term, or the text from any
+  // parent term, then it's a match.
+  var original = (data.parentText + ' ' + data.text).toUpperCase();
+  var term = params.term.toUpperCase();
+
+
+  // Check if the text contains the term
+  if (original.indexOf(term) > -1) {
+    return data;
+  }
+
+  // If it doesn't contain the term, don't return anything
+  return null;
+}
+
+
+function createSelects() {
+	$('#university').select2({
+	  placeholder: "Which school is closest to where you’ll be traveling from?", 
+	  allowClear: true,
+	  matcher: modelMatcher
+	});
+	$('#restrictions').select2({
+	  placeholder: "Dietary Restrictions",
+	  minimumResultsForSearch: Infinity, 
+	  allowClear: true,
+	  multiple: true
+	});
+	$('#tshirt').select2({
+	  placeholder: "T-Shirt Size",
+	  minimumResultsForSearch: -1, 
+	  allowClear: true,
+	});
+
+	// hide old selection arrow;
+	$('b[role="presentation"]').hide();
+	$('.select2-selection__arrow').append('<i class="fa fa-angle-down"></i>');	
+	$('.select2-container--open').append('<i class="fa fa-angle-up"></i>');	
+}
+
+function popUpTop() {
+	$("#popup").css("top", "60px")
+	$("#popup").css("bottom", "")
+	$("#popup-wrapper").fadeIn("fast");
+}
+
+function popUpBottom() {
+	$("#popup").css("bottom", "170px");
+	$("#popup").css("top", "")
+	$("#popup-wrapper").fadeIn("fast");	
+}
+
+function toBottom() {
+	$('html, body').animate({scrollTop:$(document).height()}, 'slow');
+}
+
+
+function checkProgress() {
+	console.log(line.value());
+	if (line.value() == 1.0) {
+		$("#save-rsvp").slideDown('slow');
+		toBottom;
+	} else {
+		$("#save-rsvp").slideUp('slow');
+	}
+}
+
+function incrementProgress() {
+	line.animate(line.value() + 0.125, function() {
+		checkProgress();
+	});
+	
+}
+
+$(document).ready(function() {	
+	createSelects();
+	window.onbeforeunload = function(){ return 'Your RSVP has not been submitted.' }
+
+	$('#popup-wrapper').click(function(){
+		$('#popup-wrapper').fadeOut('fast');
+	});
+
+	$('#popup-error-wrapper').click(function(){
+		$('#popup-error-wrapper').fadeOut('fast');
+	});
+
+	yes_switch = 0;
+	$('#yes-attending').click(function(){
+		if (yes_switch == 0) {
+			yes_switch = 1;
+			$('#send_rsvp')[0].reset();
+			$('#yes-attending').prop('checked', true);
+			$('#resume_prev').attr('src', <%= '"' + asset_path('resume-upload.svg') + '"' %>)
+
+			university_switch = 0;
+			restriction_switch = 0;
+			tshirt_switch = 0;
+			resume_switch = 0;
+			citizen_switch = 0;
+			form_switch = 0;	
+		}
+
+		
+		if (line.value() < 0.125 || line.value() == 1.0) {
+			line.animate(0.125);
+		}
+		$("#save-rsvp").slideUp('slow');
+		$('#travel-wrap').slideDown('slow');
+		
+		createSelects();
+	})
+
+	$('#not-attending').click(function(){
+		yes_switch = 0
+		$('#travel-wrap').slideUp('slow');
+		$('#restriction-question-wrap').slideUp('slow');
+		$('.restrictions').slideUp('slow');
+		$('.other-restriction').slideUp('slow');
+		$("#tshirt-wrap").slideUp('slow');
+		$("#mentor-wrap").slideUp('slow');
+		$("#resume-instructions").slideUp('slow');
+		$("#citizen-wrap").slideUp('slow');
+		$("#upload-resume-wrap").slideUp('slow');
+		$("#form-text-wrap").slideUp('slow');
+		$("#upload-form-wrap").slideUp('slow');
+		$("#save-rsvp").slideDown('slow', function() {
+			toBottom();
+			line.animate(1.0);
+
+		});
+
+		createSelects();
+	})
+
+	university_switch = 0;
+	$("#university").change(function(){
+		if (!$('#university').val() && university_switch == 1) {
+			line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+			university_switch = 0;
+		} else {
+			if (university_switch == 0) {
+				incrementProgress();
+				university_switch = 1;
+			}
+
+			$('#restriction-question-wrap').slideDown('slow');
+			$('.restrictions').slideDown('slow');
+		}
+	});
+
+	$('#other-restriction-confirm').change(function() {
+		if ($(this).is(':checked')) {
+			$('.other-restriction').slideDown({duration:'slow'});
+		} else {
+			$('.other-restriction').slideUp("slow");
+		}
+	});
+
+	other_switch = 0
+	$('#otherRestrictions').change(function() {
+		console.log($('#restrictions').val())
+		if (!$('#restrictions').val() && other_switch == 0) {
+			$('#restrictions').val(['none']).trigger("change");
+			console.log("asdf")
+			other_switch = 1
+		}
+
+	});
+
+	restriction_switch = 0;
+	$('#restrictions').on('change', function() {
+
+		if ($('#restrictions').val() && restriction_switch == 0) {
+			incrementProgress();
+			restriction_switch = 1;
+
+			$("#tshirt-wrap").slideDown('slow');
+		}
+
+	    values = $('#restrictions').val();
+
+	    if (values && values.indexOf("none") > -1) {
+	    	$('#restrictions').val(['none']);
+	    } else if (!values && restriction_switch == 1 && !$('#otherRestrictions').val()) {
+    		restriction_switch = 0;
+    		line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+	    } else if (!values && restriction_switch == 1 && $('#otherRestrictions').val() && other_switch == 0) {
+	    	$('#restrictions').val(['none']);
+	    	other_switch = 1
+	    	console.log("dsaf")
+	    }
+
+	});
+
+	tshirt_switch = 0
+	$("#tshirt").change(function(){
+		if ($('#tshirt').val() && tshirt_switch == 0) {
+			incrementProgress();
+			tshirt_switch = 1;
+
+			$("#mentor-wrap").slideDown('slow');
+		}
+
+		if (!$('#tshirt').val() && tshirt_switch == 1) {
+    		tshirt_switch = 0;
+    		line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+		}
+	})
+
+	mentor_switch = 0;
+	$('#yes-mentor').click(function(){
+		if (mentor_switch == 0) {
+			incrementProgress();
+			mentor_switch = 1;
+		}
+
+		$("#resume-instructions").slideDown('slow');
+		$("#upload-resume-wrap").slideDown('slow');
+	})
+
+	$('#not-mentor').click(function(){
+		if (mentor_switch == 0) {
+			incrementProgress();
+			mentor_switch = 1;
+		}
+		
+		$("#resume-instructions").slideDown('slow');
+		$("#upload-resume-wrap").slideDown('slow');
+	})
+
+	resume_switch = 0;
+	$("#resume").change(function(){
+		if (resume_switch == 0 && $('#resume').val()) {
+			$('#resume_prev').attr('src', <%= '"' + asset_path('uploaded.svg') + '"' %>)
+			incrementProgress();
+			resume_switch = 1;
+		}
+
+		$("#citizen-wrap").slideDown('slow');
+		if (!$('#resume').val() && resume_switch == 1) {
+			$('#resume_prev').attr('src', <%= '"' + asset_path('resume-upload.svg') + '"' %>)
+			line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+			resume_switch = 0;
+		}
+	})
+
+	citizen_switch = 0;
+	$('#yes-citizen').click(function(){
+		if (citizen_switch == 0) {
+			incrementProgress();
+			citizen_switch = 1;
+		}
+
+		$("#form-text-wrap").slideUp('slow');
+		$("#upload-form-wrap").slideUp('slow', function() {
+			if ($('#form').val()) {
+				$('#form').replaceWith($('#form').val('').clone(true));	
+				line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+				form_switch = 0;
+			}
+
+			$('#form_prev').attr('src', <%= '"' + asset_path('w9-upload.svg') + '"' %>)
+			$('#form-text').html("In order to issue prizes and travel reimbursement, we must have tax documents \
+				on file for each attendee. Please download this <a href='https://www.irs.gov/pub/irs-pdf/fw9.pdf' \
+				download='w9-form.pdf'>W9 form</a> and either fill it out digitally OR print, complete, and scan it. \
+				Upload the completed document below.");
+			
+			$("#form-text-wrap").slideDown('slow');
+			$("#upload-form-wrap").slideDown('slow');
+			checkProgress();
+		});
+
+	});
+
+	$('#not-citizen').click(function(){
+		if (citizen_switch == 0) {
+			incrementProgress();
+			citizen_switch = 1;
+		}
+
+
+		$("#form-text-wrap").slideUp('slow');
+		$("#upload-form-wrap").slideUp('slow', function() {
+			if ($('#form').val()) {
+				$('#form').replaceWith($('#form').val('').clone(true));	
+				line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+				form_switch = 0;
+			}
+			
+			$('#form_prev').attr('src', <%= '"' + asset_path('w8-upload.svg') + '"' %>)
+			$('#form-text').html("In order to issue prizes and travel reimbursement, we must have tax documents \
+				on file for each attendee. Please download this <a href='https://www.irs.gov/pub/irs-pdf/fw8ben.pdf' \
+				download='w8-form.pdf'>W8 form</a> and either fill it out digitally OR print, complete, and scan it. \
+				Upload the completed document below.");
+
+			$("#form-text-wrap").slideDown('slow');
+			$("#upload-form-wrap").slideDown('slow');
+			checkProgress();
+		});
+
+	})
+
+	form_switch = 0;
+	$("#form").change(function(){
+		if (form_switch == 0 && $('#form').val()) {
+			$('#form_prev').attr('src', <%= '"' + asset_path('uploaded.svg') + '"' %>)
+			incrementProgress();
+			form_switch = 1;
+
+		}
+
+		if (!$('#form').val() && form_switch == 1) {
+			console.log(document.getElementById('yes-citizen').checked)
+			console.log("-----")
+			console.log(document.getElementById('not-citizen').checked)
+			if ($('#yes-citizen').val()) {
+				$('#form_prev').attr('src', <%= '"' + asset_path('w9-upload.svg') + '"' %>)
+			} else {
+				$('#form_prev').attr('src', <%= '"' + asset_path('w8-upload.svg') + '"' %>)
+			}
+
+			line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+			form_switch = 0;
+		}
+	});
+
+});
+
+$(window).resize(function() {
+	createSelects();
+});
+
+if ($(window).width() < 775) {
+  $("#header").headroom({
+    "offset": 205,
+    "tolerance": 5,
+    "classes": {
+      "initial": "animated",
+      "pinned": "slideDown",
+      "unpinned": "slideUp"
+    }
+  });
+}
+
+$(function() {
+    var pull        = $('#pull');
+        menu        = $('.mobile');
+ 
+    $(pull).on('click', function(e) {
+        e.preventDefault();
+        menu.slideToggle();
+    });
+
+    $('.mobile li a').on('click', function(e) {
+        menu.slideToggle();
+    });
+
+});
+
+$(window).scroll(function() {$("#popup-wrapper").fadeOut('fast')});
+
+document.addEventListener("touchmove", ScrollStart, false);
+document.addEventListener("scroll", Scroll, false);
+
+function ScrollStart() {
+    $("#popup-wrapper").fadeOut('fast');
+}
+
+function Scroll() {
+	$("#popup-wrapper").fadeOut('fast');
+}
+
+function confirmJavascript() {
+  $.ajax({
+    url: "/javascript/confirm",
+    context: document.body
+  });
+}
+
+confirmJavascript();
+setInterval(confirmJavascript, 10000); // invoke each 10 seconds
