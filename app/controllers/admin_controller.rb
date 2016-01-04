@@ -186,7 +186,15 @@ class AdminController < ApplicationController
           @uni_applicants[ app['university'] ] = 1
         end
       else
-        @uni_applicants["High School"] += 1
+        if !app['otherUniversity'].blank?
+          if @uni_applicants[ app['otherUniversity'] ]
+            @uni_applicants[ app['otherUniversity'] ] += 1
+          else
+            @uni_applicants[ app['otherUniversity'] ] = 1
+          end
+        else
+          @uni_applicants['High School'] += 1
+        end
       end
     end
 

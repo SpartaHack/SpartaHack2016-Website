@@ -86,7 +86,7 @@
                                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
                                 <thead>
                                     <tr>
-                                        <th>University</th>
+                                        <th>Gender</th>
                                         <th>Count</th>
                                     </tr>
                                 </thead>
@@ -103,6 +103,7 @@
                             </table>
                             </div>
                             <div>
+                                <br>
                                 <h2 class="center">Grade Level</h2>
                                 <div class="horizontal-bar-graph" id="grade-graph"></div>
 
@@ -185,7 +186,7 @@
                                 </thead>
 
                                 <tbody>
-                                    <% @uni_applicants[0..20].each_with_index do |uni_applicants, index|  %>
+                                    <% @uni_applicants.each_with_index do |uni_applicants, index|  %>
                                     <tr>
                                         <td><%= uni_applicants[0] %></td>
                                         <td><%= uni_applicants[1] %> or <%= number_to_percentage(100*(uni_applicants[1].to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></td>
