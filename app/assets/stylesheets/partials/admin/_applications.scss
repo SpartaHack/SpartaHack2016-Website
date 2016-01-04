@@ -117,7 +117,7 @@
     -webkit-align-items: center;
     justify-content: space-between;
     -webkit-justify-content: space-between;
-    width: 350px;
+    width: 500px;
     padding-bottom: 5px;
 
   }
@@ -168,10 +168,21 @@
     }
   }
 
-  .status-select, .status-multi {
+  .status-select, #status-multi {
     width:150px;
     height: 36px;
     overflow: visible;
+  }
+
+  #multi-submit {
+    width:125px;
+    height: 52px;
+    border: solid 1px $mutedOutline; 
+    background: transparent;
+    color: $cream;
+    font-size: 15px; 
+    font-weight: 100;
+    -webkit-font-smoothing: antialiased;
   }
 
   .sorting {
@@ -181,6 +192,7 @@
     border-bottom: 3px solid $mutedOutline;
 
   }
+
   .sorting_1 {
     background-color: $mutedOutline;
   }

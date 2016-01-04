@@ -194,10 +194,11 @@
                 </table>
                 <div id="multi-wrapper">
                     <%= form_tag("/", class: "multi-set") do %>
-                         <%= text_field_tag 'start', "", placeholder: 'Start #' %>
-                         <div>to</div>
-                         <%= text_field_tag 'end', "", placeholder: 'End #' %>
-                        <%= select_tag "status-multi", options_for_select(["", "Accepted", "Waitlisted", "Denied"]), class: "status-multi" %>
+                        <%= text_field_tag 'start', "", placeholder: 'Start #' %>
+                        <div>to</div>
+                        <%= text_field_tag 'end', "", placeholder: 'End #' %>
+                        <%= select_tag "status-multi", options_for_select(["", "Accepted", "Waitlisted", "Denied"]) %>
+                        <%= submit_tag "Submit", id: "multi-submit" %>
                     <% end %>  
 
                     <div>* Page will refresh on completion.</div>  

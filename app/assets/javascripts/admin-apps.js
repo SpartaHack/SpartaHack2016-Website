@@ -1,6 +1,6 @@
 function createSelects() {
 
-    $('.status-multi').select2({
+    $('#status-multi').select2({
       placeholder: "No Status", 
       minimumResultsForSearch: -1,
       allowClear: true
@@ -50,9 +50,11 @@ $(document).ready( function () {
         })
     })
 
-    $(".status-multi").change(function(){
+    $("#multi-submit").click(function(e){
+        e.preventDefault();
+
         for (i=$("#start").val(); i<parseInt($("#end").val())+1; i++ ){
-            $("#"+i+" form select").val($(".status-multi").val()).trigger("change");
+            $("#"+i+" form select").val($("#status-multi").val()).trigger("change");
         }
         location.reload();
     })
