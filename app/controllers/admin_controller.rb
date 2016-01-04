@@ -159,29 +159,52 @@ class AdminController < ApplicationController
       q.limit = 1000
     end.get
 
+    def age(dob,diq)
+      diq = diq.to_date
+      diq.year - dob.year - ((diq.month > dob.month || (diq.month == dob.month && diq.day >= dob.day)) ? 0 : 1)
+    end
 
 
     # gender count [male, female, nonbinary]
     @gender_count = {"male"=>0, "female"=>0, "non-binary"=>0, "prefer-not"=>0}
 
-    # Gender
+    # Hash of university => attendee count
+    @uni_applicants = {"High School"=>0};
+    @international_count=0;
+
+    # Age
+    @age_count = { };
+    @minor_count = 0;
+    @adult_count = 0;
+
+    # Get date of hackathon: feb 26
+    @start_date = Date.new(2016, 2, 26)
+
+    @total_apps = @apps.length
+
+    # First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
+    @uni_grade_count = {"First Year"=>0,"Second Year"=>0,"Third Year"=>0,"Fourth Year"=>0,"Fifth Year +"=>0,"Graduate Student"=>0,"High School Student"=>0, "Not a Student"=>0};
+
+    # Majors
+    @major_count = {};
+
+
+    # Number Hackathons attended
+    # { number => frequency }
+    @hackathons_count = {0=>0,1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0,12=>0,13=>0,14=>0,15=>0}
+
+
+    # Start huge loop
     @apps.each do |app|
+      # Gender
       if !app['gender'].blank? && !@gender_count[app['gender']].blank?
         @gender_count[app['gender']]+=1;
       else
         @gender_count["nonbinary"]+=1;
       end
-    end
 
-
-    # Hash of university => attendee count
-    @uni_applicants = {"High School"=>0};
-    @international_count=0;
-
-    #fills uni_applicants hash
-    @apps.each do |app|
+      # Universities
       if !app['university'].blank?
-        puts app["university"][0..2] =="USA"
         if !(app["university"][0..2] =="USA")
           @international_count += 1
         end
@@ -201,36 +224,15 @@ class AdminController < ApplicationController
           @uni_applicants['High School'] += 1
         end
       end
-    end
 
-    #creates an array of arrays sorted with highest value first. 
-    @uni_applicants = @uni_applicants.sort_by {|_key, value| value}.reverse
-
-
-    # Age
-    @age_count = { };
-    @minor_count = 0;
-    @adult_count = 0;
-
-    def age(dob,diq)
-      diq = diq.to_date
-      diq.year - dob.year - ((diq.month > dob.month || (diq.month == dob.month && diq.day >= dob.day)) ? 0 : 1)
-    end
-
-    # Get date of hackathon: feb 26
-    @start_date = Date.new(2016, 2, 26)
-
-    @apps.each do |app|
+      # Ages
       if !app['birthyear'].blank?
         curr_bday = Time.zone.local(app['birthyear'].to_i, Date::MONTHNAMES.index(app['birthmonth'].to_i), app['birthday'].to_i, 0, 0)
-
-          # app['birthyear'].to_i, app['birthmonth'].to_i, app['birthday'].to_i, 0,0,0, "+09:00").utc
         if age(curr_bday, @start_date) < 18
           @minor_count+=1
         else
           @adult_count+=1
         end
-
         if !@age_count[age(curr_bday, @start_date)].blank?
           @age_count[ age(curr_bday, @start_date) ] += 1
         else
@@ -238,17 +240,7 @@ class AdminController < ApplicationController
         end
       end
 
-    end
-    @age_count = @age_count.sort_by {|value, _key| value}
-
-    @total_apps = @apps.length
-
-
-    # First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
-    @uni_grade_count = {"First Year"=>0,"Second Year"=>0,"Third Year"=>0,"Fourth Year"=>0,"Fifth Year +"=>0,"Graduate Student"=>0,"High School Student"=>0, "Not a Student"=>0};
-
-    # University students
-    @apps.each do |app|
+      # Grade level
       if app['universityStudent'] == 'true'
         if !app['gradeLevel'].blank?
           if !@uni_grade_count[app['gradeLevel']].blank?
@@ -258,15 +250,10 @@ class AdminController < ApplicationController
           end
         end
       else
-        # high school students
         @uni_grade_count['High School Student'] += 1
       end
-    end
 
-    # Majors
-    @major_count = {};
-
-    @apps.each do |app|
+      # Majors
       if !app['major'].blank?
         app['major'].each do |major|
           if !@major_count[major].blank?
@@ -276,15 +263,8 @@ class AdminController < ApplicationController
           end
         end
       end
-    end
-    @major_count = @major_count.sort_by {|_key, value| value}.reverse
 
-
-    # Number Hackathons attended
-    # { number => frequency }
-    @hackathons_count = {0=>0,1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0,12=>0,13=>0,14=>0,15=>0}
-
-    @apps.each do |app|
+      # Hackathons
       if !app['hackathons'].blank?
         if !@hackathons_count[app['hackathons'].length].blank?
           @hackathons_count[ app['hackathons'].length ] += 1
@@ -294,11 +274,15 @@ class AdminController < ApplicationController
       else
         @hackathons_count[ 0 ] += 1
       end
+
+    # End huge loop
     end
+
+    # Sorting
+    @age_count = @age_count.sort_by {|value, _key| value}
+    @uni_applicants = @uni_applicants.sort_by {|_key, value| value}.reverse
+    @major_count = @major_count.sort_by {|_key, value| value}.reverse
     @hackathons_count = @hackathons_count.sort_by {|value,_key| value}
-
-
-
 
     # Find most common words for word map
     def most_common(str)
@@ -326,7 +310,6 @@ class AdminController < ApplicationController
     @common_words = most_common(@master_string)
     @common_words = @common_words.sort_by {|_key, value| value}.reverse
   end
-
 
   private
 
