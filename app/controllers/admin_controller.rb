@@ -241,18 +241,23 @@ class AdminController < ApplicationController
 
 
     # First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
-    @grade_count = {"First Year"=>0,"Second Year"=>0,"Third Year"=>0,"Fourth Year"=>0,"Fifth Year +"=>0,"Graduate Student"=>0,"Not a Student"=>0};
+    @uni_grade_count = {"First Year"=>0,"Second Year"=>0,"Third Year"=>0,"Fourth Year"=>0,"Fifth Year +"=>0,"Graduate Student"=>0,"High School Student"=>0, "Not a Student"=>0};
 
+    # University students
     @apps.each do |app|
-      if !app['gradeLevel'].blank?
-        if !@grade_count[app['gradeLevel']].blank?
-          @grade_count[ app['gradeLevel'] ] += 1
-        else
-          @grade_count[ app['gradeLevel'] ] = 1
+      if app['universityStudent'] == 'true'
+        if !app['gradeLevel'].blank?
+          if !@uni_grade_count[app['gradeLevel']].blank?
+            @uni_grade_count[ app['gradeLevel'] ] += 1
+          else
+            @uni_grade_count[ app['gradeLevel'] ] = 1
+          end
         end
+      else
+        # high school students
+        @uni_grade_count['High School Student'] += 1
       end
     end
-
 
     # Majors
     @major_count = {};

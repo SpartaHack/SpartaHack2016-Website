@@ -116,16 +116,15 @@
                                     </thead>
 
                                     <tbody>
-                                        <% @grade_count.each_with_index do |grade_count, index|  %>
+                                        <% @uni_grade_count.each_with_index do |uni_grade_count, index|  %>
                                                 <tr>
-                                                    <td><%= grade_count[0] %></td>
-                                                    <td><%= number_to_percentage(100*grade_count[1].to_f / @grade_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                                                    <td><%= uni_grade_count[0] %></td>
+                                                    <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @uni_grade_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
                                                 </tr>
                                         <% end %>
                                     </tbody>
 
                                 </table>
-
 
                             </div>
                         </article>
@@ -186,15 +185,19 @@
                                 </thead>
 
                                 <tbody>
-                                    <% @uni_applicants.each_with_index do |uni_applicants, index|  %>
+                                    <% @uni_applicants[0..20].each_with_index do |uni_applicants, index|  %>
                                     <tr>
                                         <td><%= uni_applicants[0] %></td>
                                         <td><%= uni_applicants[1] %> or <%= number_to_percentage(100*(uni_applicants[1].to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></td>
                                     </tr>
                                     <% end %>
                                 </tbody>
-
                             </table>
+                            <div class="tablefooter">
+                                <p>
+                                    *top 20
+                                </p>
+                            </div>
 
                         </article>
 
@@ -211,7 +214,7 @@
                                     </thead>
 
                                     <tbody>
-                                        <% @major_count.each_with_index do |major_count, index|  %>
+                                        <% @major_count[0..20].each_with_index do |major_count, index|  %>
                                         <tr>
                                             <td><%= major_count[0] %></td>
                                             <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @major_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
@@ -220,6 +223,11 @@
                                     </tbody>
 
                                 </table>
+                                <div class="tablefooter">
+                                    <p>
+                                        *top 20
+                                    </p>
+                                </div>
                             </div>
 
                         </article>
@@ -276,7 +284,7 @@
         <% end %>
         <%= content_tag :div, class: "data_age_count", data: {temp: @age_count} do %>
         <% end %>
-        <%= content_tag :div, class: "data_grade_count", data: {temp: @grade_count} do %>
+        <%= content_tag :div, class: "data_grade_count", data: {temp: @uni_grade_count} do %>
         <% end %>
         <%= content_tag :div, class: "data_hackathon_count", data: {temp: @hackathons_count} do %>
         <% end %>

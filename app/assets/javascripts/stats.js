@@ -147,15 +147,17 @@ var ageGraph = new HorizontalBarGraph('#age-graph', [ageValues]);
 // $statsPink: #FF8099;
 // $statsPink2: #FF5476;
 var gradeValues = [$('.data_grade_count').data('temp')][0];
-// First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
+// First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student, High School Student
 var gradeGraph = new HorizontalBarGraph('#grade-graph', [
   {label: "First", inner_label: gradeValues["First Year"], value: gradeValues["First Year"], color: "#00EDAB" },
   {label: "Second",  inner_label: gradeValues["Second Year"],   value: gradeValues["Second Year"],  color: "#FFCE80" },
   {label: "Third",  inner_label: gradeValues["Third Year"],   value: gradeValues["Third Year"],  color: "#FF8099" },
   {label: "Fourth", inner_label: gradeValues["Fourth Year"], value: gradeValues["Fourth Year"], color: "#00EDAB" },
   {label: "Fifth +",  inner_label: gradeValues["Fifth Year +"],   value: gradeValues["Fifth Year +"],  color: "#FFCE80" },
-  {label: "Graduate",  inner_label: gradeValues["Graduate Student"],   value: gradeValues["Graduate Student"],  color: "#00EDAB" },
-  {label: "N/A",  inner_label: gradeValues["Not a Student"],   value: gradeValues["Not a Student"],  color: "#FFCE80" }
+  {label: "Graduate",  inner_label: gradeValues["Graduate Student"],   value: gradeValues["Graduate Student"],  color: "#FF8099" },
+  {label: "High School Student",  inner_label: gradeValues["High School Student"],   value: gradeValues["High School Student"],  color: "#FFCE80" },
+    {label: "N/A",  inner_label: gradeValues["Not a Student"],   value: gradeValues["Not a Student"],  color: "#00EDAB" }
+
 ]);
 
 var hackathonValues = [$('.data_hackathon_count').data('temp')][0];
