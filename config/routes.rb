@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :users
   
   root :to => 'pages#index', :as => :index
+  get 'hangout' => 'pages#hangout'
   post 'subscribe' => 'pages#subscribe'
   get 'winners2015' => 'pages#winners2015'
 
