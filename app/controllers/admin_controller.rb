@@ -193,6 +193,7 @@ class AdminController < ApplicationController
     # { number => frequency }
     @hackathons_count = {0=>0,1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0,12=>0,13=>0,14=>0,15=>0}
 
+    @submission_dates = {}
 
     # Start huge loop
     @apps.each do |app|
@@ -273,6 +274,14 @@ class AdminController < ApplicationController
         end
       else
         @hackathons_count[ 0 ] += 1
+      end
+
+      # Applications per day
+      current_day = ( Time.parse(app['createdAt']) - 9*3600).strftime("%d-%B-%Y")
+      if !@submission_dates[ current_day ].blank?
+        @submission_dates[ current_day ] += 1
+      else
+        @submission_dates[ current_day ] = 1
       end
 
     # End huge loop
