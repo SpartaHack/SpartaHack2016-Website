@@ -194,10 +194,9 @@
                                 </tbody>
                             </table>
                             <div class="tablefooter">
-                                <p>
-                                    *top 20
-                                </p>
+                                *top 20
                             </div>
+                            <p>There are <%= @international_count %> international students, which make up <%= number_to_percentage(100*(@international_count.to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %> of applicants.</p>
 
                         </article>
 

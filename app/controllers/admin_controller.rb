@@ -176,10 +176,15 @@ class AdminController < ApplicationController
 
     # Hash of university => attendee count
     @uni_applicants = {"High School"=>0};
+    @international_count=0;
 
     #fills uni_applicants hash
     @apps.each do |app|
       if !app['university'].blank?
+        puts app["university"][0..2] =="USA"
+        if !(app["university"][0..2] =="USA")
+          @international_count += 1
+        end
         if @uni_applicants[ app['university'] ]
           @uni_applicants[ app['university'] ] += 1
         else
@@ -233,7 +238,6 @@ class AdminController < ApplicationController
         end
       end
 
-      puts @age_count
     end
     @age_count = @age_count.sort_by {|value, _key| value}
 
