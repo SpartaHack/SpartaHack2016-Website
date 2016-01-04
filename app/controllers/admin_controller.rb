@@ -259,10 +259,12 @@ class AdminController < ApplicationController
 
     @apps.each do |app|
       if !app['major'].blank?
-        if !@major_count[app['major']].blank?
-          @major_count[ app['major'] ] += 1
-        else
-          @major_count[ app['major'] ] = 1
+        app['major'].each do |major|
+          if !@major_count[major].blank?
+            @major_count[major] += 1
+          else
+            @major_count[major] = 1
+          end
         end
       end
     end

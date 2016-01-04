@@ -195,9 +195,6 @@
                                 </tbody>
 
                             </table>
-                            <div class="tablefooter">
-                                    *Top 20
-                            </div>
 
                         </article>
 
@@ -214,18 +211,15 @@
                                     </thead>
 
                                     <tbody>
-                                        <% @major_count[0..20].each_with_index do |major_count, index|  %>
+                                        <% @major_count.each_with_index do |major_count, index|  %>
                                         <tr>
-                                            <td><%= major_count[0].join(",") %></td>
+                                            <td><%= major_count[0] %></td>
                                             <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @major_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
                                         </tr>
                                         <% end %>
                                     </tbody>
 
                                 </table>
-                                <div class="tablefooter">
-                                    *Top 20
-                                </div>
                             </div>
 
                         </article>
