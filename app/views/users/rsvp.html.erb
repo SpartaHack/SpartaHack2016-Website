@@ -100,12 +100,6 @@
               <%= render partial: "users/app_university" %>
             </div>            
 
-            <div class="add-margin-top" id="restriction-question-wrap" style="display:none">
-              <div>
-                <div id="restriction-question-text">Which dietary restrictions, if any, do you have?</div>
-              </div>
-            </div>
-
             <div class="add-margin-top restrictions" id="restrictions-wrap" style="display:none">
               <select id="restrictions" name="restrictions" style="display=none;" multiple="true" data-multiple="true">
                 <option value="none">None</option>
@@ -115,34 +109,18 @@
                 <option value="lactose">Peanut Allergy</option>
                 <option value="vegan">Vegan</option>
                 <option value="vegetarian">Vegetarian</option>
+                <option value="other">Other</option>
               </select>
 
             </div>
 
-            <div class="add-margin-top restrictions" id="other-restriction-wrap" style="display:none">
-              <div class="check">
-                <input type="checkbox" value="true" id="other-restriction-confirm" name="otherRestrictionConfirm" />
-                <label for="other-restriction-confirm"><div id="other-restriction-text">Restriction not listed?</div></label>
-              </div>
-            </div>
-
             <div class="add-margin-top other-restriction" style="display:none;">
               <%= label_tag(:otherRestrictions, "Restrictions not listed above? Enter it here.", class: 'no-label') %>
-              <%= text_field_tag 'otherRestrictions', "", placeholder: 'Other Dietary Restrictions' %>
+              <%= text_field_tag 'otherRestrictions', "", placeholder: 'List dietary restrictions here...' %>
             </div>            
 
             <div class="add-margin-top tshirt" id="tshirt-wrap" style="display:none">
-              <%= select_tag "tshirt", options_for_select(["","Men's XS", "Men's Small", "Men's Medium", "Men's Large", "Men's XL", "Men's XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
-            </div>
-
-            <div class="add-margin-top" id="mentor-wrap" style="display:none">
-              <label id="mentor">Do you want to be a mentor at the event?</label>
-              <div id="radio-wrap">
-                  <input type="radio" name="mentor" id="yes-mentor" value="true" >
-                  <label for="yes-mentor">Yes</label>                  
-                  <input type="radio" name="mentor" id="not-mentor" value="false" >
-                  <label for="not-mentor">No</label>
-              </div>
+              <%= select_tag "tshirt", options_for_select(["","Unisex's XS", "Unisex's Small", "Unisex's Medium", "Unisex's Large", "Unisex's XL", "Unisex's XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
             </div>
 
             <div class="add-margin-top" id="resume-instructions" style="display:none">
@@ -185,9 +163,19 @@
               </div> 
             </div>
 
-            <div class="progress" id="progress"></div> 
+            <div class="progress add-margin-bottom" id="progress"></div> 
 
-            <div class="hvr-underline-from-center full add-margin-top" id="save-rsvp" style="display:none">
+            <div id="question-progress-wrap">
+              <div class="question" id="q1"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Attending</div>
+              <div class="question" id="q2"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Travel</div>
+              <div class="question" id="q3"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Dietary Restrictions</div>
+              <div class="question" id="q4"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;T-Shirt Size</div>
+              <div class="question" id="q5"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Resume</div>
+              <div class="question" id="q6"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Citizenship</div>
+              <div class="question" id="q7"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Tax Form</div>
+            </div>
+
+            <div class="hvr-underline-from-center full" id="save-rsvp" style="display:none">
               <%= submit_tag("#{@application ? 'Update RSVP' : 'Submit RSVP'}", :id => "rsvp-submit") %>
             </div>
 
@@ -205,17 +193,7 @@
     <%= javascript_include_tag "headroom.min" %>
     <%= javascript_include_tag "jquery-headroom" %>
     <%= javascript_include_tag "select2.full.min" %>
-    <%= javascript_include_tag "users-rsvp" %>
-
-    <%= javascript_tag do %>
-      <% if @application %>
-        <% if @application['otherUniversityConfirm'].to_bool == true %>
-          $('#other-university-confirm').prop('checked', true);
-        <% else %>
-          $('#other-university-confirm').prop('checked', false);
-        <% end %>
-      <% end %>
-    <% end %>     
+    <%= javascript_include_tag "users-rsvp" %>  
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

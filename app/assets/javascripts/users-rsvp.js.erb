@@ -114,7 +114,7 @@ function incrementProgress() {
 
 $(document).ready(function() {	
 	createSelects();
-	window.onbeforeunload = function(){ return 'Your RSVP has not been submitted.' }
+	// window.onbeforeunload = function(){ return 'Your RSVP has not been submitted.' }
 
 	$('#popup-wrapper').click(function(){
 		$('#popup-wrapper').fadeOut('fast');
@@ -126,6 +126,9 @@ $(document).ready(function() {
 
 	yes_switch = 0;
 	$('#yes-attending').click(function(){
+		$('#question-progress-wrap').slideDown('slow');
+		$('#q1').html('<i class="fa fa-check"></i> Attending');
+
 		if (yes_switch == 0) {
 			yes_switch = 1;
 			$('#send_rsvp')[0].reset();
@@ -152,12 +155,11 @@ $(document).ready(function() {
 
 	$('#not-attending').click(function(){
 		yes_switch = 0
+		$('#question-progress-wrap').slideUp('slow');
 		$('#travel-wrap').slideUp('slow');
-		$('#restriction-question-wrap').slideUp('slow');
 		$('.restrictions').slideUp('slow');
 		$('.other-restriction').slideUp('slow');
 		$("#tshirt-wrap").slideUp('slow');
-		$("#mentor-wrap").slideUp('slow');
 		$("#resume-instructions").slideUp('slow');
 		$("#citizen-wrap").slideUp('slow');
 		$("#upload-resume-wrap").slideUp('slow');
@@ -177,34 +179,15 @@ $(document).ready(function() {
 		if (!$('#university').val() && university_switch == 1) {
 			line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 			university_switch = 0;
+			$('#q2').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Travel');
 		} else {
 			if (university_switch == 0) {
 				incrementProgress();
 				university_switch = 1;
 			}
-
-			$('#restriction-question-wrap').slideDown('slow');
+			$('#q2').html('<i class="fa fa-check"></i> Travel');
 			$('.restrictions').slideDown('slow');
 		}
-	});
-
-	$('#other-restriction-confirm').change(function() {
-		if ($(this).is(':checked')) {
-			$('.other-restriction').slideDown({duration:'slow'});
-		} else {
-			$('.other-restriction').slideUp("slow");
-		}
-	});
-
-	other_switch = 0
-	$('#otherRestrictions').change(function() {
-		console.log($('#restrictions').val())
-		if (!$('#restrictions').val() && other_switch == 0) {
-			$('#restrictions').val(['none']).trigger("change");
-			console.log("asdf")
-			other_switch = 1
-		}
-
 	});
 
 	restriction_switch = 0;
@@ -213,7 +196,7 @@ $(document).ready(function() {
 		if ($('#restrictions').val() && restriction_switch == 0) {
 			incrementProgress();
 			restriction_switch = 1;
-
+			$('#q3').html('<i class="fa fa-check"></i> Dietary Restrictions');
 			$("#tshirt-wrap").slideDown('slow');
 		}
 
@@ -221,13 +204,18 @@ $(document).ready(function() {
 
 	    if (values && values.indexOf("none") > -1) {
 	    	$('#restrictions').val(['none']);
-	    } else if (!values && restriction_switch == 1 && !$('#otherRestrictions').val()) {
+	    } else if (values && values.indexOf("other") > -1) {
+	    	$('.other-restriction').slideDown({duration:'slow'});
+	    } else if (!values && restriction_switch == 1) {
     		restriction_switch = 0;
+    		$('#q3').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Dietary Restrictions');
     		line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
-	    } else if (!values && restriction_switch == 1 && $('#otherRestrictions').val() && other_switch == 0) {
-	    	$('#restrictions').val(['none']);
-	    	other_switch = 1
-	    	console.log("dsaf")
+	    }
+
+	    if (values && values.indexOf("other") == -1 || !values) {
+	    	$('.other-restriction').slideUp("slow", function() {
+	    		$('#otherRestrictions').val("");
+	    	});
 	    }
 
 	});
@@ -237,49 +225,36 @@ $(document).ready(function() {
 		if ($('#tshirt').val() && tshirt_switch == 0) {
 			incrementProgress();
 			tshirt_switch = 1;
+			$('#q4').html('<i class="fa fa-check"></i> T-Shirt Size');
 
-			$("#mentor-wrap").slideDown('slow');
+			$("#resume-instructions").slideDown('slow');
+			$("#upload-resume-wrap").slideDown('slow');
 		}
 
 		if (!$('#tshirt').val() && tshirt_switch == 1) {
     		tshirt_switch = 0;
+    		$('#q4').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;T-Shirt Size');
     		line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 		}
-	})
-
-	mentor_switch = 0;
-	$('#yes-mentor').click(function(){
-		if (mentor_switch == 0) {
-			incrementProgress();
-			mentor_switch = 1;
-		}
-
-		$("#resume-instructions").slideDown('slow');
-		$("#upload-resume-wrap").slideDown('slow');
-	})
-
-	$('#not-mentor').click(function(){
-		if (mentor_switch == 0) {
-			incrementProgress();
-			mentor_switch = 1;
-		}
-		
-		$("#resume-instructions").slideDown('slow');
-		$("#upload-resume-wrap").slideDown('slow');
 	})
 
 	resume_switch = 0;
 	$("#resume").change(function(){
 		if (resume_switch == 0 && $('#resume').val()) {
 			$('#resume_prev').attr('src', <%= '"' + asset_path('uploaded.svg') + '"' %>)
-			incrementProgress();
+			line.animate(line.value() + 0.250, function() {
+				checkProgress();
+			});
 			resume_switch = 1;
+			$('#q5').html('<i class="fa fa-check"></i> Resume');
+			$("#citizen-wrap").slideDown('slow');
 		}
 
-		$("#citizen-wrap").slideDown('slow');
+		
 		if (!$('#resume').val() && resume_switch == 1) {
 			$('#resume_prev').attr('src', <%= '"' + asset_path('resume-upload.svg') + '"' %>)
-			line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+			$('#q5').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Resume');
+			line.value() > 0.0 ? line.animate(line.value() - 0.250, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 			resume_switch = 0;
 		}
 	})
@@ -289,6 +264,7 @@ $(document).ready(function() {
 		if (citizen_switch == 0) {
 			incrementProgress();
 			citizen_switch = 1;
+			$('#q6').html('<i class="fa fa-check"></i> Citizenship');
 		}
 
 		$("#form-text-wrap").slideUp('slow');
@@ -316,6 +292,7 @@ $(document).ready(function() {
 		if (citizen_switch == 0) {
 			incrementProgress();
 			citizen_switch = 1;
+			$('#q6').html('<i class="fa fa-check"></i> Citizenship');
 		}
 
 
@@ -346,13 +323,11 @@ $(document).ready(function() {
 			$('#form_prev').attr('src', <%= '"' + asset_path('uploaded.svg') + '"' %>)
 			incrementProgress();
 			form_switch = 1;
+			$('#q7').html('<i class="fa fa-check"></i> Tax Form');
 
 		}
 
 		if (!$('#form').val() && form_switch == 1) {
-			console.log(document.getElementById('yes-citizen').checked)
-			console.log("-----")
-			console.log(document.getElementById('not-citizen').checked)
 			if ($('#yes-citizen').val()) {
 				$('#form_prev').attr('src', <%= '"' + asset_path('w9-upload.svg') + '"' %>)
 			} else {
@@ -361,6 +336,7 @@ $(document).ready(function() {
 
 			line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 			form_switch = 0;
+			$('#q7').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Tax Form');
 		}
 	});
 
