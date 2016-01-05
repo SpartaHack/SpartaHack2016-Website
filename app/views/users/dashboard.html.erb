@@ -65,30 +65,37 @@
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
-        <% if @application['status'] == 'Accepted' %>
-          <canvas id="canvas"></canvas>
-        <% end %> 
+
         <div class="wrap-main">
+            <% if @application['status'] == 'Accepted' %>
+              <canvas id="canvas"></canvas>
+            <% end %> 
+
             <section id="user-status">
                 <div class="row">
                     <div class="inner-wrap">
-                        <div class="box" ><%= @application['status'].blank? ? "Application Received" : @application['status'] %></div>
                         <div class="status-text">Application Status</div>
+                        <div class="box" ><%= @application['status'].blank? ? "Application Received" : @application['status'] %></div>
+
                     </div>               
                 </div>
             </section>
-      <section id="topic-selection">
-        <div class="row">
-          <h1 class="section-head">Pick a topic</h1> 
 
-          <div class="hvr-underline-from-center full">
-            <a href="/application"><div class="dash-link">My Application</div></a>
-          </div>
+            <section id="topic-selection">
+                <div class="row">
+                  <h1 class="section-head">Pick a topic</h1> 
 
+                  <div class="hvr-underline-from-center full">
+                    <a href="/application"><div class="dash-link">My Application</div></a>
+                  </div>
+
+                </div>
+            </section>
+
+            <%= render partial: "pages/index_footer" %>
         </div>
 
-      </section>
-        </div>
+       
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
