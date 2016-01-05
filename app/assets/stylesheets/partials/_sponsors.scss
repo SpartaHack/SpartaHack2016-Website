@@ -70,6 +70,44 @@
     font-size: 18px;
   }
 
+  #sponsor-us, #prospectus {
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    margin-top: 15px;
+  }
+
+  #prospectus {
+    margin-bottom: 50px;
+  }
+
+  .sponsors-link:hover {
+      -webkit-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      opacity: .7;
+    }
+
+  .logo-sponsor {
+    @media (min-width: 551px) {
+      filter: grayscale(100%);
+      -webkit-filter: grayscale(100%);  /* For Webkit browsers */
+      filter: gray;  /* For IE 6 - 9 */
+      -webkit-transition: all .6s ease;  /* Transition for Webkit browsers */
+    }
+  }
+
+  .logo-sponsor:hover {
+    @media (min-width: 551px) {
+      filter: grayscale(0%);
+      -webkit-filter: grayscale(0%);
+      filter: none;
+    }
+  }
+
 
 }
 
@@ -179,41 +217,6 @@
   }
 
   
-}
-
-#sponsor-us {
-  font-family: ubuntu;
-  font-weight: 100;
-  -webkit-appearance: none;
-  -webkit-font-smoothing: antialiased;
-  font-size: 18px;
-  margin-top: 15px;
-  margin-bottom: 50px;
-}
-
-#sponsor-email:hover {
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
-    opacity: .7;
-  }
-
-.logo-sponsor {
-  @media (min-width: 551px) {
-    filter: grayscale(100%);
-    -webkit-filter: grayscale(100%);  /* For Webkit browsers */
-    filter: gray;  /* For IE 6 - 9 */
-    -webkit-transition: all .6s ease;  /* Transition for Webkit browsers */
-  }
-}
-
-.logo-sponsor:hover {
-  @media (min-width: 551px) {
-    filter: grayscale(0%);
-    -webkit-filter: grayscale(0%);
-    filter: none;
-  }
 }
 
 
