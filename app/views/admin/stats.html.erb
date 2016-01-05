@@ -254,6 +254,13 @@
                         </article>
                     </div>
 
+                    <div class="row">
+                        <br><br><br>
+                        <!-- Random reason to attend -->
+                        <p><%= @random_reason[0] %></p>
+                        <p>-<%= @random_reason[1] %> <%= @random_reason[2] %></p>
+                    </div>
+
                     <div class="row wordmap">
                         <br><br><br><br><br><br><br>
                         <div class="center">
@@ -264,9 +271,11 @@
 
                     <div class="row">
                         <h2 class="center">Daily Number of Applications</h2>
-                        <div id="applications-graph">
+                        <div class="center" id="applications-graph">
                         </div>
                     </div>
+
+                    <br><br>
                 </div>
             </section>
 

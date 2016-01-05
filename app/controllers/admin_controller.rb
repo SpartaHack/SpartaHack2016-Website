@@ -188,7 +188,6 @@ class AdminController < ApplicationController
     # Majors
     @major_count = {};
 
-
     # Number Hackathons attended
     # { number => frequency }
     @hackathons_count = {0=>0,1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0,12=>0,13=>0,14=>0,15=>0}
@@ -286,6 +285,17 @@ class AdminController < ApplicationController
 
     # End huge loop
     end
+
+    # Random reason for wanting to attend SpartaHack
+    # [reason, first name, last name]
+    @random_reason = ["","",""]
+    @random_num = rand(0..( @apps.length-1 ))
+    while ( @apps[@random_num]["whyAttend"].blank? || @apps[@random_num]["whyAttend"].length < 40 )
+      @random_num = rand(0..( @apps.length-1 ))
+    end
+    @random_reason[0] = @apps[@random_num]["whyAttend"]
+    @random_reason[1] = @apps[@random_num]["firstName"]
+    @random_reason[2] = @apps[@random_num]["lastName"]   
 
     @submission_array = []
 
