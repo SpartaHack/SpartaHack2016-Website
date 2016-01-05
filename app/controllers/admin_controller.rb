@@ -277,7 +277,7 @@ class AdminController < ApplicationController
       end
 
       # Applications per day
-      current_day = ( Time.parse(app['createdAt']) - 9*3600).strftime("%d-%B-%Y")
+      current_day = ( Time.parse(app['createdAt']) - 9*3600).strftime("%d-%b-%y")
       if !@submission_dates[ current_day ].blank?
         @submission_dates[ current_day ] += 1
       else
@@ -285,6 +285,12 @@ class AdminController < ApplicationController
       end
 
     # End huge loop
+    end
+
+    @submission_array = []
+
+    @submission_dates.each do |submission|
+      @submission_array.push({"date" => submission[0], "close" => submission[1]})
     end
 
     # Sorting

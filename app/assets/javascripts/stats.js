@@ -52,7 +52,7 @@ for(i=0;i<ageData[0].length;i++)
 
 
 
-var data = [{ date: "1-May-12" , close: 582.13 },
+var data2 = [{ date: "1-May-12" , close: 582.13 },
 { date: "30-Apr-12", close: 583.98 },
 { date: "27-Apr-12", close: 603.00 },
 { date: "26-Apr-12", close: 607.70 },
@@ -69,7 +69,7 @@ var data = [{ date: "1-May-12" , close: 582.13 },
 { date: "11-Apr-12", close: 626.20 },
 { date: "10-Apr-12", close: 628.44 }];
 
-var data2 = [];
+var data = $('.data_submission_dates').data('temp');
 
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
