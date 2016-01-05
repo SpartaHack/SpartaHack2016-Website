@@ -42,7 +42,18 @@
         </div>
         
         <div class="navbar-nav right">
-
+        <% if @application %>
+          <div id="app-wrapper">
+            <a href="/dashboard">
+              <div id="app-nav" class="svg-wrapper">
+                <svg height="60" width="163" xmlns="http://www.w3.org/2000/svg">
+                  <rect class="shape login" height="60" width="163" />
+                </svg>
+              </div>
+              <div class="text">MY DASHBOARD</div>
+            </a>
+          </div>  
+        <% end %>
           <div id="login-wrapper">
             <a href="/logout">
               <div id="login-nav" class="svg-wrapper">
@@ -83,7 +94,11 @@
         <div class="row">
       
           <h1 class="section-head">APPLICATION</h1> 
-          <h4 id="required">* fields are required.</h4>
+          <% if @application['status'].blank? %>
+            <h4 id="required">* fields are required.</h4>
+          <% else %>
+            <h4 id="required">A decision has been made on your application. <br> Click <a href="/dashboard">here</a> to go to your dashboard.</h4>
+          <% end %>
           <%= form_tag("/save", method: "post", id: "save_app", class: "save_app", :remote => true, :authenticity_token => true) do %>
             <div class="inner">
               <%= label_tag(:firstName, "First Name", class: 'no-label') %>
@@ -211,9 +226,11 @@
               </div>
             </div>
 
-            <div class="hvr-underline-from-center full" id="save-app">
-              <%= submit_tag("#{@application ? 'Update Application' : 'Submit Application'}", :id => "application") %>
-            </div>
+            <% if @application['status'].blank? %>
+              <div class="hvr-underline-from-center full" id="save-app">
+                <%= submit_tag("#{@application ? 'Update Application' : 'Submit Application'}", :id => "application") %>
+              </div>
+            <% end %>
 
           <% end %>      
 
@@ -221,6 +238,8 @@
 
       </section>
     </div>
+
+    <%= render partial: "pages/index_footer" %>
 
     <%= javascript_include_tag "jquery-1.11.3.min" %>
     <%= javascript_include_tag "headroom.min" %>
@@ -266,6 +285,9 @@
         <% end %>
         <% if @application['mlh'] %>
           document.getElementById("agree").checked = true;
+        <% end %>
+        <% if @application['status'] %>
+          $("#save_app :input").attr("disabled", true);
         <% end %>
       <% end %>
     <% end %>     

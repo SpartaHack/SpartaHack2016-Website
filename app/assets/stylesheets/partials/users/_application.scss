@@ -25,7 +25,7 @@
     font-weight: 100;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    font-size: 18px;
+    font-size: 15px;
   }
 
   a:hover {
@@ -52,6 +52,10 @@
     font-weight: 100;
     @media (min-width: 550px) {
       margin-top: -40px;
+    }
+
+    a {
+      font-size: 100%;
     }
   }
 
@@ -533,7 +537,6 @@
 
   #save-app {
     margin-top: 0px;
-    margin-bottom: 100px;
     @media (min-width: 550px) {
       margin-top: 21px;
     }
