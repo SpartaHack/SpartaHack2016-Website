@@ -247,7 +247,7 @@
                                     <% @hackathons_count.each_with_index do |hackathons_count, index|  %>
                                         <tr>
                                             <td><%= hackathons_count[0] %></td>
-                                            <td><%= number_to_percentage(100*hackathons_count[1].to_f / @hackathons_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                                            <td><%= hackathons_count[1] %> or <%= number_to_percentage(100*hackathons_count[1].to_f / @hackathons_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
                                         </tr>
                                     <% end %>
                                 </tbody>
