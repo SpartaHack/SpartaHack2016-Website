@@ -174,6 +174,10 @@ class UsersController < ApplicationController
 
     if !@application
       redirect_to '/application' and return
+    else
+      if @application["status"] != "Accepted"
+        redirect_to '/dashboard' and return
+      end
     end
 
     @rsvp = Parse::Query.new("RSVP").tap do |q|
@@ -248,7 +252,7 @@ class UsersController < ApplicationController
         resume = user_rsvp_params['resume'] 
         parse_resume = Parse::File.new({
           :body => resume.read,
-          :local_filename => resume.original_filename.gsub(" ", "%20"),
+          :local_filename => resume.original_filename.gsub(" ", "%20").gsub("[", "").gsub("]", ""),
           :content_type => resume.content_type,
           :content_length => resume.tempfile().size().to_s
         })
@@ -262,7 +266,7 @@ class UsersController < ApplicationController
         tax_form = user_rsvp_params['taxForm']
         parse_tax_form = Parse::File.new({
           :body => tax_form.read,
-          :local_filename => tax_form.original_filename.gsub(" ", "%20"),
+          :local_filename => tax_form.original_filename.gsub(" ", "%20").gsub("[", "").gsub("]", ""),
           :content_type => tax_form.content_type,
           :content_length => tax_form.tempfile().size().to_s
         })
