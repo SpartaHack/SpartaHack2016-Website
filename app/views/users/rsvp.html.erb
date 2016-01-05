@@ -83,7 +83,7 @@
         <div class="row">
       
           <h1 class="section-head">RSVP</h1> 
-          <%= form_tag("/save", method: "post", id: "send_rsvp", class: "send_rsvp", :remote => true, :authenticity_token => true) do %>
+          <%= form_tag("/saversvp", method: "post", id: "send_rsvp", class: "send_rsvp", :remote => true, :authenticity_token => true, multipart: true) do %>
 
             <div class="add-margin-top" id="attending-wrap">
               <label id="attending">Will you be attending SpartaHack 2016?</label>
@@ -101,12 +101,12 @@
             </div>            
 
             <div class="add-margin-top restrictions" id="restrictions-wrap" style="display:none">
-              <select id="restrictions" name="restrictions" style="display=none;" multiple="true" data-multiple="true">
+              <select id="restrictions" name="restrictions[]" style="display=none;" multiple="true" data-multiple="true">
                 <option value="none">None</option>
                 <option value="gluten">Gluten Free</option>
                 <option value="kosher">Kosher</option>
                 <option value="lactose">Lactose intolerant</option>
-                <option value="lactose">Peanut Allergy</option>
+                <option value="peanuts">Peanut Allergy</option>
                 <option value="vegan">Vegan</option>
                 <option value="vegetarian">Vegetarian</option>
                 <option value="other">Other</option>
@@ -116,11 +116,11 @@
 
             <div class="add-margin-top other-restriction" style="display:none;">
               <%= label_tag(:otherRestrictions, "Restrictions not listed above? Enter it here.", class: 'no-label') %>
-              <%= text_field_tag 'otherRestrictions', "", placeholder: 'List dietary restrictions here...' %>
+              <%= text_field_tag 'otherRestrictions', "#{@rsvp['otherRestrictions'] if @rsvp}", placeholder: 'List dietary restrictions here...' %>
             </div>            
 
             <div class="add-margin-top tshirt" id="tshirt-wrap" style="display:none">
-              <%= select_tag "tshirt", options_for_select(["","Unisex's XS", "Unisex's Small", "Unisex's Medium", "Unisex's Large", "Unisex's XL", "Unisex's XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
+              <%= select_tag "tshirt", options_for_select(["","Unisex XS", "Unisex Small", "Unisex Medium", "Unisex Large", "Unisex XL", "Unisex XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
             </div>
 
             <div class="add-margin-top" id="resume-instructions" style="display:none">
@@ -134,7 +134,7 @@
               <div class="thumbnail">         
                 <%= image_tag "resume-upload.svg", alt: "Resume Upload", :id => "resume_prev" %>
                 <div class="form-group-file">               
-                  <%= file_field_tag 'resume', :accept => "application/pdf,application"%>
+                  <%= file_field_tag 'resume', :accept => "application/pdf"%>
                 </div>
               </div>  
 
@@ -158,14 +158,14 @@
               <div class="thumbnail">         
                 <%= image_tag "w9-upload.svg", alt: "Tax Form Upload", :id => "form_prev" %>
                 <div class="form-group-file">               
-                  <%= file_field_tag 'form', :accept => "application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" %>
+                  <%= file_field_tag 'taxForm', :accept => "application/pdf" %>
                 </div>
               </div> 
             </div>
 
             <div class="progress add-margin-bottom" id="progress"></div> 
 
-            <div id="question-progress-wrap">
+            <div id="question-progress-wrap" style="display:none;">
               <div class="question" id="q1"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Attending</div>
               <div class="question" id="q2"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Travel</div>
               <div class="question" id="q3"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Dietary Restrictions</div>
@@ -173,10 +173,11 @@
               <div class="question" id="q5"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Resume</div>
               <div class="question" id="q6"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Citizenship</div>
               <div class="question" id="q7"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Tax Form</div>
+              <div class="question" id="qsubmit" style="display:none;"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Submit</div>
             </div>
 
             <div class="hvr-underline-from-center full" id="save-rsvp" style="display:none">
-              <%= submit_tag("#{@application ? 'Update RSVP' : 'Submit RSVP'}", :id => "rsvp-submit") %>
+              <%= submit_tag("#{@rsvp ? 'Update RSVP' : 'Submit RSVP'}", :id => "rsvp-submit") %>
             </div>
 
              
@@ -193,6 +194,98 @@
     <%= javascript_include_tag "headroom.min" %>
     <%= javascript_include_tag "jquery-headroom" %>
     <%= javascript_include_tag "select2.full.min" %>
+
+    <%= javascript_tag do %>
+
+      var line = new ProgressBar.Line('#progress', {  //progress bar
+        color: '#80FFDB'
+      });
+
+      <% if @rsvp %>
+        <% if @rsvp['attending'] == "true" %>
+          document.getElementById("yes-attending").checked = true;
+
+          $("#university").val("<%= @rsvp['university'] %>").trigger("change");
+          $("#restrictions").val(<%= raw @rsvp['restrictions'] %>).trigger("change");
+          $("#tshirt").val("<%= @rsvp['tshirt'] %>").trigger("change");
+          $('#resume_prev').attr('src', "<%= asset_path('uploaded.svg').to_s %>")
+          $('#form_prev').attr('src', "<%= asset_path('uploaded.svg')%>")
+
+          <% if @rsvp['citizen'] == "true" %>
+            document.getElementById("yes-citizen").checked = true;
+          <% else %>
+            document.getElementById("not-citizen").checked = true;
+          <% end %>
+
+          $('#question-progress-wrap').show(function() {
+            $('#q1').html('<i class="fa fa-check"></i> Attending');
+            $('#q2').html('<i class="fa fa-check"></i> Travel');
+            $('#q3').html('<i class="fa fa-check"></i> Dietary Restrictions');
+            $('#q4').html('<i class="fa fa-check"></i> T-Shirt Size');
+            $('#q5').html('<i class="fa fa-check"></i> Resume');
+            $('#q6').html('<i class="fa fa-check"></i> Citizenship');
+            $('#q7').html('<i class="fa fa-check"></i> Tax Form');
+            $("#qsubmit").slideDown('slow');
+          });
+          $('#travel-wrap').show();
+          $('.restrictions').show();
+
+          <% if @rsvp["restrictions"].include? 'other' %>
+            $('.other-restriction').show();
+          <% end %>
+
+          $("#tshirt-wrap").show();
+          $("#resume-instructions").show();
+          $("#citizen-wrap").show();
+          $("#upload-resume-wrap").show();
+
+          <% if @rsvp["citizen"] == "true" %>
+            $('#form-text').html("In order to issue prizes and travel reimbursement, we must have tax documents \
+              on file for each attendee. Please download this <a href='https://www.irs.gov/pub/irs-pdf/fw9.pdf' \
+              download='w9-form.pdf'>W9 form</a> and either fill it out digitally OR print, complete, and scan it. \
+              Upload the completed document below.");
+          <% else %>
+            $('#form-text').html("In order to issue prizes and travel reimbursement, we must have tax documents \
+              on file for each attendee. Please download this <a href='https://www.irs.gov/pub/irs-pdf/fw8ben.pdf' \
+              download='w8-form.pdf'>W8 form</a> and either fill it out digitally OR print, complete, and scan it. \
+              Upload the completed document below.");
+          <% end %>
+
+          $("#form-text-wrap").show();
+          $("#upload-form-wrap").show();
+          $("#save-rsvp").fadeIn('slow', function() {
+            line.animate(1.0);
+          });
+
+          yes_switch = 1;
+          university_switch = 1;
+          restriction_switch = 1;
+          tshirt_switch = 1;
+          resume_switch = 1;
+          citizen_switch = 1;
+          form_switch = 1;
+        <% else %>
+          document.getElementById("not-attending").checked = true;
+          yes_switch = 0 
+
+          $("#save-rsvp").fadeIn('slow', function() {
+            line.animate(1.0);
+          });
+        <% end %>
+
+      <% else %>
+        yes_switch = 0;
+        university_switch = 0;
+        restriction_switch = 0;
+        tshirt_switch = 0;
+        resume_switch = 0;
+        citizen_switch = 0;
+        form_switch = 0;
+        $('#question-progress-wrap').show();
+
+      <% end %>
+    <% end %>
+
     <%= javascript_include_tag "users-rsvp" %>  
 
     <script>

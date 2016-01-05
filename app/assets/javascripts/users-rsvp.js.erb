@@ -1,7 +1,3 @@
-var line = new ProgressBar.Line('#progress', {  //progress bar
-	color: '#80FFDB'
-});
-
 function modelMatcher (params, data) {
   data.parentText = data.parentText || "";
 
@@ -98,10 +94,12 @@ function toBottom() {
 function checkProgress() {
 	console.log(line.value());
 	if (line.value() == 1.0) {
-		$("#save-rsvp").slideDown('slow');
+		$("#qsubmit").fadeIn('slow');
+		$("#save-rsvp").fadeIn('slow');
 		toBottom;
 	} else {
-		$("#save-rsvp").slideUp('slow');
+		$("#qsubmit").fadeOut('slow');
+		$("#save-rsvp").fadeOut('slow');
 	}
 }
 
@@ -112,7 +110,8 @@ function incrementProgress() {
 	
 }
 
-$(document).ready(function() {	
+$(document).ready(function() {
+
 	createSelects();
 	// window.onbeforeunload = function(){ return 'Your RSVP has not been submitted.' }
 
@@ -124,7 +123,6 @@ $(document).ready(function() {
 		$('#popup-error-wrapper').fadeOut('fast');
 	});
 
-	yes_switch = 0;
 	$('#yes-attending').click(function(){
 		$('#question-progress-wrap').slideDown('slow');
 		$('#q1').html('<i class="fa fa-check"></i> Attending');
@@ -147,7 +145,7 @@ $(document).ready(function() {
 		if (line.value() < 0.125 || line.value() == 1.0) {
 			line.animate(0.125);
 		}
-		$("#save-rsvp").slideUp('slow');
+		$("#save-rsvp").fadeOut('slow');
 		$('#travel-wrap').slideDown('slow');
 		
 		createSelects();
@@ -165,7 +163,7 @@ $(document).ready(function() {
 		$("#upload-resume-wrap").slideUp('slow');
 		$("#form-text-wrap").slideUp('slow');
 		$("#upload-form-wrap").slideUp('slow');
-		$("#save-rsvp").slideDown('slow', function() {
+		$("#save-rsvp").fadeIn('slow', function() {
 			toBottom();
 			line.animate(1.0);
 
@@ -174,7 +172,6 @@ $(document).ready(function() {
 		createSelects();
 	})
 
-	university_switch = 0;
 	$("#university").change(function(){
 		if (!$('#university').val() && university_switch == 1) {
 			line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
@@ -190,7 +187,6 @@ $(document).ready(function() {
 		}
 	});
 
-	restriction_switch = 0;
 	$('#restrictions').on('change', function() {
 
 		if ($('#restrictions').val() && restriction_switch == 0) {
@@ -220,7 +216,6 @@ $(document).ready(function() {
 
 	});
 
-	tshirt_switch = 0
 	$("#tshirt").change(function(){
 		if ($('#tshirt').val() && tshirt_switch == 0) {
 			incrementProgress();
@@ -238,7 +233,6 @@ $(document).ready(function() {
 		}
 	})
 
-	resume_switch = 0;
 	$("#resume").change(function(){
 		if (resume_switch == 0 && $('#resume').val()) {
 			$('#resume_prev').attr('src', <%= '"' + asset_path('uploaded.svg') + '"' %>)
@@ -259,7 +253,6 @@ $(document).ready(function() {
 		}
 	})
 
-	citizen_switch = 0;
 	$('#yes-citizen').click(function(){
 		if (citizen_switch == 0) {
 			incrementProgress();
@@ -269,8 +262,8 @@ $(document).ready(function() {
 
 		$("#form-text-wrap").slideUp('slow');
 		$("#upload-form-wrap").slideUp('slow', function() {
-			if ($('#form').val()) {
-				$('#form').replaceWith($('#form').val('').clone(true));	
+			if ($('#taxForm').val()) {
+				$('#taxForm').replaceWith($('#taxForm').val('').clone(true));	
 				line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 				form_switch = 0;
 			}
@@ -298,8 +291,8 @@ $(document).ready(function() {
 
 		$("#form-text-wrap").slideUp('slow');
 		$("#upload-form-wrap").slideUp('slow', function() {
-			if ($('#form').val()) {
-				$('#form').replaceWith($('#form').val('').clone(true));	
+			if ($('#taxForm').val()) {
+				$('#taxForm').replaceWith($('#taxForm').val('').clone(true));	
 				line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 				form_switch = 0;
 			}
@@ -317,9 +310,8 @@ $(document).ready(function() {
 
 	})
 
-	form_switch = 0;
-	$("#form").change(function(){
-		if (form_switch == 0 && $('#form').val()) {
+	$("#taxForm").change(function(){
+		if (form_switch == 0 && $('#taxForm').val()) {
 			$('#form_prev').attr('src', <%= '"' + asset_path('uploaded.svg') + '"' %>)
 			incrementProgress();
 			form_switch = 1;
@@ -327,7 +319,7 @@ $(document).ready(function() {
 
 		}
 
-		if (!$('#form').val() && form_switch == 1) {
+		if (!$('#taxForm').val() && form_switch == 1) {
 			if ($('#yes-citizen').val()) {
 				$('#form_prev').attr('src', <%= '"' + asset_path('w9-upload.svg') + '"' %>)
 			} else {

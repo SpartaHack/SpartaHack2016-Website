@@ -176,8 +176,117 @@ class UsersController < ApplicationController
       redirect_to '/application' and return
     end
 
+    @rsvp = Parse::Query.new("RSVP").tap do |q|
+                    q.eq("userId", Parse::Pointer.new({
+                      "className" => "_User",
+                      "objectId"  => cookies.signed[:spartaUser][0]
+                    }))
+    end.get.first
+
     render layout: false
   end
+
+  def saversvp
+    begin
+      fields = [ "attending", "university", "restrictions", "otherRestrictions", "tshirt", "citizen"]
+
+      rsvp = Parse::Query.new("RSVP").tap do |q|
+                      q.eq("userId", Parse::Pointer.new({
+                        "className" => "_User",
+                        "objectId"  => cookies.signed[:spartaUser][0]
+                      }))
+      end.get.first
+
+      if !user_rsvp_params["attending"].blank? && user_rsvp_params["attending"] == "true"
+        if user_rsvp_params["university"].blank? || user_rsvp_params["restrictions"].blank? || 
+          user_rsvp_params["tshirt"].blank? || user_rsvp_params["citizen"].blank?
+
+          flash[:popup] = "You must fill in all the required fields."
+          redirect_to '/rsvp'  and return
+        end
+      elsif !user_rsvp_params["attending"].blank? && user_rsvp_params["attending"] == "false"
+        if !rsvp
+          flash[:popup] = "RSVP successfully submitted."
+          flash[:sub] = "You may continue to edit your RSVP."
+          rsvp = Parse::Object.new("RSVP")
+        else
+          flash[:popup] = "RSVP updated."
+          flash[:sub] = "You may continue to edit your RSVP."          
+        end
+
+        fields.each do |field|
+          rsvp[field] = nil
+        end          
+
+        rsvp['resume'] = nil
+        rsvp['taxForm'] = nil
+        rsvp.save
+
+        redirect_to '/rsvp'  and return
+      end
+
+      if !rsvp
+        if user_rsvp_params["resume"].blank? || user_rsvp_params["taxForm"].blank?
+          flash[:popup] = "You must fill in all the required fields."
+          redirect_to '/rsvp'  and return
+        end
+
+        flash[:popup] = "RSVP successfully submitted."
+        flash[:sub] = "You may continue to edit your RSVP."
+        rsvp = Parse::Object.new("RSVP")
+      else 
+        flash[:popup] = "RSVP updated."
+        flash[:sub] = "You may continue to edit your RSVP."
+      end
+
+      fields.each do |field|
+        rsvp[field] = user_rsvp_params[field]
+      end
+
+      if !user_rsvp_params['resume'].blank?
+        #save resume to parse
+        resume = user_rsvp_params['resume'] 
+        parse_resume = Parse::File.new({
+          :body => resume.read,
+          :local_filename => resume.original_filename.gsub(" ", "%20"),
+          :content_type => resume.content_type,
+          :content_length => resume.tempfile().size().to_s
+        })
+        parse_resume.save
+
+        rsvp['resume'] = parse_resume
+      end
+
+      if !user_rsvp_params['taxForm'].blank?
+        #save tax form to parse
+        tax_form = user_rsvp_params['taxForm']
+        parse_tax_form = Parse::File.new({
+          :body => tax_form.read,
+          :local_filename => tax_form.original_filename.gsub(" ", "%20"),
+          :content_type => tax_form.content_type,
+          :content_length => tax_form.tempfile().size().to_s
+        })
+        parse_tax_form.save
+
+        rsvp['taxForm'] = parse_tax_form
+      end
+
+      response = rsvp.save
+
+      rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      rsvp.array_add_relation("userId", user.pointer)
+      rsvp.save
+
+      redirect_to '/rsvp'  and return
+    rescue Parse::ParseProtocolError => e
+      flash[:error] =  e.message
+      puts e.message
+      puts "sdfasdf------------------------------------------------------------------"
+      redirect_to '/rsvp'
+    end
+
+  end  
 
   def verify
     user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
@@ -278,6 +387,11 @@ class UsersController < ApplicationController
                                   :university, :otherUniversityConfirm,:otherUniversity, {:major => []}, :gradeLevel, 
                                   :whyAttend, {:hackathons => []}, :github, :linkedIn, 
                                   :website, :devPost, :coolLink, :universityStudent, :mlh)     
+    end
+
+    def user_rsvp_params
+      params.permit(:attending, :university, {:restrictions => []}, :otherRestrictions, :tshirt, :resume, 
+                                :citizen, :taxForm)     
     end
 
     def user_login_params
