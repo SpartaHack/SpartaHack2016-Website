@@ -68,8 +68,10 @@
             <section id="stats">
 
                 <p class="tablefooter">
-                    <%= @total_apps %> Applications <br>
-                    <%= @uni_applicants.length %> Schools
+                    <strong>
+                        <%= @total_apps %> Applications <br>
+                        <%= @uni_applicants.length %> Schools <br>
+                    </strong>
                 </p>
 
                 <div class="wrap">
@@ -140,8 +142,8 @@
 
                                 </table>
                                 <p class="">
-                                    There are <%= @minor_count %> minors, which make up <%= number_to_percentage(100*@minor_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %> of attendees.
-                                    <br>There are <%= @adult_count %> adults, which make up <%= number_to_percentage(100*@adult_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %> of attendees.
+                                    There are <strong><%= @minor_count %> minors</strong>, which make up <strong><%= number_to_percentage(100*@minor_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
+                                    <br>There are <strong><%= @adult_count %> adults</strong>, which make up <strong><%= number_to_percentage(100*@adult_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
                                 </p>
                             </div>
                         </article>
@@ -171,7 +173,7 @@
                             <div class="tablefooter">
                                 *top 20
                             </div>
-                            <p>There are <%= @international_count %> international students, which make up <%= number_to_percentage(100*(@international_count.to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %> of applicants.</p>
+                            <p>There are <strong><%= @international_count %> international students</strong>, which make up <strong><%= number_to_percentage(100*(@international_count.to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></strong> of applicants.</p>
 
                         </article>
 
@@ -243,13 +245,14 @@
 
                                 <tbody>
                                     <% @hackathons_count.each_with_index do |hackathons_count, index|  %>
-                                            <tr>
-                                                <td><%= hackathons_count[0] %></td>
-                                                <td><%= number_to_percentage(100*hackathons_count[1].to_f / @hackathons_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
-                                            </tr>
+                                        <tr>
+                                            <td><%= hackathons_count[0] %></td>
+                                            <td><%= number_to_percentage(100*hackathons_count[1].to_f / @hackathons_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                                        </tr>
                                     <% end %>
                                 </tbody>
                             </table>
+                            <p>The most popular Hackathon was <strong><%= @hackathons_attended[0][0] %></strong>, listed in <strong><%= @hackathons_attended[0][1] %></strong> applications.</p> 
                         </article>
 
                         <article>

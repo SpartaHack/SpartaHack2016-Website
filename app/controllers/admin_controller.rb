@@ -192,6 +192,8 @@ class AdminController < ApplicationController
     # { number => frequency }
     @hackathons_count = {0=>0,1=>0,2=>0,3=>0,4=>0,5=>0,6=>0,7=>0,8=>0,9=>0,10=>0,11=>0,12=>0,13=>0,14=>0,15=>0}
 
+    @hackathons_attended = {}
+
     @submission_dates = {}
 
     # Start huge loop
@@ -275,6 +277,16 @@ class AdminController < ApplicationController
         @hackathons_count[ 0 ] += 1
       end
 
+      if !app['hackathons'].blank?
+        app['hackathons'].each do |hackathon|
+          if !@hackathons_attended[hackathon].blank?
+            @hackathons_attended[hackathon] += 1
+          else
+            @hackathons_attended[hackathon] = 1
+          end
+        end
+      end
+
       # Applications per day
       current_day = ( Time.parse(app['createdAt']) - 9*3600).strftime("%d-%b-%y")
       if !@submission_dates[ current_day ].blank?
@@ -290,7 +302,7 @@ class AdminController < ApplicationController
     # [reason, first name, last name]
     @random_reason = ["","",""]
     @random_num = rand(0..( @apps.length-1 ))
-    while ( @apps[@random_num]["whyAttend"].blank? || @apps[@random_num]["whyAttend"].length < 40 )
+    while ( @apps[@random_num]["whyAttend"].blank? || @apps[@random_num]["whyAttend"].length < 100 )
       @random_num = rand(0..( @apps.length-1 ))
     end
     @random_reason[0] = @apps[@random_num]["whyAttend"]
@@ -308,6 +320,7 @@ class AdminController < ApplicationController
     @uni_applicants = @uni_applicants.sort_by {|_key, value| value}.reverse
     @major_count = @major_count.sort_by {|_key, value| value}.reverse
     @hackathons_count = @hackathons_count.sort_by {|value,_key| value}
+    @hackathons_attended = @hackathons_attended.sort_by {|_key, value| value}.reverse
 
     # Find most common words for word map
     def most_common(str)
