@@ -102,31 +102,6 @@
 
                             </table>
                             </div>
-                            <div>
-                                <br>
-                                <h2 class="center">Grade Level</h2>
-                                <div class="horizontal-bar-graph" id="grade-graph"></div>
-
-                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                                    <thead>
-                                        <tr>
-                                            <th>Grade</th>
-                                            <th>Percent</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <% @uni_grade_count.each_with_index do |uni_grade_count, index|  %>
-                                                <tr>
-                                                    <td><%= uni_grade_count[0] %></td>
-                                                    <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @uni_grade_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
-                                                </tr>
-                                        <% end %>
-                                    </tbody>
-
-                                </table>
-
-                            </div>
                         </article>
 
                         <article>
@@ -226,6 +201,34 @@
 
                         </article>
                     </div>
+
+                    <h2 class="center">Grade Level</h2>
+                    <div class="column">
+                        <article>
+                            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                <thead>
+                                    <tr>
+                                        <th>Grade</th>
+                                        <th>Percent</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% @uni_grade_count.each_with_index do |uni_grade_count, index|  %>
+                                            <tr>
+                                                <td><%= uni_grade_count[0] %></td>
+                                                <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @uni_grade_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                                            </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </article>
+
+                        <article>
+                            <div class="horizontal-bar-graph" id="grade-graph"></div>
+                        </article>
+                    </div>
+
+                    <br>
 
                     <h2 class="center">Number of Hackathons Attended</h2>
                     <div class="column">
