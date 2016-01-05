@@ -91,7 +91,10 @@ class PagesController < ApplicationController
     
 	end
 
-
+  def hangout
+    redirect_to 'https://talkgadget.google.com/hangouts/_/xkodgcsi4uolmwx2z3siz7q2yya'
+  end
+  
   private
 
   def subscribe_params

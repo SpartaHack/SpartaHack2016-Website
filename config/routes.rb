@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'application'  => 'users#application'
   get 'dashboard' => 'users#dashboard'
   get 'rsvp' => 'users#rsvp'
+  post 'saversvp' => 'users#saversvp'
   get 'forgot'  => 'users#forgot'
   post 'requestreset'  => 'users#requestreset'
   post 'save' => 'users#save'
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   root :to => 'pages#index', :as => :index
   post 'subscribe' => 'pages#subscribe'
   get 'winners2015' => 'pages#winners2015'
+  get 'hangout' => 'pages#hangout'
 
   get 'admin' => 'admin#admin'
   get 'admin/sponsorship' => 'admin#sponsorship'
