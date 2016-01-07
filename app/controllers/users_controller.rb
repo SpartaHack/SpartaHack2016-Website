@@ -77,8 +77,8 @@ class UsersController < ApplicationController
   def auth
   	begin
 			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
-      if login["role"] == "admin"
-        cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "admin"] }
+      if login["role"] == "admin" || login["role"] == "sponsorship" || login["role"] == "statistics"
+        cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], login["role"]] }
 			  redirect_to '/admin' and return
       else
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }

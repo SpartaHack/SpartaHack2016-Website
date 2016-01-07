@@ -83,13 +83,16 @@
 				<div class="row">
 					<h1 class="section-head">Pick a topic</h1> 
 
-
+                <% if @user['role'] == "admin" || @user['role'] == "sponsorship" %>
 					<div class="hvr-underline-from-center full">
 						<a href="/admin/sponsorship"><div id="sponsorship-panel">Sponsorship</div></a>
 					</div>
+                <% end %>
+                <% if @user['role'] == "admin" %>
                     <div class="hvr-underline-from-center full">
                         <a href="/admin/applications"><div id="sponsorship-panel">Applications</div></a>
                     </div>
+                <% end %>
                     <div class="hvr-underline-from-center full">
                         <a href="/admin/stats"><div id="sponsorship-panel">Stats</div></a>
                     </div>

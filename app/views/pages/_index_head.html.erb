@@ -14,7 +14,7 @@
 	  	</div>
 		<div class="hvr-underline-from-center apply-wrapper">
 	<% if cookies.signed[:spartaUser] %>
-		<% if cookies.signed[:spartaUser][1] == "admin" %>
+		<% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || ookies.signed[:spartaUser][1] == "statistics" %>
 			<a class="hero-link" href="/admin">VIEW ADMIN DASHBOARD</a>
 		<% else %>
 			<% if @application %>

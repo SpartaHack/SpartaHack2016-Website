@@ -4,9 +4,10 @@ class AdminController < ApplicationController
   require 'monkey_patch'
 
   def admin
-    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      if user['role'] != "admin"
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics"
+        @user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
       end
@@ -26,9 +27,10 @@ class AdminController < ApplicationController
   end
 
   def sponsorship
-    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      if user['role'] != "admin"
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship"
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
       end
@@ -71,9 +73,10 @@ class AdminController < ApplicationController
   end
 
   def viewsponsor
-    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      if user['role'] != "admin"
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship"
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
       end
@@ -119,9 +122,10 @@ class AdminController < ApplicationController
   end
 
   def applications
-    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      if user['role'] != "admin"
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin"
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
       end
@@ -148,9 +152,10 @@ class AdminController < ApplicationController
 
   def stats
     # Only allow admins to view
-    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "admin"
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      if user['role'] != "admin"
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics"
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
       end
