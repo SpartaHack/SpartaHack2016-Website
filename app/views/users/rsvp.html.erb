@@ -42,7 +42,16 @@
         </div>
         
         <div class="navbar-nav right">
-
+          <div id="app-wrapper">
+            <a href="/dashboard">
+              <div id="app-nav" class="svg-wrapper">
+                <svg height="60" width="163" xmlns="http://www.w3.org/2000/svg">
+                  <rect class="shape login" height="60" width="163" />
+                </svg>
+              </div>
+              <div class="text">MY DASHBOARD</div>
+            </a>
+          </div>  
           <div id="login-wrapper">
             <a href="/logout">
               <div id="login-nav" class="svg-wrapper">
@@ -60,6 +69,7 @@
         <nav>
             <ul class="mobile">
                 <li><a href="/" class="anchorLink">HOME</a></li>
+                <li><a href="/dashboard">MY DASHBOARD</a></li>
                 <li><a href="/logout">LOG OUT</a></li>  
             </ul>
             <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
@@ -83,7 +93,7 @@
         <div class="row">
       
           <h1 class="section-head">RSVP</h1> 
-          <%= form_tag("/saversvp", method: "post", id: "send_rsvp", class: "send_rsvp", :remote => true, :authenticity_token => true, multipart: true) do %>
+          <%= form_tag("/rsvp", method: "post", id: "send_rsvp", class: "send_rsvp", :remote => true, :authenticity_token => true, multipart: true) do %>
 
             <div class="add-margin-top" id="attending-wrap">
               <label id="attending">Will you be attending SpartaHack 2016?</label>
@@ -173,7 +183,7 @@
               <div class="question" id="q5"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Resume</div>
               <div class="question" id="q6"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Citizenship</div>
               <div class="question" id="q7"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Tax Form</div>
-              <div class="question" id="qsubmit" style="display:none;"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Submit</div>
+              <div class="question" id="qsubmit" style="display:none;"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;<%= @rsvp ? "Update" : "Submit" %></div>
             </div>
 
             <div class="hvr-underline-from-center full" id="save-rsvp" style="display:none">
