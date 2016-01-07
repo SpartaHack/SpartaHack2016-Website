@@ -138,7 +138,11 @@ class AdminController < ApplicationController
 
   def status 
       app = Parse::Query.new("Application").eq("objectId", status_params["object"]).get.first
-      app['status'] = status_params["status-select"]
+      if !status_params["status-select"].blank?
+        app['status'] = status_params["status-select"]
+      else
+        app['status'] = nil
+      end
       app.save
   end
 
