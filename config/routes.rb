@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   get 'javascript/confirm'
-  get '/noJS' => 'javascript#noJS'
+  get 'noJS' => 'javascript#noJS'
 
-  # get 'apply'  => 'users#new'
+  get 'apply'  => 'users#new'
   post 'create' => 'users#create'
   get 'verify' => 'users#verify'
   get 'login'  => 'users#login'
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'application'  => 'users#application'
   get 'dashboard' => 'users#dashboard'
   get 'rsvp' => 'users#rsvp'
-  post 'saversvp' => 'users#saversvp'
+  post 'rsvp' => 'users#saversvp'
   get 'forgot'  => 'users#forgot'
   post 'requestreset'  => 'users#requestreset'
   post 'save' => 'users#save'
