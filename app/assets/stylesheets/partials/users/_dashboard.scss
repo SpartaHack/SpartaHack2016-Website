@@ -13,6 +13,9 @@ body {
   position: relative;
   background-color: transparent;
   min-height: 100vh;
+  @media (max-width: 350px) {
+    min-height: 130vh;
+  }
 
   .footer {
     position: absolute;
@@ -34,11 +37,12 @@ body {
     justify-content: space-around;
     -webkit-justify-content: space-around;
     color: $cream;
+    top: 50px;
     font-family: ubuntu; 
 
     .row {
       width: 87%;
-      margin-top: 50px;
+      margin-top: 100px;
       padding: 0px 15px;
       display: flex;
       display: -webkit-flex;
@@ -48,7 +52,7 @@ body {
       -webkit-flex-direction: row;    
       @media (min-width: 550px) {
         width: 530px;
-        margin-top: 50px;
+        margin-top: 100px;
       }
     }
 
@@ -57,8 +61,8 @@ body {
       display: -webkit-flex;
       justify-content: center;
       -webkit-justify-content: center;
-      flex-direction: column;
-      -webkit-flex-direction: column;
+      flex-direction: row;
+      -webkit-flex-direction: row;
       width: 100%;
     }
 
@@ -70,27 +74,54 @@ body {
       align-items: center;
       -webkit-align-items: center;
       justify-content: center;
+      text-align: center;
       -webkit-justify-content: center;
       border: solid 1px $mutedOutline;
-      font-size: 24px;
+      font-weight: 100;
+      font-weight: lighter;
+      -webkit-font-smoothing: antialiased;
+      font-size: 22px;
+      width: 60%;
       @media (min-width: 550px) {
-        width: 530px;
+        width: 330px;
       }
 
     }
 
-    .status-text {
-      text-align: center;
-      margin-bottom: 10px;
-      margin-top: 50px;
-      font-weight: 100;
-      -webkit-appearance: none;
-      -webkit-font-smoothing: antialiased;
+    .box:hover {
+      cursor: pointer;
+      cursor: hand;
     }
+
+    #status-text {
+      height: 75px;
+      margin: 0px 0px 50px 0px;
+      display: flex;
+      display: -webkit-flex;
+      align-items: center;
+      -webkit-align-items: center;
+      justify-content: center;
+      -webkit-justify-content: center;
+      font-weight: 100;
+      font-weight: lighter;
+      -webkit-font-smoothing: antialiased;
+      font-size: 22px;
+      border-top: solid 1px $mutedOutline;
+      border-left: solid 1px $mutedOutline;
+      border-bottom: solid 1px $mutedOutline;
+      background-color: #162934;
+      width: 40%;
+      z-index: -2;
+      @media (min-width: 550px) {
+        width: 200px;
+      }
+    }
+
+
 
   }
 
-  #topic-selection{
+  .topic-selection{
 
     @media (max-width: 550px) {
         margin-top: 30px;
@@ -113,7 +144,8 @@ body {
 
     .section-head {
       margin-top: 0px;
-      margin-bottom: 25px;
+ 
+      margin-bottom: 10px;
     }
 
     .dash-link {
@@ -147,20 +179,24 @@ body {
     
   }
 
-  #name {
-    font-family: MoonDance; 
-    font-weight: 100;
-    font-weight: lighter;
-    -webkit-font-smoothing: antialiased;
-    text-align: center;
-    font-size: 140%;
-    height: 60px;
-    color: $cream;
-    padding-left: 20px;
-    display: flex;
-    display: -webkit-flex;
-    align-items: center;
-    -webkit-align-items: center;
+  .full {
+    margin-top: 15px;
   }
 
+}
+
+#name {
+  font-family: MoonDance; 
+  font-weight: 100;
+  font-weight: lighter;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  font-size: 140%;
+  height: 60px;
+  color: $cream;
+  padding-left: 20px;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
 }
