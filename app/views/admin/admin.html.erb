@@ -81,7 +81,7 @@
             </section>
 			<section id="topic-selection">
 				<div class="row">
-					<h1 class="section-head">Pick a topic</h1> 
+					<h1 class="section-head">Topics</h1> 
 
                 <% if @user['role'] == "admin" || @user['role'] == "sponsorship" %>
 					<div class="hvr-underline-from-center full">
@@ -100,6 +100,20 @@
                         <a href="/admin/qrcode"><div id="sponsorship-panel">QR Codes</div></a>
                     </div> -->
 				</div>
+
+                <div class="row">
+                    <h1 class="section-head" id="attendee">Attendee Topics</h1> 
+
+                    <div class="hvr-underline-from-center full">
+                        <a href="/application"><div id="sponsorship-panel">Application</div></a>
+                    </div>
+                    <div class="hvr-underline-from-center full">
+                        <a href="/dashboard"><div id="sponsorship-panel">Dashboard</div></a>
+                    </div>
+                    <div class="hvr-underline-from-center full">
+                        <a href="/rsvp"><div id="sponsorship-panel">RSVP</div></a>
+                    </div>
+                </div>
 
 			</section>
         </div>
