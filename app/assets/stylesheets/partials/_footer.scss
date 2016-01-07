@@ -13,7 +13,6 @@
   background-color: transparent;
   color: $cream;
   font-size: .9em;
-  z-index: 999999;
 
   .fa-code, .fa-heart, .fa-facebook-square, 
   .fa-twitter, .fa-github {
@@ -35,9 +34,3 @@
     }
   }
 }
-
-  .rails {
-    height: 20px;
-    width: auto;
-    margin-bottom: -5px;
-  }
