@@ -81,25 +81,24 @@ class UsersController < ApplicationController
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "admin"] }
 			  redirect_to '/admin' and return
       else
-        redirect_to '/' and return
-        # cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
-        # begin
-        #   @application = Parse::Query.new("Application").tap do |q|
-        #     q.eq("userId", Parse::Pointer.new({
-        #       "className" => "_User",
-        #       "objectId"  => login["objectId"]
-        #     }))
-        #   end.get.first
+        cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
+        begin
+          @application = Parse::Query.new("Application").tap do |q|
+            q.eq("userId", Parse::Pointer.new({
+              "className" => "_User",
+              "objectId"  => login["objectId"]
+            }))
+          end.get.first
 
-        #   if @application
-        #     redirect_to '/dashboard' and return
-        #   else
-        #     redirect_to '/application' and return
-        #   end
+          if @application
+            redirect_to '/dashboard' and return
+          else
+            redirect_to '/application' and return
+          end
           
-        # rescue Parse::ParseProtocolError => e
+        rescue Parse::ParseProtocolError => e
 
-        # end  
+        end  
 
       end
 		rescue Parse::ParseProtocolError => e
@@ -157,6 +156,13 @@ class UsersController < ApplicationController
       }))
     end.get.first
 
+    @rsvp = Parse::Query.new("RSVP").tap do |q|
+                    q.eq("userId", Parse::Pointer.new({
+                      "className" => "_User",
+                      "objectId"  => cookies.signed[:spartaUser][0]
+                    }))
+            end.get.first
+
     if !@application
       redirect_to '/application' and return
     end
@@ -185,7 +191,7 @@ class UsersController < ApplicationController
                       "className" => "_User",
                       "objectId"  => cookies.signed[:spartaUser][0]
                     }))
-    end.get.first
+            end.get.first
 
     render layout: false
   end
