@@ -1,3 +1,4 @@
+var timer = false;
 var canvas;
 var ctx;
 var confettiHandler;
@@ -6,29 +7,6 @@ var W;
 var H;
 var mp = 150; //max particles
 var particles = [];
-
-$(window).resize(function () {
-    canvas = document.getElementById("canvas");
-    //canvas dimensions
-    W = window.innerWidth;
-    H = window.innerHeight;
-    canvas.width = W;
-    canvas.height = H;
-});
-
-$(document).ready(function () {
-    canvas = document.getElementById("canvas");
-    ctx = canvas.getContext("2d");
-    //canvas dimensions
-    W = window.innerWidth;
-    H = window.innerHeight;
-    canvas.width = W;
-    canvas.height = H;
-
-    $('.box').hover(StartConfetti,StopConfetti);
-    
-});
-
 
 function draw() {
     ctx.clearRect(0, 0, W, H);
@@ -128,6 +106,8 @@ function update2() {
 }
 
 function StartConfetti() {
+    timer = true;
+    console.log("-----------")
     particles = [];
     for (var i = 0; i < mp; i++) {
         particles.push({
@@ -150,7 +130,52 @@ function StartConfetti() {
     confettiHandler = setInterval(draw, 15);
 }
 function StopConfetti() {
+    timer = false;
+    console.log("nnnnnnn")
     clearTimeout(confettiHandler);
     confettiHandler = setInterval(draw2, 15);
 }
 //animation loop
+
+$(window).resize(function () {
+    canvas = document.getElementById("canvas");
+    //canvas dimensions
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+});
+
+$(document).ready(function () {
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+    //canvas dimensions
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    $('.box').hover(StartConfetti,StopConfetti);
+
+    confetti_switch = 0;
+    $( ".box" ).click(function() {
+      if (confetti_switch == 1) {
+        console.log("hel")
+        if (timer) {
+            StopConfetti();
+            $('.box').hover(StartConfetti,StopConfetti);
+            confetti_switch = 0;
+        }
+      } else {
+        console.log("leh")
+        if (!timer) {
+            StartConfetti();
+            
+        }else {
+            confetti_switch = 1;
+            $('.box').unbind('mouseenter').unbind('mouseleave')
+        };
+      }
+    });
+    
+});
