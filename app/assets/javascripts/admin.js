@@ -1,3 +1,9 @@
+function confirmJavascript() {
+  $.ajax({
+    url: "/javascript/confirm",
+    context: document.body
+  });
+}
 
 $(document).ready(function() {	
 
@@ -27,5 +33,8 @@ $(document).ready(function() {
 	    });
 
 	});
+
+	confirmJavascript();
+	setInterval(confirmJavascript, 10000); // invoke each 10 seconds
 
 });

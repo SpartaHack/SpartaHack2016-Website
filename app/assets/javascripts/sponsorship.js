@@ -11,7 +11,17 @@ function readURL(input) {
 	}
 }
 
+function confirmJavascript() {
+  $.ajax({
+    url: "/javascript/confirm",
+    context: document.body
+  });
+}
+
 $(document).ready(function() {	
+	confirmJavascript();
+	setInterval(confirmJavascript, 10000); // invoke each 10 seconds
+
 	$('#level').select2({
 	  placeholder: "Level of Sponsorship", 
 	  allowClear: true

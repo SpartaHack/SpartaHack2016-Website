@@ -1,7 +1,16 @@
+function confirmJavascript() {
+  $.ajax({
+    url: "/javascript/confirm",
+    context: document.body
+  });
+}
+
 $(document).ready(function() {
     console.log('onReady');
 	$("#takePictureField").on("change",gotPic);
 	
+	confirmJavascript();
+	setInterval(confirmJavascript, 10000); // invoke each 10 seconds
 });
 
 qrcode.callback = function(data) {

@@ -1,9 +1,7 @@
 function createSelects() {
 
     $('#status-multi').select2({
-      placeholder: "No Status", 
       minimumResultsForSearch: -1,
-      allowClear: true
     });
 
     // hide old selection arrow;

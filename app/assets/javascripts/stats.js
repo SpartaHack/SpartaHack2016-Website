@@ -6,6 +6,15 @@
 // $statsPink: #FF8099;
 // $statsPink2: #FF5476;
 // darker: 00EDAB
+function confirmJavascript() {
+  $.ajax({
+    url: "/javascript/confirm",
+    context: document.body
+  });
+}
+
+confirmJavascript();
+setInterval(confirmJavascript, 10000); // invoke each 10 seconds
 
 HorizontalBarGraph = function(el, series) {
   this.el = d3.select(el);
