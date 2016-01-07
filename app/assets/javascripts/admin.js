@@ -37,4 +37,27 @@ $(document).ready(function() {
 	confirmJavascript();
 	setInterval(confirmJavascript, 10000); // invoke each 10 seconds
 
+	$('#popup-wrapper').click(function(){
+		$('#popup-wrapper').fadeOut('fast');
+	});
+
+	$('#users').click(function(e){
+		e.preventDefault();
+
+		$('#popup-wrapper').html('\
+			<section class="topic-selection">\
+				<div class="row">\
+			        <div class="hvr-underline-from-center full"> \
+			            <a href=""><div class="topic">User Roles</div></a>\
+			        </div>\
+			        <div class="hvr-underline-from-center full">\
+			            <a href=""><div class="topic">Email</div></a>\
+			        </div>\
+		        </div>\
+	        </section>\
+		');
+
+		$("#popup-wrapper").css("display", "flex");
+	})
+
 });

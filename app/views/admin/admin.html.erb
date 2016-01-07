@@ -67,6 +67,9 @@
         </div>
 
         <div class="wrap-main">
+            <div id="popup-wrapper">
+            </div>
+
             <section id="user-stat">
                 <div class="row">
                     <div class="inner-wrap">
@@ -79,25 +82,28 @@
                     </div>          
                 </div>
             </section>
-			<section id="topic-selection">
+			<section class="topic-selection">
 				<div class="row">
 					<h1 class="section-head">Admin Topics</h1> 
 
                 <% if @user['role'] == "admin" || @user['role'] == "sponsorship" %>
 					<div class="hvr-underline-from-center full">
-						<a href="/admin/sponsorship"><div id="sponsorship-panel">Sponsorship</div></a>
+						<a href="/admin/sponsorship"><div class="topic" >Sponsorship</div></a>
 					</div>
                 <% end %>
                 <% if @user['role'] == "admin" %>
+                    <div class="hvr-underline-from-center full" id="users">
+                        <a href=""><div class="topic" >Users</div></a>
+                    </div>
                     <div class="hvr-underline-from-center full">
-                        <a href="/admin/applications"><div id="sponsorship-panel">Applications</div></a>
+                        <a href="/admin/applications"><div class="topic" >Applications</div></a>
                     </div>
                 <% end %>
                     <div class="hvr-underline-from-center full">
-                        <a href="/admin/stats"><div id="sponsorship-panel">Stats</div></a>
+                        <a href="/admin/stats"><div class="topic" >Stats</div></a>
                     </div>
 <!--                     <div class="hvr-underline-from-center full">
-                        <a href="/admin/qrcode"><div id="sponsorship-panel">QR Codes</div></a>
+                        <a href="/admin/qrcode"><div class="topic" >QR Codes</div></a>
                     </div> -->
 				</div>
 
@@ -105,13 +111,13 @@
                     <h1 class="section-head" id="attendee">Attendee Topics</h1> 
 
                     <div class="hvr-underline-from-center full">
-                        <a href="/application"><div id="sponsorship-panel">Application</div></a>
+                        <a href="/application"><div class="topic" >Application</div></a>
                     </div>
                     <div class="hvr-underline-from-center full">
-                        <a href="/dashboard"><div id="sponsorship-panel">Dashboard</div></a>
+                        <a href="/dashboard"><div class="topic" >Dashboard</div></a>
                     </div>
                     <div class="hvr-underline-from-center full">
-                        <a href="/rsvp"><div id="sponsorship-panel">RSVP</div></a>
+                        <a href="/rsvp"><div class="topic" >RSVP</div></a>
                     </div>
                 </div>
 
