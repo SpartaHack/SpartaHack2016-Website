@@ -74,20 +74,25 @@
             <section id="user-status">
                 <div class="row">
                     <div class="inner-wrap">
-                        <div class="status-text">Application Status</div>
+                        <div id="status-text">Status</div>
                         <div class="box" ><%= @application['status'].blank? ? "Application Received" : @application['status'] %></div>
-
                     </div>               
                 </div>
             </section>
-
-            <section id="topic-selection">
+ 
+            <section class="topic-selection">
                 <div class="row">
-                  <h1 class="section-head">Pick a topic</h1> 
+                  <h1 class="section-head">Topics</h1> 
 
                   <div class="hvr-underline-from-center full">
                     <a href="/application"><div class="dash-link">My Application</div></a>
                   </div>
+
+                <% if @application['status'] == 'Accepted'%>
+                  <div class="hvr-underline-from-center full">
+                    <a href="/rsvp"><div class="dash-link"><%= @rsvp ? "My RSVP" : "Complete RSVP" %></div></a>
+                  </div>
+                <% end %>
 
                 </div>
             </section>
