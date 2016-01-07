@@ -42,6 +42,18 @@
         </div>
         
         <div class="navbar-nav right">
+        <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
+          <div id="app-wrapper">
+            <a href="/admin">
+              <div id="admin-nav" class="svg-wrapper">
+                <svg height="60" width="188" xmlns="http://www.w3.org/2000/svg">
+                  <rect class="shape mobile-nav" height="60" width="188" />
+                </svg>
+              </div>
+              <div class="text">ADMIN DASHBOARD</div>
+            </a>
+          </div>
+        <% end %>
           <div id="app-wrapper">
             <a href="/dashboard">
               <div id="app-nav" class="svg-wrapper">
@@ -69,6 +81,9 @@
         <nav>
             <ul class="mobile">
                 <li><a href="/" class="anchorLink">HOME</a></li>
+              <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
+                <li><a href="/admin">ADMIN DASHBOARD</a></li>
+              <% end %>
                 <li><a href="/dashboard">MY DASHBOARD</a></li>
                 <li><a href="/logout">LOG OUT</a></li>  
             </ul>
