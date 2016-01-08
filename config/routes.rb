@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get 'javascript/confirm'
   get 'noJS' => 'javascript#noJS'
 
-  get 'apply'  => 'users#new'
+  get 'register'  => 'users#register'
+  get 'apply'  => 'users#register'
   post 'create' => 'users#create'
   get 'verify' => 'users#verify'
   get 'login'  => 'users#login'
