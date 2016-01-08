@@ -47,9 +47,6 @@ $(document).ready(function() {
 		$('#popup-wrapper').html('\
 			<section class="topic-selection">\
 				<div class="row">\
-			        <div class="hvr-underline-from-center full"> \
-			            <a href="/admin/users/select"><div class="topic">User Roles</div></a>\
-			        </div>\
 			        <div class="hvr-underline-from-center full">\
 			            <a href=""><div class="topic">Email Users</div></a>\
 			        </div>\

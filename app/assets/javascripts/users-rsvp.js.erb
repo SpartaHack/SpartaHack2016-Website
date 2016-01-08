@@ -58,7 +58,7 @@ function createSelects() {
 	});
 	$('#restrictions').select2({
 	  placeholder: "Dietary Restrictions",
-	  minimumResultsForSearch: Infinity, 
+	  minimumResultsForSearch: -1, 
 	  allowClear: true,
 	  multiple: true
 	});
@@ -92,7 +92,6 @@ function toBottom() {
 
 
 function checkProgress() {
-	console.log(line.value());
 	if (line.value() == 1.0) {
 		$("#qsubmit").fadeIn('slow');
 		$("#save-rsvp").fadeIn('slow');
@@ -106,6 +105,7 @@ function checkProgress() {
 function incrementProgress() {
 	line.animate(line.value() + 0.125, function() {
 		checkProgress();
+		createSelects();
 	});
 	
 }
@@ -129,22 +129,50 @@ $(document).ready(function() {
 
 		if (yes_switch == 0) {
 			yes_switch = 1;
-			$('#send_rsvp')[0].reset();
-			$('#yes-attending').prop('checked', true);
-			$('#resume_prev').attr('src', <%= '"' + asset_path('resume-upload.svg') + '"' %>)
 
-			university_switch = 0;
-			restriction_switch = 0;
-			tshirt_switch = 0;
-			resume_switch = 0;
-			citizen_switch = 0;
-			form_switch = 0;	
+			if (university_switch == 1) {
+				$('#travel-wrap').slideDown('slow');
+				$('.restrictions').slideDown('slow');
+				line.animate(0.250, function() {
+					checkProgress();
+				});
+			} else {
+				line.animate(0.125, function() {
+					checkProgress();
+				});
+			}
+			if (restriction_switch == 1) {
+				$("#tshirt-wrap").slideDown('slow');
+				line.animate(0.375, function() {
+					checkProgress();
+				});
+			}
+			if (tshirt_switch == 1) {
+				$("#upload-resume-wrap").slideDown('slow');
+				line.animate(0.500, function() {
+					checkProgress();
+				});
+			}
+			if (resume_switch == 1) {
+				$("#citizen-wrap").slideDown('slow');
+				line.animate(0.750, function() {
+					checkProgress();
+				});
+			}
+			if (citizen_switch == 1) {
+				$("#form-text-wrap").slideDown('slow');
+				$("#upload-form-wrap").slideDown('slow');
+				line.animate(0.875, function() {
+					checkProgress();
+				});
+			}
+			if (form_switch == 1) {
+				line.animate(1.0, function() {
+					checkProgress();
+				});
+			}
 		}
 
-		
-		if (line.value() < 0.125 || line.value() == 1.0) {
-			line.animate(0.125);
-		}
 		$("#save-rsvp").fadeOut('slow');
 		$('#travel-wrap').slideDown('slow');
 		
@@ -158,7 +186,6 @@ $(document).ready(function() {
 		$('.restrictions').slideUp('slow');
 		$('.other-restriction').slideUp('slow');
 		$("#tshirt-wrap").slideUp('slow');
-		$("#resume-instructions").slideUp('slow');
 		$("#citizen-wrap").slideUp('slow');
 		$("#upload-resume-wrap").slideUp('slow');
 		$("#form-text-wrap").slideUp('slow');
@@ -222,7 +249,6 @@ $(document).ready(function() {
 			tshirt_switch = 1;
 			$('#q4').html('<i class="fa fa-check"></i> T-Shirt Size');
 
-			$("#resume-instructions").slideDown('slow');
 			$("#upload-resume-wrap").slideDown('slow');
 		}
 
@@ -235,7 +261,7 @@ $(document).ready(function() {
 
 	$("#resume").change(function(){
 		if (resume_switch == 0 && $('#resume').val()) {
-			$('#resume_prev').attr('src', <%= '"' + asset_path('uploaded.svg') + '"' %>)
+			$('#resume_prev').attr('src', <%= '"' + asset_path('resume-uploaded.svg') + '"' %>)
 			line.animate(line.value() + 0.250, function() {
 				checkProgress();
 			});
@@ -312,7 +338,7 @@ $(document).ready(function() {
 
 	$("#taxForm").change(function(){
 		if (form_switch == 0 && $('#taxForm').val()) {
-			$('#form_prev').attr('src', <%= '"' + asset_path('uploaded.svg') + '"' %>)
+			$('#form_prev').attr('src', <%= '"' + asset_path('taxform-uploaded.svg') + '"' %>)
 			incrementProgress();
 			form_switch = 1;
 			$('#q7').html('<i class="fa fa-check"></i> Tax Form');

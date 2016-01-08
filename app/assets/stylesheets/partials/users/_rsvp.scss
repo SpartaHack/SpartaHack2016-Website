@@ -7,6 +7,10 @@
     margin-top: 30px;
   }
 
+  #send_rsvp {
+    margin-bottom: 100px;
+  }
+
   display: flex;
   display: -webkit-flex;
   align-items: center;
@@ -47,14 +51,14 @@
   .add-margin-top {
     margin-top: 0px;
     @media (min-width: 550px) {
-      margin-top: 26px;
+      margin-top: 25px;
     } 
   }
 
   .add-margin-bottom {
     margin-bottom: 15px;
     @media (min-width: 550px) {
-      margin-bottom: 26px;
+      margin-bottom: 25px;
     } 
   }  
   
@@ -209,6 +213,13 @@
     }
   }
 
+  #travel-wrap {
+    margin-top: 15px;
+    @media (min-width: 550px) {
+      margin-top: 25px;
+    } 
+  }
+
   #radio-wrap {
     width: 300px;
     display: flex;
@@ -250,7 +261,7 @@
     -webkit-align-items:center;
   }
 
-  #resume-instructions, #restriction-question-wrap {
+  #restriction-question-wrap {
     display: flex;
     display: -webkit-flex;
     align-items: center;
@@ -265,7 +276,7 @@
     }
   }
 
-  #resume-instructions-text, #restriction-question-text {
+  #restriction-question-text {
     margin-left: 15px;
     word-wrap: normal;
     -webkit-font-smoothing: antialiased;
@@ -303,7 +314,7 @@
   .university, #gradeLevel-wrap { 
     margin-bottom: 0px;
     @media (min-width: 550px) {
-      margin-bottom: 26px;
+      margin-bottom: 25px;
     } 
   }
 
@@ -391,7 +402,7 @@
   }
 
   #resume_prev, #form_prev {
-    width: 180px;
+    width: 300px;
     max-height: 180px;
   }
     
@@ -450,6 +461,9 @@
 
   #save-rsvp {
     margin-bottom: 100px;
+    @media (max-width: 910px) {
+      margin-bottom: 0px;
+    }
   }
 
   #rsvp-submit {
@@ -473,6 +487,10 @@
 
   .question {
     margin: 3px 0px;
+  }
+
+  .full {
+    margin-top: 0px;
   }
 
 }

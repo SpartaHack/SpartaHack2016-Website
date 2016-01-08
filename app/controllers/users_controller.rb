@@ -198,14 +198,14 @@ class UsersController < ApplicationController
 
   def saversvp
     begin
-      fields = [ "attending", "university", "restrictions", "otherRestrictions", "tshirt", "citizen"]
+      fields = [ "university", "restrictions", "otherRestrictions", "tshirt", "citizen"]
 
       rsvp = Parse::Query.new("RSVP").tap do |q|
                       q.eq("userId", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
-      end.get.first
+            end.get.first
 
       if !user_rsvp_params["attending"].blank? && user_rsvp_params["attending"] == "true"
         if user_rsvp_params["university"].blank? || user_rsvp_params["restrictions"].blank? || 
@@ -228,6 +228,7 @@ class UsersController < ApplicationController
           rsvp[field] = nil
         end          
 
+        rsvp['attending'] = false
         rsvp['resume'] = nil
         rsvp['taxForm'] = nil
         rsvp.save
@@ -249,9 +250,16 @@ class UsersController < ApplicationController
         flash[:sub] = "You may continue to edit your RSVP."
       end
 
-      fields.each do |field|
-        rsvp[field] = user_rsvp_params[field]
+      fields.each do |field|        
+        if field == "citizen" && user_rsvp_params[field] == "true"
+          rsvp[field] = true
+        elsif field == "citizen" && user_rsvp_params[field] == "false"
+          rsvp[field] = false
+        else
+          rsvp[field] = user_rsvp_params[field]
+        end
       end
+      rsvp['attending'] = true
 
       if !user_rsvp_params['resume'].blank?
         #save resume to parse

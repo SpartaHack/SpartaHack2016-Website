@@ -120,7 +120,7 @@
               </div>
             </div>
 
-            <div class="add-margin-top" id="travel-wrap" style="display:none">
+            <div class="add-margin-top " id="travel-wrap" style="display:none">
               <%= label_tag(:attending, "Which school is closest to where you’ll be traveling from?", class: 'no-label') %>
               <%= render partial: "users/app_university" %>
             </div>            
@@ -148,13 +148,7 @@
               <%= select_tag "tshirt", options_for_select(["","Unisex XS", "Unisex Small", "Unisex Medium", "Unisex Large", "Unisex XL", "Unisex XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
             </div>
 
-            <div class="add-margin-top" id="resume-instructions" style="display:none">
-              <div>
-                <div id="resume-instructions-text">Please upload your resume as a pdf.</div>
-              </div>
-            </div>
-
-            <div id="upload-resume-wrap" class="add-margin-top" style="display:none">
+            <div id="upload-resume-wrap" class="add-margin-top add-margin-bottom" style="display:none">
               
               <div class="thumbnail">         
                 <%= image_tag "resume-upload.svg", alt: "Resume Upload", :id => "resume_prev" %>
@@ -165,7 +159,7 @@
 
             </div> 
 
-            <div class="add-margin-top" id="citizen-wrap" style="display:none">
+            <div class="add-margin-top add-margin-bottom" id="citizen-wrap" style="display:none">
                   <input type="radio" name="citizen" id="yes-citizen" value="true" >
                   <label for="yes-citizen">I am a U.S. Citizen or permanent resident (does not include temporary/student visas)</label>               
                   <input type="radio" name="citizen" id="not-citizen" value="false" >
@@ -190,6 +184,10 @@
 
             <div class="progress add-margin-bottom" id="progress"></div> 
 
+            <div class="hvr-underline-from-center full" id="save-rsvp" style="display:none">
+              <%= submit_tag("#{@rsvp ? 'Update RSVP' : 'Submit RSVP'}", :id => "rsvp-submit") %>
+            </div>
+
             <div id="question-progress-wrap" style="display:none;">
               <div class="question" id="q1"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Attending</div>
               <div class="question" id="q2"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Travel</div>
@@ -199,19 +197,17 @@
               <div class="question" id="q6"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Citizenship</div>
               <div class="question" id="q7"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Tax Form</div>
               <div class="question" id="qsubmit" style="display:none;"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;<%= @rsvp ? "Update" : "Submit" %></div>
-            </div>
+            </div> 
 
-            <div class="hvr-underline-from-center full" id="save-rsvp" style="display:none">
-              <%= submit_tag("#{@rsvp ? 'Update RSVP' : 'Submit RSVP'}", :id => "rsvp-submit") %>
-            </div>
+          <% end %>    
 
-             
-
-          <% end %>      
-
+          
         </div>
 
+        
       </section>
+
+      <%= render partial: "pages/index_footer" %>
     </div>
 
     <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.5.6/dist/progressbar.js"></script>
@@ -227,16 +223,16 @@
       });
 
       <% if @rsvp %>
-        <% if @rsvp['attending'] == "true" %>
+        <% if @rsvp['attending']%>
           document.getElementById("yes-attending").checked = true;
 
           $("#university").val("<%= @rsvp['university'] %>").trigger("change");
           $("#restrictions").val(<%= raw @rsvp['restrictions'] %>).trigger("change");
           $("#tshirt").val("<%= @rsvp['tshirt'] %>").trigger("change");
-          $('#resume_prev').attr('src', "<%= asset_path('uploaded.svg').to_s %>")
-          $('#form_prev').attr('src', "<%= asset_path('uploaded.svg')%>")
+          $('#resume_prev').attr('src', "<%= asset_path('resume-uploaded.svg').to_s %>")
+          $('#form_prev').attr('src', "<%= asset_path('taxform-uploaded.svg')%>")
 
-          <% if @rsvp['citizen'] == "true" %>
+          <% if @rsvp['citizen'] %>
             document.getElementById("yes-citizen").checked = true;
           <% else %>
             document.getElementById("not-citizen").checked = true;
@@ -260,7 +256,6 @@
           <% end %>
 
           $("#tshirt-wrap").show();
-          $("#resume-instructions").show();
           $("#citizen-wrap").show();
           $("#upload-resume-wrap").show();
 
@@ -291,7 +286,13 @@
           form_switch = 1;
         <% else %>
           document.getElementById("not-attending").checked = true;
-          yes_switch = 0 
+          yes_switch = 0 ;
+          university_switch = 0;
+          restriction_switch = 0;
+          tshirt_switch = 0;
+          resume_switch = 0;
+          citizen_switch = 0;
+          form_switch = 0;
 
           $("#save-rsvp").fadeIn('slow', function() {
             line.animate(1.0);
