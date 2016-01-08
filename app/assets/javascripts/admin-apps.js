@@ -40,7 +40,7 @@ $(document).ready( function () {
 
     $(".status").change(function() {
         $.ajax({
-            url: "/admin/applications/status",
+            url: "/admin/users/applications",
             async: false,
             type: "post",
             context: document.body,

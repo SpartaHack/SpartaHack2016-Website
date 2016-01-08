@@ -120,7 +120,7 @@
                             <td><%= app['firstName'] %></td>
                             <td><%= app['lastName'] %></td>
                             <td id=<%= index.to_i + 1 %> >
-                                <%= form_tag("/admipplications/status", :remote => true, :authenticity_token => true, class: "status") do %>
+                                <%= form_tag("/admin/users/applications", :remote => true, :authenticity_token => true, class: "status") do %>
                                     <%= hidden_field_tag 'object' , app["objectId"]  %>  
                                     <%= select_tag "status-select", options_for_select([["-", nil], ["Accepted", "Accepted"], ["Waitlisted", "Waitlisted"], ["Denied", "Denied"]], selected: "#{app['status']}"), class: "status-select" %>
                                 <% end %>

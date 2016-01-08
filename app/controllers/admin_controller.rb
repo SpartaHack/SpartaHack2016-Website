@@ -140,7 +140,7 @@ class AdminController < ApplicationController
     render layout: false
   end
 
-  def status 
+  def app_status 
       app = Parse::Query.new("Application").eq("objectId", status_params["object"]).get.first
       if !status_params["status-select"].blank?
         app['status'] = status_params["status-select"]
