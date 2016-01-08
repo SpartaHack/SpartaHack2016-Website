@@ -233,6 +233,11 @@ class UsersController < ApplicationController
         rsvp['taxForm'] = nil
         rsvp.save
 
+        rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        rsvp.array_add_relation("userId", user.pointer)
+        rsvp.save
+
         redirect_to '/rsvp'  and return
       end
 
