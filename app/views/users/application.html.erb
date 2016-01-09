@@ -268,25 +268,25 @@
     <%= javascript_tag do %>
       <% if @application %>
         <% if @application['university'] %>
-          $("#university").val("<%= @application['university'] %>").trigger("change")
+          $("#university").val("<%= @application['university'].html_safe %>").trigger("change")
         <% end %>
         <% if @application['major'] %>
           $("#major").val(<%= raw @application['major'].to_a.to_json %>).trigger("change")
         <% end %>
         <% if @application['birthday'] %>
-          $("#birthday").val("<%= @application['birthday'] %>").trigger("change")
+          $("#birthday").val("<%= @application['birthday'].html_safe %>").trigger("change")
         <% end %>
         <% if @application['birthmonth'] %>
-          $("#birthmonth").val("<%= @application['birthmonth'] %>").trigger("change")
+          $("#birthmonth").val("<%= @application['birthmonth'].html_safe %>").trigger("change")
         <% end %>
         <% if @application['birthyear'] %>
-          $("#birthyear").val("<%= @application['birthyear'] %>").trigger("change")
+          $("#birthyear").val("<%= @application['birthyear'].html_safe %>").trigger("change")
         <% end %>
         <% if @application['gradeLevel'] %>
-          $("#gradeLevel").val("<%= @application['gradeLevel'] %>").trigger("change")
+          $("#gradeLevel").val("<%= @application['gradeLevel'].html_safe %>").trigger("change")
         <% end %>
         <% if @application['gender'] %>
-          $("#gender").val("<%= @application['gender'] %>").trigger("change")
+          $("#gender").val("<%= @application['gender'].html_safe %>").trigger("change")
         <% end %>
         <% if @application['hackathons'] %>
           $("#hackathons").val(<%= raw @application['hackathons'] %>).trigger("change")
