@@ -106,7 +106,7 @@
     <div class="wrap-main">
       <section id="rsvp" >
         <div class="row">
-      
+
           <h1 class="section-head">RSVP</h1> 
           <%= form_tag("/rsvp", method: "post", id: "send_rsvp", class: "send_rsvp", :remote => true, :authenticity_token => true, multipart: true) do %>
 
@@ -211,6 +211,7 @@
     </div>
 
     <%= javascript_include_tag "progressbar.min" %>
+    <%= javascript_include_tag "vivus.min" %>
     <%= javascript_include_tag "jquery-1.11.3.min" %>
     <%= javascript_include_tag "headroom.min" %>
     <%= javascript_include_tag "jquery-headroom" %>
