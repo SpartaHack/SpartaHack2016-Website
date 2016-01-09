@@ -82,24 +82,25 @@ class UsersController < ApplicationController
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], login["role"]] }
 			  redirect_to '/admin' and return
       else
-        cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
-        begin
-          @application = Parse::Query.new("Application").tap do |q|
-            q.eq("userId", Parse::Pointer.new({
-              "className" => "_User",
-              "objectId"  => login["objectId"]
-            }))
-          end.get.first
+        redirect_to '/' and return
+        # cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
+        # begin
+        #   @application = Parse::Query.new("Application").tap do |q|
+        #     q.eq("userId", Parse::Pointer.new({
+        #       "className" => "_User",
+        #       "objectId"  => login["objectId"]
+        #     }))
+        #   end.get.first
 
-          if @application
-            redirect_to '/dashboard' and return
-          else
-            redirect_to '/application' and return
-          end
+        #   if @application
+        #     redirect_to '/dashboard' and return
+        #   else
+        #     redirect_to '/application' and return
+        #   end
           
-        rescue Parse::ParseProtocolError => e
+        # rescue Parse::ParseProtocolError => e
 
-        end  
+        # end  
 
       end
 		rescue Parse::ParseProtocolError => e

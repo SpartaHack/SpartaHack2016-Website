@@ -113,7 +113,6 @@ function incrementProgress() {
 $(document).ready(function() {
 
 	createSelects();
-	// window.onbeforeunload = function(){ return 'Your RSVP has not been submitted.' }
 
 	$('#popup-wrapper').click(function(){
 		$('#popup-wrapper').fadeOut('fast');
@@ -357,6 +356,16 @@ $(document).ready(function() {
 			$('#q7').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Tax Form');
 		}
 	});
+
+	$('#rsvp-submit').click(function(){
+		$("#popup").html('<div id="loading"></div>')
+
+		$("#popup").css("bottom", "170px");
+		$("#popup").css("top", "")
+		$("#popup-wrapper").fadeIn("fast");	
+
+		new Vivus('loading', {duration: 100, file: <%= '"' + asset_path('logo-test2.svg') + '"' %>});
+	})
 
 });
 
