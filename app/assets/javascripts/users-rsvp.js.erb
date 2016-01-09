@@ -358,13 +358,13 @@ $(document).ready(function() {
 	});
 
 	$('#rsvp-submit').click(function(){
-		$("#popup").html('<div id="my-div"></div>')
+		$("#popup").html('<div id="loading"></div>')
 
 		$("#popup").css("bottom", "170px");
 		$("#popup").css("top", "")
 		$("#popup-wrapper").fadeIn("fast");	
 
-		new Vivus('my-div', {duration: 100, file: <%= '"' + asset_path('logo-test2.svg') + '"' %>});
+		new Vivus('loading', {duration: 100, file: <%= '"' + asset_path('logo-test2.svg') + '"' %>});
 	})
 
 });
