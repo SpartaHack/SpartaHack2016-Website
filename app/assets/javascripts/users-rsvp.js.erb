@@ -58,7 +58,7 @@ function createSelects() {
 	});
 	$('#restrictions').select2({
 	  placeholder: "Dietary Restrictions",
-	  minimumResultsForSearch: -1, 
+	  minimumResultsForSearch: Infinity, 
 	  allowClear: true,
 	  multiple: true
 	});
@@ -364,7 +364,7 @@ $(document).ready(function() {
 		$("#popup").css("top", "")
 		$("#popup-wrapper").fadeIn("fast");	
 
-		new Vivus('loading', {duration: 100, file: <%= '"' + asset_path('logo-test2.svg') + '"' %>});
+		new Vivus('loading', {duration: 100, file: <%= '"' + asset_path('logo-loading.svg') + '"' %>});
 	})
 
 });
