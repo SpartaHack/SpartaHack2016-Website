@@ -227,9 +227,9 @@
         <% if @rsvp['attending']%>
           document.getElementById("yes-attending").checked = true;
 
-          $("#university").val("<%= @rsvp['university'] %>").trigger("change");
+          $("#university").val("<%= @rsvp['university'].html_safe %>").trigger("change");
           $("#restrictions").val(<%= raw @rsvp['restrictions'] %>).trigger("change");
-          $("#tshirt").val("<%= @rsvp['tshirt'] %>").trigger("change");
+          $("#tshirt").val("<%= @rsvp['tshirt'].html_safe %>").trigger("change");
           $('#resume_prev').attr('src', "<%= asset_path('resume-uploaded.svg').to_s %>")
           $('#form_prev').attr('src', "<%= asset_path('taxform-uploaded.svg')%>")
 

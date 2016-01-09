@@ -226,6 +226,9 @@ $(document).ready(function() {
 
 	    if (values && values.indexOf("none") > -1) {
 	    	$('#restrictions').val(['none']);
+	    	$('.other-restriction').slideUp("slow", function() {
+	    		$('#otherRestrictions').val("");
+	    	});
 	    } else if (values && values.indexOf("other") > -1) {
 	    	$('.other-restriction').slideDown({duration:'slow'});
 	    } else if (!values && restriction_switch == 1) {
