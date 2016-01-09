@@ -112,7 +112,7 @@
         <div class="row">
       
           <h1 class="section-head">APPLICATION</h1> 
-          <% if @application['status'].blank? %>
+          <% if @application.blank? || @application['status'].blank? %>
             <h4 id="required">* fields are required.</h4>
           <% else %>
             <h4 id="required">A decision has been made on your application. <br> Click <a href="/dashboard">here</a> to go to your dashboard.</h4>
@@ -244,7 +244,7 @@
               </div>
             </div>
 
-            <% if @application['status'].blank? %>
+            <% if @application.blank? || @application['status'].blank? %>
               <div class="hvr-underline-from-center full" id="save-app">
                 <%= submit_tag("#{@application ? 'Update Application' : 'Submit Application'}", :id => "application") %>
               </div>
