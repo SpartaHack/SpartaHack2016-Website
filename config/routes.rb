@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'javascript/confirm'
-  get 'noJS' => 'javascript#noJS'
+  get 'jscheck' => 'javascript#jscheck'
 
   get 'register'  => 'users#register'
   get 'apply'  => 'users#register'
