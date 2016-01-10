@@ -17,9 +17,7 @@ class PagesController < ApplicationController
 
       end
 
-      data = { :alert => "This is a notification from Parse" }
-      push = Parse::Push.new(data, "iOS")
-      push.save
+      
     end
 
     @partner = []

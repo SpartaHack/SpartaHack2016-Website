@@ -1,0 +1,21 @@
+$("#logo-wrap").hide();
+
+$('.wrap').css({
+	'display' : 'flex',
+	'display' : '-webkit-flex',
+	'justify-content' : 'center',
+	'-webkit-justify-content' : 'center'
+});
+
+$("#loading").css({
+   'height' : '500px',
+   'width' : '500px', 
+})
+
+new Vivus('loading', {duration: 15, file: <%= '"' + asset_path('logo-loading.svg') + '"' %>});
+
+$(document).ready( function () {
+	setTimeout(function(){
+		$('.confirm').submit();
+	},500);
+});

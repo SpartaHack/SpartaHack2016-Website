@@ -63,7 +63,8 @@ class UsersController < ApplicationController
       end      
 
     elsif !@javascript_active
-      redirect_to '/noJS'
+      session[:return_to] ||= '/login'
+      redirect_to '/jscheck'
     else
       render layout: false
     end
@@ -116,7 +117,8 @@ class UsersController < ApplicationController
       flash[:error] = "Please sign up to create an application."
       redirect_to '/register'
     elsif !@javascript_active
-      redirect_to '/noJS'
+      session[:return_to] = '/application'
+      redirect_to '/jscheck'
     else
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
 
@@ -138,7 +140,7 @@ class UsersController < ApplicationController
           else 
             @application["universityStudent"] = true
           end
-        end
+        end 
 
         render layout: false
       rescue Parse::ParseProtocolError => e
@@ -153,7 +155,8 @@ class UsersController < ApplicationController
       flash[:error] = "Please sign in."
       redirect_to '/login'
     elsif !@javascript_active
-      redirect_to '/noJS'
+      session[:return_to] = '/dashboard'
+      redirect_to '/jscheck'
     else
 
       @application = Parse::Query.new("Application").tap do |q|
@@ -183,7 +186,8 @@ class UsersController < ApplicationController
       flash[:error] = "Please sign in."
       redirect_to '/login'
     elsif !@javascript_active
-      redirect_to '/noJS'
+      session[:return_to] = '/rsvp'
+      redirect_to '/jscheck'
     else
       @application = Parse::Query.new("Application").tap do |q|
         q.eq("userId", Parse::Pointer.new({
