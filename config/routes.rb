@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'javascript/confirm'
-  get 'noJS' => 'javascript#noJS'
+  get 'jscheck' => 'javascript#jscheck'
 
   # get 'register'  => 'users#register'
   # get 'apply'  => 'users#register'
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get 'admin/statistics' => 'admin#stats'
   get 'admin/users/applications' => 'admin#applications'
   post 'admin/users/applications' => 'admin#app_status'
+  post 'admin/users/email' => 'admin#send_emails'
   get 'admin/qrcode' => 'admin#qrcode'
   post 'addsponsor' => 'admin#addsponsor'
   post 'viewsponsor' => 'admin#viewsponsor'
