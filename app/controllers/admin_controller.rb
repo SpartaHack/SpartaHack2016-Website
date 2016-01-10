@@ -364,6 +364,10 @@ class AdminController < ApplicationController
 
     @common_words = @common_words.sort_by {|_key, value| value}.reverse
 
+
+    # RSVP setup
+    @rsvp_status = true;
+
   end
 
   private

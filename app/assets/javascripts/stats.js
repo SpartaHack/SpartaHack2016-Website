@@ -212,4 +212,14 @@ $("#example").jQCloud(word_array, {
   removeOverflowing: false
 });
 
+// RSVP
+$('.ios-switch').click(function() { 
+    var checked = $('.ios-switch').prop('checked');
+    if (checked)
+        document.querySelector('#rsvp-status').innerHTML = 'true';
+    else
+        document.querySelector('#rsvp-status').innerHTML = 'false';
+});
+
+
 
