@@ -82,13 +82,26 @@
                     <strong>
                         <%= @total_apps %> Applications <br>
                         <%= @uni_applicants.length %> Schools <br>
+                        <%= @rsvps_count %> RSVPs <br>
                     </strong>
                 </p>
 
                 <div class="wrap">
 
                     <div class="row">
-                        <h1 class="section-head">Statistics</h1> 
+                        <h1 class="section-head">Statistics</h1>
+                        <!-- show rsvp false by default -->
+                        <h4 class="center">RSVP:<strong><span id="rsvp-status">false</span></strong></h4>
+                        <div class="center">
+                            <label><input type="checkbox" class="ios-switch bigswitch" unchecked /><div><div></div></div></label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <h4 class="center">Percentage RSVP'd</h4>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: <%= number_to_percentage(100*(@rsvps_count/@total_apps),precision: 1) %>;"></div>
+                        </div>
                     </div>
 
                     <div class="column">
@@ -272,7 +285,7 @@
                     </div>
 
                     <div class="row">
-                        <br><br><br>
+                        <br><br><br><br>
                         <!-- Random reason to attend -->
                         <p><%= @random_reason[0] %></p>
                         <p>-<%= @random_reason[1] %> <%= @random_reason[2] %></p>

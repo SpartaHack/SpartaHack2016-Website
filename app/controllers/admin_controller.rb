@@ -2,6 +2,7 @@ class AdminController < ApplicationController
   require 'mailchimp'
   require 'parse_config'
   require 'monkey_patch'
+  require 'pp'
 
   def admin
     if cookies.signed[:spartaUser]
@@ -18,10 +19,20 @@ class AdminController < ApplicationController
     @users_total = Parse::Query.new("_User").tap do |q|
       q.limit = 1000
     end.get.length
+
+    @users_total += Parse::Query.new("_User").tap do |q|
+                      q.limit = 1000
+                      q.skip = 1000
+                    end.get.length
     
     @apps_total = Parse::Query.new("Application").tap do |q|
       q.limit = 1000
     end.get.length
+
+     @apps_total += Parse::Query.new("Application").tap do |q|
+                      q.limit = 1000
+                      q.skip = 1000
+                    end.get.length
 
     render layout: false
   end
@@ -137,6 +148,13 @@ class AdminController < ApplicationController
       q.limit = 1000
     end.get
 
+    @apps += Parse::Query.new("Application").tap do |q|
+      q.skip = 1000
+      q.limit = 1000
+    end.get
+
+    pp @apps
+
     render layout: false
   end
 
@@ -165,6 +183,11 @@ class AdminController < ApplicationController
 
     # Gets all applications
     @apps = Parse::Query.new("Application").tap do |q|
+      q.limit = 1000
+    end.get
+
+    @apps += Parse::Query.new("Application").tap do |q|
+      q.skip = 1000
       q.limit = 1000
     end.get
 
@@ -364,7 +387,71 @@ class AdminController < ApplicationController
 
     @common_words = @common_words.sort_by {|_key, value| value}.reverse
 
+
+    # RSVP setup
+    @rsvp_status = true;
+    # Gets all rsvps
+    @rsvps = Parse::Query.new("RSVP").tap do |q|
+      q.limit = 1000
+    end.get
+
+    @rsvps_count = @rsvps.length
+
   end
+
+  def send_emails
+    if email_params['type'] == 'decision'
+      @applications = Parse::Query.new("Application").tap do |q|
+        q.eq("emailStatus", nil)
+        q.include = "user"
+      end.get
+
+      @applications.each do |app|
+
+        if app['status'] == "Accepted"
+          UserMailer.notify_of_status(app["firstName"], app["user"]['email']).deliver_now
+          app['emailStatus'] = true
+          app.save
+        end
+
+      end
+    elsif email_params['type'] == "empty_app"
+      users_with_apps = []
+      
+      @applications = Parse::Query.new("Application").tap do |q|
+        q.include = "user"
+      end.get
+
+      @applications.each do |app|
+        users_with_apps.push(app["user"]['email'])
+      end
+
+      @users = Parse::Query.new("_User").tap do |q|
+        q.value_not_in("email", users_with_apps)
+      end.get
+
+      @users.each do |user|
+          UserMailer.notify_of_empty_app(user['email']).deliver_now
+      end
+    end
+
+  end
+
+      # @applications = Parse::Query.new("Application").tap do |q|
+      #   q.eq("emailStatus", nil)
+      # end.get
+
+      # @applications.each do |app|
+      #   user = Parse::Query.new("_User").tap do |q|
+      #             q.related_to("userId", Parse::Pointer.new({
+      #               "className" => "Application",
+      #               "objectId" => app["objectId"]
+      #             }))
+      #           end.get.first
+
+      #   app['user'] = user.pointer
+      #   app.save
+      # end
 
   private
 
@@ -382,6 +469,10 @@ class AdminController < ApplicationController
 
   def status_params
     params.permit(:object, :"status-select")
+  end 
+
+  def email_params
+    params.permit(:object, :"type")
   end 
 
 end

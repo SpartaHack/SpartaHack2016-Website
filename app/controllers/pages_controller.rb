@@ -7,7 +7,7 @@ class PagesController < ApplicationController
     if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "attendee"
       begin
         @application = Parse::Query.new("Application").tap do |q|
-          q.eq("userId", Parse::Pointer.new({
+          q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
           }))
