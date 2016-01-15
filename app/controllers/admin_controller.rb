@@ -328,13 +328,14 @@ class AdminController < ApplicationController
       end
 
     # End huge loop
+
     end
 
     # Random reason for wanting to attend SpartaHack
     # [reason, first name, last name]
     @random_reason = ["","",""]
     @random_num = rand(0..( @apps.length-1 ))
-    while ( @apps[@random_num]["whyAttend"].blank? || @apps[@random_num]["whyAttend"].length < 100 )
+    while ( @apps[@random_num]["whyAttend"].blank?)
       @random_num = rand(0..( @apps.length-1 ))
     end
     @random_reason[0] = @apps[@random_num]["whyAttend"]
