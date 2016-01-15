@@ -403,6 +403,7 @@ class AdminController < ApplicationController
   def send_emails
     if email_params['type'] == 'decision'
       @applications = Parse::Query.new("Application").tap do |q|
+        q.limit = 1000
         q.eq("emailStatus", nil)
         q.include = "user"
       end.get
@@ -420,6 +421,7 @@ class AdminController < ApplicationController
       users_with_apps = []
       
       @applications = Parse::Query.new("Application").tap do |q|
+        q.limit = 1000
         q.include = "user"
       end.get
 
@@ -437,22 +439,6 @@ class AdminController < ApplicationController
     end
 
   end
-
-      # @applications = Parse::Query.new("Application").tap do |q|
-      #   q.eq("emailStatus", nil)
-      # end.get
-
-      # @applications.each do |app|
-      #   user = Parse::Query.new("_User").tap do |q|
-      #             q.related_to("userId", Parse::Pointer.new({
-      #               "className" => "Application",
-      #               "objectId" => app["objectId"]
-      #             }))
-      #           end.get.first
-
-      #   app['user'] = user.pointer
-      #   app.save
-      # end
 
   private
 
