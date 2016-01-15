@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     if cookies.signed[:spartaUser]
       begin
         @application = Parse::Query.new("Application").tap do |q|
-          q.eq("userId", Parse::Pointer.new({
+          q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
           }))
@@ -86,7 +86,7 @@ class UsersController < ApplicationController
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
         begin
           @application = Parse::Query.new("Application").tap do |q|
-            q.eq("userId", Parse::Pointer.new({
+            q.eq("user", Parse::Pointer.new({
               "className" => "_User",
               "objectId"  => login["objectId"]
             }))
@@ -128,7 +128,7 @@ class UsersController < ApplicationController
 
       begin
         @application = Parse::Query.new("Application").tap do |q|
-          q.eq("userId", Parse::Pointer.new({
+          q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
           }))
@@ -160,7 +160,7 @@ class UsersController < ApplicationController
     else
 
       @application = Parse::Query.new("Application").tap do |q|
-        q.eq("userId", Parse::Pointer.new({
+        q.eq("user", Parse::Pointer.new({
           "className" => "_User",
           "objectId"  => cookies.signed[:spartaUser][0]
         }))
@@ -171,7 +171,7 @@ class UsersController < ApplicationController
       end
 
       @rsvp = Parse::Query.new("RSVP").tap do |q|
-                      q.eq("userId", Parse::Pointer.new({
+                      q.eq("user", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
@@ -190,7 +190,7 @@ class UsersController < ApplicationController
       redirect_to '/jscheck'
     else
       @application = Parse::Query.new("Application").tap do |q|
-        q.eq("userId", Parse::Pointer.new({
+        q.eq("user", Parse::Pointer.new({
           "className" => "_User",
           "objectId"  => cookies.signed[:spartaUser][0]
         }))
@@ -205,7 +205,7 @@ class UsersController < ApplicationController
       end
 
       @rsvp = Parse::Query.new("RSVP").tap do |q|
-                      q.eq("userId", Parse::Pointer.new({
+                      q.eq("user", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
@@ -220,7 +220,7 @@ class UsersController < ApplicationController
       fields = [ "university", "restrictions", "otherRestrictions", "tshirt", "citizen"]
 
       rsvp = Parse::Query.new("RSVP").tap do |q|
-                      q.eq("userId", Parse::Pointer.new({
+                      q.eq("user", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
@@ -255,7 +255,7 @@ class UsersController < ApplicationController
 
         rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
         user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-        rsvp.array_add_relation("userId", user.pointer)
+        rsvp["user"] = user.pointer
         rsvp.save
 
         redirect_to '/rsvp'  and return
@@ -318,7 +318,7 @@ class UsersController < ApplicationController
 
       rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      rsvp.array_add_relation("userId", user.pointer)
+      rsvp["user"] = user.pointer
       rsvp.save
 
       redirect_to '/rsvp'  and return
@@ -353,7 +353,7 @@ class UsersController < ApplicationController
                                 "universityStudent", "mlh"]
 
       application = Parse::Query.new("Application").tap do |q|
-                      q.eq("userId", Parse::Pointer.new({
+                      q.eq("user", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
@@ -393,7 +393,7 @@ class UsersController < ApplicationController
 
       application = Parse::Query.new("Application").eq("objectId", response["objectId"]).get.first
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      application.array_add_relation("userId", user.pointer)
+      application["user"] = user.pointer
       application.save
 
       redirect_to '/application'  and return
