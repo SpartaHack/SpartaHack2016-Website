@@ -215,11 +215,20 @@ $("#example").jQCloud(word_array, {
 // RSVP
 $('.ios-switch').click(function() { 
     var checked = $('.ios-switch').prop('checked');
-    if (checked)
-        document.querySelector('#rsvp-status').innerHTML = 'true';
-    else
-        document.querySelector('#rsvp-status').innerHTML = 'false';
+    if (checked) {
+      document.querySelector('#rsvp-status').innerHTML = 'true';
+      document.querySelector('#rsvp').style.display = "inline";
+      document.querySelector('#app-stats').style.display = "none";
+      }
+    else {
+      document.querySelector('#rsvp-status').innerHTML = 'false';
+      document.querySelector('#rsvp').style.display = "none";
+      document.querySelector('#app-stats').style.display = "inline";
+    }
 });
+
+
+
 
 
 

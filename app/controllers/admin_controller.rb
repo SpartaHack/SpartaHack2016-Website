@@ -390,13 +390,23 @@ class AdminController < ApplicationController
 
 
     # RSVP setup
-    @rsvp_status = true;
     # Gets all rsvps
     @rsvps = Parse::Query.new("RSVP").tap do |q|
       q.limit = 1000
     end.get
 
-    @rsvps_count = @rsvps.length
+    # attending
+    @rsvp_attending_count=0;
+
+    @rsvps.each do |rsvp|
+      # Count attending
+      if rsvp["attending"] == true
+        @rsvp_attending_count += 1
+      end
+    end
+
+
+
 
   end
 
