@@ -107,7 +107,6 @@ function update2() {
 
 function StartConfetti() {
     timer = true;
-    console.log("-----------")
     particles = [];
     for (var i = 0; i < mp; i++) {
         particles.push({
@@ -131,7 +130,6 @@ function StartConfetti() {
 }
 function StopConfetti() {
     timer = false;
-    console.log("nnnnnnn")
     clearTimeout(confettiHandler);
     confettiHandler = setInterval(draw2, 15);
 }
@@ -160,14 +158,12 @@ $(document).ready(function () {
     confetti_switch = 0;
     $( ".box" ).click(function() {
       if (confetti_switch == 1) {
-        console.log("hel")
         if (timer) {
             StopConfetti();
             $('.box').hover(StartConfetti,StopConfetti);
             confetti_switch = 0;
         }
       } else {
-        console.log("leh")
         if (!timer) {
             StartConfetti();
             
