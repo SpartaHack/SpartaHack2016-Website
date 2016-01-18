@@ -70,33 +70,85 @@
 
             <nav>
                 <ul class="mobile">
-                    <li><a href="/" class="anchorLink">HOME</a></li>
+                  <li><a href="/" class="anchorLink">HOME</a></li>
             <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
-                    <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
+                  <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
             <% end %>
-                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
+                  <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
                 </ul>
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
 
-        <div class="wrap-main">
+        <div class="wrap-dash">
             <% if @application['status'] == 'Accepted' %>
               <canvas id="canvas"></canvas>
             <% end %> 
 
             <section id="user-status">
                 <div class="row">
-                    <div class="inner-wrap">
-                        <div id="status-text">Status</div>
-                        <div class="box" ><%= @application['status'].blank? ? "Application Received" : @application['status'] %></div>
-                    </div>               
+                  <div class="inner-wrap">
+                      <div id="status-text">Status</div>
+                      <div class="box" ><%= @application['status'].blank? ? "Application Received" : @application['status'] %></div>
+                  </div>               
                 </div>
             </section>
- 
+            
+            <section class="travel">
+              <div class="row">
+                <div class="title-wrap">
+                  <h1 class="section-head">Travel Information</h1>
+                  <div class="hline"></div>
+                </div>
+                <p>View our <a href="">travel policy</a> for information about buses and any other travel related questions. This is your eligibility:</p>
+
+                      
+                      
+                                   
+                                    
+                <table id="cap-table">
+                  <colgroup>
+                     <col span="1" style="width: 143px;">
+                     <col span="1" style="width: 60px;">
+                  </colgroup>
+                  <tr>
+                    <td class="right-align">Individual Travel Cap: </td>
+                    <td class="cap">
+                      <strong>
+                      <% if !@travel.blank? %>
+                        $ <%= (@travel["distance"]* 0.10).to_i > 400 ? 400 : (@travel["distance"]* 0.10).to_i %>
+                      <% else %>
+                        TBD
+                      <% end %>
+                      </strong>
+                    </td> 
+                  </tr>
+              <% if !@travel.blank? %>    
+                <% if @travel["distance"] < 600 && @travel["distance"] > 0 %>
+                  <tr>
+                    <td class="right-align">Car Pool with 1 other: </td>
+                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.20).to_i > 400 ? 400 : (@travel["distance"]* 0.20).to_i %></strong></td> 
+                  </tr>
+                  <tr>
+                    <td class="right-align">2 other: </td>
+                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.25).to_i > 400 ? 400 : (@travel["distance"]* 0.25).to_i %></strong> </td> 
+                  </tr>
+                  <tr>
+                    <td class="right-align">3 other: </td>
+                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.30).to_i > 400 ? 400 : (@travel["distance"]* 0.30).to_i %></strong></td> 
+                  </tr>
+                <% end %>
+              <% end %>
+                </table>
+              </div>
+            </section>
+            
             <section class="topic-selection">
                 <div class="row">
-                  <h1 class="section-head">Topics</h1> 
+                  <div class="title-wrap">
+                    <h1 class="section-head">Topics</h1>
+                    <div class="hline"></div>
+                  </div>
                   <div class="hvr-underline-from-center full">
                     <a href="/application"><div class="dash-link">My Application</div></a>
                   </div>
@@ -117,8 +169,10 @@
                 </div>
             </section>
 
-            <%= render partial: "pages/index_footer" %>
+            
         </div>
+        
+        <%= render partial: "pages/index_footer" %>
 
        
 

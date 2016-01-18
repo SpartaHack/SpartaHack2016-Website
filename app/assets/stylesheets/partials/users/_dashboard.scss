@@ -7,20 +7,13 @@ body {
   padding-top: 0px;
 }
 
-.wrap-main {
+.wrap-dash {
   margin-top: 0px;
   padding-top: 0px;
-  position: relative;
   background-color: transparent;
-  min-height: 100vh;
+  min-height: calc(100vh - 59px);
   @media (max-width: 350px) {
     min-height: 130vh;
-  }
-
-  .footer {
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
   }
 
   #canvas {
@@ -29,6 +22,96 @@ body {
     left:0;
     z-index: -1;
   } 
+
+  .section-head {
+      margin-top: 0px;
+      margin-bottom: 10px;
+      color: $mutedText;
+      text-align: left;
+      font-size: 150%;
+      @media (max-width: 550px) {
+        font-size: 130%;
+      }
+  }
+
+  .title-wrap {
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+  }
+
+  .travel {
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    margin-bottom: 50px;
+    
+    p {
+      font-family: ubuntu;
+      font-weight: 100;
+      font-size: 15px;
+      color: $cream;
+      -webkit-appearance: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: underline;
+      font-family: ubuntu;
+      font-weight: 100;
+      font-size: 15px;
+      -webkit-appearance: none;
+      color: $mutedText;
+      -webkit-font-smoothing: antialiased;
+
+      &:visited {
+        color: $mutedText;
+      }
+      
+      &:hover {
+        -webkit-transition: all .3s ease-in-out;
+        -moz-transition: all .3s ease-in-out;
+        -o-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out;
+        opacity: .7;
+      }
+    }
+    
+    .row {
+      width: 87%;
+      @media (min-width: 550px) {
+        width: 530px;
+      }
+    }
+
+    #cap-table {
+      margin-left: -3px;
+      width: 215px;
+    }
+
+    .right-align {
+      text-align: right;
+      font-family: ubuntu;
+      font-weight: 100;
+      font-size: 15px;
+      color: $cream;
+      -webkit-appearance: none;
+      -webkit-font-smoothing: antialiased;
+
+    }
+
+    .cap {
+      padding-left: 10px;
+      color: $mutedText;
+      font-family: ubuntu;
+      font-size: 15px;
+    }
+
+  }
 
   #user-status {
     display: flex;
@@ -122,7 +205,10 @@ body {
   }
 
   .topic-selection{
-
+    @media (max-height: 700px) {
+        margin-bottom: 50px;
+    }
+    
     @media (max-width: 550px) {
         margin-top: 30px;
     }
@@ -140,12 +226,6 @@ body {
       @media (min-width: 550px) {
         width: 530px;
       }
-    }
-
-    .section-head {
-      margin-top: 0px;
- 
-      margin-bottom: 10px;
     }
 
     .dash-link {

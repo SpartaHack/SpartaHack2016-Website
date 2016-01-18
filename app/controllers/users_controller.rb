@@ -179,6 +179,12 @@ class UsersController < ApplicationController
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
               end.get.first
+
+      if !@rsvp.blank?
+        @travel = Parse::Query.new("Travel").tap do |q|
+                        q.eq("university", @rsvp['university'])
+                end.get.first
+      end
       
       render layout: false
     end
