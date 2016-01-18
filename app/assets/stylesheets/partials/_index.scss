@@ -56,10 +56,3 @@ a {
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
 }
-
-input:required {
-    box-shadow:none;
-}
-input:invalid {
-    box-shadow:0 0 0px red;
-}
