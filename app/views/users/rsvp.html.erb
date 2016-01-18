@@ -103,7 +103,7 @@
       </div>
     <% end %>
     
-    <div class="wrap-main">
+    <div id="wrap-rsvp">
       <section id="rsvp" >
         <div class="row">
 
@@ -148,7 +148,7 @@
               <%= select_tag "tshirt", options_for_select(["","Unisex XS", "Unisex Small", "Unisex Medium", "Unisex Large", "Unisex XL", "Unisex XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
             </div>
 
-            <div id="upload-resume-wrap" class="add-margin-top add-margin-bottom" style="display:none">
+            <div id="upload-resume-wrap" class="add-margin-top" style="display:none">
               
               <div class="thumbnail">         
                 <%= image_tag "resume-upload.svg", alt: "Resume Upload", :id => "resume_prev" %>
@@ -182,8 +182,9 @@
         
       </section>
 
-      <%= render partial: "pages/index_footer" %>
     </div>
+
+    <%= render partial: "pages/index_footer" %>
 
     <%= javascript_include_tag "progressbar.min" %>
     <%= javascript_include_tag "vivus.min" %>
