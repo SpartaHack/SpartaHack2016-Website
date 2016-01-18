@@ -94,6 +94,7 @@
                 </div>
             </section>
             
+          <% if !@rsvp.blank? && @rsvp['attending'] == true %>
             <section class="travel">
               <div class="row">
                 <div class="title-wrap">
@@ -102,10 +103,6 @@
                 </div>
                 <p>View our <a href="">travel policy</a> for information about buses and any other travel related questions. This is your eligibility:</p>
 
-                      
-                      
-                                   
-                                    
                 <table id="cap-table">
                   <colgroup>
                      <col span="1" style="width: 143px;">
@@ -142,6 +139,7 @@
                 </table>
               </div>
             </section>
+          <% end %>
             
             <section class="topic-selection">
                 <div class="row">
