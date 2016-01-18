@@ -123,15 +123,15 @@
               <% if !@travel.blank? %>    
                 <% if @travel["distance"] < 600 && @travel["distance"] > 0 %>
                   <tr>
-                    <td class="right-align">Car Pool with 1 other: </td>
+                    <td class="right-align">Carpool with 1 other: </td>
                     <td class="cap"><strong>$ <%= (@travel["distance"]* 0.20).to_i > 400 ? 400 : (@travel["distance"]* 0.20).to_i %></strong></td> 
                   </tr>
                   <tr>
-                    <td class="right-align">2 other: </td>
+                    <td class="right-align">2 others: </td>
                     <td class="cap"><strong>$ <%= (@travel["distance"]* 0.25).to_i > 400 ? 400 : (@travel["distance"]* 0.25).to_i %></strong> </td> 
                   </tr>
                   <tr>
-                    <td class="right-align">3 other: </td>
+                    <td class="right-align">3 others: </td>
                     <td class="cap"><strong>$ <%= (@travel["distance"]* 0.30).to_i > 400 ? 400 : (@travel["distance"]* 0.30).to_i %></strong></td> 
                   </tr>
                 <% end %>
