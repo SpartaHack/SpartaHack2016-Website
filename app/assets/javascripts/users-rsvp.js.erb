@@ -141,6 +141,10 @@ $(document).ready(function() {
 				});
 			}
 			if (restriction_switch == 1) {
+				values = $('#restrictions').val();
+				if (values && values.indexOf("other") > -1) {
+	    			$('.other-restriction').slideDown({duration:'slow'});
+	    		}
 				$("#tshirt-wrap").slideDown('slow');
 				line.animate(0.6, function() {
 					checkProgress();
