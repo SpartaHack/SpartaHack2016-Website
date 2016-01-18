@@ -1,7 +1,26 @@
 @import 'partials/colorScheme';
 @import 'partials/fonts';
 
-.wrap-main {
+#wrap-admin {
+
+  .title-wrap {
+
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+    
+    .section-head {
+        margin-bottom: 10px;
+        color: $mutedText;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
+    }
+  }
 
   #popup-wrapper {
     position: fixed;

@@ -67,7 +67,7 @@
             </nav>
         </div>
 
-        <div class="wrap-main">
+        <div id="wrap-admin">
             <div id="popup-wrapper">
             </div>
 
@@ -84,9 +84,11 @@
                 </div>
             </section>
 			<section class="topic-selection">
-				<div class="row">
-					<h1 class="section-head">Admin Topics</h1> 
-
+				<div class="row"> 
+                    <div class="title-wrap">
+                        <h1 class="section-head">Admin Topics</h1>
+                        <div class="hline"></div>
+                    </div>
                 <% if @user['role'] == "admin" || @user['role'] == "sponsorship" %>
 					<div class="hvr-underline-from-center full">
 						<a href="/admin/sponsorship"><div class="topic" >Sponsorship</div></a>
@@ -106,7 +108,10 @@
 				</div>
 
                 <div class="row">
-                    <h1 class="section-head" id="attendee">Attendee Topics</h1> 
+                    <div class="title-wrap">
+                        <h1 class="section-head">Attendee Topics</h1>
+                        <div class="hline"></div>
+                    </div>
 
                     <div class="hvr-underline-from-center full">
                         <a href="/application"><div class="topic" >Application</div></a>
