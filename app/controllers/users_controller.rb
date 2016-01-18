@@ -176,7 +176,8 @@ class UsersController < ApplicationController
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
               end.get.first
-
+      @user = cookies.signed[:spartaUser][0]
+      
       render layout: false
     end
   end
@@ -217,7 +218,7 @@ class UsersController < ApplicationController
 
   def saversvp
     begin
-      fields = [ "university", "restrictions", "otherRestrictions", "tshirt", "citizen"]
+      fields = [ "university", "restrictions", "otherRestrictions", "tshirt"]
 
       rsvp = Parse::Query.new("RSVP").tap do |q|
                       q.eq("user", Parse::Pointer.new({
@@ -228,7 +229,7 @@ class UsersController < ApplicationController
 
       if !user_rsvp_params["attending"].blank? && user_rsvp_params["attending"] == "true"
         if user_rsvp_params["university"].blank? || user_rsvp_params["restrictions"].blank? || 
-          user_rsvp_params["tshirt"].blank? || user_rsvp_params["citizen"].blank?
+          user_rsvp_params["tshirt"].blank?
 
           flash[:popup] = "You must fill in all the required fields."
           redirect_to '/rsvp'  and return
@@ -249,7 +250,6 @@ class UsersController < ApplicationController
 
         rsvp['attending'] = false
         rsvp['resume'] = nil
-        rsvp['taxForm'] = nil
         
         response = rsvp.save
 
@@ -262,7 +262,7 @@ class UsersController < ApplicationController
       end
 
       if !rsvp
-        if user_rsvp_params["resume"].blank? || user_rsvp_params["taxForm"].blank?
+        if user_rsvp_params["resume"].blank?
           flash[:popup] = "You must fill in all the required fields."
           redirect_to '/rsvp'  and return
         end
@@ -276,13 +276,7 @@ class UsersController < ApplicationController
       end
 
       fields.each do |field|        
-        if field == "citizen" && user_rsvp_params[field] == "true"
-          rsvp[field] = true
-        elsif field == "citizen" && user_rsvp_params[field] == "false"
-          rsvp[field] = false
-        else
-          rsvp[field] = user_rsvp_params[field]
-        end
+        rsvp[field] = user_rsvp_params[field]
       end
       rsvp['attending'] = true
 
@@ -298,20 +292,6 @@ class UsersController < ApplicationController
         parse_resume.save
 
         rsvp['resume'] = parse_resume
-      end
-
-      if !user_rsvp_params['taxForm'].blank?
-        #save tax form to parse
-        tax_form = user_rsvp_params['taxForm']
-        parse_tax_form = Parse::File.new({
-          :body => tax_form.read,
-          :local_filename => tax_form.original_filename.gsub(" ", "%20").gsub("[", "").gsub("]", ""),
-          :content_type => tax_form.content_type,
-          :content_length => tax_form.tempfile().size().to_s
-        })
-        parse_tax_form.save
-
-        rsvp['taxForm'] = parse_tax_form
       end
 
       response = rsvp.save
@@ -433,8 +413,7 @@ class UsersController < ApplicationController
     end
 
     def user_rsvp_params
-      params.permit(:attending, :university, {:restrictions => []}, :otherRestrictions, :tshirt, :resume, 
-                                :citizen, :taxForm)     
+      params.permit(:attending, :university, {:restrictions => []}, :otherRestrictions, :tshirt, :resume)     
     end
 
     def user_login_params

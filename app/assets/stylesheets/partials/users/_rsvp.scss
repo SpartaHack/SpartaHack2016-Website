@@ -290,27 +290,6 @@
     }
   }  
 
-  #citizen-wrap {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    justify-content: space-around;
-    -webkit-justify-content: space-around;
-    border: solid 1px $mutedOutline;
-    font-weight: 100;
-    font-weight: lighter;
-    -webkit-font-smoothing: antialiased;
-    height: 100px;
-    @media (max-width: 550px) {
-      height: 130px;
-    }
-  }
-
-  #not-citizen + label, #yes-citizen + label  {
-    margin-left: 30px;
-  }
-
   .university, #gradeLevel-wrap { 
     margin-bottom: 0px;
     @media (min-width: 550px) {

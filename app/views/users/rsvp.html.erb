@@ -159,29 +159,6 @@
 
             </div> 
 
-            <div class="add-margin-top add-margin-bottom" id="citizen-wrap" style="display:none">
-                  <input type="radio" name="citizen" id="yes-citizen" value="true" >
-                  <label for="yes-citizen">I am a U.S. Citizen or permanent resident (does not include temporary/student visas)</label>               
-                  <input type="radio" name="citizen" id="not-citizen" value="false" >
-                  <label for="not-citizen">I am NOT a U.S. Citizen or permanent resident</label>
-            </div>
-
-            <div id="form-text-wrap" class="add-margin-top" style="display:none">
-              <div>
-                  <div id='form-text'>
-                  </div>
-              </div>              
-            </div>
-            
-            <div id="upload-form-wrap" class="add-margin-top" style="display:none">
-              <div class="thumbnail">         
-                <%= image_tag "w9-upload.svg", alt: "Tax Form Upload", :id => "form_prev" %>
-                <div class="form-group-file">               
-                  <%= file_field_tag 'taxForm', :accept => "application/pdf" %>
-                </div>
-              </div> 
-            </div>
-
             <div class="progress add-margin-bottom" id="progress"></div> 
 
             <div class="hvr-underline-from-center full" id="save-rsvp" style="display:none">
@@ -194,8 +171,6 @@
               <div class="question" id="q3"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Dietary Restrictions</div>
               <div class="question" id="q4"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;T-Shirt Size</div>
               <div class="question" id="q5"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Resume</div>
-              <div class="question" id="q6"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Citizenship</div>
-              <div class="question" id="q7"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Tax Form</div>
               <div class="question" id="qsubmit" style="display:none;"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;<%= @rsvp ? "Update" : "Submit" %></div>
             </div> 
 
@@ -231,13 +206,6 @@
           $("#restrictions").val(<%= raw @rsvp['restrictions'] %>).trigger("change");
           $("#tshirt").val("<%= @rsvp['tshirt'].html_safe %>").trigger("change");
           $('#resume_prev').attr('src', "<%= asset_path('resume-uploaded.svg').to_s %>")
-          $('#form_prev').attr('src', "<%= asset_path('taxform-uploaded.svg')%>")
-
-          <% if @rsvp['citizen'] %>
-            document.getElementById("yes-citizen").checked = true;
-          <% else %>
-            document.getElementById("not-citizen").checked = true;
-          <% end %>
 
           $('#question-progress-wrap').show(function() {
             $('#q1').html('<i class="fa fa-check"></i> Attending');
@@ -245,8 +213,6 @@
             $('#q3').html('<i class="fa fa-check"></i> Dietary Restrictions');
             $('#q4').html('<i class="fa fa-check"></i> T-Shirt Size');
             $('#q5').html('<i class="fa fa-check"></i> Resume');
-            $('#q6').html('<i class="fa fa-check"></i> Citizenship');
-            $('#q7').html('<i class="fa fa-check"></i> Tax Form');
             $("#qsubmit").slideDown('slow');
           });
           $('#travel-wrap').show();
@@ -257,23 +223,7 @@
           <% end %>
 
           $("#tshirt-wrap").show();
-          $("#citizen-wrap").show();
           $("#upload-resume-wrap").show();
-
-          <% if @rsvp["citizen"] == "true" %>
-            $('#form-text').html("In order to issue prizes and travel reimbursement, we must have tax documents \
-              on file for each attendee. Please download this <a href='https://www.irs.gov/pub/irs-pdf/fw9.pdf' \
-              download='w9-form.pdf'>W9 form</a> and either fill it out digitally OR print, complete, and scan it. \
-              Upload the completed document below.");
-          <% else %>
-            $('#form-text').html("In order to issue prizes and travel reimbursement, we must have tax documents \
-              on file for each attendee. Please download this <a href='https://www.irs.gov/pub/irs-pdf/fw8ben.pdf' \
-              download='w8-form.pdf'>W8 form</a> and either fill it out digitally OR print, complete, and scan it. \
-              Upload the completed document below.");
-          <% end %>
-
-          $("#form-text-wrap").show();
-          $("#upload-form-wrap").show();
           $("#save-rsvp").fadeIn('slow', function() {
             line.animate(1.0);
           });
@@ -283,8 +233,6 @@
           restriction_switch = 1;
           tshirt_switch = 1;
           resume_switch = 1;
-          citizen_switch = 1;
-          form_switch = 1;
         <% else %>
           document.getElementById("not-attending").checked = true;
           yes_switch = 0 ;
@@ -292,8 +240,6 @@
           restriction_switch = 0;
           tshirt_switch = 0;
           resume_switch = 0;
-          citizen_switch = 0;
-          form_switch = 0;
 
           $("#save-rsvp").fadeIn('slow', function() {
             line.animate(1.0);
@@ -306,8 +252,6 @@
         restriction_switch = 0;
         tshirt_switch = 0;
         resume_switch = 0;
-        citizen_switch = 0;
-        form_switch = 0;
         $('#question-progress-wrap').show();
 
       <% end %>
