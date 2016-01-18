@@ -94,11 +94,14 @@
 
         <div class="wrap-code">
 	         <section id="user-code">
-	         	<h1 class="section-head">Check-in Code</h1>
+                <div class="title-wrap">
+                  <h1 class="section-head">Check-in Code</h1>
+                  <div class="hline"></div>
+                </div>
             	<div class="inner-wrap">
                 	<img id="barcode">  
                 </div>           
-                <div><%= @user%></div> 
+                <div style="margin-top:5px; color:white"><%= @user%></div> 
 	        </section>
         	
             <%= render partial: "pages/index_footer" %>

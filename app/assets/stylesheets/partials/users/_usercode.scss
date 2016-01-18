@@ -18,10 +18,28 @@ body {
   -webkit-justify-content: center;
   align-items: flex-start;
 
-  .section-head{
-    @media (max-width: 560px) {
-      margin: 100px 0px 25px 0px;
-      font-size: 180%;
+  .title-wrap {
+    margin: 100px 0px 25px 0px;
+    width: 350px;
+    @media (max-width: 550px) {
+      width: 320px;
+    }
+
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+    
+    .section-head {
+        margin-top: 0px;
+        margin-bottom: 10px;
+        color: $mutedText;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
     }
   }
 
@@ -84,6 +102,9 @@ body {
       background-color: white;
       width: 350px;
       height: 140px;
+      @media (max-width: 350px) {
+        width: 320px;
+      }
     }
 
   }

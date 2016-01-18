@@ -52,7 +52,10 @@
         <section class="wrap-main">
             <section id="projects">
                 <div class="wrap">
-                    <h1 class="section-head">Winners 2015</h1>
+                    <div class="title-wrap">
+                        <h1 class="section-head">2015 Winners</h1>
+                        <div class="hline"></div>
+                    </div>
                     <div class="column">
                         <article>
                             <a href="http://devpost.com/software/drivethruplus">
@@ -128,8 +131,11 @@
                 </p>
 
             </section>
+            <%= render partial: "pages/index_footer" %>
         </section>
         <%= javascript_include_tag "jquery-1.11.3.min" %>
+        <%= javascript_include_tag "headroom.min" %>
+        <%= javascript_include_tag "jquery-headroom" %>
         <%= javascript_include_tag "index.js" %>
 
         <script>

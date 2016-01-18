@@ -107,7 +107,10 @@
       <section id="rsvp" >
         <div class="row">
 
-          <h1 class="section-head">RSVP</h1> 
+          <div class="title-wrap">
+            <h1 class="section-head">RSVP</h1>
+            <div class="hline"></div>
+          </div>
           <%= form_tag("/rsvp", method: "post", id: "send_rsvp", class: "send_rsvp", :remote => true, :authenticity_token => true, multipart: true) do %>
 
             <div class="add-margin-top" id="attending-wrap">

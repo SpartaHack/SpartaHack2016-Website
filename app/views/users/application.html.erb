@@ -111,7 +111,10 @@
       <section id="app" >
         <div class="row">
       
-          <h1 class="section-head">APPLICATION</h1> 
+          <div class="title-wrap">
+            <h1 class="section-head">Application</h1>
+            <div class="hline"></div>
+          </div> 
           <% if @application.blank? || @application['status'].blank? %>
             <h4 id="required">* fields are required.</h4>
           <% else %>
@@ -256,7 +259,7 @@
 
       </section>
     </div>
-
+    <style type="text/css">.footer {margin-top: 50px}</style>
     <%= render partial: "pages/index_footer" %>
 
     <%= javascript_include_tag "jquery-1.11.3.min" %>

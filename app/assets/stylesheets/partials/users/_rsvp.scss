@@ -11,6 +11,24 @@
     margin-top: 30px;
   }
 
+  .title-wrap {
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+    
+    .section-head {
+        margin-bottom: 10px;
+        color: $mutedText;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
+    }
+  }
+
   #send_rsvp {
     margin-bottom: 100px;
   }

@@ -89,6 +89,10 @@ class PagesController < ApplicationController
     
 	end
 
+  def winners2015
+    render layout: false
+  end
+
   def hangout
     redirect_to 'https://talkgadget.google.com/hangouts/_/xkodgcsi4uolmwx2z3siz7q2yya'
   end
