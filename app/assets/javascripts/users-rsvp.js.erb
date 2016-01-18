@@ -132,11 +132,11 @@ $(document).ready(function() {
 			if (university_switch == 1) {
 				$('#travel-wrap').slideDown('slow');
 				$('.restrictions').slideDown('slow');
-				line.animate(0.2, function() {
+				line.animate(0.4, function() {
 					checkProgress();
 				});
 			} else {
-				line.animate(0.4, function() {
+				line.animate(0.2, function() {
 					checkProgress();
 				});
 			}
@@ -234,7 +234,7 @@ $(document).ready(function() {
 			
 			tshirt_switch = 1;
 			$('#q4').html('<i class="fa fa-check"></i> T-Shirt Size');
-
+			incrementProgress();
 			$("#upload-resume-wrap").slideDown('slow');
 		}
 
