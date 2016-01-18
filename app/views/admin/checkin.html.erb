@@ -14,7 +14,7 @@
         <meta property="og:site_name" content="SpartaHack" />
         <meta property="og:url" content="https://www.spartahack.com" />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the qrcode page for the admin dashboard." />
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the checkin page for the admin dashboard." />
         <meta property="og:image" content="<%=image_url("facebook.png")%>" />
 
 
@@ -78,10 +78,14 @@
         </div>
 
 		<section id="sponsorship">
-			<div class="row">
+			<div class="row" style="width: 640px !important">
 				<h1 class="section-head">Scan Code</h1> 
-                <input type="file" capture="camera" accept="image/*" id="takePictureField">
-                <div style="color:white" id="yourcode"></div>
+
+                <div id="result_strip">
+                    <ul class="thumbnails"></ul>
+                    <ul class="collector"></ul>
+                </div>
+                <div id="interactive" class="viewport"></div>
 			</div>
         </section>
 
@@ -89,7 +93,17 @@
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %> 
 
-        <%= javascript_include_tag "qrcode-decode" %>
-        <%= javascript_include_tag "qrcode" %>
+        <%= javascript_include_tag "quagga.min" %>
+        <%= javascript_include_tag "admin-checkin" %>
     </body>
 </html>   
+
+
+
+
+
+
+
+
+
+

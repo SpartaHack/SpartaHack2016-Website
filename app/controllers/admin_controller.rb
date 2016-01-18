@@ -450,6 +450,10 @@ class AdminController < ApplicationController
 
   end
 
+  def checkin
+    render layout: false
+  end
+
   private
 
   def add_sponsor_params
