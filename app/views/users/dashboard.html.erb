@@ -23,7 +23,6 @@
         <title>SpartaHack</title>
 
         <%= favicon_link_tag 'favicon.png' %>
-        <%= stylesheet_link_tag "select2-modified" %>
         <%= stylesheet_link_tag "users" %>
     </head>
     <body>
@@ -98,7 +97,6 @@
             <section class="topic-selection">
                 <div class="row">
                   <h1 class="section-head">Topics</h1> 
-
                   <div class="hvr-underline-from-center full">
                     <a href="/application"><div class="dash-link">My Application</div></a>
                   </div>
@@ -108,6 +106,13 @@
                     <a href="/rsvp"><div class="dash-link"><%= @rsvp ? "My RSVP" : "Complete RSVP" %></div></a>
                   </div>
                 <% end %>
+
+               <% if !@rsvp.blank? && @rsvp['attending'] == true %>
+                  <div class="hvr-underline-from-center full">
+                    <a href="/mycode"><div class="dash-link">My Check-in Code</div></a>
+                  </div>
+                <% end %>
+
 
                 </div>
             </section>

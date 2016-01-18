@@ -92,7 +92,9 @@ class UsersController < ApplicationController
             }))
           end.get.first
 
-          if @application
+          if !session[:return_to].blank?
+            redirect_to session.delete(:return_to)
+          elsif @application
             redirect_to '/dashboard' and return
           else
             redirect_to '/application' and return
@@ -153,6 +155,7 @@ class UsersController < ApplicationController
   def dashboard
     if !cookies.signed[:spartaUser]
       flash[:error] = "Please sign in."
+      session[:return_to] = '/dashboard'
       redirect_to '/login'
     elsif !@javascript_active
       session[:return_to] = '/dashboard'
@@ -176,7 +179,6 @@ class UsersController < ApplicationController
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
               end.get.first
-      @user = cookies.signed[:spartaUser][0]
       
       render layout: false
     end
@@ -185,6 +187,7 @@ class UsersController < ApplicationController
   def rsvp
     if !cookies.signed[:spartaUser]
       flash[:error] = "Please sign in."
+      session[:return_to] = '/rsvp'
       redirect_to '/login'
     elsif !@javascript_active
       session[:return_to] = '/rsvp'
@@ -305,11 +308,36 @@ class UsersController < ApplicationController
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
       puts e.message
-      puts "sdfasdf------------------------------------------------------------------"
       redirect_to '/rsvp'
     end
 
   end  
+
+  def usercode
+    if !cookies.signed[:spartaUser]
+      flash[:error] = "Please sign in."
+      session[:return_to] = '/mycode'
+      redirect_to '/login'
+    elsif !@javascript_active
+      session[:return_to] = '/mycode'
+      redirect_to '/jscheck'
+    else
+
+      @rsvp = Parse::Query.new("RSVP").tap do |q|
+                      q.eq("user", Parse::Pointer.new({
+                        "className" => "_User",
+                        "objectId"  => cookies.signed[:spartaUser][0]
+                      }))
+              end.get.first
+
+      if @rsvp.blank? || @rsvp["attending"] == false
+        redirect_to "/dashboard"      
+      else
+        @user = cookies.signed[:spartaUser][0]
+        render layout: false
+      end
+    end
+  end
 
   def verify
     user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
