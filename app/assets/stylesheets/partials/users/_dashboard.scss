@@ -13,6 +13,24 @@ body {
   background-color: transparent;
   min-height: calc(100vh - 59px);
 
+  #bus-1 {
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
+
+  s {
+    color: $mutedText;
+  }
+
+  #bus-2 {
+    margin-top: 0px;
+    margin-bottom: 15px;
+  }
+
+  #travel-policy {
+    margin-bottom: 0px;
+  }
+
   #canvas {
     position: absolute;
     top:0;

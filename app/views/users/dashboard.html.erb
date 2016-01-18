@@ -101,7 +101,17 @@
                   <h1 class="section-head">Travel Information</h1>
                   <div class="hline"></div>
                 </div>
-                <p>View our <a href="">travel policy</a> for information about buses and any other travel related questions. This is your eligibility:</p>
+              <% if @bus_1 > 0 %>
+                <p id="bus-1">UIUC/Purdue bus: <a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-illinois-at-urbana-champaign-purdue-university-bus-tickets-20855252622">Reserve a spot</a> (<%= @bus_1 %> Remaining)</p>
+              <% else %>
+                <s><p id="bus-1">UIUC/Purdue bus: <a href="">Reserve a spot</a> (<%= @bus_1 %> Remaining)</p></s>
+              <% end %>
+
+              <% if @bus_2 > 0 %>
+                <p id="bus-2">Waterloo/Oakland/UM bus: <a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-waterloo-oakland-university-university-of-michigan-ann-arbor-bus-tickets-20868841266">Reserve a spot</a> (<%= @bus_2 %> Remaining)</p>
+              <% else %>
+                <s><p id="bus-2">Waterloo/Oakland/UM bus: <a href="">Reserve a spot</a> (<%= @bus_2 %> Remaining)</p></s>
+              <% end %>
 
                 <table id="cap-table">
                   <colgroup>
@@ -137,6 +147,7 @@
                 <% end %>
               <% end %>
                 </table>
+                <p id="travel-policy">View our <a href="">travel policy</a> for more detailed information on travel reimbursment and buses</p>
               </div>
             </section>
           <% end %>

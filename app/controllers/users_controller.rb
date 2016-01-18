@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 	require 'parse_config'
   require 'monkey_patch'
+  require "open-uri"
+  require 'json'
 
   def register
     if cookies.signed[:spartaUser]
@@ -184,6 +186,13 @@ class UsersController < ApplicationController
         @travel = Parse::Query.new("Travel").tap do |q|
                         q.eq("university", @rsvp['university'])
                 end.get.first
+
+        data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+        @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
+        
+        data_bus_2 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_2"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+        @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
+
       end
       
       render layout: false
