@@ -70,7 +70,7 @@ $(document).ready(function() {
 				            <submit id="send_decision_email" class="topic">Send Application Decisions</submit>\
 				        </div>\
 				        <div class="hvr-underline-from-center full">\
-				            <submit id="send_empty_app_email" class="topic">Send Empty Appplication Notice</submit>\
+				            <submit id="send_empty_app_email" class="topic">Send Empty Application Notice</submit>\
 				        </div>\
 			        </div>\
 		        </section>\
