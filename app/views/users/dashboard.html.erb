@@ -102,15 +102,19 @@
                   <div class="hline"></div>
                 </div>
               <% if @bus_1 > 0 %>
-                <p id="bus-1">UIUC/Purdue bus: <a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-illinois-at-urbana-champaign-purdue-university-bus-tickets-20855252622">Reserve a spot</a> (<%= @bus_1 %> Remaining)</p>
+                <p id="bus-1">UIUC/Purdue bus: <br class="rwd-break"><a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-illinois-at-urbana-champaign-purdue-university-bus-tickets-20855252622">Reserve a spot</a> (<%= @bus_1 %> left)</p>
+              <% elsif @bus_1 == 0 && @bus_1_waitlist > 0  %>
+                <p id="bus-1">UIUC/Purdue bus: <br class="rwd-break-wait"><a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-illinois-at-urbana-champaign-purdue-university-bus-tickets-20855252622">Sign up for the waiting list</a> (<%= @bus_1_waitlist %> left)</p>
               <% else %>
-                <s><p id="bus-1">UIUC/Purdue bus: <a href="">Reserve a spot</a> (<%= @bus_1 %> Remaining)</p></s>
+                <s><p id="bus-1">UIUC/Purdue bus: <br class="rwd-break"><a href="">Reserve a spot</a> (<%= @bus_1 %> left)</p></s>
               <% end %>
 
               <% if @bus_2 > 0 %>
-                <p id="bus-2">Waterloo/Oakland/UM bus: <a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-waterloo-oakland-university-university-of-michigan-ann-arbor-bus-tickets-20868841266">Reserve a spot</a> (<%= @bus_2 %> Remaining)</p>
+                <p id="bus-2">Waterloo/Oakland bus: <br class="rwd-break"><a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-waterloo-oakland-university-bus-tickets-20868841266">Reserve a spot</a> (<%= @bus_2 %> left)</p>
+              <% elsif @bus_2 == 0 && @bus_2_waitlist > 0  %>
+                <p id="bus-2">Waterloo/Oakland bus: <br class="rwd-break-wait"><a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-waterloo-oakland-university-bus-tickets-20868841266">Sign up for the waiting list</a> (<%= @bus_2_waitlist %> left)</p>
               <% else %>
-                <s><p id="bus-2">Waterloo/Oakland/UM bus: <a href="">Reserve a spot</a> (<%= @bus_2 %> Remaining)</p></s>
+                <s><p id="bus-2">Waterloo/Oakland/bus: <br class="rwd-break"><a href="">Reserve a spot</a> (<%= @bus_2 %> left)</p></s>
               <% end %>
 
                 <table id="cap-table">
@@ -147,7 +151,7 @@
                 <% end %>
               <% end %>
                 </table>
-                <p id="travel-policy">View our <a href="">travel policy</a> for more detailed information on travel reimbursment and buses</p>
+                <p id="travel-policy">For more details view our <a target="_blank" href="">travel policy</a>.</p>
               </div>
             </section>
           <% end %>
@@ -158,18 +162,18 @@
                     <h1 class="section-head">Topics</h1>
                     <div class="hline"></div>
                   </div>
-                  <div class="hvr-underline-from-center full">
+                  <div class="hvr-underline-from-left full">
                     <a href="/application"><div class="dash-link">My Application</div></a>
                   </div>
 
                 <% if @application['status'] == 'Accepted'%>
-                  <div class="hvr-underline-from-center full">
+                  <div class="hvr-underline-from-left full">
                     <a href="/rsvp"><div class="dash-link"><%= @rsvp ? "My RSVP" : "Complete RSVP" %></div></a>
                   </div>
                 <% end %>
 
                <% if !@rsvp.blank? && @rsvp['attending'] == true %>
-                  <div class="hvr-underline-from-center full">
+                  <div class="hvr-underline-from-left full">
                     <a href="/mycode"><div class="dash-link">My Check-in Code</div></a>
                   </div>
                 <% end %>

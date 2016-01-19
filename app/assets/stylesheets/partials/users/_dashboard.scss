@@ -22,8 +22,16 @@ body {
     color: $mutedText;
   }
 
+  @media screen and (min-width: 360px){
+   .rwd-break { display: none; }
+  }
+
+  @media screen and (min-width: 457px){
+   .rwd-break-wait { display: none; }
+  }
+
   #bus-2 {
-    margin-top: 0px;
+    margin-top: 5px;
     margin-bottom: 15px;
   }
 
@@ -245,7 +253,7 @@ body {
 
     .dash-link {
       background: none;
-      text-align: center;
+      text-align: left;
       border: solid 1px $mutedOutline;
       color: $cream;
       font-weight: 100;
@@ -258,8 +266,9 @@ body {
       display: -webkit-flex;
       align-items: center;
       -webkit-align-items: center;
-      justify-content: center;
-      -webkit-justify-content: center;
+      justify-content: flex-start;
+      -webkit-justify-content: flex-start;
+      padding-left: 15px;
     } 
 
     a {
