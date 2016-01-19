@@ -441,6 +441,13 @@ class AdminController < ApplicationController
 
       @users = Parse::Query.new("_User").tap do |q|
         q.value_not_in("email", users_with_apps)
+        q.limit = 1000
+      end.get
+
+      @users += Parse::Query.new("_User").tap do |q|
+        q.value_not_in("email", users_with_apps)
+        q.limit = 1000
+        q.skip = 1000
       end.get
 
       @users.each do |user|
