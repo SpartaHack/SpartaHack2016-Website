@@ -444,7 +444,20 @@ class AdminController < ApplicationController
       end.get
 
       @users.each do |user|
-          UserMailer.notify_of_empty_app(user['email']).deliver_now
+          @emailed = Parse::Query.new("EmailFlags").tap do |q|
+            q.eq("user", Parse::Pointer.new({
+              "className" => "_User",
+              "objectId"  => user["objectId"]
+            }))
+          end.get
+
+          if @emailed.blank?
+            UserMailer.notify_of_empty_app(user['email']).deliver_now
+            emailFlags = Parse::Object.new("EmailFlags")
+            emailFlags["firstEmptyApp"] = true
+            emailFlags["user"] = user.pointer
+            emailFlags.save
+          end
       end
     end
 
