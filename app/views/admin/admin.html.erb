@@ -90,21 +90,18 @@
                         <div class="hline"></div>
                     </div>
                 <% if @user['role'] == "admin" || @user['role'] == "sponsorship" %>
-					<div class="hvr-underline-from-center full">
+					<div class="hvr-underline-from-left full">
 						<a href="/admin/sponsorship"><div class="topic" >Sponsorship</div></a>
 					</div>
                 <% end %>
                 <% if @user['role'] == "admin" %>
-                    <div class="hvr-underline-from-center full" id="users">
+                    <div class="hvr-underline-from-left full" id="users">
                         <a href=""><div class="topic" >Users</div></a>
                     </div>
                 <% end %>
-                    <div class="hvr-underline-from-center full">
+                    <div class="hvr-underline-from-left full">
                         <a href="/admin/statistics"><div class="topic" >Statistics</div></a>
                     </div>
-<!--                     <div class="hvr-underline-from-center full">
-                        <a href="/admin/qrcode"><div class="topic" >QR Codes</div></a>
-                    </div> -->
 				</div>
 
                 <div class="row">
@@ -113,13 +110,13 @@
                         <div class="hline"></div>
                     </div>
 
-                    <div class="hvr-underline-from-center full">
+                    <div class="hvr-underline-from-left full">
                         <a href="/application"><div class="topic" >Application</div></a>
                     </div>
-                    <div class="hvr-underline-from-center full">
+                    <div class="hvr-underline-from-left full">
                         <a href="/dashboard"><div class="topic" >Dashboard</div></a>
                     </div>
-                    <div class="hvr-underline-from-center full">
+                    <div class="hvr-underline-from-left full">
                         <a href="/rsvp"><div class="topic" >RSVP</div></a>
                     </div>
                 </div>

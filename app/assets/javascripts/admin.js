@@ -50,12 +50,15 @@ $(document).ready(function() {
 		$('#popup-wrapper').html('\
 			<section class="topic-selection">\
 				<div class="row">\
-			        <div class="hvr-underline-from-center full">\
-			            <submit id="send_email" class="topic">Email Users</submit>\
-			        </div>\
-                    <div class="hvr-underline-from-center full">\
+                    <div class="hvr-underline-from-left full">\
                         <a href="/admin/users/applications"><div class="topic" >Applications</div></a>\
                     </div>\
+                    <div class="hvr-underline-from-left full">\
+                        <a href="/admin/users/checkin"><div class="topic" >Check-in Attendees</div></a>\
+                    </div>\
+			        <div class="hvr-underline-from-left full">\
+			            <submit id="send_email" class="topic">Email Users</submit>\
+			        </div>\
 		        </div>\
 	        </section>\
 		');
@@ -66,10 +69,10 @@ $(document).ready(function() {
 			$('#popup-wrapper').html('\
 				<section class="topic-selection">\
 					<div class="row">\
-				        <div class="hvr-underline-from-center full">\
+				        <div class="hvr-underline-from-left full">\
 				            <submit id="send_decision_email" class="topic">Send Application Decisions</submit>\
 				        </div>\
-				        <div class="hvr-underline-from-center full">\
+				        <div class="hvr-underline-from-left full">\
 				            <submit id="send_empty_app_email" class="topic">Send Empty Application Notice</submit>\
 				        </div>\
 			        </div>\
