@@ -230,3 +230,33 @@
   }
 }
 
+#popup-error-register {
+  position: fixed;
+  z-index: 9;
+  background-color: rgba(243, 70, 74, 1);
+  border: 1px solid $mutedOutline;
+  border-radius: 1px;
+  overflow-y: hidden;
+  color: black;
+  font-family: ubuntu;
+  font-size: 18px;
+  font-weight: 100;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  padding: 28px 0px;
+  width: 528px;
+  left: 0;
+  right: 0;
+  top: 60px;
+  margin: auto;
+
+  @media (max-width: 550px) {
+    width: 87%;
+
+  }
+  #sub-text {
+    margin-top: 3px;
+    font-size: 14px;
+  }
+}
