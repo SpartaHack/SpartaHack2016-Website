@@ -19,20 +19,59 @@ class AdminController < ApplicationController
     @users_total = Parse::Query.new("_User").tap do |q|
       q.limit = 1000
     end.get.length
+    
+    @apps = Parse::Query.new("Application").tap do |q|
+                    q.limit = 1000
+                    q.include = "user"
+                  end.get
+
+    @apps += Parse::Query.new("Application").tap do |q|
+                      q.limit = 1000
+                      q.include = "user"
+                      q.skip = 1000
+                    end.get
+
+    @new_decisions = 0
+
+    @apps.each do |app|
+      if app["emailStatus"].blank? && app["status"] == "Accepted"
+        @new_decisions += 1
+      end
+    end
+
+    @apps_total = @apps.length
 
     @users_total += Parse::Query.new("_User").tap do |q|
                       q.limit = 1000
                       q.skip = 1000
                     end.get.length
-    
-    @apps_total = Parse::Query.new("Application").tap do |q|
-      q.limit = 1000
-    end.get.length
 
-     @apps_total += Parse::Query.new("Application").tap do |q|
+    email_flags = Parse::Query.new("EmailFlags").tap do |q|
+                    q.limit = 1000
+                    q.include = "user"
+                  end.get
+
+    email_flags += Parse::Query.new("EmailFlags").tap do |q|
                       q.limit = 1000
+                      q.include = "user"
                       q.skip = 1000
-                    end.get.length
+                    end.get
+
+    flagged_users = []
+    email_flags.each do |flag|
+      flagged_users.push(flag['user']['email'])
+    end
+
+    @new_first_notice = 0
+    @empty_app_users = get_empty_app_users()
+
+    @empty_app_users.each do |empty_user|
+        if !flagged_users.include? empty_user['email']
+          @new_first_notice += 1
+        end
+    end
+
+    p @new_first_notice
 
     render layout: false
   end
@@ -152,8 +191,6 @@ class AdminController < ApplicationController
       q.skip = 1000
       q.limit = 1000
     end.get
-
-    pp @apps
 
     render layout: false
   end
@@ -428,37 +465,29 @@ class AdminController < ApplicationController
 
       end
     elsif email_params['type'] == "empty_app"
-      users_with_apps = []
       
-      @applications = Parse::Query.new("Application").tap do |q|
-        q.limit = 1000
-        q.include = "user"
-      end.get
 
-      @applications.each do |app|
-        users_with_apps.push(app["user"]['email'])
+      email_flags = Parse::Query.new("EmailFlags").tap do |q|
+                      q.limit = 1000
+                      q.include = "user"
+                    end.get
+
+      email_flags += Parse::Query.new("EmailFlags").tap do |q|
+                        q.limit = 1000
+                        q.include = "user"
+                        q.skip = 1000
+                      end.get
+
+      flagged_users = []
+      email_flags.each do |flag|
+        flagged_users.push(flag['user']['email'])
       end
 
-      @users = Parse::Query.new("_User").tap do |q|
-        q.value_not_in("email", users_with_apps)
-        q.limit = 1000
-      end.get
+      @new_first_notice = 0
+      @empty_app_users = get_empty_app_users()
 
-      @users += Parse::Query.new("_User").tap do |q|
-        q.value_not_in("email", users_with_apps)
-        q.limit = 1000
-        q.skip = 1000
-      end.get
-
-      @users.each do |user|
-          @emailed = Parse::Query.new("EmailFlags").tap do |q|
-            q.eq("user", Parse::Pointer.new({
-              "className" => "_User",
-              "objectId"  => user["objectId"]
-            }))
-          end.get
-
-          if @emailed.blank?
+      @empty_app_users.each do |empty_user|
+          if !flagged_users.include? empty_user['email']
             UserMailer.notify_of_empty_app(user['email']).deliver_now
             emailFlags = Parse::Object.new("EmailFlags")
             emailFlags["firstEmptyApp"] = true
@@ -466,6 +495,7 @@ class AdminController < ApplicationController
             emailFlags.save
           end
       end
+
     end
 
   end
@@ -495,5 +525,29 @@ class AdminController < ApplicationController
   def email_params
     params.permit(:object, :"type")
   end 
+
+  def get_empty_app_users
+    users_with_apps = []
+    
+    @applications = Parse::Query.new("Application").tap do |q|
+      q.limit = 1000
+      q.include = "user"
+    end.get
+
+    @applications.each do |app|
+      users_with_apps.push(app["user"]['email'])
+    end
+
+    @users = Parse::Query.new("_User").tap do |q|
+      q.value_not_in("email", users_with_apps)
+      q.limit = 1000
+    end.get
+
+    @users += Parse::Query.new("_User").tap do |q|
+      q.value_not_in("email", users_with_apps)
+      q.limit = 1000
+      q.skip = 1000
+    end.get
+  end
 
 end

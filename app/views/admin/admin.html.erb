@@ -124,6 +124,11 @@
 			</section>
         </div>
 
+        <%= javascript_tag do %>
+            new_decisions = '<%=@new_decisions%>';
+            new_first_notice = '<%=@new_first_notice%>';
+        <% end%>
+
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
