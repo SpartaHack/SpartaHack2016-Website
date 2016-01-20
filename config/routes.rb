@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   get 'register'  => 'users#register'
   get 'apply'  => 'users#register'
   post 'create' => 'users#create'
-  get 'verify' => 'users#verify'
   get 'login'  => 'users#login'
   get 'logout'  => 'users#logout'
   post 'auth'  => 'users#auth'

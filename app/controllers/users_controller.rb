@@ -7,42 +7,159 @@ class UsersController < ApplicationController
   def register
     if cookies.signed[:spartaUser]
       redirect_to '/login' and return
+    elsif !@javascript_active
+      session[:return_to] = '/register'
+      redirect_to '/jscheck'
     end
     render layout: false
   end
 
   #create a user and redirect them to application process
   def create
-    if user_apply_params['email'] == "" && user_apply_params['password'] == "" && user_apply_params['password_confirmation'] == ""
-        flash[:error] = "You cannot submit an empty application."
+    if user_app_params['email'].blank? || user_app_params['password'].blank? || user_app_params['password_confirmation'].blank? ||
+      user_app_params["firstName"].blank? || user_app_params["lastName"].blank? || user_app_params["gender"].blank? || 
+        user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? || 
+        user_app_params["universityStudent"].blank? || user_app_params["mlh"].blank?
+        flash[:popup] = "You must fill in all the required fields."
+        flash[:params] = user_app_params
         redirect_to '/register' and return
-    elsif user_apply_params['password'] != user_apply_params['password_confirmation']
-    	flash[:error] = "Passwords do not match"
+    elsif user_app_params['password'] != user_app_params['password_confirmation']
+      flash[:popup] = "Passwords do not match"
+      flash[:params] = user_app_params
       redirect_to '/register' and return
+
     else
-      if user_apply_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-        flash[:error] = "You must use a valid email."
+      if user_app_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+        flash[:popup] = "You must use a valid email."
+        flash[:params] = user_app_params
         redirect_to '/register' and return
       end
       begin
         apply = Parse::User.new({
-          :username => user_apply_params['email'],
-          :email => user_apply_params['email'],
-          :password => user_apply_params['password'],
+          :username => user_app_params['email'],
+          :email => user_app_params['email'],
+          :password => user_app_params['password'],
           :role => "attendee"
         })
         response = apply.save
         cookies.permanent.signed[:spartaUser] = { value: [response["objectId"], "attendee"] }
       rescue Parse::ParseProtocolError => e
         if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
-          flash[:error] = "Email is taken"
+          flash[:popup] = "Email is taken"
+          flash[:params] = user_app_params
           redirect_to '/register' and return
         end
         
       end
-      redirect_to '/application' and return
+
+      save()
     end
   end
+
+  def save
+
+    if user_app_params["firstName"].blank? || user_app_params["lastName"].blank? || user_app_params["gender"].blank? || 
+        user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? || 
+        user_app_params["universityStudent"].blank? || user_app_params["mlh"].blank?
+      flash[:popup] = "You must fill in all the required fields."
+      flash[:params] = user_app_params
+      redirect_to '/application'  and return
+    end
+
+    begin
+      fields = [ "firstName", "lastName", "gender", "birthday", "birthmonth", "birthyear", 
+                                "major", "gradeLevel", "whyAttend", "hackathons", 
+                                "github", "linkedIn", "website", "devPost", "coolLink", 
+                                "universityStudent", "mlh"]
+
+      application = Parse::Query.new("Application").tap do |q|
+                      q.eq("user", Parse::Pointer.new({
+                        "className" => "_User",
+                        "objectId"  => cookies.signed[:spartaUser][0]
+                      }))
+                    end.get.first
+      if !application
+        flash[:popup] = "Application successfully submitted."
+        flash[:sub] = "You may continue to edit your application."
+        application = Parse::Object.new("Application")
+      else 
+        flash[:popup] = "Application updated."
+        flash[:sub] = "You may continue to edit your application."
+      end
+
+      fields.each do |field|
+        if field == "universityStudent" && user_app_params["universityStudent"].to_bool == true
+          application["universityStudent"] = "true"
+          if user_app_params["otherUniversityConfirm"].to_bool == true
+            application["otherUniversityConfirm"] = "true"
+            application["otherUniversity"] = user_app_params["otherUniversity"]
+            application["university"] = nil
+          else
+            application["otherUniversityConfirm"] = "false"
+            application["university"] = user_app_params["university"]
+            application["otherUniversity"] = nil
+          end
+        elsif field == "universityStudent" && user_app_params["universityStudent"].to_bool == false
+          application["universityStudent"] = "false"
+          application["otherUniversityConfirm"] = "false"
+          application["university"] = nil
+          application["otherUniversity"] = nil 
+        else
+          application[field] = user_app_params[field]
+        end
+        
+      end
+      response = application.save
+
+      application = Parse::Query.new("Application").eq("objectId", response["objectId"]).get.first
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      application["user"] = user.pointer
+      application.save
+
+      redirect_to '/application'  and return
+    rescue Parse::ParseProtocolError => e
+      flash[:popup] =  e.message
+      flash[:params] = user_app_params
+      redirect_to '/register'
+    end
+
+  end    
+
+  def application
+    if !cookies.signed[:spartaUser]
+      flash[:error] = "Please sign up to create an application."
+      redirect_to '/register'
+    elsif !@javascript_active
+      session[:return_to] = '/application'
+      redirect_to '/jscheck'
+    else
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+
+      begin
+        @application = Parse::Query.new("Application").tap do |q|
+          q.eq("user", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => cookies.signed[:spartaUser][0]
+          }))
+        end.get.first
+
+        if @application
+          if @application["university"].blank? && @application["otherUniversity"].blank?
+            @application["universityStudent"] = false
+          else 
+            @application["universityStudent"] = true
+          end
+        end 
+
+        render layout: false
+      rescue Parse::ParseProtocolError => e
+        flash[:error] = e.message
+        redirect_to '/login'
+      end
+    end
+  end
+
+
 
   def login
     if cookies.signed[:spartaUser]
@@ -115,44 +232,6 @@ class UsersController < ApplicationController
 		end
 
   end  
-
-  def application
-    if !cookies.signed[:spartaUser]
-      flash[:error] = "Please sign up to create an application."
-      redirect_to '/register'
-    elsif !@javascript_active
-      session[:return_to] = '/application'
-      redirect_to '/jscheck'
-    else
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-
-      if user["emailVerified"] == false
-        redirect_to '/verify' and return
-      end
-
-      begin
-        @application = Parse::Query.new("Application").tap do |q|
-          q.eq("user", Parse::Pointer.new({
-            "className" => "_User",
-            "objectId"  => cookies.signed[:spartaUser][0]
-          }))
-        end.get.first
-
-        if @application
-          if @application["university"].blank? && @application["otherUniversity"].blank?
-            @application["universityStudent"] = false
-          else 
-            @application["universityStudent"] = true
-          end
-        end 
-
-        render layout: false
-      rescue Parse::ParseProtocolError => e
-        flash[:error] = e.message
-        redirect_to '/login'
-      end
-    end
-  end
 
   def dashboard
     if !cookies.signed[:spartaUser]
@@ -356,79 +435,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def verify
-    user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-    @email = user["email"]
-    render layout: false
-  end
-
-  def save
-
-    if user_app_params["firstName"].blank? || user_app_params["lastName"].blank? || user_app_params["gender"].blank? || 
-        user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? || 
-        user_app_params["universityStudent"].blank? || user_app_params["mlh"].blank?
-      flash[:popup] = "You must fill in all the required fields."
-      redirect_to '/application'  and return
-    end
-
-    begin
-      fields = [ "firstName", "lastName", "gender", "birthday", "birthmonth", "birthyear", 
-                                "major", "gradeLevel", "whyAttend", "hackathons", 
-                                "github", "linkedIn", "website", "devPost", "coolLink", 
-                                "universityStudent", "mlh"]
-
-      application = Parse::Query.new("Application").tap do |q|
-                      q.eq("user", Parse::Pointer.new({
-                        "className" => "_User",
-                        "objectId"  => cookies.signed[:spartaUser][0]
-                      }))
-                    end.get.first
-      if !application
-        flash[:popup] = "Application successfully submitted."
-        flash[:sub] = "You may continue to edit your application."
-        application = Parse::Object.new("Application")
-      else 
-        flash[:popup] = "Application updated."
-        flash[:sub] = "You may continue to edit your application."
-      end
-
-      fields.each do |field|
-        if field == "universityStudent" && user_app_params["universityStudent"].to_bool == true
-          application["universityStudent"] = "true"
-          if user_app_params["otherUniversityConfirm"].to_bool == true
-            application["otherUniversityConfirm"] = "true"
-            application["otherUniversity"] = user_app_params["otherUniversity"]
-            application["university"] = nil
-          else
-            application["otherUniversityConfirm"] = "false"
-            application["university"] = user_app_params["university"]
-            application["otherUniversity"] = nil
-          end
-        elsif field == "universityStudent" && user_app_params["universityStudent"].to_bool == false
-          application["universityStudent"] = "false"
-          application["otherUniversityConfirm"] = "false"
-          application["university"] = nil
-          application["otherUniversity"] = nil 
-        else
-          application[field] = user_app_params[field]
-        end
-        
-      end
-      response = application.save
-
-      application = Parse::Query.new("Application").eq("objectId", response["objectId"]).get.first
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      application["user"] = user.pointer
-      application.save
-
-      redirect_to '/application'  and return
-    rescue Parse::ParseProtocolError => e
-      flash[:error] =  e.message
-      redirect_to '/register'
-    end
-
-  end  
-
   def forgot
     render layout: false
   end  
@@ -446,13 +452,10 @@ class UsersController < ApplicationController
 
   private
 
-    def user_apply_params
-      params.permit(:email, :password, :password_confirmation)
-    end
-
     def user_app_params
-      params.permit(:firstName, :lastName, :gender, :birthday, :birthmonth, :birthyear, 
-                                  :university, :otherUniversityConfirm,:otherUniversity, {:major => []}, :gradeLevel, 
+      params.permit(:email, :password, :password_confirmation, :firstName, :lastName, :gender, :birthday, 
+                                  :birthmonth, :birthyear, :university, :otherUniversityConfirm,
+                                  :otherUniversity, {:major => []}, :gradeLevel, 
                                   :whyAttend, {:hackathons => []}, :github, :linkedIn, 
                                   :website, :devPost, :coolLink, :universityStudent, :mlh)     
     end

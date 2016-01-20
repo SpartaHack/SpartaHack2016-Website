@@ -85,7 +85,7 @@ function createSelects() {
 	  allowClear: true
 	});
 	$('#hackathons').select2({
-	  placeholder: "What other MLH hackathons have you attended?", 
+	  placeholder: "MLH hackathons you've attended", 
 	  multiple:true
 	});
 
@@ -151,7 +151,19 @@ $(document).ready(function() {
 	$('#save-app').click(function(e){
 		e.preventDefault();
 
-		if ($("#firstName").val().length == 0 || $("#lastName").val().length == 0) {
+		if ($("#email").val().length == 0 || $("#email").val().length == 0) {
+			$("#popup").html("Email is required.")
+			popUpBottom()
+		} else if (typeof password !== 'undefined' && password.value.length == 0) {
+			$("#popup").html("You must input a password.")
+			popUpBottom()
+		} else if (typeof password !== 'undefined' && password.value.length > 0 && password.value != confirm_password.value) {
+			$("#popup").html("Passwords do not match.")
+			popUpBottom()
+		} else if (typeof password !== 'undefined' && password.value.length < 8) {
+			$("#popup").html("Password is too short.")
+			popUpBottom()
+		} else if ($("#firstName").val().length == 0 || $("#lastName").val().length == 0) {
 			$("#popup").html("You must input your full name.")
 			popUpBottom()
 		} else 	if ($("#gender").val().length == 0 ) {

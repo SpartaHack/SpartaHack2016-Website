@@ -22,6 +22,18 @@
     }
   }
 
+  .new {
+    padding-right: 15px;
+  }
+
+  .seperation-wrapper {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    width: 100%;
+  }
+
   #popup-wrapper {
     position: fixed;
     display: none;

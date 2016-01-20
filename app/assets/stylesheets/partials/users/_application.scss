@@ -274,12 +274,6 @@
     } 
   }
 
-  #email {
-    @media (max-width: 550px) {
-      margin-bottom: 15px;
-    }
-  }
-
   input[type=text]:focus, textarea:focus, option:focus, select:focus, span:focus, span input:focus {
     border-color: rgba(128, 295, 219, 1) !important;
     box-shadow: 0 1px 1px rgba(128, 295, 219, 0.075) inset, 0 0 8px rgba(128, 295, 219, 0.6) !important;
