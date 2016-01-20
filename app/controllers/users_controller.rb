@@ -135,10 +135,6 @@ class UsersController < ApplicationController
     else
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
 
-      if user["emailVerified"] == false
-        redirect_to '/verify' and return
-      end
-
       begin
         @application = Parse::Query.new("Application").tap do |q|
           q.eq("user", Parse::Pointer.new({
@@ -437,12 +433,6 @@ class UsersController < ApplicationController
         render layout: false
       end
     end
-  end
-
-  def verify
-    user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-    @email = user["email"]
-    render layout: false
   end
 
   def forgot

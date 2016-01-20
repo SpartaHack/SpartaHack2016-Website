@@ -70,10 +70,20 @@ $(document).ready(function() {
 				<section class="topic-selection">\
 					<div class="row">\
 				        <div class="hvr-underline-from-left full">\
-				            <submit id="send_decision_email" class="topic">Send Application Decisions</submit>\
+				            <submit id="send_decision_email" class="topic">\
+				            	<div class="seperation-wrapper">\
+				            		<div>Send Application Decisions</div>\
+				            		<div class="new">('+ new_decisions + ' to send)</div>\
+				            	</div>\
+				            </submit>\
 				        </div>\
 				        <div class="hvr-underline-from-left full">\
-				            <submit id="send_empty_app_email" class="topic">Send Empty Application Notice</submit>\
+				            <submit id="send_empty_app_email" class="topic">\
+				            	<div class="seperation-wrapper">\
+				            		<div>Send Empty Application First Notice</div>\
+				            		<div class="new">('+ new_first_notice + ' to send)</div>\
+				            	</div>\
+				            </submit>\
 				        </div>\
 			        </div>\
 		        </section>\
