@@ -1,0 +1,213 @@
+function modelMatcher (params, data) {
+  data.parentText = data.parentText || "";
+
+  // Always return the object if there is nothing to compare
+  if ($.trim(params.term) === '') {
+    return data;
+  }
+
+  // Do a recursive check for options with children
+  if (data.children && data.children.length > 0) {
+    // Clone the data object if there are children
+    // This is required as we modify the object to remove any non-matches
+    var match = $.extend(true, {}, data);
+
+    // Check each child of the option
+    for (var c = data.children.length - 1; c >= 0; c--) {
+      var child = data.children[c];
+      child.parentText += data.parentText + " " + data.text;
+
+      var matches = modelMatcher(params, child);
+
+      // If there wasn't a match, remove the object in the array
+      if (matches == null) {
+        match.children.splice(c, 1);
+      }
+    }
+
+    // If any children matched, return the new object
+    if (match.children.length > 0) {
+      return match;
+    }
+
+    // If there were no matching children, check just the plain object
+    return modelMatcher(params, match);
+  }
+
+  // If the typed-in term matches the text of this term, or the text from any
+  // parent term, then it's a match.
+  var original = (data.parentText + ' ' + data.text).toUpperCase();
+  var term = params.term.toUpperCase();
+
+
+  // Check if the text contains the term
+  if (original.indexOf(term) > -1) {
+    return data;
+  }
+
+  // If it doesn't contain the term, don't return anything
+  return null;
+}
+
+
+function createSelects() {
+	$('#categories').select2({
+	  placeholder: "Categories you're comfortable with",
+	  closeOnSelect:false,
+	  allowClear: true,
+	  multiple: true
+	}).on("select2:close", checkProgress);
+
+	// hide old selection arrow;
+	$('b[role="presentation"]').hide();
+	$('.select2-selection__arrow').append('<i class="fa fa-angle-down"></i>');	
+	$('.select2-container--open').append('<i class="fa fa-angle-up"></i>');	
+}
+
+function popUpTop() {
+	$("#popup").css("top", "60px")
+	$("#popup").css("bottom", "")
+	$("#popup-wrapper").fadeIn("fast");
+}
+
+function popUpBottom() {
+	$("#popup").css("bottom", "170px");
+	$("#popup").css("top", "")
+	$("#popup-wrapper").fadeIn("fast");	
+}
+
+function toBottom() {
+	$('html, body').animate({scrollTop:$(document).height()}, 'slow');
+}
+
+
+function checkProgress() {
+	if (line.value() == 1.0) {
+		$("#qsubmit").fadeIn('slow');
+		$("#save-mentorship").fadeIn('slow');
+		toBottom;
+	} else {
+		$("#qsubmit").fadeOut('slow');
+		$("#save-mentorship").fadeOut('slow');
+	}
+}
+
+$(document).ready(function() {
+
+	createSelects();
+
+	$('#popup-wrapper').click(function(){
+		$('#popup-wrapper').fadeOut('fast');
+	});
+
+	$('#popup-error-wrapper').click(function(){
+		$('#popup-error-wrapper').fadeOut('fast');
+	});
+
+	$('#yes-mentoring').click(function(){
+		$('#question-progress-wrap').slideDown('slow');
+		$('#q1').html('<i class="fa fa-check"></i> Mentoring');
+
+		if (yes_switch == 0) {
+			yes_switch = 1;
+
+			if (categories_switch == 1) {
+				line.animate(1.0, function() {
+					checkProgress();
+				});
+			} else {
+				line.animate(0.5, function() {
+					checkProgress();
+				});
+			}
+		}
+
+		$("#save-mentorship").fadeOut('slow');
+		$('#categories-wrap').slideDown('slow');
+		
+		createSelects();
+	})
+
+	$('#not-mentoring').click(function(){
+		yes_switch = 0
+		$('#question-progress-wrap').slideUp('slow');
+		$('.categories').slideUp('slow');
+		$("#save-mentorship").fadeIn('slow', function() {
+			toBottom();
+			line.animate(1.0);
+
+		});
+
+		createSelects();
+	})
+
+	$('#categories').on('change', function() {
+		values = $('#categories').val();
+
+		if (values && categories_switch == 0) {
+			line.animate(line.value() + 0.5);
+			categories_switch = 1;
+			$('#q2').html('<i class="fa fa-check"></i> Categories');
+			$("#tshirt-wrap").slideDown('slow');
+		} else if (!values && categories_switch == 1) {
+    		categories_switch = 0;
+    		$('#q2').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Categories');
+    		line.value() > 0.0 ? line.animate(line.value() - 0.5, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+	    }
+
+	});
+
+	$('#registration-submit').click(function(){
+		$("#popup").html('<div id="loading"></div>')
+
+		$("#popup").css("bottom", "170px");
+		$("#popup").css("top", "")
+		$("#popup-wrapper").fadeIn("fast");	
+
+		new Vivus('loading', {duration: 100, file: <%= '"' + asset_path('logo-loading.svg') + '"' %>});
+	})
+
+});
+
+$(window).resize(function() {
+	createSelects();
+});
+
+if ($(window).width() < 775) {
+  $("#header").headroom({
+    "offset": 205,
+    "tolerance": 5,
+    "classes": {
+      "initial": "animated",
+      "pinned": "slideDown",
+      "unpinned": "slideUp"
+    }
+  });
+}
+
+$(function() {
+    var pull        = $('#pull');
+        menu        = $('.mobile');
+ 
+    $(pull).on('click', function(e) {
+        e.preventDefault();
+        menu.slideToggle();
+    });
+
+    $('.mobile li a').on('click', function(e) {
+        menu.slideToggle();
+    });
+
+});
+
+$(window).scroll(function() {$("#popup-wrapper").fadeOut('fast')});
+
+function confirmJavascript() {
+  $.ajax({
+    url: "/javascript/confirm",
+    context: document.body
+  });
+}
+
+confirmJavascript();
+setInterval(confirmJavascript, 10000); // invoke each 10 seconds

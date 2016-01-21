@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   post 'save' => 'users#save'
   resources :users
   
+  get 'mentorship/register' => 'mentorship#registration'
+  post 'mentorship/register' => 'mentorship#register'
+
   root :to => 'pages#index', :as => :index
   post 'subscribe' => 'pages#subscribe'
   get 'winners2015' => 'pages#winners2015'
