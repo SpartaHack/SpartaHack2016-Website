@@ -31,6 +31,13 @@
 
   #sponsor-wrap {
     width: 70%;
+    display: inherit;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center; 
+    -webkit-justify-content: center;
+    flex-direction: column;
+    -webkit-flex-direction: column;
     @media (max-width: 550px) {
       width: 100%;
     }
@@ -130,6 +137,10 @@
 
   justify-content: center;
   -webkit-justify-content: center;
+}
+
+#sub {
+  width: 70%;
 }
 
 .sub {
