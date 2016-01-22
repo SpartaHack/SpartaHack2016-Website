@@ -36,6 +36,8 @@ gem "font-awesome-rails"
 # word cloud for statistics
 gem "jqcloud-rails"
 
+gem "rsvg2"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
