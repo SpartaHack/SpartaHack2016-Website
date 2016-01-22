@@ -18,6 +18,16 @@ body {
     margin-bottom: 0px;
   }
 
+  #bus-2 {
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+
+  #bus-3 {
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+
   s {
     color: $mutedText;
   }
@@ -28,11 +38,6 @@ body {
 
   @media screen and (min-width: 457px){
    .rwd-break-wait { display: none; }
-  }
-
-  #bus-2 {
-    margin-top: 5px;
-    margin-bottom: 15px;
   }
 
   #travel-policy {

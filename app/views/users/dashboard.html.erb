@@ -117,6 +117,14 @@
                 <s><p id="bus-2">Waterloo/Oakland/bus: <br class="rwd-break"><a href="">Reserve a spot</a> (<%= @bus_2 %> left)</p></s>
               <% end %>
 
+              <% if @bus_3 > 0 %>
+                <p id="bus-3">U of M bus: <br class="rwd-break"><a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-michigan-bus-tickets-20964181431">Reserve a spot</a> (<%= @bus_3 %> left)</p>
+              <% elsif @bus_3 == 0 && @bus_3_waitlist > 0  %>
+                <p id="bus-3">U of M bus: <br class="rwd-break-wait"><a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-michigan-bus-tickets-20964181431">Sign up for the waiting list</a> (<%= @bus_3_waitlist %> left)</p>
+              <% else %>
+                <s><p id="bus-3">U of M bus: <br class="rwd-break"><a href="">Reserve a spot</a> (<%= @bus_3 %> left)</p></s>
+              <% end %>
+
                 <table id="cap-table">
                   <colgroup>
                      <col span="1" style="width: 143px;">
@@ -151,7 +159,7 @@
                 <% end %>
               <% end %>
                 </table>
-                <p id="travel-policy">For more details view our <a target="_blank" href="">travel policy</a>.</p>
+                <p id="travel-policy">For important details on reimbursement, view our <a target="_blank" href="">travel policy</a> <strong>before the event</strong>.</p>
               </div>
             </section>
           <% end %>

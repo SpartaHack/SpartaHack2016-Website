@@ -274,6 +274,10 @@ class UsersController < ApplicationController
         @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
         @bus_2_waitlist = data_bus_2["ticket_classes"][1]["quantity_total"] - data_bus_2["ticket_classes"][1]["quantity_sold"]
 
+        data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+        @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
+        @bus_3_waitlist = data_bus_3["ticket_classes"][1]["quantity_total"] - data_bus_3["ticket_classes"][1]["quantity_sold"]
+
       end
       
       render layout: false
