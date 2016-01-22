@@ -1,7 +1,38 @@
 @import 'partials/colorScheme';
 @import 'partials/fonts';
 
-.wrap-main {
+#wrap-admin {
+
+  .title-wrap {
+
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+    
+    .section-head {
+        margin-bottom: 10px;
+        color: $mutedText;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
+    }
+  }
+
+  .new {
+    padding-right: 15px;
+  }
+
+  .seperation-wrapper {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    width: 100%;
+  }
 
   #popup-wrapper {
     position: fixed;
@@ -50,8 +81,9 @@
     display: -webkit-flex;
     align-items: center;
     -webkit-align-items: center;
-    justify-content: center;
-    -webkit-justify-content: center;
+    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+    padding-left: 15px;
   } 
 
   .full {

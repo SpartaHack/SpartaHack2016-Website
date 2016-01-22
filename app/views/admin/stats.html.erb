@@ -82,226 +82,266 @@
                     <strong>
                         <%= @total_apps %> Applications <br>
                         <%= @uni_applicants.length %> Schools <br>
-                        <%= @rsvps_count %> RSVPs <br>
+                        <%= @rsvp_attending_count %> Attending <br>
+                        <!-- show rsvp false by default -->
                     </strong>
                 </p>
 
                 <div class="wrap">
 
                     <div class="row">
-                        <h1 class="section-head">Statistics</h1>
-                        <!-- show rsvp false by default -->
-                        <h4 class="center">RSVP:<strong><span id="rsvp-status">false</span></strong></h4>
                         <div class="center">
-                            <label><input type="checkbox" class="ios-switch bigswitch" unchecked /><div><div></div></div></label>
+                            <h1 class="section-head">Statistics</h1>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <h4 class="center">Percentage RSVP'd</h4>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: <%= number_to_percentage(100*(@rsvps_count/@total_apps),precision: 1) %>;"></div>
+                    <div class="row center">
+                        <div>
+                            Show RSVPs: <strong><span id="rsvp-status">false</span></strong>
+                            <div style="justify-content: flex-end;">
+                                <label><input type="checkbox" class="ios-switch bigswitch" unchecked /><div><div></div></div></label>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="column">
-                        <article>
-                            <div>
-                                <h2 class="center">Gender</h2>
-                                <div class="horizontal-bar-graph" id="gender-graph"></div>
-                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                                <thead>
-                                    <tr>
-                                        <th>Gender</th>
-                                        <th>Count</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <% @gender_count.each_with_index do |gender_count, index|  %>
-                                    <tr>
-                                        <td><%= gender_count[0] %></td>
-                                        <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @total_apps ),precision: 1) %></td>
-                                    </tr>
-                                    <% end %>
-                                </tbody>
-
-                            </table>
+                    <div id="rsvp" style="display: none;">
+                        <div class="row">
+                            <h4 class="center">Percentage RSVP'd</h4>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: <%= number_to_percentage(100*(@rsvp_attending_count/@total_apps),precision: 1) %>;"></div>
                             </div>
-                        </article>
+                        </div>
 
-                        <article>
-                            <h2 class="center">Age</h2>
-                            <div id="age-graph">
-                            </div>
-                            <div class="row">
-                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                                    <thead>
-                                        <tr>
-                                            <th>Age</th>
-                                            <th>Count</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <% @age_count.each_with_index do |age_count, index|  %>
-                                            <% if age_count[0] < 18 %>
-                                                <tr>
-                                                    <td class="minorhighlight"><%= age_count[0].to_i %>
-                                                    </td>
-                                                    <td class="minorhighlight"><%= age_count[1] %>
-                                                        or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
-                                                    </td>
-                                                </tr>
-                                            <% else %>
-                                                <tr>
-                                                    <td><%= age_count[0].to_i %></td>
-                                                    <td><%= age_count[1] %>
-                                                        or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
-                                                    </td>
-                                                </tr>
-                                            <% end %>
-                                        <% end %>
-                                    </tbody>
-
-                                </table>
-                                <p class="">
-                                    There are <strong><%= @minor_count %> minors</strong>, which make up <strong><%= number_to_percentage(100*@minor_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
-                                    <br>There are <strong><%= @adult_count %> adults</strong>, which make up <strong><%= number_to_percentage(100*@adult_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
-                                </p>
-                            </div>
-                        </article>
-                    </div>
-
-                    <div class="column">
-                        <article>
-                            <h2 class="center">Universities</h2>
-                            <div class="horizontal-bar-graph" id="university-graph"></div>
-                            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                                <thead>
-                                    <tr>
-                                        <th>University</th>
-                                        <th>Count</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <% @uni_applicants[0..20].each_with_index do |uni_applicants, index|  %>
-                                    <tr>
-                                        <td><%= uni_applicants[0] %></td>
-                                        <td><%= uni_applicants[1] %> or <%= number_to_percentage(100*(uni_applicants[1].to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></td>
-                                    </tr>
-                                    <% end %>
-                                </tbody>
-                            </table>
-                            <div class="tablefooter">
-                                *top 20
-                            </div>
-                            <p>There are <strong><%= @international_count %> international students</strong>, which make up <strong><%= number_to_percentage(100*(@international_count.to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></strong> of applicants.</p>
-
-                        </article>
-
-                        <article>
-                            <h2 class="center">Majors</h2>
-                            <div class="horizontal-bar-graph" id="major-graph"></div>
-                            <div class="row">
-                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                                    <thead>
-                                        <tr>
-                                            <th>Major</th>
-                                            <th>Count</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        <% @major_count.each_with_index do |major_count, index|  %>
-                                        <tr>
-                                            <td><%= major_count[0] %></td>
-                                            <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @total_apps, precision: 1) %></td>
-                                        </tr>
-                                        <% end %>
-                                    </tbody>
-
-                                </table>
-                            </div>
-
-                        </article>
-                    </div>
-
-                    <h2 class="center">Grade Level</h2>
-                    <div class="column">
-                        <article>
-                            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                                <thead>
-                                    <tr>
-                                        <th>Grade</th>
-                                        <th>Percent</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% @uni_grade_count.each_with_index do |uni_grade_count, index|  %>
+                        <div class="row">
+                            <div class="column">
+                                <article>
+                                    <h2 class="center">Attending</h2>
+                                    <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                        <thead>
                                             <tr>
-                                                <td><%= uni_grade_count[0] %></td>
-                                                <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @uni_grade_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                                                <th>Yes</th>
+                                                <th>No</th>
+                                                <th>No Response</th>
                                             </tr>
-                                    <% end %>
-                                </tbody>
-                            </table>
-                        </article>
+                                        </thead>
 
-                        <article>
-                            <div class="horizontal-bar-graph" id="grade-graph"></div>
-                        </article>
-                    </div>
+                                        <tbody>
+                                            <tr>
+                                                <td><%= @rsvp_attending_count %> or <%= number_to_percentage(100*(@rsvp_attending_count.to_f / @total_apps ),precision: 1) %></td>
+                                                <td><%= @rsvps.length - @rsvp_attending_count %> or <%= number_to_percentage(100*( (@rsvps.length - @rsvp_attending_count ) / @total_apps ),precision: 1) %></td>
+                                                <td><%= @total_apps - @rsvps.length %></td>
+                                            </tr>
+                                        </tbody>
 
-                    <br>
+                                    </table>
+                                </article>
 
-                    <h2 class="center">Number of Hackathons Attended</h2>
-                    <div class="column">
-                        <article>
-                            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                                <thead>
-                                    <tr>
-                                        <th>Number</th>
-                                        <th>Frequency</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <% @hackathons_count.each_with_index do |hackathons_count, index|  %>
-                                        <tr>
-                                            <td><%= hackathons_count[0] %></td>
-                                            <td><%= hackathons_count[1] %> or <%= number_to_percentage(100*hackathons_count[1].to_f / @hackathons_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
-                                        </tr>
-                                    <% end %>
-                                </tbody>
-                            </table>
-                            <p>The most popular Hackathon was <strong><%= @hackathons_attended[0][0] %></strong>, listed in <strong><%= @hackathons_attended[0][1] %></strong> applications.</p> 
-                        </article>
-
-                        <article>
-                            <div class="horizontal-bar-graph" id="hackathon-graph"></div>
-                        </article>
-                    </div>
-
-                    <div class="row">
-                        <br><br><br><br>
-                        <!-- Random reason to attend -->
-                        <p><%= @random_reason[0] %></p>
-                        <p>-<%= @random_reason[1] %> <%= @random_reason[2] %></p>
-                    </div>
-
-                    <div class="row wordmap">
-                        <br><br><br><br><br><br><br>
-                        <div class="center">
-                            <div id="example" style="width: 800px; height: 400px;"></div>
+                            </div>
                         </div>
-                        <br><br><br><br><br><br><br>
                     </div>
 
-                    <div class="row">
-                        <h2 class="center">Daily Number of Applications</h2>
-                        <div class="center" id="applications-graph">
+
+                    <div id="app-stats">
+
+                        <div class="column">
+                            <article>
+                                <div>
+                                    <h2 class="center">Gender</h2>
+                                    <div class="horizontal-bar-graph" id="gender-graph"></div>
+                                    <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                    <thead>
+                                        <tr>
+                                            <th>Gender</th>
+                                            <th>Count</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% @gender_count.each_with_index do |gender_count, index|  %>
+                                        <tr>
+                                            <td><%= gender_count[0] %></td>
+                                            <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @total_apps ),precision: 1) %></td>
+                                        </tr>
+                                        <% end %>
+                                    </tbody>
+
+                                </table>
+                                </div>
+                            </article>
+
+                            <article>
+                                <h2 class="center">Age</h2>
+                                <div id="age-graph">
+                                </div>
+                                <div class="row">
+                                    <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>Age</th>
+                                                <th>Count</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <% @age_count.each_with_index do |age_count, index|  %>
+                                                <% if age_count[0] < 18 %>
+                                                    <tr>
+                                                        <td class="minorhighlight"><%= age_count[0].to_i %>
+                                                        </td>
+                                                        <td class="minorhighlight"><%= age_count[1] %>
+                                                            or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
+                                                        </td>
+                                                    </tr>
+                                                <% else %>
+                                                    <tr>
+                                                        <td><%= age_count[0].to_i %></td>
+                                                        <td><%= age_count[1] %>
+                                                            or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
+                                                        </td>
+                                                    </tr>
+                                                <% end %>
+                                            <% end %>
+                                        </tbody>
+
+                                    </table>
+                                    <p class="">
+                                        There are <strong><%= @minor_count %> minors</strong>, which make up <strong><%= number_to_percentage(100*@minor_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
+                                        <br>There are <strong><%= @adult_count %> adults</strong>, which make up <strong><%= number_to_percentage(100*@adult_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
+                                    </p>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="column">
+                            <article>
+                                <h2 class="center">Universities</h2>
+                                <div class="horizontal-bar-graph" id="university-graph"></div>
+                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                    <thead>
+                                        <tr>
+                                            <th>University</th>
+                                            <th>Count</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% @uni_applicants[0..20].each_with_index do |uni_applicants, index|  %>
+                                        <tr>
+                                            <td><%= uni_applicants[0] %></td>
+                                            <td><%= uni_applicants[1] %> or <%= number_to_percentage(100*(uni_applicants[1].to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></td>
+                                        </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                                <div class="tablefooter">
+                                    *top 20
+                                </div>
+                                <p>There are <strong><%= @international_count %> international students</strong>, which make up <strong><%= number_to_percentage(100*(@international_count.to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></strong> of applicants.</p>
+
+                            </article>
+
+                            <article>
+                                <h2 class="center">Majors</h2>
+                                <div class="horizontal-bar-graph" id="major-graph"></div>
+                                <div class="row">
+                                    <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>Major</th>
+                                                <th>Count</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <% @major_count.each_with_index do |major_count, index|  %>
+                                            <tr>
+                                                <td><%= major_count[0] %></td>
+                                                <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @total_apps, precision: 1) %></td>
+                                            </tr>
+                                            <% end %>
+                                        </tbody>
+
+                                    </table>
+                                </div>
+
+                            </article>
+                        </div>
+
+                        <h2 class="center">Grade Level</h2>
+                        <div class="column">
+                            <article>
+                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                    <thead>
+                                        <tr>
+                                            <th>Grade</th>
+                                            <th>Percent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% @uni_grade_count.each_with_index do |uni_grade_count, index|  %>
+                                                <tr>
+                                                    <td><%= uni_grade_count[0] %></td>
+                                                    <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @uni_grade_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                                                </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                            </article>
+
+                            <article>
+                                <div class="horizontal-bar-graph" id="grade-graph"></div>
+                            </article>
+                        </div>
+
+                        <br>
+
+                        <h2 class="center">Number of Hackathons Attended</h2>
+                        <div class="column">
+                            <article>
+                                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                                    <thead>
+                                        <tr>
+                                            <th>Number</th>
+                                            <th>Frequency</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% @hackathons_count.each_with_index do |hackathons_count, index|  %>
+                                            <tr>
+                                                <td><%= hackathons_count[0] %></td>
+                                                <td><%= hackathons_count[1] %> or <%= number_to_percentage(100*hackathons_count[1].to_f / @hackathons_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                                            </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                                <p>The most popular Hackathon was <strong><%= @hackathons_attended[0][0] %></strong>, listed in <strong><%= @hackathons_attended[0][1] %></strong> applications.</p> 
+                            </article>
+
+                            <article>
+                                <div class="horizontal-bar-graph" id="hackathon-graph"></div>
+                            </article>
+                        </div>
+
+                        <div class="row">
+                            <br><br><br><br>
+                            <!-- Random reason to attend -->
+                            <p><%= @random_reason[0] %></p>
+                            <p>-<%= @random_reason[1] %> <%= @random_reason[2] %></p>
+                        </div>
+
+                        <div class="row wordmap">
+                            <br><br><br><br><br><br><br>
+                            <div class="center">
+                                <div id="example" style="width: 800px; height: 400px;"></div>
+                            </div>
+                            <br><br><br><br><br><br><br>
+                        </div>
+
+                        <div class="row">
+                            <h2 class="center">Daily Number of Applications</h2>
+                            <div class="center" id="applications-graph">
+                            </div>
                         </div>
                     </div>
 

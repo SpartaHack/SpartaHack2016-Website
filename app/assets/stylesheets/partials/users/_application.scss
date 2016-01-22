@@ -7,6 +7,25 @@
     margin-top: 30px;
   }
 
+  .title-wrap {
+    margin-bottom: 50px;
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+    
+    .section-head {
+        margin-bottom: 10px;
+        color: $mutedText;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
+    }
+  }
+
   display: flex;
   display: -webkit-flex;
   align-items: center;
@@ -45,7 +64,7 @@
   }
   
   #required {
-    text-align: center;
+    text-align: left;
     margin-top: -20px;
     font-family: ubuntu;
     -webkit-font-smoothing: antialiased;
@@ -253,12 +272,6 @@
       width: 160px;
       margin-bottom: 0px;
     } 
-  }
-
-  #email {
-    @media (max-width: 550px) {
-      margin-bottom: 15px;
-    }
   }
 
   input[type=text]:focus, textarea:focus, option:focus, select:focus, span:focus, span input:focus {

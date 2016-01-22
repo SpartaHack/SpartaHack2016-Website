@@ -1,4 +1,4 @@
-// SpartaStats
+ // SpartaStats
 
 // Stats palette
 // $statsOrange: #FFCE80;
@@ -200,26 +200,40 @@ hackathonGraph.draw();
 var word_array = [
       ];
 
-
-
 var data_common_words = [$('.data_common_words').data('temp')][0].slice(12,82);
-for(i=0;i<70;i++)
-{
-    word_array[i] = {text: data_common_words[i][0], weight: data_common_words[i][1]}
-}
 
-$("#example").jQCloud(word_array, {
-  removeOverflowing: false
-});
+// Check if there are no words -- like on dev :P
+if (data_common_words.length == 0) {
+  console.log("bruh");
+  data_common_words = ["I really want to attend SpartaHack because it sounds awesome!!! This is a default reason for attending SpartaHack."];
+} else {
+  for(i=0;i<70;i++)
+  {
+      word_array[i] = {text: data_common_words[i][0], weight: data_common_words[i][1]}
+  }
+
+  $("#example").jQCloud(word_array, {
+    removeOverflowing: false
+  });
+}
 
 // RSVP
 $('.ios-switch').click(function() { 
     var checked = $('.ios-switch').prop('checked');
-    if (checked)
-        document.querySelector('#rsvp-status').innerHTML = 'true';
-    else
-        document.querySelector('#rsvp-status').innerHTML = 'false';
+    if (checked) {
+      document.querySelector('#rsvp-status').innerHTML = 'true';
+      document.querySelector('#rsvp').style.display = "inline";
+      document.querySelector('#app-stats').style.display = "none";
+      }
+    else {
+      document.querySelector('#rsvp-status').innerHTML = 'false';
+      document.querySelector('#rsvp').style.display = "none";
+      document.querySelector('#app-stats').style.display = "inline";
+    }
 });
+
+
+
 
 
 

@@ -1,0 +1,208 @@
+@import 'partials/colorScheme';
+@import 'partials/fonts';
+
+#checkin{
+ @media (max-width: 550px) {
+    margin-top: 30px;
+  }
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  -webkit-justify-content: space-around;
+  color: $cream;
+  font-family: ubuntu; 
+  height: 100%;
+
+  .title-wrap {
+    margin-bottom: 15px;
+
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+    
+    .section-head {
+        margin-bottom: 10px;
+        color: $mutedText;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
+    }
+  }
+
+  .row {
+    width: 87%;
+    margin-top: 50px;
+    padding: 0px 15px;
+    @media (min-width: 550px) {
+      width: 530px;
+      margin-top: 50px;
+    }
+  }
+
+  ::-webkit-input-placeholder {
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 14px;
+    padding-right: 1em;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-size: 14px;
+    font-weight: lighter;
+    padding-right: 1em;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19 */
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 14px;
+    padding-right: 1em;
+  }
+
+  :-ms-input-placeholder { 
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 14px;
+    padding-right: 1em;
+  }
+
+  #interactive {
+    position: relative;
+
+    .drawingBuffer {
+      position: absolute;
+      top: 0px;
+    }
+  }
+
+  #outer-wrap {
+
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    padding-bottom: 0px;
+    margin-right: 15px;
+    @media (max-width: 550px) {
+      padding-bottom: 0px;
+      margin-right: 0px;
+
+    }
+  }
+
+  .inner-wrap {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+    -webkit-justify-content: space-between;
+    @media (max-width: 550px) {
+      padding-bottom: 0px;
+      flex-direction: column-reverse;
+      -webkit-flex-direction: column-reverse;
+    }
+  }
+
+  input {
+    text-align:left; 
+    border: solid 1px $mutedOutline; 
+    font-size: 14px; 
+    font-weight: 100;
+    color: $cream;
+    background: none;
+    padding: 8px 0px 8px 25px; 
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  input[type=file] {
+    padding: 0px; 
+    margin: 0px;
+  }
+
+  #name {
+    height: 36px;
+    @media (min-width: 550px) {
+      width: 296px;
+      margin-bottom: 15px;
+    }
+    @media (max-width: 550px) {
+      margin: 15px 0px 15px 0px;
+    }
+  }
+
+  #level{
+    margin: 0px 0px 15px 0px;
+    width: 100%;
+    @media (min-width: 550px) {
+      width: 323px;
+      margin: 0px;
+    }
+  }
+
+  input:focus {
+    border-color: rgba(128, 295, 219, 0.8) !important;
+    box-shadow: 0 1px 1px rgba(128, 295, 219, 0.075) inset, 0 0 8px rgba(128, 295, 219, 0.6) !important;
+    outline: 0 none !important;
+  }
+
+  input[type=submit] {
+    background: none;
+    border-style: none;
+    text-align: right;
+    border: solid 1px $mutedOutline;
+    color: $cream;
+    font-weight: 100;
+    font-size: 15px;
+    border-radius: 0;
+    height: 60px;
+    cursor: pointer; 
+    cursor: hand;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  } 
+
+  #submit-wrap {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+  }
+  
+  .no-label {
+    display: none;
+  }
+
+}
+
+#admin-panel {
+  font-family: MoonDance; 
+  font-weight: 100;
+  font-weight: lighter;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  font-size: 140%;
+  height: 60px;
+  color: $cream;
+  padding-left: 20px;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+}

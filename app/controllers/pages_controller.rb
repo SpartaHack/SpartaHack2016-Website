@@ -80,14 +80,23 @@ class PagesController < ApplicationController
       flash[:lname] = subscribe_params[:lname]
       redirect_to "/#contact" and return
     else
-    	render layout: false
-    	mailchimp = Mailchimp::API.new(ENV["MAILCHIMP_API_KEY"])
-  		mailchimp.lists.subscribe(ENV["MAILCHIMP_VOL_LIST_ID"], 
-  		                   { "email" => subscribe_params['emailinput']
-  		                   },{'FNAME' => subscribe_params['fname'] , "LNAME" => subscribe_params['lname'] })
+      begin
+      	mailchimp = Mailchimp::API.new(ENV["MAILCHIMP_API_KEY"])
+    		mailchimp.lists.subscribe(ENV["MAILCHIMP_VOL_LIST_ID"], 
+    		                   { "email" => subscribe_params['emailinput']
+    		                   },{'FNAME' => subscribe_params['fname'] , "LNAME" => subscribe_params['lname'] })
+        render layout: false
+      rescue
+        flash[:error] = "You've already signed up with this email."
+        redirect_to "/#contact" and return
+      end
     end
     
 	end
+
+  def winners2015
+    render layout: false
+  end
 
   def hangout
     redirect_to 'https://talkgadget.google.com/hangouts/_/xkodgcsi4uolmwx2z3siz7q2yya'

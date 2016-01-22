@@ -103,7 +103,7 @@ function checkProgress() {
 }
 
 function incrementProgress() {
-	line.animate(line.value() + 0.125, function() {
+	line.animate(line.value() + 0.2, function() {
 		checkProgress();
 		createSelects();
 	});
@@ -132,40 +132,31 @@ $(document).ready(function() {
 			if (university_switch == 1) {
 				$('#travel-wrap').slideDown('slow');
 				$('.restrictions').slideDown('slow');
-				line.animate(0.250, function() {
+				line.animate(0.4, function() {
 					checkProgress();
 				});
 			} else {
-				line.animate(0.125, function() {
+				line.animate(0.2, function() {
 					checkProgress();
 				});
 			}
 			if (restriction_switch == 1) {
+				values = $('#restrictions').val();
+				if (values && values.indexOf("other") > -1) {
+	    			$('.other-restriction').slideDown({duration:'slow'});
+	    		}
 				$("#tshirt-wrap").slideDown('slow');
-				line.animate(0.375, function() {
+				line.animate(0.6, function() {
 					checkProgress();
 				});
 			}
 			if (tshirt_switch == 1) {
 				$("#upload-resume-wrap").slideDown('slow');
-				line.animate(0.500, function() {
+				line.animate(0.8, function() {
 					checkProgress();
 				});
 			}
 			if (resume_switch == 1) {
-				$("#citizen-wrap").slideDown('slow');
-				line.animate(0.750, function() {
-					checkProgress();
-				});
-			}
-			if (citizen_switch == 1) {
-				$("#form-text-wrap").slideDown('slow');
-				$("#upload-form-wrap").slideDown('slow');
-				line.animate(0.875, function() {
-					checkProgress();
-				});
-			}
-			if (form_switch == 1) {
 				line.animate(1.0, function() {
 					checkProgress();
 				});
@@ -185,10 +176,7 @@ $(document).ready(function() {
 		$('.restrictions').slideUp('slow');
 		$('.other-restriction').slideUp('slow');
 		$("#tshirt-wrap").slideUp('slow');
-		$("#citizen-wrap").slideUp('slow');
 		$("#upload-resume-wrap").slideUp('slow');
-		$("#form-text-wrap").slideUp('slow');
-		$("#upload-form-wrap").slideUp('slow');
 		$("#save-rsvp").fadeIn('slow', function() {
 			toBottom();
 			line.animate(1.0);
@@ -200,7 +188,7 @@ $(document).ready(function() {
 
 	$("#university").change(function(){
 		if (!$('#university').val() && university_switch == 1) {
-			line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+			line.value() > 0.0 ? line.animate(line.value() - 0.2, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 			university_switch = 0;
 			$('#q2').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Travel');
 		} else {
@@ -234,7 +222,7 @@ $(document).ready(function() {
 	    } else if (!values && restriction_switch == 1) {
     		restriction_switch = 0;
     		$('#q3').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Dietary Restrictions');
-    		line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+    		line.value() > 0.0 ? line.animate(line.value() - 0.2, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 	    }
 
 	    if (values && values.indexOf("other") == -1 || !values) {
@@ -247,118 +235,36 @@ $(document).ready(function() {
 
 	$("#tshirt").change(function(){
 		if ($('#tshirt').val() && tshirt_switch == 0) {
-			incrementProgress();
+			
 			tshirt_switch = 1;
 			$('#q4').html('<i class="fa fa-check"></i> T-Shirt Size');
-
+			incrementProgress();
 			$("#upload-resume-wrap").slideDown('slow');
 		}
 
 		if (!$('#tshirt').val() && tshirt_switch == 1) {
     		tshirt_switch = 0;
     		$('#q4').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;T-Shirt Size');
-    		line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+    		line.value() > 0.0 ? line.animate(line.value() - 0.2, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 		}
 	})
 
 	$("#resume").change(function(){
 		if (resume_switch == 0 && $('#resume').val()) {
 			$('#resume_prev').attr('src', <%= '"' + asset_path('resume-uploaded.svg') + '"' %>)
-			line.animate(line.value() + 0.250, function() {
-				checkProgress();
-			});
+			incrementProgress();
 			resume_switch = 1;
 			$('#q5').html('<i class="fa fa-check"></i> Resume');
-			$("#citizen-wrap").slideDown('slow');
 		}
 
 		
 		if (!$('#resume').val() && resume_switch == 1) {
 			$('#resume_prev').attr('src', <%= '"' + asset_path('resume-upload.svg') + '"' %>)
 			$('#q5').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Resume');
-			line.value() > 0.0 ? line.animate(line.value() - 0.250, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
+			line.value() > 0.0 ? line.animate(line.value() - 0.2, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 			resume_switch = 0;
 		}
 	})
-
-	$('#yes-citizen').click(function(){
-		if (citizen_switch == 0) {
-			incrementProgress();
-			citizen_switch = 1;
-			$('#q6').html('<i class="fa fa-check"></i> Citizenship');
-		}
-
-		$("#form-text-wrap").slideUp('slow');
-		$("#upload-form-wrap").slideUp('slow', function() {
-			if ($('#taxForm').val()) {
-				$('#taxForm').replaceWith($('#taxForm').val('').clone(true));	
-				line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
-				form_switch = 0;
-			}
-
-			$('#form_prev').attr('src', <%= '"' + asset_path('w9-upload.svg') + '"' %>)
-			$('#form-text').html("In order to issue prizes and travel reimbursement, we must have tax documents \
-				on file for each attendee. Please download this <a href='https://www.irs.gov/pub/irs-pdf/fw9.pdf' \
-				download='w9-form.pdf'>W9 form</a> and either fill it out digitally OR print, complete, and scan it. \
-				Upload the completed document below.");
-			
-			$("#form-text-wrap").slideDown('slow');
-			$("#upload-form-wrap").slideDown('slow');
-			checkProgress();
-		});
-
-	});
-
-	$('#not-citizen').click(function(){
-		if (citizen_switch == 0) {
-			incrementProgress();
-			citizen_switch = 1;
-			$('#q6').html('<i class="fa fa-check"></i> Citizenship');
-		}
-
-
-		$("#form-text-wrap").slideUp('slow');
-		$("#upload-form-wrap").slideUp('slow', function() {
-			if ($('#taxForm').val()) {
-				$('#taxForm').replaceWith($('#taxForm').val('').clone(true));	
-				line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
-				form_switch = 0;
-			}
-			
-			$('#form_prev').attr('src', <%= '"' + asset_path('w8-upload.svg') + '"' %>)
-			$('#form-text').html("In order to issue prizes and travel reimbursement, we must have tax documents \
-				on file for each attendee. Please download this <a href='https://www.irs.gov/pub/irs-pdf/fw8ben.pdf' \
-				download='w8-form.pdf'>W8 form</a> and either fill it out digitally OR print, complete, and scan it. \
-				Upload the completed document below.");
-
-			$("#form-text-wrap").slideDown('slow');
-			$("#upload-form-wrap").slideDown('slow');
-			checkProgress();
-		});
-
-	})
-
-	$("#taxForm").change(function(){
-		if (form_switch == 0 && $('#taxForm').val()) {
-			$('#form_prev').attr('src', <%= '"' + asset_path('taxform-uploaded.svg') + '"' %>)
-			incrementProgress();
-			form_switch = 1;
-			$('#q7').html('<i class="fa fa-check"></i> Tax Form');
-
-		}
-
-		if (!$('#taxForm').val() && form_switch == 1) {
-			if ($('#yes-citizen').val()) {
-				$('#form_prev').attr('src', <%= '"' + asset_path('w9-upload.svg') + '"' %>)
-			} else {
-				$('#form_prev').attr('src', <%= '"' + asset_path('w8-upload.svg') + '"' %>)
-			}
-
-			line.value() > 0.0 ? line.animate(line.value() - 0.125, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
-			form_switch = 0;
-			$('#q7').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Tax Form');
-		}
-	});
 
 	$('#rsvp-submit').click(function(){
 		$("#popup").html('<div id="loading"></div>')

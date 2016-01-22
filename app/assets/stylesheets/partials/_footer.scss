@@ -2,17 +2,17 @@
 @import 'partials/fonts';
 
 .footer {
-  margin-top: 100px;
+  margin-top: 0px;
   border-top: 1px solid $mutedOutline;
   text-align: center;
-  padding: .75em 0;
+  padding: 10px 0;
   font-family: ubuntu;
   font-weight: 100;
   -webkit-appearance: none;
   -webkit-font-smoothing: antialiased;
   background-color: transparent;
   color: $cream;
-  font-size: .9em;
+  font-size: 15px;
 
   .fa-code, .fa-heart, .fa-facebook-square, 
   .fa-twitter, .fa-github {

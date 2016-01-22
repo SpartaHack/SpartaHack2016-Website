@@ -1,10 +1,34 @@
 @import 'partials/colorScheme';
 @import 'partials/fonts';
 
+#wrap-rsvp {
+  min-height: calc(100vh - 59px);  
+}
+
 #rsvp{
   background-color: transparent;
   @media (max-width: 550px) {
     margin-top: 30px;
+  }
+
+  .title-wrap {
+    margin-bottom: 15px;
+    
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+    
+    .section-head {
+        margin-bottom: 10px;
+        color: $mutedText;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
+    }
   }
 
   #send_rsvp {
@@ -252,7 +276,7 @@
     } 
   }  
 
-  #upload-resume-wrap, #upload-form-wrap {
+  #upload-resume-wrap {
     display: flex;
     display: -webkit-flex;
     justify-content: space-around;
@@ -289,27 +313,6 @@
       font-size: 15px;
     }
   }  
-
-  #citizen-wrap {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    justify-content: space-around;
-    -webkit-justify-content: space-around;
-    border: solid 1px $mutedOutline;
-    font-weight: 100;
-    font-weight: lighter;
-    -webkit-font-smoothing: antialiased;
-    height: 100px;
-    @media (max-width: 550px) {
-      height: 130px;
-    }
-  }
-
-  #not-citizen + label, #yes-citizen + label  {
-    margin-left: 30px;
-  }
 
   .university, #gradeLevel-wrap { 
     margin-bottom: 0px;
@@ -460,7 +463,6 @@
   }
 
   #save-rsvp {
-    margin-bottom: 100px;
     @media (max-width: 910px) {
       margin-bottom: 0px;
     }

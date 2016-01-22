@@ -23,6 +23,7 @@
         <title>SpartaHack</title>
 
         <%= favicon_link_tag 'favicon.png' %>
+        <%= stylesheet_link_tag "select2-modified" %>
         <%= stylesheet_link_tag "users" %>
     </head>
     <body>
@@ -66,48 +67,233 @@
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
+
+        <% if flash[:popup] %>
+          <div id="popup-error-wrapper">
+            <div id="popup-error-register">
+              <%= "#{flash[:popup]}" %>
+              <div id="sub-text"><%= "#{flash[:sub]}" %></div>
+            </div>
+          </div>
+        <% end %>
+          <div id="popup-wrapper">
+            <div id="popup"></div>
+          </div>
+        
         <div class="wrap-main">
-
-          <section id="new">
-
+          <section id="app" >
             <div class="row">
-              <h1 class="section-head">APPLY</h1> 
-              <% if flash[:error] %>
-                <div id="error-wrapper">
-                  <div class="error"><%= flash[:error] %></div>
-                  <% if flash[:error] == 'Email is taken' %>
-                    <div id="forgot"><a href="/forgot">Forgot Password?</a></div>
-                  <% end %>                
-                </div> 
-              <% end %>            
- 
-              <div>
-                <%= form_tag("/create", method: "post" ) do %>
+          
+              <div class="title-wrap">
+                <h1 class="section-head">Register</h1>
+                <div class="hline"></div>
+              </div>  
+              <h4 id="required">* fields are required.</h4>
+              <%= form_tag("/create", method: "post", id: "save_app", class: "save_app", :remote => true, :authenticity_token => true) do %>
+                <div id="register">
                   <div class="inner_wrap">
                     <%= label_tag 'email', 'Email', class: 'no-label' %>
-                    <%= email_field_tag 'email', nil, placeholder: 'EMAIL', required: true%>
+                    <%= email_field_tag 'email', "#{flash[:params]['email'] if flash[:params] && flash[:params]['email'] && flash[:popup] != 'Email is taken'}", placeholder: 'Email *', required: true%>
                   </div>
                   <div class="inner_wrap">
                     <%= label_tag 'password', 'Password', class: 'no-label' %>
-                    <%= password_field_tag 'password', nil, placeholder: "PASSWORD", minlength: "6", required: true%>
+                    <%= password_field_tag 'password', nil, placeholder: "Password *", minlength: "8", required: true%>
 
                     <%= label_tag 'password_confirmation', 'Confirm Password', class: 'no-label' %>
-                    <%= password_field_tag 'password_confirmation', nil, placeholder: "CONFIRM PASSWORD", minlength: "6", required: true%>                    
+                    <%= password_field_tag 'password_confirmation', nil, placeholder: "Confirm Password *", minlength: "6", required: true%>                    
                   </div>
-                  <div class="hvr-underline-from-center full">
-                    <%= submit_tag "NEXT", id: "continue" %>
-                  </div>
-                <% end %>
-              </div>
-            </div>            
-          </section>
+                  <div class="a-hline"></div>
+                </div>
+                <div class="inner">
+                  <%= label_tag(:firstName, "First Name", class: 'no-label') %>
+                  <%= text_field_tag 'firstName', "#{flash[:params]['firstName'] if flash[:params] && flash[:params]['firstName']}", placeholder: 'First Name *', required:true %>
+                  <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
+                  <%= text_field_tag 'lastName', "#{flash[:params]['lastName'] if flash[:params] && flash[:params]['lastName']}", placeholder: 'Last Name *'  %>
+                </div>
 
+                <div class="add-margin-top">
+                  <select id="gender" name="gender" style="display=none;">
+                    <option></option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="prefer-not">Prefer not to say</option>
+                  </select>
+                </div>
+
+                <div class="add-margin-top" id="birthdate-wrap">
+                  <select id="birthday" name="birthday">
+                    <option></option>
+                    <%= options_for_select((1..31).to_a)%>
+                  </select>
+                  <select id="birthmonth" name="birthmonth">
+                    <option></option>
+                    <%= options_for_select(Date::MONTHNAMES[1..12]) %>
+                  </select>
+                  <select id="birthyear" name="birthyear">
+                    <option></option>
+                    <%= options_for_select((1950..2002).to_a.reverse) %>
+                  </select>
+                </div>
+
+                <div class="add-margin-top add-margin-bottom" id="enrollment-wrap">
+                  <label id="highschool">Which of the following best describes your current enrollment? *</label>
+                  <div id="radio-wrap">
+                      <input type="radio" name="universityStudent" id="highschool-student" value="false" >
+                      <label for="highschool-student">High School</label>                  
+                      <input type="radio" name="universityStudent" id="university-student" value="true" >
+                      <label for="university-student">College/University</label>
+                  </div>
+                </div>
+
+                <div class="add-margin-bottom university-enrolled university" style="display:none;">
+                  <%= render partial: "users/app_university" %>
+                </div>
+
+                <div class="add-margin-bottom university-enrolled" id="other-university-wrap">
+                  <div class="check">
+                    <input type="checkbox" value="true" id="other-university-confirm" name="otherUniversityConfirm" />
+                    <label for="other-university-confirm"><div id="other-university-text">College/University not listed?</div></label>
+                  </div>
+                </div>
+
+                <div class="add-margin-top other-university-enrolled" style="display:none;">
+                  <%= label_tag(:otherUniversity, "College/University not listed above? Enter it here.", class: 'no-label') %>
+                  <%= text_field_tag 'otherUniversity', "#{flash[:params]['otherUniversity'] if flash[:params] && flash[:params]['otherUniversity']}", placeholder: 'Other College/University' %>
+                </div>            
+                <div class="university-enrolled">
+                  <%= render partial: "users/app_major" %>
+                </div>
+
+                <div class="add-margin-top university-enrolled" id="gradeLevel-wrap">
+                  <select id="gradeLevel" name="gradeLevel">
+                    <option></option>
+                    <option>First Year</option>
+                    <option>Second Year</option>
+                    <option>Third Year</option>
+                    <option>Fourth Year</option>
+                    <option>Fifth Year +</option>
+                    <option>Graduate Student</option>
+                    <option>Not a Student</option>
+                  </select>
+                </div>
+
+                <div>
+                  <%= render partial: "users/app_hackathon" %>
+                </div>
+
+                <div class="add-margin-top">
+                  <%= label_tag(:whyAttend, "Why do you want to attend SpartaHack 2016?", class: 'no-label') %>
+                  <%= text_area_tag 'whyAttend', "#{flash[:params]['whyAttend'] if flash[:params] && flash[:params]['whyAttend']}", placeholder: 'Why do you want to attend SpartaHack 2016?' %>
+                </div>
+
+                <div class="under-textarea has-icon">
+                  <%= image_tag "github.svg", alt: "Github Icon", :class => "icon" %>
+                  <%= label_tag(:github, "What is your GitHub handle?", class: 'no-label') %>
+                  <%= text_field_tag 'github', "#{flash[:params]['github'] if flash[:params] && flash[:params]['github']}", placeholder: 'GitHub handle?' %>
+                </div>
+
+                <div class="add-margin-top has-icon">
+                  <%= image_tag "linkedin.svg", alt: "LinkedIn Icon", :class => "icon" %>
+                  <%= label_tag(:linkedIn, "What is your LinkedIn handle?", class: 'no-label') %>
+                  <%= text_field_tag 'linkedIn', "#{flash[:params]['linkedIn'] if flash[:params] && flash[:params]['linkedIn']}", placeholder: 'LinkedIn handle?' %>
+                </div>
+
+                <div class="add-margin-top has-icon">
+                  <%= image_tag "devpost.svg", alt: "DevPost Icon", :class => "icon" %>
+                  <%= label_tag(:devPost, "What is your DevPost handle?", class: 'no-label') %>
+                  <%= text_field_tag 'devPost', "#{flash[:params]['devPost'] if flash[:params] && flash[:params]['devPost']}", placeholder: 'DevPost handle?' %>
+                </div>
+
+                <div class="add-margin-top has-icon">
+                  <%= image_tag "website.svg", alt: "Personal Website Icon", :class => "icon" %>
+                  <%= label_tag(:website, "What is your personal website?", class: 'no-label') %>
+                  <%= text_field_tag 'website', "#{flash[:params]['website'] if flash[:params] && flash[:params]['website']}", placeholder: 'Your personal website?' %>
+                </div>
+
+                <div class="add-margin-top has-icon">
+                  <%= image_tag "coollink.svg", alt: "Cool Link Icon", :class => "icon" %>
+                  <%= label_tag(:coolLink, "A cool link you\'d like to share?", class: 'no-label') %>
+                  <%= text_field_tag 'coolLink', "#{flash[:params]['coolLink'] if flash[:params] && flash[:params]['coolLink']}", placeholder: 'A cool link?' %>
+                </div>
+
+                <div class="add-margin-top" id="mlh-disclaimer">
+                  <div>
+                    <div id="mlh-disclaimer-text">We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to share certain application/registration information for event administration, ranking, MLH administration, and occasional messages about hackathons in line with the <a href="https://mlh.io/privacy" target="_blank">MLH Privacy Policy.</a></div>
+                  </div>
+                </div>
+
+                <div class="add-margin-top" id="mlh-wrap">
+                  <div class="check check-mlh">
+                    <input type="checkbox" value="true" id="agree" name="mlh" />
+                    <label for="agree"><div id="mlh-text">I agree to the <a href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct</a> and <a href="https://mlh.io/privacy" target="_blank">Private Policy</a> *</div></label>
+                  </div>
+                </div>
+
+                <div class="hvr-underline-from-center full" id="save-app">
+                  <%= submit_tag("Submit Application", :id => "application") %>
+                </div>
+
+              <% end %>      
+
+            </div>
+
+          </section>
         </div>
+        <style type="text/css">.footer {margin-top: 50px}</style>
+        <%= render partial: "pages/index_footer" %>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
-        <%= javascript_include_tag "users" %>
+        <%= javascript_include_tag "select2.full.min" %>
+        <%= javascript_include_tag "users-application" %>
+
+        <%= javascript_tag do %>
+          <% if flash[:params] %>
+            <% if flash[:params]['university'] %>
+              $("#university").val("<%= flash[:params]['university'].html_safe %>").trigger("change")
+            <% end %>
+            <% if flash[:params]['major'] %>
+              $("#major").val(<%= raw flash[:params]['major'].to_a.to_json %>).trigger("change")
+            <% end %>
+            <% if flash[:params]['birthday'] %>
+              $("#birthday").val("<%= flash[:params]['birthday'].html_safe %>").trigger("change")
+            <% end %>
+            <% if flash[:params]['birthmonth'] %>
+              $("#birthmonth").val("<%= flash[:params]['birthmonth'].html_safe %>").trigger("change")
+            <% end %>
+            <% if flash[:params]['birthyear'] %>
+              $("#birthyear").val("<%= flash[:params]['birthyear'].html_safe %>").trigger("change")
+            <% end %>
+            <% if flash[:params]['gradeLevel'] %>
+              $("#gradeLevel").val("<%= flash[:params]['gradeLevel'].html_safe %>").trigger("change")
+            <% end %>
+            <% if flash[:params]['gender'] %>
+              $("#gender").val("<%= flash[:params]['gender'].html_safe %>").trigger("change")
+            <% end %>
+            <% if flash[:params]['hackathons'] %>
+              $("#hackathons").val(<%= raw flash[:params]['hackathons'] %>).trigger("change")
+            <% end %>
+            <% if flash[:params]['universityStudent'] == 'true' %>
+              document.getElementById("university-student").checked = true;
+            <% else %>
+              document.getElementById("highschool-student").checked = true;
+            <% end %>
+            <% if flash[:params]['otherUniversityConfirm'].to_bool == true %>
+              $('#other-university-confirm').prop('checked', true);
+            <% else %>
+              $('#other-university-confirm').prop('checked', false);
+            <% end %>
+            <% if flash[:params]['mlh'] %>
+              document.getElementById("agree").checked = true;
+            <% end %>
+            <% if flash[:params]['status'] %>
+              $("#save_app :input").attr("disabled", true);
+            <% end %>
+          <% end %>
+        <% end %>     
+
         <%= javascript_include_tag "register" %>
 
         <script>

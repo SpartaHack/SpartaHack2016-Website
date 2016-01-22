@@ -78,6 +78,19 @@ $(window).scroll(function() {
 });
 
 mobile_toggle = 0;
+function toggleMLH() {
+  if (mobile_toggle == 0) {
+    $('#mlh-trust-badge').animate({
+      "marginTop": "+=220px"
+    });
+    mobile_toggle = 1
+  } else {
+    $('#mlh-trust-badge').animate({
+      "marginTop": "-=220px"
+    });
+    mobile_toggle = 0
+  }
+}
 
 $(function() {
     var pull        = $('#pull');
@@ -86,22 +99,14 @@ $(function() {
     $(pull).on('click', function(e) {
         e.preventDefault();
         menu.slideToggle();
-        if (mobile_toggle == 0) {
-          $('#mlh-trust-badge').animate({
-            "marginTop": "+=220px"
-          });
-          mobile_toggle = 1
-        } else {
-          $('#mlh-trust-badge').animate({
-            "marginTop": "-=220px"
-          });
-          mobile_toggle = 0
-        }
+        toggleMLH()
 
     });
 
     $('.mobile li a').on('click', function(e) {
         menu.slideToggle();
+         toggleMLH()
+
     });
 
 });

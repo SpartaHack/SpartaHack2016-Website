@@ -67,7 +67,7 @@
             </nav>
         </div>
 
-        <div class="wrap-main">
+        <div id="wrap-admin">
             <div id="popup-wrapper">
             </div>
 
@@ -84,43 +84,53 @@
                 </div>
             </section>
 			<section class="topic-selection">
-				<div class="row">
-					<h1 class="section-head">Admin Topics</h1> 
-
+				<div class="row"> 
+                    <div class="title-wrap">
+                        <h1 class="section-head">Admin Topics</h1>
+                        <div class="hline"></div>
+                    </div>
                 <% if @user['role'] == "admin" || @user['role'] == "sponsorship" %>
-					<div class="hvr-underline-from-center full">
+					<div class="hvr-underline-from-left full">
 						<a href="/admin/sponsorship"><div class="topic" >Sponsorship</div></a>
 					</div>
                 <% end %>
                 <% if @user['role'] == "admin" %>
-                    <div class="hvr-underline-from-center full" id="users">
+                    <div class="hvr-underline-from-left full" id="users">
                         <a href=""><div class="topic" >Users</div></a>
                     </div>
                 <% end %>
-                    <div class="hvr-underline-from-center full">
+                    <div class="hvr-underline-from-left full">
                         <a href="/admin/statistics"><div class="topic" >Statistics</div></a>
                     </div>
-<!--                     <div class="hvr-underline-from-center full">
-                        <a href="/admin/qrcode"><div class="topic" >QR Codes</div></a>
-                    </div> -->
 				</div>
 
                 <div class="row">
-                    <h1 class="section-head" id="attendee">Attendee Topics</h1> 
+                    <div class="title-wrap">
+                        <h1 class="section-head">Attendee Topics</h1>
+                        <div class="hline"></div>
+                    </div>
 
-                    <div class="hvr-underline-from-center full">
+                    <div class="hvr-underline-from-left full">
                         <a href="/application"><div class="topic" >Application</div></a>
                     </div>
-                    <div class="hvr-underline-from-center full">
+                    <div class="hvr-underline-from-left full">
                         <a href="/dashboard"><div class="topic" >Dashboard</div></a>
                     </div>
-                    <div class="hvr-underline-from-center full">
+                    <div class="hvr-underline-from-left full">
                         <a href="/rsvp"><div class="topic" >RSVP</div></a>
+                    </div>
+                    <div class="hvr-underline-from-left full">
+                        <a href="/mentorship/register"><div class="topic" >Mentorship</div></a>
                     </div>
                 </div>
 
 			</section>
         </div>
+
+        <%= javascript_tag do %>
+            new_decisions = '<%=@new_decisions%>';
+            new_first_notice = '<%=@new_first_notice%>';
+        <% end%>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>

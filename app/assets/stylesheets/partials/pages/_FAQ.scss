@@ -84,11 +84,11 @@
     font-family: ubuntu;
     font-weight: 100;
     -webkit-appearance: none;
-    color: $cream;
+    color: $mutedText;
     -webkit-font-smoothing: antialiased;
 
     &:visited {
-      color: $faqText;
+      color: $mutedText;
     }
     
     &:hover {

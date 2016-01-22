@@ -16,6 +16,26 @@
 
   font-family: ubuntu;
 
+  .title-wrap {
+    margin-bottom: 25px;
+
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+    
+    .section-head {
+        margin-bottom: 10px;
+        color: $mutedText;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
+    }
+  }
+
   .row {
     width: 87%;
     margin-top: 50px;
@@ -157,12 +177,30 @@
 
     div a {
       text-decoration: underline;
-      color: $cream;
+      font-family: ubuntu;
+      font-weight: 100;
+      font-size: 15px;
+      -webkit-appearance: none;
+      color: $mutedText;
+      -webkit-font-smoothing: antialiased;
+
+      &:visited {
+        color: $mutedText;
+      }
+      
+      &:hover {
+        -webkit-transition: all .3s ease-in-out;
+        -moz-transition: all .3s ease-in-out;
+        -o-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out;
+        opacity: .7;
+      }
     }
   }
 
   .error {
     margin-bottom: 15px;
+    color: $mutedText;
   }
 
   #forgot {

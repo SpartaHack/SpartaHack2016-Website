@@ -80,7 +80,10 @@
         <div class="wrap-main">
 			<section id="sponsorship">
 				<div class="row">
-					<h1 class="section-head">ADD SPONSOR</h1> 
+                    <div class="title-wrap">
+                        <h1 class="section-head">Add Sponsor</h1>
+                        <div class="hline"></div>
+                    </div>
 
 					<%= form_tag({action: :addsponsor}, multipart: true) do %>
 						<div class="inner-wrap">
@@ -120,7 +123,10 @@
 				</div>
 
 				<div class="row">
-					<h1 class="section-head">EDIT SPONSOR</h1> 
+                        <div class="title-wrap">
+                            <h1 class="section-head">Edit Sponsor</h1>
+                            <div class="hline"></div>
+                        </div>
 						<div id="sponsor-wrap">
 					      <% @sponsors.each do |sponsor|  %>
 				        	<%= form_tag({action: :viewsponsor}, multipart: true) do %>

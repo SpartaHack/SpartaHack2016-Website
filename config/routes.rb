@@ -5,19 +5,24 @@ Rails.application.routes.draw do
   get 'register'  => 'users#register'
   get 'apply'  => 'users#register'
   post 'create' => 'users#create'
-  get 'verify' => 'users#verify'
+
   get 'login'  => 'users#login'
   get 'logout'  => 'users#logout'
   post 'auth'  => 'users#auth'
   get 'application'  => 'users#application'
+  get 'app'  => 'users#application'
   get 'dashboard' => 'users#dashboard'
   get 'rsvp' => 'users#rsvp'
   post 'rsvp' => 'users#saversvp'
+  get 'mycode' => 'users#usercode'
   get 'forgot'  => 'users#forgot'
   post 'requestreset'  => 'users#requestreset'
   post 'save' => 'users#save'
   resources :users
   
+  get 'mentorship/register' => 'mentorship#registration'
+  post 'mentorship/register' => 'mentorship#register'
+
   root :to => 'pages#index', :as => :index
   post 'subscribe' => 'pages#subscribe'
   get 'winners2015' => 'pages#winners2015'
@@ -30,7 +35,7 @@ Rails.application.routes.draw do
   get 'admin/users/applications' => 'admin#applications'
   post 'admin/users/applications' => 'admin#app_status'
   post 'admin/users/email' => 'admin#send_emails'
-  get 'admin/qrcode' => 'admin#qrcode'
+  get 'admin/users/checkin' => 'admin#checkin'
   post 'addsponsor' => 'admin#addsponsor'
   post 'viewsponsor' => 'admin#viewsponsor'
   post 'editsponsor' => 'admin#editsponsor'
