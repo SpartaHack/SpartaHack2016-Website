@@ -489,6 +489,13 @@ class AdminController < ApplicationController
         q.include = "user"
       end.get
 
+      @applications += Parse::Query.new("Application").tap do |q|
+        q.limit = 1000
+        q.skip = 1000
+        q.eq("emailStatus", nil)
+        q.include = "user"
+      end.get
+
       @applications.each do |app|
 
         if app['status'] == "Accepted"
