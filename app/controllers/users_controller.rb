@@ -326,6 +326,13 @@ class UsersController < ApplicationController
                       }))
             end.get.first
 
+      @mentor = Parse::Query.new("Mentors").tap do |q|
+                      q.eq("mentor", Parse::Pointer.new({
+                        "className" => "_User",
+                        "objectId"  => cookies.signed[:spartaUser][0]
+                      }))
+              end.get.first
+
       if !user_rsvp_params["attending"].blank? && user_rsvp_params["attending"] == "true"
         if user_rsvp_params["university"].blank? || user_rsvp_params["restrictions"].blank? || 
           user_rsvp_params["tshirt"].blank?
@@ -349,6 +356,11 @@ class UsersController < ApplicationController
 
         rsvp['attending'] = false
         rsvp['resume'] = nil
+
+        if !@mentor.blank?
+          @mentor.parse_delete
+          @mentor.save
+        end
         
         response = rsvp.save
 
