@@ -122,7 +122,6 @@ $(document).ready(function() {
 			}
 		}
 
-		$("#save-mentorship").fadeOut('slow');
 		$('#categories-wrap').slideDown('slow');
 		
 		createSelects();
@@ -145,7 +144,7 @@ $(document).ready(function() {
 		values = $('#categories').val();
 
 		if (values && categories_switch == 0) {
-			line.animate(line.value() + 0.5);
+			line.set(line.value() + 0.5);
 			categories_switch = 1;
 			$('#q2').html('<i class="fa fa-check"></i> Categories');
 			$("#tshirt-wrap").slideDown('slow');
