@@ -95,6 +95,23 @@
             </section>
             
           <% if !@rsvp.blank? && @rsvp['attending'] == true %>
+            <% if @minor == true %>
+              <section class="minor">
+                <div class="row">
+                  <div class="title-wrap">
+                    <h1 class="section-head">Minor Information</h1>
+                    <div class="hline"></div>
+                  </div>
+                  <p id="bus-1">Based on your birthday you'll be under 18 the day of the event. You <strong>must</strong> bring the following forms completed to the event:</p>
+                  <ul>
+                    <li><a href="https://drive.google.com/file/d/0B070VDH8d-MLSmRHcldsRGQ1TDQ/view?usp=sharing" target="_blank">Media Release Form</a></li>
+                    <li><a href="https://drive.google.com/file/d/0B070VDH8d-MLazdlOW93dko3Wk0/view?usp=sharing" target="_blank">Medical Treatment Authorization Form</a></li>
+                    <li><a href="https://drive.google.com/file/d/0B070VDH8d-MLVHhoQXJmUDdJNk0/view?usp=sharing" target="_blank">Parent or Guardian Consent Form</a></li>
+                  </ul>
+                </div>
+              </section>
+            <% end %>
+
             <section class="travel">
               <div class="row">
                 <div class="title-wrap">
@@ -115,6 +132,14 @@
                 <p id="bus-2">Waterloo/Oakland bus: <br class="rwd-break-wait"><a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-waterloo-oakland-university-bus-tickets-20868841266">Sign up for the waiting list</a> (<%= @bus_2_waitlist %> left)</p>
               <% else %>
                 <s><p id="bus-2">Waterloo/Oakland/bus: <br class="rwd-break"><a href="">Reserve a spot</a> (<%= @bus_2 %> left)</p></s>
+              <% end %>
+
+              <% if @bus_3 > 0 %>
+                <p id="bus-3">U of M bus: <br class="rwd-break"><a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-michigan-bus-tickets-20964181431">Reserve a spot</a> (<%= @bus_3 %> left)</p>
+              <% elsif @bus_3 == 0 && @bus_3_waitlist > 0  %>
+                <p id="bus-3">U of M bus: <br class="rwd-break-wait"><a target="_blank" href="https://www.eventbrite.com/e/spartahack-2016-university-of-michigan-bus-tickets-20964181431">Sign up for the waiting list</a> (<%= @bus_3_waitlist %> left)</p>
+              <% else %>
+                <s><p id="bus-3">U of M bus: <br class="rwd-break"><a href="">Reserve a spot</a> (<%= @bus_3 %> left)</p></s>
               <% end %>
 
                 <table id="cap-table">
@@ -151,7 +176,7 @@
                 <% end %>
               <% end %>
                 </table>
-                <p id="travel-policy">For more details view our <a target="_blank" href="">travel policy</a>.</p>
+                <p id="travel-policy">How to qualify for reimbursment: <a target="_blank" href="https://drive.google.com/file/d/0B070VDH8d-MLN1NOVGxMdTBpcW8/view?usp=sharing">travel policy</a>.</p>
               </div>
             </section>
           <% end %>
@@ -177,7 +202,7 @@
                     <a href="/mentorship/register"><div class="dash-link">Mentorship</div></a>
                   </div>
                   <div class="hvr-underline-from-left full">
-                    <a href="/mycode"><div class="dash-link">My Check-in Code</div></a>
+                    <a href="/mycode"><div class="dash-link">My Attendee Code</div></a>
                   </div>
                 <% end %>
 

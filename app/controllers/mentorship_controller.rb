@@ -58,7 +58,7 @@ class MentorshipController < ApplicationController
           @mentor.parse_delete
           @mentor.save
         end
-        redirect_to '/dashboard'
+        redirect_to '/dashboard' and return
       end
 
 
@@ -82,7 +82,7 @@ class MentorshipController < ApplicationController
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
       puts e.message
-      redirect_to '/mentorship/register'
+      redirect_to '/mentorship/register'  and return
     end
   end
 

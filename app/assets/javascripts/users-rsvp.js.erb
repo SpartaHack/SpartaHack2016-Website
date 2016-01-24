@@ -250,11 +250,15 @@ $(document).ready(function() {
 	})
 
 	$("#resume").change(function(){
-		if (resume_switch == 0 && $('#resume').val()) {
+		if (resume_switch == 0 && $('#resume').val() && $('#resume').val().indexOf(".pdf") > -1) {
 			$('#resume_prev').attr('src', <%= '"' + asset_path('resume-uploaded.svg') + '"' %>)
 			incrementProgress();
 			resume_switch = 1;
 			$('#q5').html('<i class="fa fa-check"></i> Resume');
+		} else if (resume_switch == 0 && $('#resume').val() && $('#resume').val().indexOf(".pdf") == -1) {
+			console.log("sdafasdf")
+			$("#popup").html("You must upload a resume as a PDF.")
+            popUpTop();
 		}
 
 		
@@ -263,6 +267,10 @@ $(document).ready(function() {
 			$('#q5').html('<i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Resume');
 			line.value() > 0.0 ? line.animate(line.value() - 0.2, function(){checkProgress()}) : line.animate(0.0, function(){checkProgress()});
 			resume_switch = 0;
+		} else if (resume_switch == 1 && $('#resume').val() && $('#resume').val().indexOf(".pdf") == -1) {
+			$('#resume').val("");
+			$("#popup").html("You must upload a resume as a PDF.")
+            popUpTop();
 		}
 	})
 

@@ -2,6 +2,7 @@ class AdminController < ApplicationController
   require 'mailchimp'
   require 'parse_config'
   require 'monkey_patch'
+  require 'open-uri'
   require 'pp'
 
   def admin
@@ -16,10 +17,17 @@ class AdminController < ApplicationController
       redirect_to '/login' and return
     end
 
+    # Gets a total count of users
     @users_total = Parse::Query.new("_User").tap do |q|
       q.limit = 1000
     end.get.length
-    
+
+    @users_total += Parse::Query.new("_User").tap do |q|
+                      q.limit = 1000
+                      q.skip = 1000
+                    end.get.length
+
+    # Collects all the applications with their user object
     @apps = Parse::Query.new("Application").tap do |q|
                     q.limit = 1000
                     q.include = "user"
@@ -33,6 +41,7 @@ class AdminController < ApplicationController
 
     @new_decisions = 0
 
+    # Count how many decision emails need to be sent
     @apps.each do |app|
       if app["emailStatus"].blank? && app["status"] == "Accepted"
         @new_decisions += 1
@@ -41,11 +50,7 @@ class AdminController < ApplicationController
 
     @apps_total = @apps.length
 
-    @users_total += Parse::Query.new("_User").tap do |q|
-                      q.limit = 1000
-                      q.skip = 1000
-                    end.get.length
-
+    # Collects users that have been notified of an empty app already
     email_flags = Parse::Query.new("EmailFlags").tap do |q|
                     q.limit = 1000
                     q.include = "user"
@@ -57,6 +62,7 @@ class AdminController < ApplicationController
                       q.skip = 1000
                     end.get
 
+    # Creates an array of empty app users' emails
     flagged_users = []
     email_flags.each do |flag|
       flagged_users.push(flag['user']['email'])
@@ -65,13 +71,12 @@ class AdminController < ApplicationController
     @new_first_notice = 0
     @empty_app_users = get_empty_app_users()
 
+    # Count how many users need to be notified of an empty app.
     @empty_app_users.each do |empty_user|
         if !flagged_users.include? empty_user['email']
           @new_first_notice += 1
         end
     end
-
-    p @new_first_notice
 
     render layout: false
   end
@@ -88,18 +93,44 @@ class AdminController < ApplicationController
       redirect_to '/login' and return
     end
 
+    # Used to populate Edit Sponsors section.
     @sponsors = []
 
     companies = Parse::Query.new("Company").get
 
     companies.each do |c|
         @sponsors.push([c["objectId"], c["name"]])
+
+        # saves a png version of svg else if png uses the png
+        if c["png"].blank?
+          if c['img'].url.include? ".svg"
+            svg = open(c['img'].url) {|f| f.read }
+
+            # creates a parse File using the private svg_to_png function
+            photo = Parse::File.new({
+              :body => svg_to_png(svg),
+              :local_filename => c["img"].parse_filename.split(".")[0]+".png",
+              :content_type => "image/png",
+            })
+
+            photo.save
+
+            c["png"] = photo
+            c.save
+          else
+            c["png"] = c['img']
+            c.save
+          end
+
+        end
     end
 
     render layout: false
   end
 
   def addsponsor
+    # Adds a sponsor to parse to be displayed on the website.
+
     logo = add_sponsor_params['picture']
 
     photo = Parse::File.new({
@@ -134,6 +165,7 @@ class AdminController < ApplicationController
       redirect_to '/login' and return
     end
 
+    # Populates form with sponsor info to be edited.
     object = view_sponsor_params['object']
     @sponsor = Parse::Query.new("Company").eq("objectId", object).get[0]
 
@@ -142,6 +174,8 @@ class AdminController < ApplicationController
   end
 
   def editsponsor 
+    # Deletes or updates a sponsor 
+
     company = Parse::Query.new("Company").eq("objectId", edit_sponsor_params['object']).get.first
     
     if edit_sponsor_params["commit"] == "Delete"
@@ -455,6 +489,13 @@ class AdminController < ApplicationController
         q.include = "user"
       end.get
 
+      @applications += Parse::Query.new("Application").tap do |q|
+        q.limit = 1000
+        q.skip = 1000
+        q.eq("emailStatus", nil)
+        q.include = "user"
+      end.get
+
       @applications.each do |app|
 
         if app['status'] == "Accepted"
@@ -506,48 +547,60 @@ class AdminController < ApplicationController
 
   private
 
-  def add_sponsor_params
-    params.permit(:picture, :name, :url, :level)
-  end   
-
-  def edit_sponsor_params
-    params.permit(:picture, :name, :url, :level, :commit, :object)
-  end   
-
-  def view_sponsor_params
-    params.permit(:object)
-  end   
-
-  def status_params
-    params.permit(:object, :"status-select")
-  end 
-
-  def email_params
-    params.permit(:object, :"type")
-  end 
-
-  def get_empty_app_users
-    users_with_apps = []
-    
-    @applications = Parse::Query.new("Application").tap do |q|
-      q.limit = 1000
-      q.include = "user"
-    end.get
-
-    @applications.each do |app|
-      users_with_apps.push(app["user"]['email'])
+    def svg_to_png(svg)
+      scalar = 4
+      svg = RSVG::Handle.new_from_data(svg)
+      p svg.width
+      surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, svg.width * scalar, svg.height * scalar)
+      context = Cairo::Context.new(surface).scale(scalar,scalar)
+      context.render_rsvg_handle(svg)
+      b = StringIO.new
+      surface.write_to_png(b)
+      return b.string
     end
 
-    @users = Parse::Query.new("_User").tap do |q|
-      q.value_not_in("email", users_with_apps)
-      q.limit = 1000
-    end.get
+    def add_sponsor_params
+      params.permit(:picture, :name, :url, :level)
+    end   
 
-    @users += Parse::Query.new("_User").tap do |q|
-      q.value_not_in("email", users_with_apps)
-      q.limit = 1000
-      q.skip = 1000
-    end.get
-  end
+    def edit_sponsor_params
+      params.permit(:picture, :name, :url, :level, :commit, :object)
+    end   
+
+    def view_sponsor_params
+      params.permit(:object)
+    end   
+
+    def status_params
+      params.permit(:object, :"status-select")
+    end 
+
+    def email_params
+      params.permit(:object, :"type")
+    end 
+
+    def get_empty_app_users
+      users_with_apps = []
+      
+      @applications = Parse::Query.new("Application").tap do |q|
+        q.limit = 1000
+        q.include = "user"
+      end.get
+
+      @applications.each do |app|
+        users_with_apps.push(app["user"]['email'])
+      end
+
+      @users = Parse::Query.new("_User").tap do |q|
+        q.value_not_in("email", users_with_apps)
+        q.limit = 1000
+      end.get
+
+      @users += Parse::Query.new("_User").tap do |q|
+        q.value_not_in("email", users_with_apps)
+        q.limit = 1000
+        q.skip = 1000
+      end.get
+    end
 
 end

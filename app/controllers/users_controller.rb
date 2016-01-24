@@ -274,6 +274,20 @@ class UsersController < ApplicationController
         @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
         @bus_2_waitlist = data_bus_2["ticket_classes"][1]["quantity_total"] - data_bus_2["ticket_classes"][1]["quantity_sold"]
 
+        data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+        @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
+        @bus_3_waitlist = data_bus_3["ticket_classes"][1]["quantity_total"] - data_bus_3["ticket_classes"][1]["quantity_sold"]
+
+        if !@application['birthyear'].blank?
+          curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth'].to_i), @application['birthday'].to_i, 0, 0)
+          if age(curr_bday, Date.new(2016, 2, 26)) < 18
+            @minor = true
+          else
+            @minor = false
+          end
+        end
+
+
       end
       
       render layout: false
@@ -326,6 +340,13 @@ class UsersController < ApplicationController
                       }))
             end.get.first
 
+      @mentor = Parse::Query.new("Mentors").tap do |q|
+                      q.eq("mentor", Parse::Pointer.new({
+                        "className" => "_User",
+                        "objectId"  => cookies.signed[:spartaUser][0]
+                      }))
+              end.get.first
+
       if !user_rsvp_params["attending"].blank? && user_rsvp_params["attending"] == "true"
         if user_rsvp_params["university"].blank? || user_rsvp_params["restrictions"].blank? || 
           user_rsvp_params["tshirt"].blank?
@@ -349,6 +370,11 @@ class UsersController < ApplicationController
 
         rsvp['attending'] = false
         rsvp['resume'] = nil
+
+        if !@mentor.blank?
+          @mentor.parse_delete
+          @mentor.save
+        end
         
         response = rsvp.save
 
@@ -470,5 +496,10 @@ class UsersController < ApplicationController
 
     def forgot_password_params
       params.permit(:email)
+    end
+
+    def age(dob,diq)
+      diq = diq.to_date
+      diq.year - dob.year - ((diq.month > dob.month || (diq.month == dob.month && diq.day >= dob.day)) ? 0 : 1)
     end
 end

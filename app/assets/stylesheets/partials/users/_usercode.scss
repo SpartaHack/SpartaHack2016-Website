@@ -11,12 +11,15 @@ body {
   margin-top: 0px;
   padding-top: 0px;
   position: relative;
-  min-height: 100vh;
+  min-height: calc(100vh - 61px);
   display: flex;
   display: -webkit-flex;
   justify-content: center;
   -webkit-justify-content: center;
-  align-items: flex-start;
+
+  @media (max-height: 700px) {
+      margin-bottom: 50px;
+  }
 
   .title-wrap {
     margin: 100px 0px 25px 0px;
@@ -41,13 +44,6 @@ body {
           font-size: 130%;
         }
     }
-  }
-
-  .footer {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
   }
 
   #canvas {

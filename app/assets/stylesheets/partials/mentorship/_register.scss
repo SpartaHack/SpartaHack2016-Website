@@ -239,13 +239,15 @@
 
   #radio-wrap {
     width: 300px;
-    display: flex;
-    display: -webkit-flex;
-    justify-content: space-around;
-    -webkit-justify-content: space-around;
-    align-items: center;
-    -webkit-align-items:center;
   }  
+
+  #yes-label {
+    margin-left: 52px;
+  }
+  
+  #no-label {
+    margin-left: 104px;
+  }
 
   #categories {
     width: 100%;
