@@ -95,6 +95,23 @@
             </section>
             
           <% if !@rsvp.blank? && @rsvp['attending'] == true %>
+            <% if @minor == true %>
+              <section class="minor">
+                <div class="row">
+                  <div class="title-wrap">
+                    <h1 class="section-head">Minor Information</h1>
+                    <div class="hline"></div>
+                  </div>
+                  <p id="bus-1">Based on your birthday you'll be under 18 the day of the event. You <strong>must</strong> bring the following forms completed to the event:</p>
+                  <ul>
+                    <li><a href="https://drive.google.com/file/d/0B070VDH8d-MLSmRHcldsRGQ1TDQ/view?usp=sharing" target="_blank">Media Release Form</a></li>
+                    <li><a href="https://drive.google.com/file/d/0B070VDH8d-MLazdlOW93dko3Wk0/view?usp=sharing" target="_blank">Medical Treatment Authorization Form</a></li>
+                    <li><a href="https://drive.google.com/file/d/0B070VDH8d-MLVHhoQXJmUDdJNk0/view?usp=sharing" target="_blank">Parent or Guardian Consent Form</a></li>
+                  </ul>
+                </div>
+              </section>
+            <% end %>
+
             <section class="travel">
               <div class="row">
                 <div class="title-wrap">

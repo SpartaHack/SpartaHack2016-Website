@@ -278,6 +278,16 @@ class UsersController < ApplicationController
         @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
         @bus_3_waitlist = data_bus_3["ticket_classes"][1]["quantity_total"] - data_bus_3["ticket_classes"][1]["quantity_sold"]
 
+        if !@application['birthyear'].blank?
+          curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth'].to_i), @application['birthday'].to_i, 0, 0)
+          if age(curr_bday, Date.new(2016, 2, 26)) < 18
+            @minor = true
+          else
+            @minor = false
+          end
+        end
+
+
       end
       
       render layout: false
@@ -486,5 +496,10 @@ class UsersController < ApplicationController
 
     def forgot_password_params
       params.permit(:email)
+    end
+
+    def age(dob,diq)
+      diq = diq.to_date
+      diq.year - dob.year - ((diq.month > dob.month || (diq.month == dob.month && diq.day >= dob.day)) ? 0 : 1)
     end
 end
