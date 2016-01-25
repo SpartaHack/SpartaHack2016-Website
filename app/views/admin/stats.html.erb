@@ -108,7 +108,7 @@
                         <div class="row">
                             <h4 class="center">Percentage RSVP'd</h4>
                             <div class="progress">
-                                <div class="progress-bar" style="width: <%= number_to_percentage(100*(@rsvp_attending_count/@total_apps),precision: 1) %>;"></div>
+                                <div class="progress-bar" style="width: <%= number_to_percentage(100*(@rsvp_attending_count.to_f / @total_apps ),precision: 1) %>;"></div>
                             </div>
                         </div>
 
