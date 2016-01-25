@@ -13,46 +13,50 @@ class PagesController < ApplicationController
           }))
         end.get.first
         
-      rescue Parse::ParseProtocolError => e
-
+      rescue 
+        redirect_to "/outage" and return
       end
 
       
     end
 
-    @partner = []
-    @trainee = []
-    @warrior = []
-    @commander = []
+    begin
+      @partner = []
+      @trainee = []
+      @warrior = []
+      @commander = []
 
-    companies = Parse::Query.new("Company").get
+      companies = Parse::Query.new("Company").get
 
-    companies.each do |c|
-      if c["level"] == "partner"
-        @partner.push([c["url"], c["img"].url, c["name"]])
-      elsif c["level"] == "trainee"
-        @trainee.push([c["url"], c["img"].url, c["name"]])
-      elsif c["level"] == "warrior"
-        @warrior.push([c["url"], c["img"].url, c["name"]])
-      elsif c["level"] == "commander"
-        @commander.push([c["url"], c["img"].url, c["name"]])    
+      companies.each do |c|
+        if c["level"] == "partner"
+          @partner.push([c["url"], c["img"].url, c["name"]])
+        elsif c["level"] == "trainee"
+          @trainee.push([c["url"], c["img"].url, c["name"]])
+        elsif c["level"] == "warrior"
+          @warrior.push([c["url"], c["img"].url, c["name"]])
+        elsif c["level"] == "commander"
+          @commander.push([c["url"], c["img"].url, c["name"]])    
+        end
       end
-    end
 
-    @partner= @partner.sort do |a,b|
-      a[2] <=> b[2]
-    end
+      @partner= @partner.sort do |a,b|
+        a[2] <=> b[2]
+      end
 
-    @trainee= @trainee.sort do |a,b|
-      a[2] <=> b[2]
-    end
+      @trainee= @trainee.sort do |a,b|
+        a[2] <=> b[2]
+      end
 
-    @warrior= @warrior.sort do |a,b|
-      a[2] <=> b[2]
-    end
+      @warrior= @warrior.sort do |a,b|
+        a[2] <=> b[2]
+      end
 
-    @commander= @commander.sort do |a,b|
-      a[2] <=> b[2]
+      @commander= @commander.sort do |a,b|
+        a[2] <=> b[2]
+      end
+    rescue
+      redirect_to "/outage" and return
     end
 
     render layout: false
@@ -95,6 +99,10 @@ class PagesController < ApplicationController
 	end
 
   def winners2015
+    render layout: false
+  end
+
+  def outage
     render layout: false
   end
 

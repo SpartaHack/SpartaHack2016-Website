@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   root :to => 'pages#index', :as => :index
   post 'subscribe' => 'pages#subscribe'
+  get 'outage' => 'pages#outage'
   get 'winners2015' => 'pages#winners2015'
   get 'hangout' => 'pages#hangout'
 

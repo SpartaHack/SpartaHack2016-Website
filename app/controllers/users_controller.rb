@@ -48,6 +48,8 @@ class UsersController < ApplicationController
           flash[:popup] = "Email is taken"
           flash[:params] = user_app_params
           redirect_to '/register' and return
+        else
+          redirect_to "/outage" and return
         end
         
       end
@@ -120,7 +122,7 @@ class UsersController < ApplicationController
     rescue Parse::ParseProtocolError => e
       flash[:popup] =  e.message
       flash[:params] = user_app_params
-      redirect_to '/register'
+      redirect_to "/outage" and return
     end
 
   end    
@@ -133,7 +135,11 @@ class UsersController < ApplicationController
       session[:return_to] = '/application'
       redirect_to '/jscheck'
     else
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      begin
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      rescue
+        redirect_to "/outage" and return
+      end
 
       begin
         @application = Parse::Query.new("Application").tap do |q|
@@ -178,7 +184,7 @@ class UsersController < ApplicationController
         end
         
       rescue Parse::ParseProtocolError => e
-
+        redirect_to "/outage" and return
       end      
 
     elsif !@javascript_active
@@ -242,63 +248,66 @@ class UsersController < ApplicationController
       session[:return_to] = '/dashboard'
       redirect_to '/jscheck'
     else
+      begin
+        @application = Parse::Query.new("Application").tap do |q|
+          q.eq("user", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => cookies.signed[:spartaUser][0]
+          }))
+        end.get.first
 
-      @application = Parse::Query.new("Application").tap do |q|
-        q.eq("user", Parse::Pointer.new({
-          "className" => "_User",
-          "objectId"  => cookies.signed[:spartaUser][0]
-        }))
-      end.get.first
+        if !@application
+          redirect_to '/application' and return
+        end
 
-      if !@application
-        redirect_to '/application' and return
-      end
-
-      @rsvp = Parse::Query.new("RSVP").tap do |q|
-                      q.eq("user", Parse::Pointer.new({
-                        "className" => "_User",
-                        "objectId"  => cookies.signed[:spartaUser][0]
-                      }))
-              end.get.first
-
-      if !@rsvp.blank?
-        @travel = Parse::Query.new("Travel").tap do |q|
-                        q.eq("university", @rsvp['university'])
+        @rsvp = Parse::Query.new("RSVP").tap do |q|
+                        q.eq("user", Parse::Pointer.new({
+                          "className" => "_User",
+                          "objectId"  => cookies.signed[:spartaUser][0]
+                        }))
                 end.get.first
-        begin
-          data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-          @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
-          @bus_1_waitlist = data_bus_1["ticket_classes"][1]["quantity_total"] - data_bus_1["ticket_classes"][1]["quantity_sold"]
-          
-          data_bus_2 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_2"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-          @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
-          @bus_2_waitlist = data_bus_2["ticket_classes"][1]["quantity_total"] - data_bus_2["ticket_classes"][1]["quantity_sold"]
 
-          data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-          @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
-          @bus_3_waitlist = data_bus_3["ticket_classes"][1]["quantity_total"] - data_bus_3["ticket_classes"][1]["quantity_sold"]
-        rescue
-          @bus_1 = nil
-          @bus_2 = nil
-          @bus_3 = nil
-          @bus_1_waitlist = nil
-          @bus_2_waitlist = nil
-          @bus_3_waitlist = nil
-        end
+        if !@rsvp.blank?
+          @travel = Parse::Query.new("Travel").tap do |q|
+                          q.eq("university", @rsvp['university'])
+                  end.get.first
+          begin
+            data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+            @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
+            @bus_1_waitlist = data_bus_1["ticket_classes"][1]["quantity_total"] - data_bus_1["ticket_classes"][1]["quantity_sold"]
+            
+            data_bus_2 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_2"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+            @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
+            @bus_2_waitlist = data_bus_2["ticket_classes"][1]["quantity_total"] - data_bus_2["ticket_classes"][1]["quantity_sold"]
 
-        if !@application['birthyear'].blank?
-          curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth'].to_i), @application['birthday'].to_i, 0, 0)
-          if age(curr_bday, Date.new(2016, 2, 26)) < 18
-            @minor = true
-          else
-            @minor = false
+            data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+            @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
+            @bus_3_waitlist = data_bus_3["ticket_classes"][1]["quantity_total"] - data_bus_3["ticket_classes"][1]["quantity_sold"]
+          rescue
+            @bus_1 = nil
+            @bus_2 = nil
+            @bus_3 = nil
+            @bus_1_waitlist = nil
+            @bus_2_waitlist = nil
+            @bus_3_waitlist = nil
           end
+
+          if !@application['birthyear'].blank?
+            curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth'].to_i), @application['birthday'].to_i, 0, 0)
+            if age(curr_bday, Date.new(2016, 2, 26)) < 18
+              @minor = true
+            else
+              @minor = false
+            end
+          end
+
+
         end
-
-
+        
+        render layout: false
+      rescue
+        redirect_to "/outage" and return
       end
-      
-      render layout: false
     end
   end
 
@@ -311,29 +320,33 @@ class UsersController < ApplicationController
       session[:return_to] = '/rsvp'
       redirect_to '/jscheck'
     else
-      @application = Parse::Query.new("Application").tap do |q|
-        q.eq("user", Parse::Pointer.new({
-          "className" => "_User",
-          "objectId"  => cookies.signed[:spartaUser][0]
-        }))
-      end.get.first
+      begin
+        @application = Parse::Query.new("Application").tap do |q|
+          q.eq("user", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => cookies.signed[:spartaUser][0]
+          }))
+        end.get.first
 
-      if !@application
-        redirect_to '/application' and return
-      else
-        if @application["status"] != "Accepted"
-          redirect_to '/dashboard' and return
+        if !@application
+          redirect_to '/application' and return
+        else
+          if @application["status"] != "Accepted"
+            redirect_to '/dashboard' and return
+          end
         end
+
+        @rsvp = Parse::Query.new("RSVP").tap do |q|
+                        q.eq("user", Parse::Pointer.new({
+                          "className" => "_User",
+                          "objectId"  => cookies.signed[:spartaUser][0]
+                        }))
+                end.get.first
+
+        render layout: false
+      rescue
+        redirect_to "/outage" and return
       end
-
-      @rsvp = Parse::Query.new("RSVP").tap do |q|
-                      q.eq("user", Parse::Pointer.new({
-                        "className" => "_User",
-                        "objectId"  => cookies.signed[:spartaUser][0]
-                      }))
-              end.get.first
-
-      render layout: false
     end
   end
 
@@ -452,19 +465,22 @@ class UsersController < ApplicationController
       session[:return_to] = '/mycode'
       redirect_to '/jscheck'
     else
+      begin
+        @rsvp = Parse::Query.new("RSVP").tap do |q|
+                        q.eq("user", Parse::Pointer.new({
+                          "className" => "_User",
+                          "objectId"  => cookies.signed[:spartaUser][0]
+                        }))
+                end.get.first
 
-      @rsvp = Parse::Query.new("RSVP").tap do |q|
-                      q.eq("user", Parse::Pointer.new({
-                        "className" => "_User",
-                        "objectId"  => cookies.signed[:spartaUser][0]
-                      }))
-              end.get.first
-
-      if @rsvp.blank? || @rsvp["attending"] == false
-        redirect_to "/dashboard"      
-      else
-        @user = cookies.signed[:spartaUser][0]
-        render layout: false
+        if @rsvp.blank? || @rsvp["attending"] == false
+          redirect_to "/dashboard"      
+        else
+          @user = cookies.signed[:spartaUser][0]
+          render layout: false
+        end
+      rescue
+        redirect_to "/outage" and return
       end
     end
   end
