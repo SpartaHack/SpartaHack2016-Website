@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'api/school'
+
   get 'javascript/confirm'
   get 'jscheck' => 'javascript#jscheck'
 
