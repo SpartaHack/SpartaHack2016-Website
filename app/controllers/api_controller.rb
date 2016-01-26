@@ -14,16 +14,18 @@ class ApiController < ApplicationController
                       q.skip = 1000
                     end.get
 
-    p @apps
+    @response = {}
 
     @school_dates = []
     @apps.each do |app|
     	@school_dates.push(app["createdAt"])
     end
 
+    @response["timestamps"] = @school_dates
+    
     respond_to do |format|
-      format.html { render json: @school_dates}
-      format.json { render json: @school_dates }
+      format.html { render json: @response}
+      format.json { render json: @response}
  	  end
 
   end
