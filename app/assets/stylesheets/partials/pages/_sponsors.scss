@@ -117,8 +117,16 @@
     }
   }
 
+  .bottom {
+    @media (max-width: 550px) {
+      opacity: 0;
+    }
+  }
+
   .bottom:hover {
-    opacity:0;
+    @media (min-width: 551px) {
+      opacity:0;
+    }
   }
 
   .logo-sponsor {
