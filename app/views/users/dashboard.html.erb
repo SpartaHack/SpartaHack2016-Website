@@ -152,7 +152,7 @@
                     <td class="cap">
                       <strong>
                       <% if !@travel.blank? %>
-                        $ <%= (@travel["distance"]* 0.15).to_i > 400 ? 400 : (@travel["distance"]* 0.15).to_i %>
+                        $ <%= (@travel["distance"]* 0.10).to_i > 400 ? 400 : (@travel["distance"]* 0.10).to_i %>
                       <% else %>
                         TBD
                       <% end %>
