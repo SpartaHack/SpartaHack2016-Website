@@ -428,16 +428,22 @@ class UsersController < ApplicationController
 
       if !user_rsvp_params['resume'].blank?
         #save resume to parse
-        resume = user_rsvp_params['resume'] 
-        parse_resume = Parse::File.new({
-          :body => resume.read,
-          :local_filename => (ActiveSupport::Inflector.transliterate resume.original_filename).gsub(" ", "%20").gsub("[", "").gsub("]", ""),
-          :content_type => resume.content_type,
-          :content_length => resume.tempfile().size().to_s
-        })
-        parse_resume.save
+        begin
+          resume = user_rsvp_params['resume'] 
+          parse_resume = Parse::File.new({
+            :body => resume.read,
+            :local_filename => (ActiveSupport::Inflector.transliterate resume.original_filename).gsub(" ", "%20").gsub("[", "").gsub("]", "").gsub("(", "").gsub(")", ""),
+            :content_type => resume.content_type,
+            :content_length => resume.tempfile().size().to_s
+          })
+          parse_resume.save
 
-        rsvp['resume'] = parse_resume
+          rsvp['resume'] = parse_resume
+        rescue
+          flash[:popup] = "RSVP not saved."
+          flash[:sub] = "Please contact us."
+          redirect_to '/rsvp'
+        end
       end
 
       response = rsvp.save
