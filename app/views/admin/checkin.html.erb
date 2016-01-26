@@ -14,6 +14,7 @@
         <meta property="og:site_name" content="SpartaHack" />
         <meta property="og:url" content="https://www.spartahack.com" />
         <meta property="og:locale" content="en_US" />
+        <%= csrf_meta_tag %>
         <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the checkin page for the admin dashboard." />
         <meta property="og:image" content="<%=image_url("facebook.png")%>" />
 
@@ -89,6 +90,65 @@
                     <ul class="collector"></ul>
                 </div>
 			</div>
+            <div class="row" id="checkin-search-wrap" >
+                <div class="title-wrap">
+                    <h1 class="section-head">Search Check-In</h1>
+                    <div class="hline"></div>
+                </div>
+                <%= form_tag("/", method: "post", id: "checkin-search") do %>
+                    <div class="inner_wrap">
+                        <%= label_tag 'email', 'Email', class: 'no-label' %>
+                        <%= email_field_tag 'email', nil, placeholder: 'EMAIL', required: false %>
+                    </div>
+                    <div class="inner">
+                      <%= label_tag(:firstName, "First Name", class: 'no-label') %>
+                      <%= text_field_tag 'firstName', nil, placeholder: 'First Name', required:false %>
+                      <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
+                      <%= text_field_tag 'lastName', nil, placeholder: 'Last Name', required: false   %>
+                    </div>
+                    <div class="inner_wrap">
+                        <%= label_tag 'barcode', 'Barcode ID', class: 'no-label' %>
+                        <%= email_field_tag 'barcode', nil, placeholder: 'Barcode ID', required: false %>
+                    </div>
+                    <div class="hvr-underline-from-center full">
+                        <%= submit_tag "Search", id: "search" %>
+                    </div>
+                <% end %>
+            </div>
+            <div class="row" id="attendee" style="display:none;">
+                <div class="title-wrap">
+                    <h1 class="section-head">Attendee</h1>
+                    <div class="hline"></div>
+                </div>
+
+                <table id="attendee-info-table">
+                  <colgroup>
+                     <col span="1" style="width: 150px;">
+                     <col span="1" style="width: 150px;">
+                  </colgroup>
+                  <tr>
+                    <td class="left-align">First Name: </td>
+                    <td class="attendee-info" id="attendee-fname"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Last Name: </td>
+                    <td class="attendee-info" id="attendee-lname"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Email: </td>
+                    <td class="attendee-info" id="attendee-email"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Education: </td>
+                    <td class="attendee-info" id="attendee-university"></td> 
+                  </tr>
+                </table>
+
+                <div class="hvr-underline-from-center full">
+                    <button id="next">Next Attendee</button>
+                </div>
+
+            </div>
         </section>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
@@ -99,13 +159,3 @@
         <%= javascript_include_tag "admin-checkin" %>
     </body>
 </html>   
-
-
-
-
-
-
-
-
-
-

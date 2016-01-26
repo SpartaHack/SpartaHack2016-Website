@@ -551,19 +551,21 @@ class AdminController < ApplicationController
     render layout: false
   end
 
-  private
-
-    def svg_to_png(svg)
-      scalar = 4
-      svg = RSVG::Handle.new_from_data(svg)
-      p svg.width
-      surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, svg.width * scalar, svg.height * scalar)
-      context = Cairo::Context.new(surface).scale(scalar,scalar)
-      context.render_rsvg_handle(svg)
-      b = StringIO.new
-      surface.write_to_png(b)
-      return b.string
+  def checkin_search
+    if !checkin_search_params[:barcode].blank?
+      @user = Parse::Query.new("Application").tap do |q|
+        q.eq("user", Parse::Pointer.new({
+          "className" => "_User",
+          "objectId"  => checkin_search_params[:barcode]
+        }))
+        q.include = "user"
+      end.get.first
+    else
+        
     end
+  end
+
+  private
 
     def add_sponsor_params
       params.permit(:picture, :name, :url, :level)
@@ -584,6 +586,22 @@ class AdminController < ApplicationController
     def email_params
       params.permit(:object, :"type")
     end 
+
+    def checkin_search_params
+      params.permit(:barcode, :email, :firstName, :lastName)
+    end   
+
+    def svg_to_png(svg)
+      scalar = 4
+      svg = RSVG::Handle.new_from_data(svg)
+      p svg.width
+      surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, svg.width * scalar, svg.height * scalar)
+      context = Cairo::Context.new(surface).scale(scalar,scalar)
+      context.render_rsvg_handle(svg)
+      b = StringIO.new
+      surface.write_to_png(b)
+      return b.string
+    end
 
     def get_empty_app_users
       users_with_apps = []

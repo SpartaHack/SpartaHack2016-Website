@@ -14,14 +14,25 @@
   font-family: ubuntu; 
   height: 100%;
 
+  .hline {
+    border-top: solid 1px $mutedOutline;
+    background: none;
+    width: 100%;
+  }
+
+  .aline {
+    border-top: solid 1px $mutedOutline;
+    background: none;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    align-self: center;
+    width: 70%;
+  }
+
   .title-wrap {
     margin-bottom: 15px;
 
-    .hline {
-      border-top: solid 1px $mutedOutline;
-      background: none;
-      width: 100%;
-    }
+
     
     .section-head {
         margin-bottom: 10px;
@@ -106,16 +117,29 @@
     }
   }
 
-  .inner-wrap {
+  .inner_wrap {
+    width: 100%;
     display: flex;
     display: -webkit-flex;
     justify-content: space-between;
-    padding-bottom: 15px;
+    margin-bottom: 25px;
     -webkit-justify-content: space-between;
     @media (max-width: 550px) {
-      padding-bottom: 0px;
-      flex-direction: column-reverse;
-      -webkit-flex-direction: column-reverse;
+      margin-bottom: 0px;
+      flex-direction: column;
+      -webkit-flex-direction: column;
+    }
+  }
+
+  .inner {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    @media (max-width: 550px) {
+      flex-direction: column;
+      -webkit-flex-direction: column;
     }
   }
 
@@ -162,27 +186,145 @@
     outline: 0 none !important;
   }
 
+  input[type=text]{
+    height: 36px;
+    text-align:left; 
+    border: solid 1px $mutedOutline; 
+    font-size: 15px; 
+    font-weight: 100;
+    color: $cream;
+    background: none;
+    padding: 8px 0px 8px 25px; 
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    margin-bottom: 0px;
+    @media (max-width: 550px) {
+      width:100%; 
+      height: 54px;
+      box-sizing: border-box;         /* For IE and modern versions of Chrome */
+      -moz-box-sizing: border-box;    /* For Firefox                          */
+      -webkit-box-sizing: border-box; /* For Safari                           */
+      margin-bottom: 15px;
+    }
+  }
+
   input[type=submit] {
     background: none;
-    border-style: none;
-    text-align: right;
+    text-align: center;
     border: solid 1px $mutedOutline;
     color: $cream;
-    font-weight: 100;
+    font-weight: 200;
     font-size: 15px;
     border-radius: 0;
     height: 60px;
+    width: 100%;
     cursor: pointer; 
     cursor: hand;
-    -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-  } 
+    @media (min-width: 550px) {
+      width: 530px;
+      padding-right: 25px;
+    }
+  }  
 
-  #submit-wrap {
-    display: flex;
-    display: -webkit-flex;
-    justify-content: space-between;
-    -webkit-justify-content: space-between;
+  #next {
+    background: none;
+    text-align: left;
+    border: solid 1px $mutedOutline;
+    color: $cream;
+    font-weight: 200;
+    font-size: 15px;
+    border-radius: 0;
+    height: 60px;
+    width: 100%;
+    cursor: pointer; 
+    cursor: hand;
+    -webkit-font-smoothing: antialiased;
+    margin-top: 25px;
+    padding-left: 25px;
+    @media (min-width: 550px) {
+      width: 530px;
+      padding-left: 25px;
+    } 
+  }
+
+  .select-attendee {
+    background: none;
+    text-align: left;
+    border: solid 1px $mutedOutline;
+    color: $cream;
+    font-weight: 200;
+    font-size: 15px;
+    border-radius: 0;
+    height: 60px;
+    width: 300px;
+    cursor: pointer; 
+    cursor: hand;
+    -webkit-font-smoothing: antialiased;
+    margin-top: 25px;
+    padding-left: 25px;
+    @media (min-width: 550px) {
+      width: 300px;
+      padding-left: 25px;
+    } 
+  }
+
+  input[type=submit]:hover {
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 0px;
+    -webkit-box-shadow:0 0 8px $cream; 
+    -moz-box-shadow: 0 0 8px $cream; 
+    box-shadow:0 0 8px $cream;
+  }
+
+  input[type=submit]:focus {
+    border: solid 1px $mutedOutline;  
+  }
+
+  #email, #barcode {
+    height: 36px;
+    margin: 0px;
+    @media (min-width: 550px) {
+      width: 503px;
+    }
+  }
+
+  #barcode {
+    margin-top: 25px;
+  }
+
+  #firstName, #lastName{
+    @media (min-width: 550px) {
+      width: 225px;
+      margin-bottom: 0px;
+    }
+  }
+
+  #continue {
+    padding-right: 30px;
+    @media (max-width: 550px) {
+      padding-right: 25px;
+    }
+  }
+
+  .left-align {
+    text-align: left;
+    font-family: ubuntu;
+    font-weight: 100;
+    font-size: 18px;
+    color: $cream;
+    -webkit-font-smoothing: antialiased;
+
+  }
+
+  .attendee-info {
+    text-align: left;
+    color: $mutedText;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
   }
   
   .no-label {

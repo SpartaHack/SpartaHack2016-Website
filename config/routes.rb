@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   post 'admin/users/applications' => 'admin#app_status'
   post 'admin/users/email' => 'admin#send_emails'
   get 'admin/users/checkin' => 'admin#checkin'
+  post '/admin/users/checkin-search' => 'admin#checkin_search'
   post 'addsponsor' => 'admin#addsponsor'
   post 'viewsponsor' => 'admin#viewsponsor'
   post 'editsponsor' => 'admin#editsponsor'

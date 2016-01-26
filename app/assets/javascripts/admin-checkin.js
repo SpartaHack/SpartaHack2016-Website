@@ -168,13 +168,53 @@ $(function() {
         if (App.lastResult !== code && code.length == 10 && /^[a-z0-9]+$/i.test(code) ) {
             console.log(count)
             App.lastResult = code;
-            var $node = null, canvas = Quagga.canvas.dom.image;
 
-            $node = $('<li><div class="thumbnail"><div class="caption"><h4 class="code"></h4></div></div></li>');
-            $node.find("img").attr("src", canvas.toDataURL());
-            $node.find("h4.code").html(code);
-            $("#result_strip ul.thumbnails").prepend($node);
+            $.ajax({
+                url: "/admin/users/checkin-search",
+                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                type: "post",
+                context: document.body,
+                data: "barcode=" + code,
+                dataType : 'script'
+            })
+
         }
     });
 
+});
+
+$(document).ready(function() {  
+    $('#checkin-search').submit(function(e){
+        e.preventDefault();
+
+        console.log($( this ).serialize())
+
+        $.ajax({
+            url: "/admin/users/checkin-search",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            type: "post",
+            context: document.body,
+            data: $(this).serialize()
+        })
+
+    });
+
+    $("#next").click(function(){
+        $("#attendee").fadeOut("slow", function() {
+            $('#checkin-search')[0].reset();
+            $('#checkin-search-wrap').fadeIn("fast");
+        })
+    })
+
+    $(".check-in").click(function(){
+        keep = $(this).attr("index");
+
+        $(".check-in").slideUp("fast");
+        $(".aline").slideUp("fast");
+        $( "table" ).filter(function( index ) {
+            if (index != keep) {
+                return $(this).slideUp("fast");
+            }
+        })
+    })
 });

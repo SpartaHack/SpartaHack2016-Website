@@ -1,0 +1,9 @@
+console.log("sdaf")
+
+$("#checkin-search-wrap").fadeOut("slow", function() {
+	$("#attendee-fname").html("<%= @user['firstName'].capitalize %>");
+	$("#attendee-lname").html("<%= @user['lastName'].capitalize %>");
+	$("#attendee-email").html("<%= @user['user']['email'] %>");
+	$("#attendee-university").html("<%= @user['universityStudent'] == 'false' ? 'High School' : @user['university'].split(':')[-1] %>");
+	$("#attendee").fadeIn("fast");
+});
