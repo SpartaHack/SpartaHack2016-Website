@@ -22,6 +22,7 @@ class ApiController < ApplicationController
     end
 
     @response["timestamps"] = @school_dates
+    @response["applicants"] = @apps.length
     
     respond_to do |format|
       format.html { render json: @response}
