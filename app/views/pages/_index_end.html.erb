@@ -35,7 +35,7 @@
         <% @trainee.each do |sponsor|  %>
           <article class="bronze center">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor sponsor-img" %>
+              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :id => "#{sponsor[2] == 'Auto-Owners Insurance' ? 'auto-owners' : ''}", :class => "#{sponsor[2] != 'Auto-Owners Insurance' ? 'logo-sponsor ' : ''}sponsor-img" %>
             </a>
           </article>
         <% end %>
