@@ -118,6 +118,16 @@
       width: 530px;
       margin-top: 50px;
     }
+    @media (max-width: 490px) {
+      -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+      flex-wrap: wrap;
+
+      .last {
+        margin-top: 15px;
+      }
+
+      .stat-text { margin-bottom: 0px;}
+    }
   }
 
   .inner-wrap {
