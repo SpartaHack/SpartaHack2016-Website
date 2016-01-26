@@ -431,7 +431,7 @@ class UsersController < ApplicationController
         resume = user_rsvp_params['resume'] 
         parse_resume = Parse::File.new({
           :body => resume.read,
-          :local_filename => resume.original_filename.gsub(" ", "%20").gsub("[", "").gsub("]", ""),
+          :local_filename => (ActiveSupport::Inflector.transliterate resume.original_filename).gsub(" ", "%20").gsub("[", "").gsub("]", ""),
           :content_type => resume.content_type,
           :content_length => resume.tempfile().size().to_s
         })
