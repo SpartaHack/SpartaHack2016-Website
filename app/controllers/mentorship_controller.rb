@@ -58,6 +58,8 @@ class MentorshipController < ApplicationController
           @mentor.parse_delete
           @mentor.save
         end
+        flash[:popup] = "Decision successfully submitted."
+        flash[:sub] = "You may continue to edit your Mentorship status."
         redirect_to '/dashboard' and return
       end
 
