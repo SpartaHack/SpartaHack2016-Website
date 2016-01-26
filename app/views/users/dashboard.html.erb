@@ -187,24 +187,26 @@
                     <h1 class="section-head">Topics</h1>
                     <div class="hline"></div>
                   </div>
-                  <div class="hvr-underline-from-left full">
-                    <a href="/application"><div class="dash-link">My Application</div></a>
-                  </div>
+                  <div id="dash-wrap">
+                    <div class="hvr-underline-from-left link-wrap">
+                      <a href="/application"><div class="dash-link">My Application</div></a>
+                    </div>
 
-                <% if @application['status'] == 'Accepted'%>
-                  <div class="hvr-underline-from-left full">
-                    <a href="/rsvp"><div class="dash-link"><%= @rsvp ? "My RSVP" : "Complete RSVP" %></div></a>
-                  </div>
-                <% end %>
+                  <% if @application['status'] == 'Accepted'%>
+                    <div class="hvr-underline-from-left link-wrap">
+                      <a href="/rsvp"><div class="dash-link"><%= @rsvp ? "My RSVP" : "Complete RSVP" %></div></a>
+                    </div>
+                  <% end %>
 
-               <% if !@rsvp.blank? && @rsvp['attending'] == true %>
-                  <div class="hvr-underline-from-left full">
-                    <a href="/mentorship/register"><div class="dash-link">Mentorship</div></a>
-                  </div>
-                  <div class="hvr-underline-from-left full">
-                    <a href="/mycode"><div class="dash-link">My Attendee Code</div></a>
-                  </div>
-                <% end %>
+                 <% if !@rsvp.blank? && @rsvp['attending'] == true %>
+                    <div class="hvr-underline-from-left link-wrap">
+                      <a href="/mentorship/register"><div class="dash-link">Mentorship</div></a>
+                    </div>
+                    <div class="hvr-underline-from-left link-wrap">
+                      <a href="/mycode"><div class="dash-link">My Attendee Code</div></a>
+                    </div>
+                  <% end %>
+                </div>
 
 
                 </div>

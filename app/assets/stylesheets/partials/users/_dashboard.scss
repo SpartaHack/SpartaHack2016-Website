@@ -117,6 +117,7 @@ body {
         content: "•  ";
         color: $cream;
     }
+
   }
 
 
@@ -160,8 +161,8 @@ body {
     
     .row {
       width: 87%;
-      @media (min-width: 550px) {
-        width: 530px;
+      @media (min-width: 1000px) {
+        width: 900px;
       }
     }
 
@@ -275,8 +276,8 @@ body {
     .row {
       width: 87%;
       padding: 0px 15px;
-      @media (min-width: 550px) {
-        width: 530px;
+      @media (min-width: 1000px) {
+        width: 900px;
       }
     }
 
@@ -300,6 +301,19 @@ body {
       padding-left: 15px;
     } 
 
+    #dash-wrap {
+      @media (min-width: 1000px) {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        justify-content: space-between;
+        -webkit-justify-content: space-between;
+      }
+    }
+
     a {
       text-decoration: none;
       font-family: ubuntu;
@@ -312,8 +326,12 @@ body {
     
   }
 
-  .full {
+  .link-wrap {
+    width: 100%;
     margin-top: 15px;
+    @media (min-width: 1000px) {
+      width: 442.5px;
+    }
   }
 
 }

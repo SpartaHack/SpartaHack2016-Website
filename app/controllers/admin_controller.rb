@@ -19,19 +19,31 @@ class AdminController < ApplicationController
 
     # Gets a total count of users
     @users_total = Parse::Query.new("_User").tap do |q|
-      q.limit = 1000
-    end.get.length
+                      q.limit = 1000
+                    end.get.length
 
     @users_total += Parse::Query.new("_User").tap do |q|
                       q.limit = 1000
                       q.skip = 1000
                     end.get.length
 
+    # Gets a total count of RSVPs
+    @rsvp_total = Parse::Query.new("RSVP").tap do |q|
+                      q.limit = 1000
+                      q.eq("attending", true)
+                    end.get.length
+
+    @rsvp_total += Parse::Query.new("RSVP").tap do |q|
+                      q.limit = 1000
+                      q.skip = 1000
+                      q.eq("attending", true)
+                    end.get.length
+
     # Collects all the applications with their user object
     @apps = Parse::Query.new("Application").tap do |q|
-                    q.limit = 1000
-                    q.include = "user"
-                  end.get
+                      q.limit = 1000
+                      q.include = "user"
+                    end.get
 
     @apps += Parse::Query.new("Application").tap do |q|
                       q.limit = 1000
@@ -299,6 +311,8 @@ class AdminController < ApplicationController
 
     @submission_dates = {}
 
+    @apps_accepted_total = 0
+
     # Start huge loop
     @apps.each do |app|
       # Gender
@@ -306,6 +320,10 @@ class AdminController < ApplicationController
         @gender_count[app['gender']]+=1;
       else
         @gender_count["nonbinary"]+=1;
+      end
+
+      if app['status'] == "Accepted"
+        @apps_accepted_total += 1
       end
 
       # Universities
@@ -582,21 +600,26 @@ class AdminController < ApplicationController
     def get_empty_app_users
       users_with_apps = []
       
-      @applications = Parse::Query.new("Application").tap do |q|
+      applications = Parse::Query.new("Application").tap do |q|
         q.limit = 1000
         q.include = "user"
       end.get
 
-      @applications.each do |app|
+      applications += Parse::Query.new("Application").tap do |q|
+        q.limit = 1000
+        q.include = "user"
+      end.get
+
+      applications.each do |app|
         users_with_apps.push(app["user"]['email'])
       end
 
-      @users = Parse::Query.new("_User").tap do |q|
+      users = Parse::Query.new("_User").tap do |q|
         q.value_not_in("email", users_with_apps)
         q.limit = 1000
       end.get
 
-      @users += Parse::Query.new("_User").tap do |q|
+      users += Parse::Query.new("_User").tap do |q|
         q.value_not_in("email", users_with_apps)
         q.limit = 1000
         q.skip = 1000

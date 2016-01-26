@@ -55,6 +55,19 @@ class PagesController < ApplicationController
       @commander= @commander.sort do |a,b|
         a[2] <=> b[2]
       end
+
+      @team = []
+      
+      team_raw = Parse::Query.new("Team").get
+
+      team_raw.each do |t|
+        @team.push([t["url"], t["img"].url, t["name"], t["position"], t["order"]])
+      end
+
+      @team= @team.sort do |a,b|
+        a[4] <=> b[4]
+      end
+
     rescue
       redirect_to "/outage" and return
     end
