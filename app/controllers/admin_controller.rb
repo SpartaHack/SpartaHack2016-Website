@@ -311,6 +311,8 @@ class AdminController < ApplicationController
 
     @submission_dates = {}
 
+    @apps_accepted_total = 0
+
     # Start huge loop
     @apps.each do |app|
       # Gender
@@ -318,6 +320,10 @@ class AdminController < ApplicationController
         @gender_count[app['gender']]+=1;
       else
         @gender_count["nonbinary"]+=1;
+      end
+
+      if app['status'] == "Accepted"
+        @apps_accepted_total += 1
       end
 
       # Universities
