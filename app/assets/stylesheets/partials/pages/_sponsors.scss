@@ -103,15 +103,22 @@
     }
 
   #auto-owners {
+    position:absolute;
+    left:0px;
+    right: 0px;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
     @media (min-width: 551px) {
-      -webkit-filter: grayscale(80%);
-         -moz-filter: grayscale(80%);
-           -o-filter: grayscale(80%);
-          -ms-filter: grayscale(80%);
-              filter: grayscale(80%);
-              filter: gray;  /* For IE 6 - 9 */
-      -webkit-transition: all .6s ease;  /* Transition for Webkit browsers */
+      -webkit-transition: opacity .6s ease;
+         -moz-transition: opacity .6s ease;
+           -o-transition: opacity .6s ease;
+              transition: opacity .6s ease;
     }
+  }
+
+  .bottom:hover {
+    opacity:0;
   }
 
   .logo-sponsor {
@@ -185,6 +192,7 @@
   width: 250px;
   height: 100px;
   margin: 15px 25px;
+  position: relative;
 
   .logo-sponsor, #auto-owners {
     max-width: 250px;
