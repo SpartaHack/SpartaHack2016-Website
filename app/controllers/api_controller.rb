@@ -1,0 +1,36 @@
+class ApiController < ApplicationController
+  require 'parse_config'
+  
+  def school
+    # Collects all the applications for that school
+    @apps = Parse::Query.new("Application").tap do |q|
+    				          q.eq("university", school_params[:school])
+                      q.limit = 1000
+                    end.get
+
+    @apps += Parse::Query.new("Application").tap do |q|
+    				          q.eq("university", school_params[:school])
+                      q.limit = 1000
+                      q.skip = 1000
+                    end.get
+
+    p @apps
+
+    @school_dates = []
+    @apps.each do |app|
+    	@school_dates.push(app["createdAt"])
+    end
+
+    respond_to do |format|
+      format.html { render json: @school_dates}
+      format.json { render json: @school_dates }
+ 	  end
+
+  end
+
+  private
+
+  def school_params
+  	params.permit(:school)
+  end 
+end
