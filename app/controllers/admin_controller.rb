@@ -231,10 +231,38 @@ class AdminController < ApplicationController
     
     @apps = Parse::Query.new("Application").tap do |q|
       q.limit = 1000
+      q.include = "user"
     end.get
 
     @apps += Parse::Query.new("Application").tap do |q|
       q.skip = 1000
+      q.include = "user"
+      q.limit = 1000
+    end.get
+
+    render layout: false
+  end
+
+  def rsvps
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin"
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
+    
+    @rsvps = Parse::Query.new("RSVP").tap do |q|
+      q.include = "user,application"
+      q.limit = 1000
+    end.get
+
+    @rsvps += Parse::Query.new("RSVP").tap do |q|
+      q.skip = 1000
+      q.include = "user,application"
       q.limit = 1000
     end.get
 

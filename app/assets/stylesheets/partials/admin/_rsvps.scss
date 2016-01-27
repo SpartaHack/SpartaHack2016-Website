@@ -1,7 +1,7 @@
 @import 'partials/colorScheme';
 @import 'partials/fonts';
 
-#applications{
+#rsvps{
  @media (max-width: 550px) {
     margin-top: 30px;
   }
@@ -55,29 +55,6 @@
     padding-right: 1em;
   }
 
-  #popup-wrapper {
-    position: fixed;
-    background-color: rgba(3, 3, 22, 1);
-    width: 100%;
-    height: 100%;
-    background: image-url("glitch.gif") no-repeat center 10px fixed;
-    background-size: 100%; 
-    z-index: 9;
-    left: 0;
-    right: 0;
-    top: 60px;
-    margin: auto;
-
-    animation:popup-wrapper 1s 1;
-    -webkit-animation:popup-wrapper 1s 1;
-    animation-fill-mode: forwards;
-
-    animation-delay:5s;
-    -webkit-animation-delay:5s; /* Safari and Chrome */
-    -webkit-animation-fill-mode: forwards;
-
-  } 
-
   input[type=search], input[type=text], select {
     text-align:left; 
     border: solid 1px $mutedOutline; 
@@ -108,30 +85,6 @@
     width: 60px;
   }
 
-  .multi-set {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: row;
-    -webkit-flex-direction: row;
-    align-items: center;
-    -webkit-align-items: center;
-    justify-content: space-between;
-    -webkit-justify-content: space-between;
-    width: 500px;
-    padding-bottom: 5px;
-
-  }
-
-  #multi-wrapper {
-    display: flex;
-    display: -webkit-flex;
-    align-items: flex-end;
-    -webkit-align-items: flex-end;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    width: 100%;
-  }
-
   #my-final-table {
     tr {
       background-color: transparent;
@@ -151,21 +104,18 @@
       max-width: 20px;
     }
 
-    #university, #major {
+    .university, #major {
       min-width: 400px;
     }
 
-    #hackathons {
+    .restrictions {
       min-width: 600px;
-    }
-
-    #whyAttend {
-      min-width: 1000px;;
     }
 
     #created, #email {
       min-width: 250px 
     }
+
   }
 
   .status-select, #status-multi {

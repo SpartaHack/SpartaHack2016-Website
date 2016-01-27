@@ -448,6 +448,17 @@ class UsersController < ApplicationController
 
       response = rsvp.save
 
+      if rsvp["application"].blank?
+        app = Parse::Query.new("Application").tap do |q|
+          q.eq("user", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => cookies.signed[:spartaUser][0]
+          }))
+        end.get.first
+
+        rsvp["application"] = app.pointer
+      end
+
       rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       rsvp["user"] = user.pointer
