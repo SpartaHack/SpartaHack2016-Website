@@ -266,6 +266,21 @@ class AdminController < ApplicationController
       q.limit = 1000
     end.get
 
+    @rsvps.each do |rsvp|
+
+      if rsvp["application"].blank?
+        app = Parse::Query.new("Application").tap do |q|
+          q.eq("user", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => rsvp["user"]["objectId"]
+          }))
+        end.get.first
+
+        rsvp["application"] = app.pointer
+      end
+
+    end
+
     render layout: false
   end
 
