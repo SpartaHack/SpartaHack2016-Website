@@ -94,6 +94,7 @@
                             <th>Last Name</th>
                             <th>Status</th>
                             <th id="created">Created</th>
+                            <th id="email">Email</th>
                             <th>Gender</th>
                             <th>Birth Month</th>
                             <th>Birth Day</th>
@@ -126,6 +127,7 @@
                                 <% end %>
                             </td>
                             <td><%= app['createdAt'] %></td>
+                            <td><%= app['user']["email"] %></td>
                             <td><%= app['gender'] %></td>
                             <td><%= app['birthmonth'] %></td>
                             <td><%= app['birthday'] %></td>
