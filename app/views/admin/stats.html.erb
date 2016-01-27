@@ -115,7 +115,10 @@
                         <div class="row">
                             <div class="column">
                                 <article>
-                                    <h2 class="center">Attending</h2>
+                                    <div class="title-wrap">
+                                      <h1 class="section-head">Attending</h1>
+                                      <div class="hline"></div>
+                                    </div>
                                     <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
                                         <thead>
                                             <tr>
@@ -146,7 +149,10 @@
                         <div class="column">
                             <article>
                                 <div>
-                                    <h2 class="center">Gender</h2>
+                                    <div class="title-wrap">
+                                      <h1 class="section-head">Gender</h1>
+                                      <div class="hline"></div>
+                                    </div>
                                     <div class="horizontal-bar-graph" id="gender-graph"></div>
                                     <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
                                     <thead>
@@ -170,7 +176,10 @@
                             </article>
 
                             <article>
-                                <h2 class="center">Age</h2>
+                                <div class="title-wrap">
+                                  <h1 class="section-head">Age</h1>
+                                  <div class="hline"></div>
+                                </div>
                                 <div id="age-graph">
                                 </div>
                                 <div class="row">
@@ -214,7 +223,10 @@
 
                         <div class="column">
                             <article>
-                                <h2 class="center">Universities</h2>
+                                <div class="title-wrap">
+                                  <h1 class="section-head">Universities</h1>
+                                  <div class="hline"></div>
+                                </div>
                                 <div class="horizontal-bar-graph" id="university-graph"></div>
                                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
                                     <thead>
@@ -241,7 +253,10 @@
                             </article>
 
                             <article>
-                                <h2 class="center">Majors</h2>
+                                <div class="title-wrap">
+                                  <h1 class="section-head">Majors</h1>
+                                  <div class="hline"></div>
+                                </div>
                                 <div class="horizontal-bar-graph" id="major-graph"></div>
                                 <div class="row">
                                     <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
@@ -267,7 +282,10 @@
                             </article>
                         </div>
 
-                        <h2 class="center">Grade Level</h2>
+                        <div class="title-wrap">
+                          <h1 class="section-head">Grade Level</h1>
+                          <div class="hline"></div>
+                        </div>
                         <div class="column">
                             <article>
                                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
@@ -295,7 +313,10 @@
 
                         <br>
 
-                        <h2 class="center">Number of Hackathons Attended</h2>
+                        <div class="title-wrap">
+                          <h1 class="section-head">Number of Hackathons Attended</h1>
+                          <div class="hline"></div>
+                        </div>
                         <div class="column">
                             <article>
                                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
@@ -333,13 +354,16 @@
                         <div class="row wordmap">
                             <br><br><br><br><br><br><br>
                             <div class="center">
-                                <div id="example" style="width: 800px; height: 400px;"></div>
+                                <div id="example" style="width: 100%; height: 600px;"></div>
                             </div>
                             <br><br><br><br><br><br><br>
                         </div>
 
                         <div class="row">
-                            <h2 class="center">Daily Number of Applications</h2>
+                            <div class="title-wrap">
+                              <h1 class="section-head">Daily Number of Applications</h1>
+                              <div class="hline"></div>
+                            </div>
                             <div class="center" id="applications-graph">
                             </div>
                         </div>
@@ -370,7 +394,6 @@
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
     	<%= javascript_include_tag "select2.full.min" %>	
-        <%= javascript_include_tag "admin" %>
         <%= javascript_include_tag "d3.min.js" %>
         <%= javascript_include_tag "jqcloud.min.js" %>
         <%= javascript_include_tag "stats" %>

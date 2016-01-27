@@ -524,7 +524,7 @@ class AdminController < ApplicationController
 
 
 
-
+    render layout: false
   end
 
   def send_emails
