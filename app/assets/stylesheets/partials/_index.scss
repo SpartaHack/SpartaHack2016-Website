@@ -56,3 +56,24 @@ a {
   -webkit-font-smoothing: antialiased;
   text-decoration: none;
 }
+
+.center {
+    display: -webkit-box;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;
+    /* OLD - Firefox 19- (doesn't work very well) */
+    display: -ms-flexbox;
+    /* TWEENER - IE 10 */
+    display: -webkit-flex;
+    /* NEW - Chrome */
+    display: flex;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    align-items: center;
+    -webkit-align-items: center;
+    
+    align-content: center;
+    -webkit-align-content: center;
+
+    justify-content: center;
+    -webkit-justify-content: center;
+}
