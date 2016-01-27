@@ -13,6 +13,34 @@
     color: #FFCE80;
   }
 
+  .row {
+    align-items: center;
+  }
+
+
+
+  .title-wrap {
+
+    .section-head {
+        margin-top: 0px;
+        margin-bottom: 0px;
+        color: $mutedText;
+        font-family: ubuntu;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
+    }
+
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      margin-bottom: 15px;
+      background: none;
+      width: 100%;
+    }
+  }
+
   .box {
     width: 125px;
     height: 75px;
@@ -94,8 +122,22 @@
 
 
   svg {
-    border: 1px dotted #999;
-    padding: 1em;
+    background: transparent !important;
+    
+    .tick {
+      text {
+        fill: $cream;
+      }
+    }
+
+    .tick line {
+      stroke: $mutedText;
+      stroke-width: 2;
+    }
+
+    .x .tick line {
+      y2: -500 !important;
+    }
     
     rect {
       fill: silver;
@@ -104,6 +146,29 @@
         fill: $statsOrange;
       }
     }
+
+    path { 
+        stroke: $mutedText !important;
+        stroke-width: 2;
+        fill: none;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: $mutedOutline;
+      stroke-width: 1;
+      shape-rendering: crispEdges;
+    }
+
+    .x path {
+        display: inline !important;
+        stroke: $mutedText !important;
+        stroke-width: 1;
+        fill: none;
+
+    }
+
   }
 
   #tooltip {

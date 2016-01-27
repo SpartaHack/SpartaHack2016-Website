@@ -80,8 +80,10 @@ var data2 = [{ date: "1-May-12" , close: 582.13 },
 
 var data = $('.data_submission_dates').data('temp');
 
+var row_width = $('.row').width();
+
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
+    width = row_width - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%d-%b-%y").parse;
@@ -94,10 +96,14 @@ var y = d3.scale.linear()
 
 var xAxis = d3.svg.axis()
     .scale(x)
+    .innerTickSize(-height)
+    .tickPadding(10)
     .orient("bottom");
 
 var yAxis = d3.svg.axis()
     .scale(y)
+    .innerTickSize(-width)
+    .tickPadding(10)
     .orient("left");
 
 var line = d3.svg.line()
@@ -121,7 +127,7 @@ y.domain(d3.extent(data, function(d) { return d.close; }));
 svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
+    .call(xAxis)
 
 svg.append("g")
     .attr("class", "y axis")
@@ -213,7 +219,7 @@ if (data_common_words.length == 0) {
   }
 
   $("#example").jQCloud(word_array, {
-    removeOverflowing: false
+    removeOverflowing: false,
   });
 }
 
