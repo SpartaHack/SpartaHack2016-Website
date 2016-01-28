@@ -12,7 +12,10 @@
               <%= image_tag member[1].sub('http://', 'https://s3.amazonaws.com/'), alt: member[2], :class => "member member-img" %>
             </a>
             <p id="member-name"><%= member[2] %></p>
-            <p id="position"><%= member[3] %></p>
+            <p class="position"><%= member[3] %></p>
+          <% if !member[5].blank? %>
+            <p class="position second"><%= member[5] %></p>
+          <% end %>
           </article>
         <% end %>
       </div>

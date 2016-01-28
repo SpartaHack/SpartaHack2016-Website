@@ -61,7 +61,7 @@ class PagesController < ApplicationController
       team_raw = Parse::Query.new("Team").get
 
       team_raw.each do |t|
-        @team.push([t["url"], t["img"].url, t["name"], t["position"], t["order"]])
+        @team.push([t["url"], t["img"].url, t["name"], t["position"], t["order"], t["position2"]])
       end
 
       @team= @team.sort do |a,b|
