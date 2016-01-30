@@ -90,6 +90,11 @@
       display: none;
     }
   }
+    #hide-on-mobile {
+    @media (max-width: 1000px) {
+      display: none;
+    }
+  }
 
   .wrap {
     max-width: 1200px;
