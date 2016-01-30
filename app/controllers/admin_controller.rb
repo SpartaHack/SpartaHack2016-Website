@@ -327,7 +327,7 @@ class AdminController < ApplicationController
     @new_rsvps = []
 
     @rsvps.each do |rsvp|
-      @new_rsvps << rsvp
+      @new_rsvps << rsvp["application"]
     end
 
     # attending
@@ -341,8 +341,10 @@ class AdminController < ApplicationController
       end
     end
 
+    # pp @new_rsvps
+
     # Calculate stats for rsvps
-    @rsvps = get_stats(@rsvps,"user")
+    @rsvps = get_stats(@new_rsvps,"user")
 
     render layout: false
   end
@@ -477,17 +479,10 @@ class AdminController < ApplicationController
     # stats on users
     def get_stats(users, flag) # flag used to check for user pointers in rsvp table
       @input = {}
-      if flag == "user"
-        users.each do |app|
-          app = app["application"]
-        end
-      else
-        @input = users
-        @total_apps = @input.length
-      end
 
-      # puts @input
-
+      @input = users
+      @total_apps = @input.length
+  
       # gender count [male, female, nonbinary]
       @gender_count = {"male"=>0, "female"=>0, "non-binary"=>0, "prefer-not"=>0}
 

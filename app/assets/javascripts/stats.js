@@ -226,7 +226,6 @@ if (data_common_words.length == 0) {
 // RSVP
 $('.ios-switch').click(function() { 
     var checked = $('.ios-switch').prop('checked');
-    console.log(checked);
     if (checked) {
       document.querySelector('#rsvp').style.visibility = "visible";
       document.querySelector('#rsvp').style.position = "inherit";
@@ -246,3 +245,4 @@ $('.ios-switch').click(function() {
       document.querySelector('#app-stats').style.opacity = "1";
     }
 });
+

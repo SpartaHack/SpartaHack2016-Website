@@ -33,6 +33,35 @@
 
                 </table>
             </article>
+
+            <article>
+            <div>
+                <div class="title-wrap">
+                  <h1 class="section-head">Gender</h1>
+                  <div class="hline"></div>
+                </div>
+                <!-- <div class="horizontal-bar-graph" id="gender-graph"></div> -->
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                <thead>
+                    <tr>
+                        <th>Gender</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% @rsvps["gender_count"].each_with_index do |gender_count, index|  %>
+                    <tr>
+                        <td><%= gender_count[0] %></td>
+                        <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @total_apps ),precision: 1) %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+
+            </table>
+            </div>
+        </article>
+
         </div>
     </div>
 </div>
