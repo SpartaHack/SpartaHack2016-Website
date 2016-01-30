@@ -246,22 +246,3 @@ $('.ios-switch').click(function() {
       document.querySelector('#app-stats').style.opacity = "1";
     }
 });
-
-
-function GetThisHidden(){
-    $("#rsvp").css("opacity", "0").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend', HideTheElementAfterAnimation);
-}
-
-function GetThisDisplayed(){
-    $("#rsvp").css("display", "block").css("opacity", "1").unbind("transitionend webkitTransitionEnd oTransitionEnd otransitionend");
-}
-
-function HideTheElementAfterAnimation(){
-    $("#rsvp").css("display", "none");
-}
-
-
-
-
-
-
