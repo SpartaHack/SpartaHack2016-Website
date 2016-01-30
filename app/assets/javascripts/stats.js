@@ -226,17 +226,39 @@ if (data_common_words.length == 0) {
 // RSVP
 $('.ios-switch').click(function() { 
     var checked = $('.ios-switch').prop('checked');
+    console.log(checked);
     if (checked) {
-      document.querySelector('#rsvp-status').innerHTML = 'true';
-      document.querySelector('#rsvp').style.display = "inline";
-      document.querySelector('#app-stats').style.display = "none";
+      document.querySelector('#rsvp').style.visibility = "visible";
+      document.querySelector('#rsvp').style.position = "inherit";
+      document.querySelector('#rsvp').style.opacity = "1";
+
+      document.querySelector('#app-stats').style.visibility = "hidden";
+      document.querySelector('#app-stats').style.position = "absolute";
+      document.querySelector('#app-stats').style.opacity = "0";
       }
     else {
-      document.querySelector('#rsvp-status').innerHTML = 'false';
-      document.querySelector('#rsvp').style.display = "none";
-      document.querySelector('#app-stats').style.display = "inline";
+      document.querySelector('#rsvp').style.position = "absolute";
+      document.querySelector('#rsvp').style.visibility = "hidden";
+      document.querySelector('#rsvp').style.opacity = "0";
+
+      document.querySelector('#app-stats').style.position = "inherit";
+      document.querySelector('#app-stats').style.visibility = "visible";
+      document.querySelector('#app-stats').style.opacity = "1";
     }
 });
+
+
+function GetThisHidden(){
+    $("#rsvp").css("opacity", "0").on('transitionend webkitTransitionEnd oTransitionEnd otransitionend', HideTheElementAfterAnimation);
+}
+
+function GetThisDisplayed(){
+    $("#rsvp").css("display", "block").css("opacity", "1").unbind("transitionend webkitTransitionEnd oTransitionEnd otransitionend");
+}
+
+function HideTheElementAfterAnimation(){
+    $("#rsvp").css("display", "none");
+}
 
 
 
