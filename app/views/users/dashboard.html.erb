@@ -111,6 +111,7 @@
                 </div>
               </section>
             <% end %>
+          <% end %>
 
             <section class="travel">
               <div class="row">
@@ -175,11 +176,12 @@
                   </tr>
                 <% end %>
               <% end %>
+
                 </table>
                 <p class="travel-policy">How to qualify for reimbursment: <a target="_blank" href="https://drive.google.com/file/d/0B070VDH8d-MLN1NOVGxMdTBpcW8/view?usp=sharing">travel policy</a>.</p>
               </div>
             </section>
-          <% end %>
+          
             
             <section class="topic-selection">
                 <div class="row">
@@ -206,7 +208,9 @@
                       <a href="/mycode"><div class="dash-link">My Attendee Code</div></a>
                     </div>
                   <% end %>
+                <% if !@rsvp.blank? && @rsvp['attending'] == true || @rsvp.blank? %>
                   <p>Be sure to join our Facebook <a href="https://www.facebook.com/events/1054594757917115/" target="_blank">event!</a></p>
+                <% end %>
                 </div>
 
 

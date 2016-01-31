@@ -342,6 +342,7 @@ class AdminController < ApplicationController
     @actual_rsvps = @rsvps
     @rsvps = get_stats(@rsvpd_applications, @rsvps, "rsvp")
 
+
     render layout: false
   end
 

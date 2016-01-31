@@ -267,11 +267,13 @@ class UsersController < ApplicationController
                         }))
                 end.get.first
 
-        if !@rsvp.blank?
-          @travel = Parse::Query.new("Travel").tap do |q|
-                          q.eq("university", @rsvp['university'])
-                  end.get.first
+
           begin
+            if !@application['university'].blank?
+              @travel = Parse::Query.new("Travel").tap do |q|
+                            q.eq("university", @application['university'])
+                    end.get.first
+            end
             data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
             @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
             @bus_1_waitlist = data_bus_1["ticket_classes"][1]["quantity_total"] - data_bus_1["ticket_classes"][1]["quantity_sold"]
@@ -292,6 +294,7 @@ class UsersController < ApplicationController
             @bus_3_waitlist = nil
           end
 
+        if !@rsvp.blank?
           if !@application['birthyear'].blank?
             curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth'].to_i), @application['birthday'].to_i, 0, 0)
             if age(curr_bday, Date.new(2016, 2, 26)) < 18
@@ -301,6 +304,15 @@ class UsersController < ApplicationController
             end
           end
 
+          @travel = Parse::Query.new("Travel").tap do |q|
+                        q.eq("university", @rsvp['university'])
+                end.get.first
+           
+          if @travel.blank?
+            @travel = Parse::Query.new("Travel").tap do |q|
+                          q.eq("university", @application['university'])
+                  end.get.first         
+          end
 
         end
         
@@ -454,7 +466,7 @@ class UsersController < ApplicationController
         rescue
           flash[:popup] = "RSVP not saved."
           flash[:sub] = "Please contact us."
-          redirect_to '/rsvp'
+          redirect_to '/rsvp' and return
         end
       end
 
@@ -481,7 +493,7 @@ class UsersController < ApplicationController
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
       puts e.message
-      redirect_to '/rsvp'
+      redirect_to '/rsvp' and return 
     end
 
   end  
