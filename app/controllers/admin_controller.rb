@@ -342,7 +342,7 @@ class AdminController < ApplicationController
     end
 
     # Calculate stats for rsvps
-    @rsvps = get_stats(@rsvps,"user")
+    # @rsvps = get_stats(@rsvps,"user")
 
     render layout: false
   end
