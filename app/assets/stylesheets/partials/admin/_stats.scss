@@ -9,12 +9,20 @@
   -webkit-font-smoothing: antialiased;
   color: #80ffdb;
 
+  // Fixes weird x scrolling on mobile
+  overflow-x: hidden;
+
   strong {
     color: #FFCE80;
   }
 
   .row {
     align-items: center;
+  }
+  .row, .column {
+    @media (max-width: 550px) {
+      margin-left: 1%;
+    }
   }
 
   h1.section-head {
@@ -230,11 +238,11 @@
       font-weight: 100;
       -webkit-appearance: none;
       -webkit-font-smoothing: antialiased;
-      @media (min-width: 550px) {
+      @media (min-width: 650px) {
         margin: 3vh 0;
       }
 
-      @media (max-width: 550px) {
+      @media (max-width: 650px) {
         width: 100%;
         align-items: center;
 
@@ -252,11 +260,11 @@
 
     }
 
-    @media (max-width: 1000px) {
-      width: 87%;
-    }
+    // @media (max-width: 800px) {
+    //   width: 87%;
+    // }
 
-    @media (max-width: 550px) {
+    @media (max-width: 650px) {
       flex-direction: column;
       width: 100%
     }
@@ -427,7 +435,10 @@
 
 .horizontal-bar-graph {
   display: table;
-  width: 100%;
+  width: 98%;
+  @media (max-width: 550px) {
+    width: 98%;
+  }
 }
 
 .horizontal-bar-graph-segment {
@@ -489,7 +500,9 @@ div.jqcloud span.w3 { font-size: 125%; }
 div.jqcloud span.w2 { font-size: 100%; }
 div.jqcloud span.w1 { font-size: 90%; }
 
-
+#rsvps-wordcloud, #apps-wordcloud {
+  margin: 0px -25% 0;
+}
 
 
 
