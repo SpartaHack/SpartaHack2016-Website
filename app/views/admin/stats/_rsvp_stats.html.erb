@@ -127,7 +127,7 @@
                     <% @rsvps["closest_school"][0..20].each_with_index do |closest_school, index|  %>
                     <tr>
                         <td><%= closest_school[0] %></td>
-                        <td><%= closest_school[1] %> or <%= number_to_percentage(100*(closest_school[1].to_f / @apps["uni_applicants"].inject(0){|sum,e| sum += e[1]}), precision: 1) %></td>
+                        <td><%= closest_school[1] %> or <%= number_to_percentage(100*(closest_school[1].to_f / @rsvp_attending_count), precision: 1) %></td>
                     </tr>
                     <% end %>
                 </tbody>
@@ -178,7 +178,7 @@
                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
                     <thead>
                         <tr>
-                            <th>Major</th>
+                            <th>Shirt Size</th>
                             <th>Count</th>
                         </tr>
                     </thead>

@@ -644,6 +644,7 @@ class AdminController < ApplicationController
                 @closest_school[ rsvp['university'] ] = 1
               end
             end
+
             # Dietary Restrictions!
             if !rsvp['restrictions'].blank?
               rsvp['restrictions'].each do |restriction|
@@ -657,6 +658,7 @@ class AdminController < ApplicationController
                 end
               end
             end
+
             # T-shirt sizes
             if !rsvp['tshirt'].blank?
               if @tshirt_count[ rsvp['tshirt'] ]
@@ -665,7 +667,6 @@ class AdminController < ApplicationController
                 @tshirt_count[ rsvp['tshirt'] ] = 1
               end
             end
-
 
           end
         end
