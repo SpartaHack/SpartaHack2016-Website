@@ -1,46 +1,17 @@
 <div id="rsvp">
     <div class="row">
-        <h4 class="center">Percentage RSVP'd</h4>
-        <h3 class="center"><%= number_to_percentage(100*(@rsvps.length.to_f / @apps_accepted_total ),precision: 1) %></h3>
-        <div class="progress">
-            <div class="progress-bar" style="width: <%= number_to_percentage(100*(@rsvp_attending_count.to_f / @apps_accepted_total ),precision: 1) %>;"></div>
+        <div class="center">
+            <h1 class="">RSVP Stats</h1>
         </div>
     </div>
-
-    <div class="row">
-        <div class="column">
-            <article>
-                <div class="title-wrap">
-                  <h1 class="section-head">Attending</h1>
-                  <div class="hline"></div>
-                </div>
-                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                    <thead>
-                        <tr>
-                            <th>Yes</th>
-                            <th>No</th>
-                            <th>No Response</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td><%= @rsvp_attending_count %> or <%= number_to_percentage(100*(@rsvp_attending_count.to_f / @apps_accepted_total ),precision: 1) %></td>
-                            <td><%= @rsvps.length - @rsvp_attending_count %> or <%= number_to_percentage(100*( (@rsvps.length - @rsvp_attending_count.to_f ) / @apps_accepted_total ),precision: 1) %></td>
-                            <td><%= @apps_accepted_total - @rsvps.length %></td>
-                        </tr>
-                    </tbody>
-
-                </table>
-            </article>
-
-            <article>
+    <div class="column">
+        <article>
             <div>
                 <div class="title-wrap">
                   <h1 class="section-head">Gender</h1>
                   <div class="hline"></div>
                 </div>
-                <!-- <div class="horizontal-bar-graph" id="gender-graph"></div> -->
+                <div class="horizontal-bar-graph" id="rsvps-gender-graph"></div>
                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
                 <thead>
                     <tr>
@@ -62,6 +33,210 @@
             </div>
         </article>
 
+        <article>
+            <div class="title-wrap">
+              <h1 class="section-head">Age</h1>
+              <div class="hline"></div>
+            </div>
+            <div id="rsvps-age-graph">
+            </div>
+            <div class="row">
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                    <thead>
+                        <tr>
+                            <th>Age</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% @rsvps["age_count"].each_with_index do |age_count, index|  %>
+                            <% if age_count[0] < 18 %>
+                                <tr>
+                                    <td class="minorhighlight"><%= age_count[0].to_i %>
+                                    </td>
+                                    <td class="minorhighlight"><%= age_count[1] %>
+                                        or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
+                                    </td>
+                                </tr>
+                            <% else %>
+                                <tr>
+                                    <td><%= age_count[0].to_i %></td>
+                                    <td><%= age_count[1] %>
+                                        or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
+                                    </td>
+                                </tr>
+                            <% end %>
+                        <% end %>
+                    </tbody>
+
+                </table>
+                <p class="">
+                    There are <strong><%= @rsvps["minor_count"] %> minors</strong>, which make up <strong><%= number_to_percentage(100*@rsvps["minor_count"].to_f / @rsvps["age_count"].inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
+                    <br>There are <strong><%= @rsvps["adult_count"] %> adults</strong>, which make up <strong><%= number_to_percentage(100*@rsvps["adult_count"].to_f / @rsvps["age_count"].inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
+                </p>
+            </div>
+        </article>
+    </div>
+
+    <div class="column">
+        <article>
+            <div class="title-wrap">
+              <h1 class="section-head">Universities</h1>
+              <div class="hline"></div>
+            </div>
+            <div class="horizontal-bar-graph" id="rsvps-university-graph"></div>
+            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                <thead>
+                    <tr>
+                        <th>University</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% @rsvps["uni_applicants"][0..20].each_with_index do |uni_applicants, index|  %>
+                    <tr>
+                        <td><%= uni_applicants[0] %></td>
+                        <td><%= uni_applicants[1] %> or <%= number_to_percentage(100*(uni_applicants[1].to_f / @rsvps["uni_applicants"].inject(0){|sum,e| sum += e[1]}), precision: 1) %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <div class="tablefooter">
+                *top 20
+            </div>
+            <p>There are <strong><%= @rsvps["international_count"] %> international students</strong>, which make up <strong><%= number_to_percentage(100*(@rsvps["international_count"].to_f / @rsvps["uni_applicants"].inject(0){|sum,e| sum += e[1]}), precision: 1) %></strong> of applicants.</p>
+
+        </article>
+
+        <article>
+            <div class="title-wrap">
+              <h1 class="section-head">Majors</h1>
+              <div class="hline"></div>
+            </div>
+            <div class="horizontal-bar-graph" id="rsvps-major-graph"></div>
+            <div class="row">
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                    <thead>
+                        <tr>
+                            <th>Major</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% @rsvps["major_count"].each_with_index do |major_count, index|  %>
+                        <tr>
+                            <td><%= major_count[0] %></td>
+                            <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @total_apps, precision: 1) %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </article>
+    </div>
+
+    <div class="title-wrap">
+      <h1 class="section-head">Grade Level</h1>
+      <div class="hline"></div>
+    </div>
+    <div class="column">
+        <article>
+            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                <thead>
+                    <tr>
+                        <th>Grade</th>
+                        <th>Percent</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @uni_grade_count.each_with_index do |uni_grade_count, index|  %>
+                        <tr>
+                            <td><%= uni_grade_count[0] %></td>
+                            <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @uni_grade_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </article>
+
+        <article>
+            <div class="horizontal-bar-graph" id="rsvps-grade-graph"></div>
+        </article>
+    </div>
+
+    <br>
+
+    <div class="title-wrap">
+      <h1 class="section-head">Number of Hackathons Attended</h1>
+      <div class="hline"></div>
+    </div>
+    <div class="column">
+        <article>
+            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Frequency</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% @rsvps["hackathons_count"].each_with_index do |hackathons_count, index|  %>
+                        <tr>
+                            <td><%= hackathons_count[0] %></td>
+                            <td><%= hackathons_count[1] %> or <%= number_to_percentage(100*hackathons_count[1].to_f / @rsvps["hackathons_count"].inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <p>The most popular Hackathon was <strong><%= @rsvps["hackathons_attended"][0][0] %></strong>, listed in <strong><%= @rsvps["hackathons_attended"][0][1] %></strong> applications.</p>
+        </article>
+
+        <article>
+            <div class="horizontal-bar-graph" id="rsvps-hackathon-graph"></div>
+        </article>
+    </div>
+
+    <div class="row">
+        <br><br><br><br>
+        <!-- Random reason to attend -->
+        <p><%= @rsvps["random_reason"][0] %></p>
+        <p>-<%= @rsvps["random_reason"][1] %> <%= @random_reason[2] %></p>
+    </div>
+
+    <div class="row wordmap">
+        <br><br><br><br><br><br><br>
+        <div class="center">
+            <div id="rsvps-wordcloud" style="width: 100%; height: 600px;"></div>
+        </div>
+        <br><br><br><br><br><br><br>
+    </div>
+
+    <div class="row" id="hide-on-mobile">
+        <div class="title-wrap">
+          <h1 class="section-head">Daily Number of Applications</h1>
+          <div class="hline"></div>
+        </div>
+        <div class="center" id="rsvps-submissions-graph">
         </div>
     </div>
 </div>
+
+<!-- Let's load ruby variables into js because Noah likes to live dangerously -->
+<%= content_tag :div, class: "rsvps_data_gender_count", data: {temp: @rsvps["gender_count"]} do %>
+<% end %>
+<%= content_tag :div, class: "rsvps_data_age_count", data: {temp: @rsvps["age_count"]} do %>
+<% end %>
+<%= content_tag :div, class: "rsvps_data_grade_count", data: {temp: @rsvps["uni_grade_count"]} do %>
+<% end %>
+<%= content_tag :div, class: "rsvps_data_hackathon_count", data: {temp: @rsvps["hackathons_count"]} do %>
+<% end %>
+<%= content_tag :div, class: "rsvps_data_common_words", data: {temp: @rsvps["common_words"]} do %>
+<% end %>
+<%= content_tag :div, class: "rsvps_data_submission_dates", data: {temp: @rsvps["submission_array"]} do %>
+<% end %>

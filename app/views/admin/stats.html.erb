@@ -83,7 +83,6 @@
                         <%= @total_apps %> Applications <br>
                         <%= @uni_applicants.length %> Schools <br>
                         <%= @rsvp_attending_count %> Attending <br>
-                        <!-- show rsvp false by default -->
                     </strong>
                 </p>
 
@@ -95,7 +94,6 @@
                         </div>
                     </div>
                     <div class="row center">
-                        Show RSVPs
                         <div>
                             <div style="justify-content: flex-end;">
                                 <label><input type="checkbox" class="ios-switch bigswitch" unchecked /><div><div></div></div></label>
@@ -116,24 +114,15 @@
         <span id="rsvp-status">false</span>
         <!-- Load ruby variables into javascript arrays -->
         <!-- $('.data_gender_count').data('temp') -->
-        <%= content_tag :div, class: "data_gender_count", data: {temp: @apps["gender_count"]} do %>
-        <% end %>
-        <%= content_tag :div, class: "data_age_count", data: {temp: @apps["age_count"]} do %>
-        <% end %>
-        <%= content_tag :div, class: "data_grade_count", data: {temp: @apps["uni_grade_count"]} do %>
-        <% end %>
-        <%= content_tag :div, class: "data_hackathon_count", data: {temp: @apps["hackathons_count"]} do %>
-        <% end %>
-        <%= content_tag :div, class: "data_common_words", data: {temp: @apps["common_words"]} do %>
-        <% end %>
-        <%= content_tag :div, class: "data_submission_dates", data: {temp: @apps["submission_array"]} do %>
-        <% end %>
+
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
     	<%= javascript_include_tag "select2.full.min" %>	
         <%= javascript_include_tag "d3.min.js" %>
         <%= javascript_include_tag "jqcloud.min.js" %>
-        <%= javascript_include_tag "stats" %>
+        <%= javascript_include_tag "stats.js" %>
+        <%= javascript_include_tag "app-stats.js" %>
+        <%= javascript_include_tag "rsvp-stats.js" %>
     </body>
 </html>        

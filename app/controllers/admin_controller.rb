@@ -309,42 +309,37 @@ class AdminController < ApplicationController
     @apps_accepted_total = 0
 
     # Calculate stats for applications
-    @apps = get_stats(@apps,"")
+    @apps = get_stats(@apps,{},"")
 
     # RSVP setup
     # Gets all rsvps
     @rsvps = Parse::Query.new("RSVP").tap do |q|
+      q.order_by = "createdAt"
+      q.order    = :descending
       q.include = "user,application"
       q.limit = 1000
     end.get
 
     @rsvps += Parse::Query.new("RSVP").tap do |q|
       q.skip = 1000
+      q.order_by = "createdAt"
+      q.order    = :descending
       q.include = "user,application"
       q.limit = 1000
     end.get
 
-    @new_rsvps = []
+    @rsvpd_applications = []
+    @rsvp_attending_count = 0
 
     @rsvps.each do |rsvp|
-      @new_rsvps << rsvp["application"]
-    end
-
-    # attending
-    @rsvp_attending_count=0;
-
-    @rsvps.each do |rsvp|
-      # Count attending
-      if rsvp["attending"] == true
-        # rsvp["user"]["email"]
+      if rsvp["attending"]==true
         @rsvp_attending_count += 1
+        @rsvpd_applications << rsvp["application"]
       end
     end
 
-    # pp @new_rsvps
-
     # Calculate stats for rsvps
-    @rsvps = get_stats(@new_rsvps,"user")
+    @rsvps = get_stats(@rsvpd_applications, @rsvps, "rsvp")
 
     render layout: false
   end
@@ -477,7 +472,7 @@ class AdminController < ApplicationController
     end
 
     # stats on users
-    def get_stats(users, flag) # flag used to check for user pointers in rsvp table
+    def get_stats(users, rsvps, flag) # flag used to check for user pointers in rsvp table
       @input = {}
 
       @input = users
@@ -607,34 +602,45 @@ class AdminController < ApplicationController
           end
         end
 
-        # Applications per day
-        current_day = ( Time.parse(app['createdAt']) - 9*3600).strftime("%d-%b-%y")
-        if !@submission_dates[ current_day ].blank?
-          @submission_dates[ current_day ] += 1
-        else
-          @submission_dates[ current_day ] = 1
+        if flag != "rsvp"
+          # Applications per day
+          current_day = ( Time.parse(app['createdAt']) - 9*3600).strftime("%d-%b-%y")
+          if !@submission_dates[ current_day ].blank?
+            @submission_dates[ current_day ] += 1
+          else
+            @submission_dates[ current_day ] = 1
+          end
         end
+
       end
 
-      if flag != "user"
+      if flag == "rsvp"
+        rsvps.each do |rsvp|
+          current_day = ( Time.parse(rsvp['createdAt']) - 9*3600).strftime("%d-%b-%y")
+          if !@submission_dates[ current_day ].blank?
+            @submission_dates[ current_day ] += 1
+          else
+            @submission_dates[ current_day ] = 1
+          end
+        end
+      end
+      pp @submission_dates
 
-
-        # Random reason for wanting to attend SpartaHack
-        # [reason, first name, last name]
-        @random_reason = ["","",""]
+      # Random reason for wanting to attend SpartaHack
+      # [reason, first name, last name]
+      @random_reason = ["","",""]
+      @random_num = rand(0..( @input.length-1 ))
+      while ( @input[@random_num]["whyAttend"].blank?)
         @random_num = rand(0..( @input.length-1 ))
-        while ( @input[@random_num]["whyAttend"].blank?)
-          @random_num = rand(0..( @input.length-1 ))
-        end
-        @random_reason[0] = @input[@random_num]["whyAttend"]
-        @random_reason[1] = @input[@random_num]["firstName"]
-        @random_reason[2] = @input[@random_num]["lastName"]   
+      end
+      @random_reason[0] = @input[@random_num]["whyAttend"]
+      @random_reason[1] = @input[@random_num]["firstName"]
+      @random_reason[2] = @input[@random_num]["lastName"]   
 
-        @submission_array = []
+      @submission_array = []
 
-        @submission_dates.each do |submission|
-          @submission_array.push({"date" => submission[0], "close" => submission[1]})
-        end
+      @submission_dates.each do |submission|
+        @submission_array.push({"date" => submission[0], "close" => submission[1]})
       end
 
       # Sorting
