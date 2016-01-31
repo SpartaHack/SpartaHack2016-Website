@@ -36,8 +36,8 @@ class UsersController < ApplicationController
       end
       begin
         apply = Parse::User.new({
-          :username => user_app_params['email'],
-          :email => user_app_params['email'],
+          :username => user_app_params['email'].downcase,
+          :email => user_app_params['email'].downcase,
           :password => user_app_params['password'],
           :role => "attendee"
         })
@@ -203,7 +203,7 @@ class UsersController < ApplicationController
   # authenticate user and redirect them to their application
   def auth
   	begin
-			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
+			login = Parse::User.authenticate(user_login_params['email'].downcase,user_login_params['password'])
       if login["role"] == "admin" || login["role"] == "sponsorship" || login["role"] == "statistics"
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], login["role"]] }
 			  redirect_to '/admin' and return
@@ -411,6 +411,10 @@ class UsersController < ApplicationController
         
         response = rsvp.save
 
+        rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        rsvp["user"] = user.pointer
+
         if rsvp["application"].blank?
           app = Parse::Query.new("Application").tap do |q|
             q.eq("user", Parse::Pointer.new({
@@ -421,10 +425,7 @@ class UsersController < ApplicationController
 
           rsvp["application"] = app.pointer
         end
-
-        rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-        rsvp["user"] = user.pointer
+        
         rsvp.save
 
         redirect_to '/rsvp'  and return
@@ -471,6 +472,10 @@ class UsersController < ApplicationController
 
       response = rsvp.save
 
+      rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
+      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      rsvp["user"] = user.pointer
+
       if rsvp["application"].blank?
         app = Parse::Query.new("Application").tap do |q|
           q.eq("user", Parse::Pointer.new({
@@ -482,9 +487,6 @@ class UsersController < ApplicationController
         rsvp["application"] = app.pointer
       end
 
-      rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      rsvp["user"] = user.pointer
       rsvp.save
 
       redirect_to '/rsvp'  and return

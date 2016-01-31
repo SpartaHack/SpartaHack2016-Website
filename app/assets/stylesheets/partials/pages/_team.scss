@@ -27,7 +27,7 @@
   border-bottom: solid 1px $mutedOutline;
 
   #wrap {
-    width: 70%;
+    width: 75%;
     @media (max-width: 550px) {
       width: 100%;
     }
@@ -133,7 +133,7 @@
     }
   }
 
-  #member-name, #position {
+  #member-name, .position {
     font-family: ubuntu;
     font-weight: 100;
     -webkit-font-smoothing: antialiased;
@@ -144,11 +144,16 @@
 
   }
 
-  #position {
+  .position {
     color: $mutedText;
     margin-top: 5px;
+    font-size: 85%;
     width: 170px;
     text-align: center;
+  }
+
+  .second {
+    margin-top: 0px;
   }
 
 

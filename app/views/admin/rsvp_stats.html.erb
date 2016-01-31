@@ -1,0 +1,38 @@
+<div id="rsvp" style="display: none;">
+    <div class="row">
+        <h4 class="center">Percentage RSVP'd</h4>
+        <h3 class="center"><%= number_to_percentage(100*(@rsvps.length.to_f / @apps_accepted_total ),precision: 1) %></h3>
+        <div class="progress">
+            <div class="progress-bar" style="width: <%= number_to_percentage(100*(@rsvp_attending_count.to_f / @apps_accepted_total ),precision: 1) %>;"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <article>
+                <div class="title-wrap">
+                  <h1 class="section-head">Attending</h1>
+                  <div class="hline"></div>
+                </div>
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                    <thead>
+                        <tr>
+                            <th>Yes</th>
+                            <th>No</th>
+                            <th>No Response</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><%= @rsvp_attending_count %> or <%= number_to_percentage(100*(@rsvp_attending_count.to_f / @apps_accepted_total ),precision: 1) %></td>
+                            <td><%= @rsvps.length - @rsvp_attending_count %> or <%= number_to_percentage(100*( (@rsvps.length - @rsvp_attending_count.to_f ) / @apps_accepted_total ),precision: 1) %></td>
+                            <td><%= @apps_accepted_total - @rsvps.length %></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </article>
+        </div>
+    </div>
+</div>
