@@ -204,13 +204,34 @@
 
     <div class="row">
         <br><br><br><br>
-        <!-- Random reason to attend -->
-        <p><%= @apps["random_reason"][0] %></p>
-        <p>-<%= @apps["random_reason"][1] %> <%= @random_reason[2] %></p>
+        <div class="title-wrap">
+          <h1 class="section-head">Random Reasons For Attending</h1>
+          <div class="hline"></div>
+        </div>
+        <div class="column">
+            <article>
+                <p><%= @apps["random_reason"][0][0] %></p>
+                <p>-<%= @apps["random_reason"][0][1] %> <%= @random_reason[0][2] %></p>
+            </article>
+            <article>
+                <p><%= @apps["random_reason"][1][0] %></p>
+                <p>-<%= @apps["random_reason"][1][1] %> <%= @random_reason[1][2] %></p>
+            </article>
+        </div>
+        <div class="column">
+            <article>
+                <p><%= @apps["random_reason"][2][0] %></p>
+                <p>-<%= @apps["random_reason"][2][1] %> <%= @random_reason[3][2] %></p>
+            </article>
+            <article>
+                <p><%= @apps["random_reason"][3][0] %></p>
+                <p>-<%= @apps["random_reason"][3][1] %> <%= @random_reason[3][2] %></p>
+            </article>
+        </div>
     </div>
 
     <div class="row wordmap">
-        <br><br><br><br><br><br><br>
+        <br><br><br><br>
         <div class="center">
             <div id="apps-wordcloud" style="width: 100%; height: 600px;"></div>
         </div>

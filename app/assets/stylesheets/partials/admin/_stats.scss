@@ -22,8 +22,8 @@
     margin-bottom: 25px;
   }
 
-  #rsvp {
-    position: absolute;
+  #rsvp-stats {
+    position: fixed;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.75s linear;

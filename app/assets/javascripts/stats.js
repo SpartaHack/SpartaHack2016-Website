@@ -52,18 +52,18 @@ HorizontalBarGraph.prototype.draw = function() {
 $('.ios-switch').click(function() { 
     var checked = $('.ios-switch').prop('checked');
     if (checked) {
-      document.querySelector('#rsvp').style.visibility = "visible";
-      document.querySelector('#rsvp').style.position = "inherit";
-      document.querySelector('#rsvp').style.opacity = "1";
+      document.querySelector('#rsvp-stats').style.visibility = "visible";
+      document.querySelector('#rsvp-stats').style.position = "inherit";
+      document.querySelector('#rsvp-stats').style.opacity = "1";
 
       document.querySelector('#app-stats').style.visibility = "hidden";
-      document.querySelector('#app-stats').style.position = "absolute";
+      document.querySelector('#app-stats').style.position = "fixed";
       document.querySelector('#app-stats').style.opacity = "0";
       }
     else {
-      document.querySelector('#rsvp').style.position = "absolute";
-      document.querySelector('#rsvp').style.visibility = "hidden";
-      document.querySelector('#rsvp').style.opacity = "0";
+      document.querySelector('#rsvp-stats').style.position = "fixed";
+      document.querySelector('#rsvp-stats').style.visibility = "hidden";
+      document.querySelector('#rsvp-stats').style.opacity = "0";
 
       document.querySelector('#app-stats').style.position = "inherit";
       document.querySelector('#app-stats').style.visibility = "visible";

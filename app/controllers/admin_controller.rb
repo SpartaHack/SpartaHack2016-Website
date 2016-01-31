@@ -476,7 +476,9 @@ class AdminController < ApplicationController
       @input = {}
 
       @input = users
-      @total_apps = @input.length
+      if flag == ""
+        @total_apps = @input.length
+      end
   
       # gender count [male, female, nonbinary]
       @gender_count = {"male"=>0, "female"=>0, "non-binary"=>0, "prefer-not"=>0}
@@ -506,8 +508,6 @@ class AdminController < ApplicationController
       @hackathons_attended = {}
 
       @submission_dates = {}
-
-      # pp @input
 
       # Start huge loop
       @input.each do |app|
@@ -624,18 +624,19 @@ class AdminController < ApplicationController
           end
         end
       end
-      pp @submission_dates
 
       # Random reason for wanting to attend SpartaHack
       # [reason, first name, last name]
-      @random_reason = ["","",""]
-      @random_num = rand(0..( @input.length-1 ))
-      while ( @input[@random_num]["whyAttend"].blank?)
+      @random_reason = [[""],[""],[""],[""],[""],[""],[""],[""],[""]]
+      for i in 0..3 # three random reasons :)
         @random_num = rand(0..( @input.length-1 ))
+        while ( @input[@random_num]["whyAttend"].blank? && !(@random_reason.include? [@input[@random_num]["whyAttend"],@input[@random_num]["firstName"],@input[@random_num]["lastName"]]) )
+          @random_num = rand(0..( @input.length-1 ))
+        end
+        @random_reason[i][0] = @input[@random_num]["whyAttend"]
+        @random_reason[i][1] = @input[@random_num]["firstName"]
+        @random_reason[i][2] = @input[@random_num]["lastName"]
       end
-      @random_reason[0] = @input[@random_num]["whyAttend"]
-      @random_reason[1] = @input[@random_num]["firstName"]
-      @random_reason[2] = @input[@random_num]["lastName"]   
 
       @submission_array = []
 
@@ -649,6 +650,10 @@ class AdminController < ApplicationController
       @major_count = @major_count.sort_by {|_key, value| value}.reverse
       @hackathons_count = @hackathons_count.sort_by {|value,_key| value}
       @hackathons_attended = @hackathons_attended.sort_by {|_key, value| value}.reverse
+
+      if flag == ""
+        @uni_count = @uni_applicants.length
+      end
 
       # Find most common words for word map
       def most_common(str)
