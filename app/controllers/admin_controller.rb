@@ -339,6 +339,7 @@ class AdminController < ApplicationController
     end
 
     # Calculate stats for rsvps
+    @actual_rsvps = @rsvps
     @rsvps = get_stats(@rsvpd_applications, @rsvps, "rsvp")
 
     render layout: false
@@ -487,6 +488,8 @@ class AdminController < ApplicationController
       @uni_applicants = {"High School"=>0};
       @international_count=0;
 
+      @closest_school = {}
+
       # Age
       @age_count = { };
       @minor_count = 0;
@@ -500,6 +503,13 @@ class AdminController < ApplicationController
 
       # Majors
       @major_count = {};
+
+      # Dietary Restrictions
+      @restriction_count = {}
+      @other_restrictions = {}
+
+      # T-shirt sizes
+      @tshirt_count = {"Unisex XS"=>0, "Unisex Small"=>0, "Unisex Medium"=>0, "Unisex Large"=>0, "Unisex XL"=>0, "Unisex XXL"=>0, "Women's XS"=>0, "Women's Small"=>0, "Women's Medium"=>0, "Women's Large"=>0, "Women's XL"=>0, "Women's XXL"=>0 }
 
       # Number Hackathons attended
       # { number => frequency }
@@ -614,6 +624,7 @@ class AdminController < ApplicationController
 
       end
 
+      # Loop through actual RSVPs
       if flag == "rsvp"
         rsvps.each do |rsvp|
           current_day = ( Time.parse(rsvp['createdAt']) - 9*3600).strftime("%d-%b-%y")
@@ -621,6 +632,40 @@ class AdminController < ApplicationController
             @submission_dates[ current_day ] += 1
           else
             @submission_dates[ current_day ] = 1
+          end
+
+          # Closest School (rsvp only)
+          if flag == "rsvp"
+            if !rsvp['university'].blank?
+              if @closest_school[ rsvp['university'] ]
+                @closest_school[ rsvp['university'] ] += 1
+              else
+                @closest_school[ rsvp['university'] ] = 1
+              end
+            end
+            # Dietary Restrictions!
+            if !rsvp['restrictions'].blank?
+              rsvp['restrictions'].each do |restriction|
+                if restriction == "other"
+                  @other_restrictions[rsvp['otherRestrictions']] = rsvp['otherRestrictions']
+                end
+                if !@restriction_count[restriction].blank?
+                  @restriction_count[restriction] += 1
+                else
+                  @restriction_count[restriction] = 1
+                end
+              end
+            end
+            # T-shirt sizes
+            if !rsvp['tshirt'].blank?
+              if @tshirt_count[ rsvp['tshirt'] ]
+                @tshirt_count[ rsvp['tshirt'] ] += 1
+              else
+                @tshirt_count[ rsvp['tshirt'] ] = 1
+              end
+            end
+
+
           end
         end
       end
@@ -650,6 +695,9 @@ class AdminController < ApplicationController
       @major_count = @major_count.sort_by {|_key, value| value}.reverse
       @hackathons_count = @hackathons_count.sort_by {|value,_key| value}
       @hackathons_attended = @hackathons_attended.sort_by {|_key, value| value}.reverse
+
+      @closest_school = @closest_school.sort_by {|_key, value| value}.reverse
+      @restriction_count = @restriction_count.sort_by {|_key, value| value}.reverse
 
       if flag == ""
         @uni_count = @uni_applicants.length
@@ -702,6 +750,10 @@ class AdminController < ApplicationController
       @output["submission_array"] = @submission_array
       @output["uni_grade_count"] = @uni_grade_count
       @output["common_words"] = @common_words
+      @output["closest_school"] = @closest_school
+      @output["dietary_restrictions"] = @restriction_count
+      @output["other_restrictions"] = @other_restrictions
+      @output["tshirt_count"] = @tshirt_count
       
       return @output
 

@@ -127,11 +127,31 @@ var hackathonGraph = new HorizontalBarGraph('#rsvps-hackathon-graph', [
   {label: "14",  inner_label: hackathonValues[14][1],   value: hackathonValues[14][1],  color: "#00EDAB" }
 ]);
 
+var tshirtValues = [$('.rsvps_data_tshirt_count').data('temp')][0];
+// First Year, Second Year, Third Year, Fourth Year, Fifth Year, Graduate Student, Not a Student
+var tshirtGraph = new HorizontalBarGraph('#rsvps-tshirt-graph', [
+  {label: "Unisex XS",  inner_label: tshirtValues["Unisex XS"],   value: tshirtValues["Unisex XS"], color: "#00EDAB" },
+  {label: "Unisex Small",  inner_label: tshirtValues["Unisex Small"],   value: tshirtValues["Unisex Small"],  color: "#FFCE80" },
+  {label: "Unisex Medium",  inner_label: tshirtValues["Unisex Medium"],   value: tshirtValues["Unisex Medium"],  color: "#FF8099" },
+  {label: "Unisex Large",  inner_label: tshirtValues["Unisex Large"],   value: tshirtValues["Unisex Large"], color: "#00EDAB" },
+  {label: "Unisex XL",  inner_label: tshirtValues["Unisex XL"],   value: tshirtValues["Unisex XL"],  color: "#FFCE80" },
+  {label: "Unisex XXL",  inner_label: tshirtValues["Unisex XXL"],   value: tshirtValues["Unisex XXL"],  color: "#00EDAB" },
+  {label: "Women's XS",  inner_label: tshirtValues["Women's XS"],   value: tshirtValues["Unisex XS"],  color: "#FFCE80" },
+  {label: "Women's Small",  inner_label: tshirtValues["Women's Small"],   value: tshirtValues["Women's Small"],  color: "#FF8099" },
+  {label: "Women's Medium",  inner_label: tshirtValues["Women's Medium"],   value: tshirtValues["Women's Medium"],  color: "#FF8099" },
+  {label: "Women's Large",  inner_label: tshirtValues["Women's Large"],   value: tshirtValues["Women's Large"], color: "#00EDAB" },
+  {label: "Women's XL",  inner_label: tshirtValues["Women's XL"],   value: tshirtValues["Women's XL"],  color: "#FFCE80" },
+  {label: "Women's XXL",  inner_label: tshirtValues["Women's XXL"],   value: tshirtValues["Women's XXL"],  color: "#00EDAB" }
+]);
+
+
 genderGraph.draw();
 
 gradeGraph.draw();
 
 hackathonGraph.draw();
+
+tshirtGraph.draw();
 
 var word_array = [
       ];

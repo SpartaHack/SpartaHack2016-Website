@@ -154,10 +154,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% @uni_grade_count.each_with_index do |uni_grade_count, index|  %>
+                    <% @apps["uni_grade_count"].each_with_index do |uni_grade_count, index|  %>
                         <tr>
                             <td><%= uni_grade_count[0] %></td>
-                            <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @uni_grade_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                            <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @apps["uni_grade_count"].inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
                         </tr>
                     <% end %>
                 </tbody>

@@ -44,9 +44,7 @@ HorizontalBarGraph.prototype.draw = function() {
         .transition()
           .duration(1000)
           .style("min-width", function(d) { return x(d.value) + "%" });
-
 };
-
 
 // RSVP
 $('.ios-switch').click(function() { 
