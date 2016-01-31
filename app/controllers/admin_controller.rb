@@ -330,8 +330,10 @@ class AdminController < ApplicationController
 
     @rsvpd_applications = []
     @rsvp_attending_count = 0
+    @rsvps_total=0
 
     @rsvps.each do |rsvp|
+      @rsvps_total+=1
       if rsvp["attending"]==true
         @rsvp_attending_count += 1
         @rsvpd_applications << rsvp["application"]
