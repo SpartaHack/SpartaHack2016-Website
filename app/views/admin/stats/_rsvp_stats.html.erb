@@ -5,14 +5,14 @@
         </div>
     </div>
     <div class="row">
-        <h2 class="center"><%= number_to_percentage(100*(@rsvp_attending_count.to_f / @rsvps_total),precision: 1) %></h2>
+        <h2 class="center"><%= number_to_percentage(100*(@rsvp_attending_count.to_f / @apps_accepted_total),precision: 1) %></h2>
         <div class="progress">
-            <div class="progress-bar" style="width: <%= number_to_percentage(100*(@rsvp_attending_count.to_f / @rsvps_total),precision: 1) %>;"></div>
+            <div class="progress-bar" style="width: <%= number_to_percentage(100*(@rsvp_attending_count.to_f / @apps_accepted_total),precision: 1) %>;"></div>
         </div>
     </div>
     <div class="row">
         <div class="center">
-            <p>There are <strong> <%= @rsvp_attending_count %> </strong> attending out of <strong> <%= @rsvps_total %> </strong> RSVPs.</p>
+            <p>There are <strong> <%= @rsvp_attending_count %> </strong> Accepted RSVPs out of <strong> <%= @apps_accepted_total %> </strong> acceptances.</p>
         </div>
     </div>
     <div class="column">
@@ -24,23 +24,22 @@
                 </div>
                 <div class="horizontal-bar-graph" id="rsvps-gender-graph"></div>
                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
-                <thead>
-                    <tr>
-                        <th>Gender</th>
-                        <th>Count</th>
-                    </tr>
-                </thead>
+                    <thead>
+                        <tr>
+                            <th>Gender</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <% @rsvps["gender_count"].each_with_index do |gender_count, index|  %>
-                    <tr>
-                        <td><%= gender_count[0] %></td>
-                        <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @rsvp_attending_count),precision: 1) %></td>
-                    </tr>
-                    <% end %>
-                </tbody>
-
-            </table>
+                    <tbody>
+                        <% @rsvps["gender_count"].each_with_index do |gender_count, index|  %>
+                        <tr>
+                            <td><%= gender_count[0] %></td>
+                            <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @rsvp_attending_count),precision: 1) %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
             </div>
         </article>
 
