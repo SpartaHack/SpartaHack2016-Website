@@ -314,16 +314,16 @@ class AdminController < ApplicationController
     # RSVP setup
     # Gets all rsvps
     @rsvps = Parse::Query.new("RSVP").tap do |q|
-      q.order_by = "createdAt"
-      q.order    = :descending
+      # q.order_by = "createdAt"
+      # q.order    = :descending
       q.include = "user,application"
       q.limit = 1000
     end.get
 
     @rsvps += Parse::Query.new("RSVP").tap do |q|
       q.skip = 1000
-      q.order_by = "createdAt"
-      q.order    = :descending
+      # q.order_by = "createdAt"
+      # q.order    = :descending
       q.include = "user,application"
       q.limit = 1000
     end.get
@@ -343,7 +343,6 @@ class AdminController < ApplicationController
     # Calculate stats for rsvps
     @actual_rsvps = @rsvps
     @rsvps = get_stats(@rsvpd_applications, @rsvps, "rsvp")
-
 
     render layout: false
   end
@@ -677,20 +676,29 @@ class AdminController < ApplicationController
       # Random reason for wanting to attend SpartaHack
       # [reason, first name, last name]
       @random_reason = [[""],[""],[""],[""],[""],[""],[""],[""],[""]]
-      for i in 0..3 # three random reasons :)
-        @random_num = rand(0..( @input.length-1 ))
-        while ( @input[@random_num]["whyAttend"].blank? && !(@random_reason.include? [@input[@random_num]["whyAttend"],@input[@random_num]["firstName"],@input[@random_num]["lastName"]]) )
+      if @input.length-1 > 20
+        for i in 0..3 # three random reasons :)
           @random_num = rand(0..( @input.length-1 ))
+          while ( @input[@random_num]["whyAttend"].blank? && !(@random_reason.include? [@input[@random_num]["whyAttend"],@input[@random_num]["firstName"],@input[@random_num]["lastName"]]) )
+            @random_num = rand(0..( @input.length-1 ))
+          end
+          @random_reason[i][0] = @input[@random_num]["whyAttend"]
+          @random_reason[i][1] = @input[@random_num]["firstName"]
+          @random_reason[i][2] = @input[@random_num]["lastName"]
         end
-        @random_reason[i][0] = @input[@random_num]["whyAttend"]
-        @random_reason[i][1] = @input[@random_num]["firstName"]
-        @random_reason[i][2] = @input[@random_num]["lastName"]
+      else
+
       end
 
       @submission_array = []
 
       @submission_dates.each do |submission|
         @submission_array.push({"date" => submission[0], "close" => submission[1]})
+      end
+
+      # Check if using test database
+      if @hackathons_attended.length < 2
+        @hackathons_attended = {"test"=>1, "test hi"=>2}
       end
 
       # Sorting
