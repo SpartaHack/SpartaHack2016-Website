@@ -51,6 +51,37 @@ class AdminController < ApplicationController
                       q.skip = 1000
                     end.get
 
+    @apps_total = @apps.length
+  
+    render layout: false
+  end
+
+  def email
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics"
+        @user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
+
+    # Collects all the applications with their user object
+    @apps = Parse::Query.new("Application").tap do |q|
+                      q.limit = 1000
+                      q.include = "user"
+                    end.get
+
+    @apps += Parse::Query.new("Application").tap do |q|
+                      q.limit = 1000
+                      q.include = "user"
+                      q.skip = 1000
+                    end.get
+
+    @apps_total = @apps.length
+
     @new_decisions = 0
 
     # Count how many decision emails need to be sent
@@ -59,8 +90,6 @@ class AdminController < ApplicationController
         @new_decisions += 1
       end
     end
-
-    @apps_total = @apps.length
 
     # Collects users that have been notified of an empty app already
     email_flags = Parse::Query.new("EmailFlags").tap do |q|
@@ -80,18 +109,51 @@ class AdminController < ApplicationController
       flagged_users.push(flag['user']['email'])
     end
 
-    @new_first_notice = 0
+    @new_empty_app_first_notice = 0
     @empty_app_users = get_empty_app_users()
 
     # Count how many users need to be notified of an empty app.
     @empty_app_users.each do |empty_user|
         if !flagged_users.include? empty_user['email']
-          @new_first_notice += 1
+          @new_empty_app_first_notice += 1
+        elsif flagged_users.include? empty_user['email'] 
+          user_flags = Parse::Query.new("EmailFlags").tap do |q|
+                            q.eq("user", Parse::Pointer.new({
+                              "className" => "_User",
+                              "objectId"  => empty_user['objectId']
+                            }))
+                          end.get.first
+
+          if user_flags["firstEmptyApp"] != true
+            @new_empty_app_first_notice += 1
+          end
         end
     end
 
+    @new_empty_rsvp_first_notice = 0
+    @empty_rsvp_users = get_empty_rsvp_acceptances()
+
+    # Count how many users need to be notified of an empty app.
+    @empty_rsvp_users.each do |empty_user|
+        if !flagged_users.include? empty_user['email']
+          @new_empty_rsvp_first_notice += 1
+        elsif flagged_users.include? empty_user['email'] 
+          user_flags = Parse::Query.new("EmailFlags").tap do |q|
+                            q.eq("user", Parse::Pointer.new({
+                              "className" => "_User",
+                              "objectId"  => empty_user['objectId']
+                            }))
+                          end.get.first
+
+          if user_flags["firstRsvpReminder"] != true
+            @new_empty_rsvp_first_notice += 1
+          end
+        end
+    end    
+
     render layout: false
   end
+
 
   def sponsorship
     if cookies.signed[:spartaUser]
@@ -371,8 +433,7 @@ class AdminController < ApplicationController
         end
 
       end
-    elsif email_params['type'] == "empty_app"
-      
+    elsif email_params['type'] == "rsvp-reminder"
 
       email_flags = Parse::Query.new("EmailFlags").tap do |q|
                       q.limit = 1000
@@ -388,18 +449,94 @@ class AdminController < ApplicationController
       flagged_users = []
       email_flags.each do |flag|
         flagged_users.push(flag['user']['email'])
+      end                      
+
+      @empty_rsvp_users = get_empty_rsvp_acceptances()
+
+      @empty_rsvp_users.each do |empty_user|
+          if !flagged_users.include? empty_user['email']
+            UserMailer.notify_of_empty_rsvp(empty_user['email']).deliver_now
+            emailFlag = Parse::Object.new("EmailFlags")
+            emailFlag["firstRsvpReminder"] = true
+            emailFlag["user"] = empty_user.pointer
+            emailFlag.save
+          elsif flagged_users.include? empty_user['email'] 
+            user_flags = Parse::Query.new("EmailFlags").tap do |q|
+                              q.eq("user", Parse::Pointer.new({
+                                "className" => "_User",
+                                "objectId"  => empty_user['objectId']
+                              }))
+                            end.get.first
+
+            if user_flags["firstRsvpReminder"] != true
+              UserMailer.notify_of_empty_rsvp(empty_user['email']).deliver_now
+              user_flags["firstRsvpReminder"] = true
+              user_flags.save
+            end
+          end
       end
 
-      @new_first_notice = 0
+    elsif email_params['type'] == "empty_app"
+      
+
+      email_flags = Parse::Query.new("EmailFlags").tap do |q|
+                      q.limit = 1000
+                      q.eq("firstEmptyApp", true)
+                      q.include = "user"
+                    end.get
+
+      email_flags += Parse::Query.new("EmailFlags").tap do |q|
+                        q.limit = 1000
+                        q.eq("firstEmptyApp", true)
+                        q.include = "user"
+                        q.skip = 1000
+                      end.get
+
+      flagged_users = []
+      email_flags.each do |flag|
+        flagged_users.push(flag['user']['email'])
+      end
+
       @empty_app_users = get_empty_app_users()
 
+      @email_count = 0
       @empty_app_users.each do |empty_user|
+ 
           if !flagged_users.include? empty_user['email']
-            UserMailer.notify_of_empty_app(user['email']).deliver_now
-            emailFlags = Parse::Object.new("EmailFlags")
-            emailFlags["firstEmptyApp"] = true
-            emailFlags["user"] = user.pointer
-            emailFlags.save
+            UserMailer.notify_of_empty_app(empty_user['email']).deliver_now
+            emailFlag = Parse::Object.new("EmailFlags")
+            emailFlag["firstEmptyApp"] = true
+            emailFlag["user"] = empty_user.pointer
+            emailFlag.save
+
+            @email_count +=1
+
+            if @email_count > 40
+              break
+              sleep(60)
+              @email_count = 0
+            end
+          elsif flagged_users.include? empty_user['email']
+            user_flags = Parse::Query.new("EmailFlags").tap do |q|
+                              q.eq("user", Parse::Pointer.new({
+                                "className" => "_User",
+                                "objectId"  => empty_user['objectId']
+                              }))
+                            end.get.first
+
+            
+
+            if user_flags["firstEmptyApp"] != true
+              UserMailer.notify_of_empty_app(empty_user['email']).deliver_now
+              user_flags["firstEmptyApp"] = true
+              user_flags.save
+              @email_count += 1
+            end
+
+            if @email_count > 40
+              sleep(60)
+              @email_count = 0
+            end
           end
       end
 
@@ -456,6 +593,7 @@ class AdminController < ApplicationController
       applications += Parse::Query.new("Application").tap do |q|
         q.limit = 1000
         q.include = "user"
+        q.skip = 1000
       end.get
 
       applications.each do |app|
@@ -473,6 +611,46 @@ class AdminController < ApplicationController
         q.skip = 1000
       end.get
     end
+
+    def get_empty_rsvp_acceptances
+      users_with_rsvps = []
+      
+      rsvps = Parse::Query.new("RSVP").tap do |q|
+        q.limit = 1000
+        q.include = "user"
+      end.get
+
+      rsvps += Parse::Query.new("RSVP").tap do |q|
+        q.limit = 1000
+        q.include = "user"
+        q.skip = 1000
+      end.get
+
+      rsvps.each do |rsvp|
+        users_with_rsvps.push(rsvp["user"]['email'])
+      end
+
+      applications = Parse::Query.new("Application").tap do |q|
+        q.limit = 1000
+        q.include = "user"
+      end.get
+
+      applications += Parse::Query.new("Application").tap do |q|
+        q.limit = 1000
+        q.include = "user"
+        q.skip = 1000
+      end.get
+
+      users = [] 
+      applications.each do |app|
+        if app["status"] == "Accepted" && app["emailStatus"] == true && users_with_rsvps.include?(app['user']["email"]) == false
+          users.push(app["user"])
+        end
+      end
+
+      return users
+
+    end    
 
     # stats on users
     def get_stats(users, rsvps, flag) # flag used to check for user pointers in rsvp table

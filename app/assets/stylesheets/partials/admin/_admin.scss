@@ -165,8 +165,12 @@
 
 }
 
+.emails {
+  margin-top: 100px !important;
+}
+
 .topic-selection {
- @media (max-width: 550px) {
+  @media (max-width: 550px) {
     margin-top: 30px;
   }
   display: flex;
