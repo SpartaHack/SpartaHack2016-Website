@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get 'admin/users/applications' => 'admin#applications'
   post 'admin/users/applications' => 'admin#app_status'
   get 'admin/users/rsvps' => 'admin#rsvps'
+  get 'admin/users/email' => 'admin#email'
   post 'admin/users/email' => 'admin#send_emails'
   get 'admin/users/checkin' => 'admin#checkin'
   post 'addsponsor' => 'admin#addsponsor'
