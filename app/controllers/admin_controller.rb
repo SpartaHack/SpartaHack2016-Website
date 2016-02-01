@@ -297,6 +297,9 @@ class AdminController < ApplicationController
       diq.year - dob.year - ((diq.month > dob.month || (diq.month == dob.month && diq.day >= dob.day)) ? 0 : 1)
     end
 
+    # Count number of acceptances
+    @apps_accepted_total = 0
+
     # Get all applications
     @apps = Parse::Query.new("Application").tap do |q|
       q.limit = 1000
@@ -305,8 +308,6 @@ class AdminController < ApplicationController
       q.skip = 1000
       q.limit = 1000
     end.get
-
-    @apps_accepted_total = 0
 
     # Calculate stats for applications
     @apps = get_stats(@apps,{},"")
