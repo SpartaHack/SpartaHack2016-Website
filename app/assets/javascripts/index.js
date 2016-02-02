@@ -3,9 +3,33 @@ console.log("Ha you're funny, looking under the hood")
 if (navigator.appVersion.indexOf("Win")!=-1) {
   $('#hero').find('a').addClass( "windowsCenter" );
 }
-$('#faq article h3').click(function() {
-  $(this).next().slideToggle();
+
+var last_p = 1;
+
+$('#faq article').click(function() {
+  current = $(this);
+  $("article").removeClass("active-q");
+  $(".a-hline").removeClass("hide");
+
+  current.addClass("active-q");
+  current.prev().addClass("hide");
+  current.next().addClass("hide");
+
+  $("#answers p:nth-child("+ last_p +")").fadeOut("fast", function() {
+    $( "#answers p:nth-child("+ current.children().attr("id") +")" ).fadeIn();
+  });
+
+  last_p = current.children().attr("id")
 });
+
+$('#questions').on('scroll', function() {
+    if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+        $(".fa-angle-down").fadeOut();
+    } else {
+      $(".fa-angle-down").fadeIn();
+    }
+})
+
 
 $('.anchorLink').click(function(){
   $('html, body').animate({
@@ -46,15 +70,6 @@ if ($(window).width() < 775) {
       "unpinned": "slideUp"
     }
   });
-  $("#mlh-trust-badge").headroom({
-    "offset": 205,
-    "tolerance": 5,
-    "classes": {
-      "initial": "animated",
-      "pinned": "slideDown-mlh",
-      "unpinned": "slideUp-mlh"
-    }
-  });
 }
 
 
@@ -78,21 +93,6 @@ $(window).scroll(function() {
   }
 });
 
-mobile_toggle = 0;
-function toggleMLH() {
-  if (mobile_toggle == 0) {
-    $('#mlh-trust-badge').animate({
-      "marginTop": "+=300px"
-    });
-    mobile_toggle = 1
-  } else {
-    $('#mlh-trust-badge').animate({
-      "marginTop": "-=300px"
-    });
-    mobile_toggle = 0
-  }
-}
-
 $(function() {
     var pull        = $('#pull');
         menu        = $('.mobile');
@@ -100,14 +100,10 @@ $(function() {
     $(pull).on('click', function(e) {
         e.preventDefault();
         menu.slideToggle();
-        toggleMLH()
-
     });
 
     $('.mobile li a').on('click', function(e) {
         menu.slideToggle();
-         toggleMLH()
-
     });
 
 });
