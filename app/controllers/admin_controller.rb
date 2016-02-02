@@ -169,12 +169,19 @@ class AdminController < ApplicationController
         q.include = "user"
       end.get
 
+      @email_count = 0
       @applications.each do |app|
 
         if app['status'] == "Accepted"
           UserMailer.notify_of_status(app["firstName"], app["user"]['email']).deliver_now
           app['emailStatus'] = true
           app.save
+          @email_count += 1
+        end
+
+        if @email_count > 40
+          sleep(60)
+          @email_count = 0
         end
 
       end
