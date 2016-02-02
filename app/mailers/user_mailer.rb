@@ -9,4 +9,8 @@ class UserMailer < ApplicationMailer
 		mail :to => user, :from => "hello@spartahack.com", :subject => "Complete your SpartaHack application"
 	end
 
+	def notify_of_empty_rsvp(user)
+		mail :to => user, :from => "hello@spartahack.com", :subject => "Complete your SpartaHack RSVP"
+	end
+
 end

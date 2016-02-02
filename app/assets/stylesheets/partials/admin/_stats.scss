@@ -9,14 +9,53 @@
   -webkit-font-smoothing: antialiased;
   color: #80ffdb;
 
+  // Fixes weird x scrolling on mobile
+  overflow-x: hidden;
+
   strong {
     color: #FFCE80;
+  }
+
+  .center p {
+    text-align: center;
   }
 
   .row {
     align-items: center;
   }
+  .row, .column {
+    @media (max-width: 550px) {
+      margin-left: 1%;
+    }
+  }
 
+  h1.section-head {
+    margin-top: 0px;
+    margin-bottom: 25px;
+  }
+
+  #rsvp-stats {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.75s linear;
+  }
+
+  #app-stats {
+    position: inherit;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s, opacity 0.75s linear;
+  }
+
+  // rsvp has majors on its own line, so make it smaller
+  #rsvp-majors {
+    width: 50%;
+    margin: 0 auto;
+    @media (max-width: 800px) {
+      width: 100%;
+    }
+  }
 
 
   .title-wrap {
@@ -86,6 +125,11 @@
   }
 
   #applications-graph {
+    @media (max-width: 1000px) {
+      display: none;
+    }
+  }
+    #hide-on-mobile {
     @media (max-width: 1000px) {
       display: none;
     }
@@ -208,11 +252,11 @@
       font-weight: 100;
       -webkit-appearance: none;
       -webkit-font-smoothing: antialiased;
-      @media (min-width: 550px) {
+      @media (min-width: 650px) {
         margin: 3vh 0;
       }
 
-      @media (max-width: 550px) {
+      @media (max-width: 650px) {
         width: 100%;
         align-items: center;
 
@@ -230,11 +274,11 @@
 
     }
 
-    @media (max-width: 1000px) {
-      width: 87%;
-    }
+    // @media (max-width: 800px) {
+    //   width: 87%;
+    // }
 
-    @media (max-width: 550px) {
+    @media (max-width: 650px) {
       flex-direction: column;
       width: 100%
     }
@@ -405,7 +449,10 @@
 
 .horizontal-bar-graph {
   display: table;
-  width: 100%;
+  width: 98%;
+  @media (max-width: 550px) {
+    width: 98%;
+  }
 }
 
 .horizontal-bar-graph-segment {
@@ -467,7 +514,9 @@ div.jqcloud span.w3 { font-size: 125%; }
 div.jqcloud span.w2 { font-size: 100%; }
 div.jqcloud span.w1 { font-size: 90%; }
 
-
+#rsvps-wordcloud, #apps-wordcloud {
+  margin: 0px -25% 0;
+}
 
 
 

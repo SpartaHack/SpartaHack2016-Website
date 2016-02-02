@@ -14,7 +14,8 @@
         <meta property="og:site_name" content="SpartaHack" />
         <meta property="og:url" content="https://www.spartahack.com" />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the login page for the admin dashboard." />
+        <%= csrf_meta_tag %>
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the page for emailing users." />
         <meta property="og:image" content="<%=image_url("facebook.png")%>" />
 
 
@@ -40,20 +41,20 @@
                   </div>
                   <div class="text">2016</div>
                 </a>
-                <div id="admin-panel">Admin: <%= @sponsor['name'] %></div>
+                <div id="admin-panel">Admin</div>
             </div>
             
             <div class="navbar-nav right">
-               <div id="login-wrapper">
+                <div id="app-wrapper">
                     <a href="/admin">
-                        <div id="login-nav" class="svg-wrapper">
-                            <svg height="60" width="140" xmlns="http://www.w3.org/2000/svg">
-                                <rect class="shape login" height="60" width="140" />
-                            </svg>
-                        </div>
-                        <div class="text">ADMIN HOME</div>
+                      <div id="admin-nav" class="svg-wrapper">
+                        <svg height="60" width="188" xmlns="http://www.w3.org/2000/svg">
+                          <rect class="shape mobile-nav" height="60" width="188" />
+                        </svg>
+                      </div>
+                      <div class="text">ADMIN DASHBOARD</div>
                     </a>
-                </div> 
+                </div>
                 <div id="login-wrapper">
                     <a href="/logout">
                         <div id="login-nav" class="svg-wrapper">
@@ -70,69 +71,56 @@
             <nav>
                 <ul class="mobile">
                     <li><a href="/" class="anchorLink">HOME</a></li>
-                    <li><a href="/admin" class="anchorLink">ADMIN HOME</a></li>
                     <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
                 </ul>
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
 
-		<section id="sponsorship">
-			<div class="row">
-				<h1 class="section-head">EDIT SPONSOR</h1> 
+        <div id="wrap-admin">
+            <div id="popup-wrapper">
+            </div>
 
-				<%= form_tag({action: :editsponsor}, multipart: true) do %>
-					<div class="inner-wrap">
-						<div>
-							<div id="outer-wrap">
-								<%= label_tag(:name, "Sponsor Name", class: 'no-label') %>
-								<%= text_field_tag 'name', @sponsor['name']%>
+			<section class="topic-selection emails">
+				<div class="row"> 
+                    <div class="title-wrap">
+                        <h1 class="section-head">Email Topics</h1>
+                        <div class="hline"></div>
+                    </div>
+                    <div class="hvr-underline-from-left full">
+                        <submit id="send_empty_app_email" class="topic">
+                            <div class="seperation-wrapper">
+                                <div>Send Empty Application First Notice</div>
+                                <div class="new">(<%=@new_empty_app_first_notice %> to send)</div>
+                            </div>
+                        </submit>
+                    </div>
+                    <div class="hvr-underline-from-left full">
+                        <submit id="send_rsvp_reminder_email" class="topic">
+                            <div class="seperation-wrapper">
+                                <div>Send RSVP Reminders</div>
+                                <div class="new">(<%=@new_empty_rsvp_first_notice %> to send)</div>
+                            </div>
+                        </submit>
+                    </div>
+                    <div class="hvr-underline-from-left full">
+                        <submit id="send_decision_email" class="topic">
+                            <div class="seperation-wrapper">
+                                <div>Send Application Decisions</div>
+                                <div class="new">(<%=@new_decisions%> to send)</div>
+                            </div>
+                        </submit>
+                    </div>
+				</div>
 
-								<select id="level" name="level">
-									<option disabled selected></option>
-									<option value="partner">Partner</option>
-									<option value="trainee">Trainee</option>
-									<option value="warrior">Warrior</option>
-									<option value="commander">Commander</option>
-								</select>
-							</div>
-
-							<div id="url-wrap">
-								<%= label_tag(:url, "Website Url", class: 'no-label') %>
-								<%= text_field_tag 'url', @sponsor['url'] , placeholder: 'Website URL' %>	
-							</div>
-						</div>	
-
-		               	<div class="thumbnail"> 				
-		               		<%= image_tag @sponsor["img"].url, alt: "Image Preview", :id => "img_prev" %>
-							<div class="form-group-file">				        
-								<%= file_field_tag 'picture', :onchange => 'readURL(this);' %>
-							</div>
-						</div>					
-					</div>
-
-
-					<div id="submit-wrap">
-                        <%= hidden_field_tag 'object' , @sponsor["objectId"]  %>  
-                        <%= submit_tag "Delete", id: "deletesponsor" %>
-                        <div class="hvr-underline-from-center">
-                            <%= submit_tag "Submit", id: "editsponsor" %>    
-                        </div>
-						
-					</div>
-				<% end %>
-			</div>
-        </section>
+			</section>
+        </div>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
-        <%= javascript_include_tag "select2.full.min" %>   
+    	<%= javascript_include_tag "select2.full.min" %>	
         <%= javascript_include_tag "general" %>
-        <%= javascript_include_tag "sponsorship" %>
-
-        <%= javascript_tag do %>
-            $("#level").val("<%= @sponsor['level'] %>").trigger("change")
-        <% end %> 
+        <%= javascript_include_tag "admin-emails" %>
     </body>
-</html>   
+</html>        

@@ -36,8 +36,8 @@ class UsersController < ApplicationController
       end
       begin
         apply = Parse::User.new({
-          :username => user_app_params['email'],
-          :email => user_app_params['email'],
+          :username => user_app_params['email'].downcase,
+          :email => user_app_params['email'].downcase,
           :password => user_app_params['password'],
           :role => "attendee"
         })
@@ -203,7 +203,7 @@ class UsersController < ApplicationController
   # authenticate user and redirect them to their application
   def auth
   	begin
-			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
+			login = Parse::User.authenticate(user_login_params['email'].downcase,user_login_params['password'])
       if login["role"] == "admin" || login["role"] == "sponsorship" || login["role"] == "statistics"
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], login["role"]] }
 			  redirect_to '/admin' and return
@@ -267,31 +267,28 @@ class UsersController < ApplicationController
                         }))
                 end.get.first
 
-        if !@rsvp.blank?
-          @travel = Parse::Query.new("Travel").tap do |q|
-                          q.eq("university", @rsvp['university'])
-                  end.get.first
+
           begin
+            if !@application['university'].blank?
+              @travel = Parse::Query.new("Travel").tap do |q|
+                            q.eq("university", @application['university'])
+                    end.get.first
+            end
             data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
             @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
-            @bus_1_waitlist = data_bus_1["ticket_classes"][1]["quantity_total"] - data_bus_1["ticket_classes"][1]["quantity_sold"]
             
             data_bus_2 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_2"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
             @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
-            @bus_2_waitlist = data_bus_2["ticket_classes"][1]["quantity_total"] - data_bus_2["ticket_classes"][1]["quantity_sold"]
 
             data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
             @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
-            @bus_3_waitlist = data_bus_3["ticket_classes"][1]["quantity_total"] - data_bus_3["ticket_classes"][1]["quantity_sold"]
           rescue
             @bus_1 = nil
             @bus_2 = nil
             @bus_3 = nil
-            @bus_1_waitlist = nil
-            @bus_2_waitlist = nil
-            @bus_3_waitlist = nil
           end
 
+        if !@rsvp.blank?
           if !@application['birthyear'].blank?
             curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth'].to_i), @application['birthday'].to_i, 0, 0)
             if age(curr_bday, Date.new(2016, 2, 26)) < 18
@@ -301,6 +298,15 @@ class UsersController < ApplicationController
             end
           end
 
+          @travel = Parse::Query.new("Travel").tap do |q|
+                        q.eq("university", @rsvp['university'])
+                end.get.first
+           
+          if @travel.blank?
+            @travel = Parse::Query.new("Travel").tap do |q|
+                          q.eq("university", @application['university'])
+                  end.get.first         
+          end
 
         end
         
@@ -444,7 +450,7 @@ class UsersController < ApplicationController
           resume = user_rsvp_params['resume'] 
           parse_resume = Parse::File.new({
             :body => resume.read,
-            :local_filename => (ActiveSupport::Inflector.transliterate resume.original_filename).gsub(" ", "%20").gsub("[", "").gsub("]", "").gsub("(", "").gsub(")", ""),
+            :local_filename => (ActiveSupport::Inflector.transliterate resume.original_filename).gsub(" ", "%20").gsub("[", "").gsub("]", "").gsub("(", "").gsub(")", "").gsub("'", "").gsub("`", "").gsub("{", "").gsub("}", ""),
             :content_type => resume.content_type,
             :content_length => resume.tempfile().size().to_s
           })
@@ -454,7 +460,7 @@ class UsersController < ApplicationController
         rescue
           flash[:popup] = "RSVP not saved."
           flash[:sub] = "Please contact us."
-          redirect_to '/rsvp'
+          redirect_to '/rsvp' and return
         end
       end
 
@@ -481,7 +487,7 @@ class UsersController < ApplicationController
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
       puts e.message
-      redirect_to '/rsvp'
+      redirect_to '/rsvp' and return 
     end
 
   end  

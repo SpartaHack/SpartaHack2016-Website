@@ -14,69 +14,138 @@
   text-align: center; 
   color: $faqText;
   position: relative;
+  border-bottom: 1px solid $mutedOutline;
+  padding-bottom: 100px;
 
-  .wrap {
-    width: 960px;
-    padding-top: 0px;
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    align-items: center;
-    -webkit-align-items: center;
-    @media (max-width: 1000px){
-      width: 100%;
-    }   
-  }  
-
-  .column {
+  #faq-box {
     display: flex;
     display: -webkit-flex;
     flex-direction: row;
     -webkit-flex-direction: row;
-    justify-content: space-between;
-    max-width: 90%;
-
-    article {
-      display: flex;
-      display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    width: 960px;
+    height: 443px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 1px solid $mutedOutline;
+    @media (max-width: 959px){
+      width: 87%;
       flex-direction: column;
       -webkit-flex-direction: column;
-      z-index: 10;
-      width: 40%;
-      font-family: ubuntu;
-      font-weight: 100;
-      -webkit-appearance: none;
-      -webkit-font-smoothing: antialiased;
-      @media (min-width: 550px) {
-        margin: 3vh 0;
-      }
+    }   
 
-      @media (max-width: 550px) {
-        width: 100%;
-        align-items: center;
-        -webkit-align-items: center;
+    #questions-wrap {
+        @media (max-width: 959px){
+          width: 100%;
+        } 
+
+
+      #questions {
+        width: 320px;
+        height: 423px;
+        border-right: 1px solid $mutedOutline;
+        overflow-y: auto;
+        @media (max-width: 959px){
+          width: 100%;
+          height: 203px;
+          border: none;
+        } 
+
+        article {
+          display: flex;
+          display: -webkit-flex;
+          flex-direction: column;
+          -webkit-flex-direction: column;
+          align-items: center;
+          -webkit-align-items: center;
+          z-index: 10;
+          font-family: ubuntu;
+          font-weight: 100;
+          -webkit-appearance: none;
+          -webkit-font-smoothing: antialiased;
+
+        } 
 
         .a-hline {
           border-top: solid 1px $mutedOutline;
+          margin: 0px 0px 0px 15%;
           background: none;
-          width: 40%;
+          width: 70%;
         }
 
-      } 
+        .hide {
+          opacity: 0;
+        }
 
-    }  
+        .active-q {
+          background-color: $mutedOutline;
+        }
 
-    @media (max-width: 1000px) {
-      width: 87%;
+        h3 {
+          font-size: 100%;
+          font-family: ubuntu;
+          font-weight: 100;
+          -webkit-appearance: none;
+          -webkit-font-smoothing: antialiased;
+
+        }
+
+      }
+
+      #arrow-wrap {
+        height: 20px;
+        border-right: 1px solid $mutedOutline;
+        @media (max-width: 959px){
+          width: 100%;
+          border-right: none;
+          border-bottom: 1px solid $mutedOutline;
+        } 
+
+        .fa-angle-down {
+          color: $cream;
+          font-size: 20px;
+        }
+
+      }
     }
 
-    @media (max-width: 550px) {
-      flex-direction: column;
-      -webkit-flex-direction: column;
-      width: 100%
-    }    
 
+
+    #answers {
+      width: 640px;
+      height: 100%;
+      display: flex;
+      display: -webkit-flex;
+      justify-content: center;
+      -webkit-justify-content: center;
+      align-items: center;
+      -webkit-align-items: center;
+      @media (max-width: 959px){
+        width: 100%;
+        height: 223px;
+      } 
+
+      p {
+        font-size: 100%;
+        font-family: ubuntu;
+        font-weight: 100;
+        -webkit-appearance: none;
+        -webkit-font-smoothing: antialiased;
+        margin: 0px;
+        z-index: 10;
+        line-height: 220%;
+        width: 80%;
+        @media (max-width: 959px){
+          line-height: 170%;
+        } 
+
+        @media (min-width: 550px) {
+          display: block;
+          padding: 0;
+        }
+      }
+    }
   }
 
   a {
@@ -103,11 +172,7 @@
   .hline {
     border-top: solid 1px $mutedOutline;
     background: none;
-    width: 70%;
-
-    @media (max-width: 550px) {
-      width: 40%;
-    }
+    width: 40%;
   }
 
 
@@ -120,52 +185,6 @@
     width: 100%;
   }
 
-  h3 {
-    font-size: 100%;
-
-    @media (min-width: 875px) {
-      font-size: 130%;
-    }
-
-    @media (max-width: 550px) {
-      padding: 20px;
-      margin: 0 5%;
-      background-color: transparent;
-
-      span{
-        padding: .4em;
-        font-size: 115%;
-        width: 80%
-      }
-
-    }
-  }
-
-  p {
-    font-size: 100%;
-    padding: 0em 1em 1em 1em;
-    margin-top: 0px;
-    display: none;
-    z-index: 10;
-    line-height: 220%;
-
-    @media (min-width: 550px) {
-      display: block;
-      padding: 0;
-    }
-  }
-
-  .tail {
-    margin-bottom: 75px;
-    @media (max-width: 550px) {
-      margin-bottom: 25px;
-    }
-  }
-
-  #last-span {
-    padding-bottom: 0px;
-   }
-
   .faq-top {
     margin-bottom: 0px;
     @media (max-width: 550px) {
@@ -175,7 +194,7 @@
 
   #last-year {
     width: 325px;
-    margin: 3vh 0;
+    margin-top: 3vh;
     display: flex;
     display: -webkit-flex;
     justify-content: space-between;
@@ -183,14 +202,6 @@
 
     a {
       font-size: 120%;
-    }
-
-    a:hover {
-      -webkit-transition: all .5s ease-in-out;
-      -moz-transition: all .5s ease-in-out;
-      -o-transition: all .5s ease-in-out;
-      transition: all .5s ease-in-out;
-      opacity: .4;
     }
 
     @media (max-width: 550px) {

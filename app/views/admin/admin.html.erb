@@ -14,7 +14,6 @@
         <meta property="og:site_name" content="SpartaHack" />
         <meta property="og:url" content="https://www.spartahack.com" />
         <meta property="og:locale" content="en_US" />
-        <%= csrf_meta_tag %>
         <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the page for the admin dashboard." />
         <meta property="og:image" content="<%=image_url("facebook.png")%>" />
 
@@ -131,15 +130,11 @@
 			</section>
         </div>
 
-        <%= javascript_tag do %>
-            new_decisions = '<%=@new_decisions%>';
-            new_first_notice = '<%=@new_first_notice%>';
-        <% end%>
-
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
     	<%= javascript_include_tag "select2.full.min" %>	
+        <%= javascript_include_tag "general" %>
         <%= javascript_include_tag "admin" %>
     </body>
 </html>        
