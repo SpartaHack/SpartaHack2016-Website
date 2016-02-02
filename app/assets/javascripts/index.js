@@ -3,9 +3,33 @@ console.log("Ha you're funny, looking under the hood")
 if (navigator.appVersion.indexOf("Win")!=-1) {
   $('#hero').find('a').addClass( "windowsCenter" );
 }
+
+var last_p = 1;
+
 $('#faq article h3').click(function() {
-  $(this).next().slideToggle();
+  current = $(this);
+  $("article").removeClass("active-q");
+  $(".a-hline").removeClass("hide");
+
+  current.parent().addClass("active-q");
+  current.parent().prev().addClass("hide");
+  current.parent().next().addClass("hide");
+
+  $("#answers p:nth-child("+ last_p +")").fadeOut("fast", function() {
+    $( "#answers p:nth-child("+ current.attr("id") +")" ).fadeIn();
+  });
+
+  last_p = current.attr("id")
 });
+
+$('#questions').on('scroll', function() {
+    if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+        $(".fa-angle-down").fadeOut();
+    } else {
+      $(".fa-angle-down").fadeIn();
+    }
+})
+
 
 $('.anchorLink').click(function(){
   $('html, body').animate({
