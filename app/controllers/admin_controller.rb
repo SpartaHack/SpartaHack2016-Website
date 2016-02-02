@@ -749,7 +749,7 @@ class AdminController < ApplicationController
 
         # Ages
         if !app['birthyear'].blank?
-          curr_bday = Time.zone.local(app['birthyear'].to_i, Date::MONTHNAMES.index(app['birthmonth'].to_i), app['birthday'].to_i, 0, 0)
+          curr_bday = Time.zone.local(app['birthyear'].to_i, Date::MONTHNAMES.index(app['birthmonth']), app['birthday'].to_i, 0, 0)
           if age(curr_bday, @start_date) < 18
             @minor_count+=1
           else

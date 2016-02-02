@@ -265,32 +265,32 @@ class UsersController < ApplicationController
                           "className" => "_User",
                           "objectId"  => cookies.signed[:spartaUser][0]
                         }))
-                end.get.first
+        end.get.first
 
 
-          begin
-            if !@application['university'].blank?
-              @travel = Parse::Query.new("Travel").tap do |q|
-                            q.eq("university", @application['university'])
-                    end.get.first
-            end
-            data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-            @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
-            
-            data_bus_2 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_2"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-            @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
-
-            data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-            @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
-          rescue
-            @bus_1 = nil
-            @bus_2 = nil
-            @bus_3 = nil
+        begin
+          if !@application['university'].blank?
+            @travel = Parse::Query.new("Travel").tap do |q|
+                          q.eq("university", @application['university'])
+                  end.get.first
           end
+          data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+          @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
+          
+          data_bus_2 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_2"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+          @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
+
+          data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+          @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
+        rescue
+          @bus_1 = nil
+          @bus_2 = nil
+          @bus_3 = nil
+        end
 
         if !@rsvp.blank?
           if !@application['birthyear'].blank?
-            curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth'].to_i), @application['birthday'].to_i, 0, 0)
+            curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth']), @application['birthday'].to_i, 0, 0)
             if age(curr_bday, Date.new(2016, 2, 26)) < 18
               @minor = true
             else
