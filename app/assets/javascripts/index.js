@@ -6,20 +6,20 @@ if (navigator.appVersion.indexOf("Win")!=-1) {
 
 var last_p = 1;
 
-$('#faq article h3').click(function() {
+$('#faq article').click(function() {
   current = $(this);
   $("article").removeClass("active-q");
   $(".a-hline").removeClass("hide");
 
-  current.parent().addClass("active-q");
-  current.parent().prev().addClass("hide");
-  current.parent().next().addClass("hide");
+  current.addClass("active-q");
+  current.prev().addClass("hide");
+  current.next().addClass("hide");
 
   $("#answers p:nth-child("+ last_p +")").fadeOut("fast", function() {
-    $( "#answers p:nth-child("+ current.attr("id") +")" ).fadeIn();
+    $( "#answers p:nth-child("+ current.children().attr("id") +")" ).fadeIn();
   });
 
-  last_p = current.attr("id")
+  last_p = current.children().attr("id")
 });
 
 $('#questions').on('scroll', function() {
