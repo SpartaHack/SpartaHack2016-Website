@@ -70,15 +70,6 @@ if ($(window).width() < 775) {
       "unpinned": "slideUp"
     }
   });
-  $("#mlh-trust-badge").headroom({
-    "offset": 205,
-    "tolerance": 5,
-    "classes": {
-      "initial": "animated",
-      "pinned": "slideDown-mlh",
-      "unpinned": "slideUp-mlh"
-    }
-  });
 }
 
 
@@ -102,21 +93,6 @@ $(window).scroll(function() {
   }
 });
 
-mobile_toggle = 0;
-function toggleMLH() {
-  if (mobile_toggle == 0) {
-    $('#mlh-trust-badge').animate({
-      "marginTop": "+=300px"
-    });
-    mobile_toggle = 1
-  } else {
-    $('#mlh-trust-badge').animate({
-      "marginTop": "-=300px"
-    });
-    mobile_toggle = 0
-  }
-}
-
 $(function() {
     var pull        = $('#pull');
         menu        = $('.mobile');
@@ -124,14 +100,10 @@ $(function() {
     $(pull).on('click', function(e) {
         e.preventDefault();
         menu.slideToggle();
-        toggleMLH()
-
     });
 
     $('.mobile li a').on('click', function(e) {
         menu.slideToggle();
-         toggleMLH()
-
     });
 
 });
