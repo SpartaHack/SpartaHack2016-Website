@@ -141,7 +141,7 @@
   nav a {
     color: #fff;
     display: inline-block;
-    width: 100vw;
+    width: 50vw;
     text-align: center;
     text-decoration: none;
     line-height: 40px;
@@ -165,7 +165,7 @@
     display: none;
   } 
 
-  @media only screen and (max-width : 775px) {
+  @media only screen and (max-width : 960px) {
     .navbar-nav {
       display: none;
     }
@@ -173,6 +173,17 @@
     nav {
       border-bottom: 0;
     }
+
+
+    nav .mobile-wrap {
+      display: flex;
+      flex-direction: row;
+    }
+
+    nav .mobile-wrap div {
+      width: 50%;
+    }
+
     nav ul {
       display: none;
       height: auto;
@@ -209,7 +220,7 @@
     nav li {
       display: block;
       padding-left: 0px;
-      width: 100%;
+      width: 50%;
     }
 
     nav li a {
@@ -222,7 +233,7 @@
 
   }
 
-  @media only screen and (min-width : 776px) {
+  @media only screen and (min-width : 961px) {
     nav {
       display: none;
     }
@@ -242,7 +253,7 @@
   max-width:80px;
   width:10%;
   min-width: 50px;
-  @media only screen and (min-width : 776px) {
+  @media only screen and (min-width : 961px) {
     right:45px;
   }
 }

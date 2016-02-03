@@ -142,28 +142,34 @@
 
     <nav>
         <ul class="mobile">
-            <li><a href="#hero" class="anchorLink">HOME</a></li>
-            <li><a href="#contact" class="anchorLink">CONTACT</a></li>
-            <li><a href="#faq" class="anchorLink">FAQ</a></li>
-            <li><a href="#schedule" class="anchorLink">SCHEDULE</a></li>
-            <li><a href="#team" class="anchorLink">OUR TEAM</a></li>
-<!--             <li><a href="#mobile" class="anchorLink">MOBILE</a></li> -->
-            <li><a href="#sponsors" class="anchorLink">SPONSORS</a></li>
-        <% if cookies.signed[:spartaUser] %>
-          <% if cookies.signed[:spartaUser][1] == "admin" %>
-            <li><a href="/admin">ADMIN DASHBOARD</a></li>
-          <% else %>
-            <% if @application %>
-              <li><a href="/dashboard">MY DASHBOARD</a></li>
+          <div class="mobile-wrap">
+            <div>
+              <li><a href="#hero" class="anchorLink">HOME</a></li>
+              <li><a href="#contact" class="anchorLink">CONTACT</a></li>
+              <li><a href="#faq" class="anchorLink">FAQ</a></li>
+              <li><a href="#schedule" class="anchorLink">SCHEDULE</a></li>
+            </div>
+            <div>
+              <li><a href="#team" class="anchorLink">OUR TEAM</a></li>
+  <!--             <li><a href="#mobile" class="anchorLink">MOBILE</a></li> -->
+              <li><a href="#sponsors" class="anchorLink">SPONSORS</a></li>
+          <% if cookies.signed[:spartaUser] %>
+            <% if cookies.signed[:spartaUser][1] == "admin" %>
+              <li><a href="/admin">ADMIN DASHBOARD</a></li>
             <% else %>
-              <li><a href="/application">MY APPLICATION</a></li>
+              <% if @application %>
+                <li><a href="/dashboard">MY DASHBOARD</a></li>
+              <% else %>
+                <li><a href="/application">MY APPLICATION</a></li>
+              <% end %>
             <% end %>
-          <% end %>
-            <li><a href="/logout">LOG OUT</a></li>
-        <% else %>
-            <li><a href="/register">APPLY</a></li>
-            <li><a href="/login">LOGIN</a></li>
-        <% end %> 
+              <li><a href="/logout">LOG OUT</a></li>
+          <% else %>
+              <li><a href="/register">APPLY</a></li>
+              <li><a href="/login">LOGIN</a></li>
+          <% end %> 
+          </div>
+        </div>
         </ul>
 
         <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>

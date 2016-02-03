@@ -67,7 +67,7 @@ $(".svg-wrapper").hover(
 
 );
 
-if ($(window).width() < 775) {
+if ($(window).width() < 960) {
   $("#header").headroom({
     "offset": 205,
     "tolerance": 5,
@@ -81,7 +81,7 @@ if ($(window).width() < 775) {
 
 
 $(window).scroll(function() {
-  if ($(window).width() >= 775) {
+  if ($(window).width() >= 960) {
     var halfHeight = $(this).scrollTop() + ($(this).height() / 1.7);
 
     for(var i = 0; i < desktop_menu.length; i++) {
