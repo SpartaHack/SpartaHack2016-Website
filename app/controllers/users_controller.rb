@@ -406,6 +406,19 @@ class UsersController < ApplicationController
         rsvp['resume'] = nil
 
         if !@mentor.blank?
+          
+          cats_to_remove = @mentor["categories"]
+          if !cats_to_remove.blank?
+            cats = Parse::Query.new("Categories").tap do |q|
+              q.value_in("name", cats_to_remove) 
+            end.get
+
+            cats.each do |cat|
+              cat["mentors"].delete(cookies.signed[:spartaUser][0])
+              cat.save
+            end
+          end
+
           @mentor.parse_delete
           @mentor.save
         end
