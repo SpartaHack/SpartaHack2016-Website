@@ -28,6 +28,12 @@ $('#questions').on('scroll', function() {
     } else {
       $(".fa-angle-down").fadeIn();
     }
+
+    if($(this).scrollTop() == 0) {
+        $(".fa-angle-up").fadeOut();
+    } else {
+      $(".fa-angle-up").fadeIn();
+    }
 })
 
 
