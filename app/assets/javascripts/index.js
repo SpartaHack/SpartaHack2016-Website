@@ -41,6 +41,7 @@ $('.anchorLink').click(function(){
 var desktop_menu = [
   {"scroll_to": "#home-nav", "elem": $("#hero")},
   {"scroll_to": "#faq-nav", "elem": $("#faq")},
+  {"scroll_to": "#schedule-nav", "elem": $("#schedule")},
   {"scroll_to": "#contact-nav", "elem": $("#contact")},
   {"scroll_to": "#team-nav", "elem": $("#team")},
   {"scroll_to": "#sponsor-nav", "elem": $("#sponsors")},

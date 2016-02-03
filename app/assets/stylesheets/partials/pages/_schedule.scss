@@ -2,75 +2,98 @@
 @import 'partials/fonts';
 
 #schedule {
-  //background: #A64823;
-  background-color: $chocolateSea;
-  position: relative;
-  padding: 10vh .5em;
-  overflow: hidden;
+  width: 100%;
+  background-color: transparent;
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (doesn't work very well) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flex;
+  /* NEW - Chrome */
+  display: flex;
+  /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  align-items: center;
+  -webkit-align-items: center;
+  justify-content: center; 
+  -webkit-justify-content: center;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  text-align: center; 
+  color: $cream;
+  border-bottom: 1px solid $mutedOutline;
+  padding-bottom: 100px;
 
-
-  @media (min-width: 550px){
-    padding-top: 40vh;
+  .section-head {
+    margin-bottom: 2px;
   }
-  padding-bottom: 40vh;
 
-  h1 {
-    text-align: center;
-    font-size: 350%;
-    font-family: PhantLight;
-    text-transform: lowercase;
-    padding: 0;
-    margin-bottom: .5em;
-    color: $cream;
-    text-decoration: underline;
-    font-weight: bold;
+  #schedule-col-wrap {
+    
+    display: -webkit-box;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;
+    /* OLD - Firefox 19- (doesn't work very well) */
+    display: -ms-flexbox;
+    /* TWEENER - IE 10 */
+    display: -webkit-flex;
+    /* NEW - Chrome */
+    display: flex;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    @media (min-width: 961px) {
+      width: 960px;
+      display: flex;
+      flex-direction: row;
+      -webkit-flex-direction: row;
+      align-items: flex-start;
+      -webkit-align-items: flex-start;
+      justify-content: center; 
+      -webkit-justify-content: center;
 
-    @media (min-width: 550px){
-      font-size: 500%;
     }
-  }
 
-  h2 {
-    font-family: PhantLight;
-    font-size: 3em;
-    text-align: center;
-    text-transform: uppercase;
-    color: $butter;
-    letter-spacing: .15em;
-    margin-top: .5em;
-    margin-bottom: .5em;
-  }
-
-  .schedule-item {
-    font-family: Lato;
-    color: $cream;
-    margin: .5em 0;
-
-    b {
-      width: 25%;
-      text-align: right;
-      font-weight: 900;
-      letter-spacing: .05em;
-      display: inline-block;
-      margin-right: 2em;
-      color: #A64823;
+    .schedule-col {
+      margin-top: 50px;
+      width: 100%;
+      justify-content: center; 
+      -webkit-justify-content: center;
     }
 
-    strong {
-      font-weight: 900;
-      letter-spacing: .05em;
-      color: darken($butter, 10%);
+
+    .day, .weekday, .event-time, .event {
+      font-family: ubuntu;
+      font-weight: 100;
+      -webkit-appearance: none;
+      -webkit-font-smoothing: antialiased;
     }
+
+    .day {
+      font-size: 23px;
+    }
+
+    .weekday {
+      font-size: 30px;
+    }
+
+    .event-wrap {
+      margin: 15px 0px;
+
+      .event-time {
+        color: $cream;
+        font-size: 20px;
+      }
+
+      .event {
+        color: $mutedText;
+        font-size: 20px;
+      }
+    }
+
   }
 
-  .schedule-mountains {
-    position: absolute;
-    height: 11em;
-    width: 120%;
-    bottom: 0;
-    left: -3em;
-    background: url(mountains.svg) repeat-x left bottom;
-    z-index: 8;
-  }
+
 }
 

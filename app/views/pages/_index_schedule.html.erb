@@ -1,0 +1,26 @@
+<section id="schedule">
+  <div id="schedule-wrap">
+    <h2 class="section-head">
+        SCHEDULE
+    </h2>
+
+    <div id="schedule-col-wrap">
+    <% @schedule.each do |day|  %>
+      <div class="schedule-col">
+        <div class="day-wrap">
+          <div class="day"><%= day[0] %></div>
+          <div class="weekday"><%= day[1] %></div>        
+        </div>
+      <% day[2].each do |event| %>
+        <div class="event-wrap">
+          <div class="event-time"><%= event[0] %></div>
+          <div class="event"><%= event[1] %></div>
+        </div>
+      <% end %>
+      </div>
+    <% end %>
+
+    </div>
+  </div>
+
+</section>

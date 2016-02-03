@@ -2,6 +2,7 @@ class PagesController < ApplicationController
 	require 'mailchimp'
   require 'parse_config'
   require 'monkey_patch'
+  require 'pp'
 
   def index
     if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "attendee"
@@ -71,6 +72,37 @@ class PagesController < ApplicationController
     rescue
       redirect_to "/outage" and return
     end
+
+      @schedule = [
+        [ 26, "Friday",[ ] ],
+        [ 27, "Saturday",[ ] ],
+        [ 28, "Sunday",[ ] ]
+      ]
+
+      schedule_raw = Parse::Query.new("Schedule").get
+
+      schedule_raw.each do |s|
+        day = s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%e")
+        if day.to_i == 26
+          @schedule[0][2].push([s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M"),s["eventTitle"]])
+        elsif day.to_i == 27
+          @schedule[1][2].push([s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M"),s["eventTitle"]])
+        else
+          @schedule[2][2].push([s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M"),s["eventTitle"]])
+        end
+      end
+
+      @schedule[0][2]= @schedule[0][2].sort do |a,b|
+        a[0] <=> b[0]
+      end
+
+      @schedule[1][2]= @schedule[1][2].sort do |a,b|
+        a[0] <=> b[0]
+      end
+
+      @schedule[2][2]= @schedule[2][2].sort do |a,b|
+        a[0] <=> b[0]
+      end
 
     render layout: false
   end
