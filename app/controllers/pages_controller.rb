@@ -79,16 +79,18 @@ class PagesController < ApplicationController
         [ 28, "Sunday",[ ] ]
       ]
 
-      schedule_raw = Parse::Query.new("Schedule").get
+      schedule_raw = Parse::Query.new("Schedule").eq("publicBeforeEvent", true).get
 
       schedule_raw.each do |s|
         day = s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%e")
+        time = s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M")
+        time_end = !s["eventTimeEnd"].blank? ? s["eventTimeEnd"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M") : nil
         if day.to_i == 26
-          @schedule[0][2].push([s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M"),s["eventTitle"]])
+          @schedule[0][2].push([[time, time_end],s["eventTitle"],s["category"]])
         elsif day.to_i == 27
-          @schedule[1][2].push([s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M"),s["eventTitle"]])
+          @schedule[1][2].push([[time, time_end],s["eventTitle"],s["category"]])
         else
-          @schedule[2][2].push([s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M"),s["eventTitle"]])
+          @schedule[2][2].push([[time, time_end],s["eventTitle"],s["category"]])
         end
       end
 
