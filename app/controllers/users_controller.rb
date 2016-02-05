@@ -4,16 +4,33 @@ class UsersController < ApplicationController
   require "open-uri"
   require 'json'
 
+	def sorry
+		render layout: false
+	end
+
   def register
     if cookies.signed[:spartaUser]
       redirect_to '/login' and return
-    elsif !@javascript_active
-      session[:return_to] = '/register'
-      redirect_to '/jscheck'
-		elsif Time.now > Time.at(1454882400000/1000)
-			redirect_to '/login'
+		else
+			if register_params["t"].blank?
+				redirect_to "/sorry" and return
+			else
+				token = Parse::Query.new("AppCode").tap do |q|
+												q.eq("code", register_params["t"])
+												q.eq("used", false)
+											end.get.first
+
+				if !token.blank?
+					token["used"] = true;
+					token.save
+
+					render layout: false
+				else
+					redirect_to "/sorry" and return
+				end
+			end
     end
-    render layout: false
+
   end
 
   #create a user and redirect them to application process
@@ -564,6 +581,10 @@ class UsersController < ApplicationController
 
     def forgot_password_params
       params.permit(:email)
+    end
+
+		def register_params
+      params.permit(:t)
     end
 
     def age(dob,diq)

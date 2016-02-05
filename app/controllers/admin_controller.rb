@@ -3,6 +3,7 @@ class AdminController < ApplicationController
   require 'parse_config'
   require 'monkey_patch'
   require 'open-uri'
+  require 'digest/sha1'
   require 'pp'
 
   def admin
@@ -54,6 +55,16 @@ class AdminController < ApplicationController
     @apps_total = @apps.length
 
     render layout: false
+  end
+
+  def generate_code
+    @code = Digest::SHA1.hexdigest( (Time.now.to_f * 1000.0).to_i.to_s + ENV["HASH_CODE"] )
+
+    code = Parse::Object.new("AppCode")
+    code["code"] = @code
+    code["used"] = false
+    code.save
+
   end
 
   def email
