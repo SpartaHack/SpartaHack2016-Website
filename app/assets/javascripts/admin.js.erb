@@ -1,8 +1,8 @@
-$(document).ready(function() {	
+$(document).ready(function() {
 	$('#popup-wrapper').click(function(e){
 		  if (e.target !== this)
 		    return;
-		  
+
 		  $('#popup-wrapper').fadeOut('fast');
 	});
 
@@ -14,6 +14,9 @@ $(document).ready(function() {
 				<div class="row">\
                     <div class="hvr-underline-from-left full">\
                         <a href="/admin/users/applications"><div class="topic" >Applications</div></a>\
+                    </div>\
+										<div class="hvr-underline-from-left full">\
+												<submit id="generate_code" class="topic">Generate Application Code</submit>\
                     </div>\
                     <div class="hvr-underline-from-left full">\
                         <a href="/admin/users/rsvps"><div class="topic" >RSVPs</div></a>\
@@ -27,7 +30,18 @@ $(document).ready(function() {
 		        </div>\
 	        </section>\
 		');
-			
+
+		$('#generate_code').click(function(e){
+			e.preventDefault();
+
+					$.ajax({
+							url: "/admin/users/generate",
+							beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+							type: "post",
+							context: document.body
+					});
+		});
+
 		$("#popup-wrapper").css("display", "flex");
 	})
 

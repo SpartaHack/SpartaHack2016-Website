@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   get 'javascript/confirm'
   get 'jscheck' => 'javascript#jscheck'
 
-  # get 'register'  => 'users#register'
-  # get 'apply'  => 'users#register'
-  # post 'create' => 'users#create'
+  get 'register'  => 'users#register'
+  get 'apply'  => 'users#register'
+  post 'create' => 'users#create'
   get 'login'  => 'users#login'
   get 'logout'  => 'users#logout'
   post 'auth'  => 'users#auth'
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   post 'rsvp' => 'users#saversvp'
   get 'mycode' => 'users#usercode'
   get 'forgot'  => 'users#forgot'
+  get 'sorry' => 'users#sorry'
   post 'requestreset'  => 'users#requestreset'
   post 'save' => 'users#save'
   resources :users
@@ -40,6 +41,7 @@ Rails.application.routes.draw do
   get 'admin/users/email' => 'admin#email'
   post 'admin/users/email' => 'admin#send_emails'
   get 'admin/users/checkin' => 'admin#checkin'
+  post 'admin/users/generate' => 'admin#generate_code'
   post 'addsponsor' => 'admin#addsponsor'
   post 'viewsponsor' => 'admin#viewsponsor'
   post 'editsponsor' => 'admin#editsponsor'

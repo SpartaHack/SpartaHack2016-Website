@@ -14,6 +14,7 @@
         <meta property="og:site_name" content="SpartaHack" />
         <meta property="og:url" content="https://www.spartahack.com" />
         <meta property="og:locale" content="en_US" />
+        <%= csrf_meta_tag %>
         <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the page for the admin dashboard." />
         <meta property="og:image" content="<%=image_url("facebook.png")%>" />
 
@@ -42,7 +43,7 @@
                 </a>
                 <div id="admin-panel">Admin</div>
             </div>
-            
+
             <div class="navbar-nav right">
                 <div id="login-wrapper">
                     <a href="/logout">
@@ -53,7 +54,7 @@
                         </div>
                         <div class="text">LOG OUT</div>
                     </a>
-                </div>  
+                </div>
             </div>
 
 
@@ -79,15 +80,15 @@
                     <div class="inner-wrap">
                         <div class="box" ><%= @apps_total %></div>
                         <div class="stat-text">Applications</div>
-                    </div>  
+                    </div>
                     <div class="inner-wrap">
                         <div class="box last" ><%= @rsvp_total %></div>
                         <div class="stat-text">RSVPs</div>
-                    </div>          
+                    </div>
                 </div>
             </section>
 			<section class="topic-selection">
-				<div class="row"> 
+				<div class="row">
                     <div class="title-wrap">
                         <h1 class="section-head">Admin Topics</h1>
                         <div class="hline"></div>
@@ -133,8 +134,8 @@
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
-    	<%= javascript_include_tag "select2.full.min" %>	
+    	<%= javascript_include_tag "select2.full.min" %>
         <%= javascript_include_tag "general" %>
         <%= javascript_include_tag "admin" %>
     </body>
-</html>        
+</html>
