@@ -11,6 +11,8 @@
 			  SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. On the weekend of February 26th, we're bringing together 500 students of all skill levels and disciplines to get creative with tech, connect with peers and professionals, and forget the words "I can't."
 			  We're excited to see what you will create!
 			</p>
+
+			<p>We're sorry, but due to an overwhelming number of applicants we've reached capacity and can't accept any more applications.</p>
 	  	</div>
 
 	<% if cookies.signed[:spartaUser] %>
@@ -26,30 +28,9 @@
 		<% end %>
 		</div>
 	<% else %>
-		<% if Time.now < Time.at(1454882400000/1000) %>
 			<div class="hvr-underline-from-center apply-wrapper">
-					<a class="hero-link" href="/register">APPLY NOW</a>
+					<a class="hero-link" href="/login">Log In</a>
 			</div>
-		<% end %>
 	<% end %>
-		<div id="clockdiv">
-			<p>Hacking begins in</p>
-			<div>
-				<span class="days"></span>
-				<div class="smalltext">Days</div>
-			</div>
-			<div>
-				<span class="hours"></span>
-				<div class="smalltext">Hours</div>
-			</div>
-			<div>
-				<span class="minutes"></span>
-				<div class="smalltext">Minutes</div>
-			</div>
-			<div>
-				<span class="seconds"></span>
-				<div class="smalltext">Seconds</div>
-			</div>
-		</div>
 	</div>
 </section>

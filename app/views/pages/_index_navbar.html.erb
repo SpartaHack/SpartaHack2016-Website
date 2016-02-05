@@ -9,13 +9,13 @@
           <div class="text">2016</div>
         </a>
 
-        <a href="#contact" class="anchorLink">
-          <div id="contact-nav" class="svg-wrapper">
-            <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape contact" height="60" width="120" />
+        <a href="#schedule" class="anchorLink">
+          <div id="schedule-nav" class="svg-wrapper">
+            <svg height="60" width="122" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape contact" height="60" width="122" />
             </svg>
           </div>
-          <div class="text">CONTACT</div>
+          <div class="text">SCHEDULE</div>
         </a>
 
         <a href="#faq" class="anchorLink">
@@ -27,13 +27,13 @@
           <div class="text">FAQ</div>
         </a>
 
-        <a href="#schedule" class="anchorLink">
-          <div id="schedule-nav" class="svg-wrapper">
+        <a href="#sponsors" class="anchorLink">
+          <div id="sponsor-nav" class="svg-wrapper">
             <svg height="60" width="122" xmlns="http://www.w3.org/2000/svg">
               <rect class="shape contact" height="60" width="122" />
             </svg>
           </div>
-          <div class="text">SCHEDULE</div>
+          <div class="text">SPONSORS</div>
         </a>
 
         <a href="#team" class="anchorLink">
@@ -45,13 +45,13 @@
           <div class="text">OUR TEAM</div>
         </a>
 
-        <a href="#sponsors" class="anchorLink">
-          <div id="sponsor-nav" class="svg-wrapper">
-            <svg height="60" width="122" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape contact" height="60" width="122" />
+        <a href="#contact" class="anchorLink">
+          <div id="contact-nav" class="svg-wrapper">
+            <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape contact" height="60" width="120" />
             </svg>
           </div>
-          <div class="text">SPONSORS</div>
+          <div class="text">CONTACT</div>
         </a>
 
 <!--         <a href="#mobile" class="anchorLink">
@@ -114,19 +114,6 @@
         </a>
       </div>
   <% else %>
-    <% if Time.now < Time.at(1454882400000/1000) %>
-      <div id="apply-wrapper">
-        <a href="/register">
-          <div id="apply-nav" class="svg-wrapper">
-            <svg height="60" width="95" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape apply" height="60" width="95" />
-            </svg>
-          </div>
-          <div class="text">APPLY</div>
-        </a>
-      </div>
-    <% end %>
-
       <div id="login-wrapper">
         <a href="/login">
           <div id="login-nav" class="svg-wrapper">
@@ -146,15 +133,15 @@
         <ul class="mobile">
           <div class="mobile-wrap">
             <div>
-              <li><a href="#hero" class="anchorLink">HOME</a></li>
-              <li><a href="#contact" class="anchorLink">CONTACT</a></li>
-              <li><a href="#faq" class="anchorLink">FAQ</a></li>
               <li><a href="#schedule" class="anchorLink">SCHEDULE</a></li>
+              <li><a href="#team" class="anchorLink">OUR TEAM</a></li>
+              <li><a href="#contact" class="anchorLink">CONTACT</a></li>
             </div>
             <div>
-              <li><a href="#team" class="anchorLink">OUR TEAM</a></li>
-  <!--             <li><a href="#mobile" class="anchorLink">MOBILE</a></li> -->
+              <li><a href="#faq" class="anchorLink">FAQ</a></li>
               <li><a href="#sponsors" class="anchorLink">SPONSORS</a></li>
+  <!--             <li><a href="#mobile" class="anchorLink">MOBILE</a></li> -->
+
           <% if cookies.signed[:spartaUser] %>
             <% if cookies.signed[:spartaUser][1] == "admin" %>
               <li><a href="/admin">ADMIN DASHBOARD</a></li>
@@ -167,9 +154,6 @@
             <% end %>
               <li><a href="/logout">LOG OUT</a></li>
           <% else %>
-            <% if Time.now < Time.at(1454882400000/1000) %>
-              <li><a href="/register">APPLY</a></li>
-            <% end %>
               <li><a href="/login">LOGIN</a></li>
           <% end %>
           </div>

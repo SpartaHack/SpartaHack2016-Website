@@ -21,42 +21,6 @@
   text-align: center;
   letter-spacing: .05em;
 
-  #clockdiv{
-      font-family: sans-serif;
-      color: #fff;
-      display: inline-block;
-      font-weight: 100;
-      text-align: center;
-      font-size: 30px;
-      margin-bottom: 50px;
-      @media (min-width: 560px) {
-        margin-bottom: 100px;
-      }
-
-      p {
-        font-size: 85%;
-      }
-  }
-
-  #clockdiv > div{
-      padding: 10px;
-      border-radius: 3px;
-      background: $mutedOutline;
-      display: inline-block;
-  }
-
-  #clockdiv div > span{
-      padding: 2px;
-      border-radius: 3px;
-      background: transparent;
-      display: inline-block;
-  }
-
-  .smalltext{
-      padding-top: 0px;
-      font-size: 14px;
-  }
-
   .wrap {
     margin-top: 61px;
   }
@@ -155,10 +119,10 @@
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    margin-bottom: 25px;
+    margin-bottom: 50px;
     @media (min-width: 560px) {
       width: 557px;
-      margin-bottom: 15px;
+      margin-bottom: 100px;
     }
   }
 

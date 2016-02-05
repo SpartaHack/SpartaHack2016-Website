@@ -1,5 +1,5 @@
 @import 'partials/colorScheme';
-@import 'partials/fonts';   
+@import 'partials/fonts';
 
 #sponsors {
   width: 100%;
@@ -16,13 +16,14 @@
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
   align-items: center;
   -webkit-align-items: center;
-  justify-content: center; 
+  justify-content: center;
   -webkit-justify-content: center;
   flex-direction: column;
   -webkit-flex-direction: column;
-  text-align: center; 
+  text-align: center;
   color: $faqText;
   position: relative;
+  border-bottom: 1px solid $mutedOutline;
 
   section {
     margin-bottom: 3em;
@@ -34,7 +35,7 @@
     display: inherit;
     align-items: center;
     -webkit-align-items: center;
-    justify-content: center; 
+    justify-content: center;
     -webkit-justify-content: center;
     flex-direction: column;
     -webkit-flex-direction: column;
@@ -135,7 +136,7 @@
          -moz-filter: grayscale(100%);
            -o-filter: grayscale(100%);
           -ms-filter: grayscale(100%);
-              filter: grayscale(100%); 
+              filter: grayscale(100%);
       filter: gray;  /* For IE 6 - 9 */
       -webkit-transition: all .6s ease;  /* Transition for Webkit browsers */
     }
@@ -165,7 +166,7 @@
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
   align-items: center;
   -webkit-align-items: center;
-  
+
   align-content: center;
   -webkit-align-content: center;
 
@@ -193,7 +194,7 @@
     }
   }
 
-  
+
 }
 
 .bronze {
@@ -215,7 +216,7 @@
     }
   }
 
-  
+
 }
 
 .silver {
@@ -240,7 +241,7 @@
     min-width: 240px;
     max-width: 260px;
   }
-  
+
 }
 
 .gold {
@@ -262,8 +263,5 @@
     }
   }
 
-  
+
 }
-
-
-
