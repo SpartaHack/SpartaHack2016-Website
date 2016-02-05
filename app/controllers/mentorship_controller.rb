@@ -55,6 +55,19 @@ class MentorshipController < ApplicationController
         end
       elsif !mentorship_register_params["mentoring"].blank? && mentorship_register_params["mentoring"] == "false"
         if !@mentor.blank?
+
+          cats_to_remove = @mentor["categories"]
+          if !cats_to_remove.blank?
+            cats = Parse::Query.new("Categories").tap do |q|
+              q.value_in("name", cats_to_remove) 
+            end.get
+
+            cats.each do |cat|
+              cat["mentors"].delete(cookies.signed[:spartaUser][0])
+              cat.save
+            end
+          end
+
           @mentor.parse_delete
           @mentor.save
         end
@@ -66,9 +79,53 @@ class MentorshipController < ApplicationController
 
 
       if !@mentor.blank?
-        @mentor["categories"] = mentorship_register_params["categories"]
+        # this is my favorite segment of code.
+        new_cats = mentorship_register_params["categories"]
+
+        cats_to_remove = []
+        @mentor["categories"].each do |old_cat|
+          if mentorship_register_params["categories"].exclude? old_cat
+            cats_to_remove.push(old_cat)
+          end
+        end
+
+        if !cats_to_remove.blank?
+          cats = Parse::Query.new("Categories").tap do |q|
+            q.value_in("name", cats_to_remove) 
+          end.get
+
+          cats.each do |cat|
+            cat["mentors"].delete(cookies.signed[:spartaUser][0])
+            cat.save
+          end
+        end
+
+        get_cats = Parse::Query.new("Categories").tap do |q|
+            q.value_in("name", new_cats) 
+        end.get 
+
+        get_cats.each do |a_cat|
+          if a_cat["mentors"].exclude? cookies.signed[:spartaUser][0]
+            a_cat["mentors"].push(cookies.signed[:spartaUser][0])
+            a_cat.save
+          end
+        end 
+
+        @mentor["categories"] = new_cats
         @mentor.save
       else
+
+        get_cats = Parse::Query.new("Categories").tap do |q|
+            q.value_in("name", mentorship_register_params["categories"]) 
+        end.get 
+
+        get_cats.each do |a_cat|
+          if a_cat["mentors"].exclude? cookies.signed[:spartaUser][0]
+            a_cat["mentors"].push(cookies.signed[:spartaUser][0])
+            a_cat.save
+          end
+        end 
+
         @mentor = Parse::Object.new("Mentors")
         @mentor["categories"] = mentorship_register_params["categories"]
         @mentor["mentor"] = Parse::Pointer.new({

@@ -25,7 +25,7 @@
     align-items: center;
     -webkit-align-items: center;
     width: 960px;
-    height: 443px;
+    height: 463px;
     margin-top: 50px;
     margin-bottom: 50px;
     border: 1px solid $mutedOutline;
@@ -93,7 +93,7 @@
 
       }
 
-      #arrow-wrap {
+      .arrow-wrap {
         height: 20px;
         border-right: 1px solid $mutedOutline;
         @media (max-width: 959px){
@@ -102,7 +102,7 @@
           border-bottom: 1px solid $mutedOutline;
         } 
 
-        .fa-angle-down {
+        .fa-angle-down, .fa-angle-up {
           color: $cream;
           font-size: 20px;
         }

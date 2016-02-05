@@ -28,6 +28,12 @@ $('#questions').on('scroll', function() {
     } else {
       $(".fa-angle-down").fadeIn();
     }
+
+    if($(this).scrollTop() == 0) {
+        $(".fa-angle-up").fadeOut();
+    } else {
+      $(".fa-angle-up").fadeIn();
+    }
 })
 
 
@@ -41,6 +47,7 @@ $('.anchorLink').click(function(){
 var desktop_menu = [
   {"scroll_to": "#home-nav", "elem": $("#hero")},
   {"scroll_to": "#faq-nav", "elem": $("#faq")},
+  {"scroll_to": "#schedule-nav", "elem": $("#schedule")},
   {"scroll_to": "#contact-nav", "elem": $("#contact")},
   {"scroll_to": "#team-nav", "elem": $("#team")},
   {"scroll_to": "#sponsor-nav", "elem": $("#sponsors")},
@@ -48,19 +55,19 @@ var desktop_menu = [
 
 var current = "#home-nav";
 
-$(".svg-wrapper").hover( 
-  function () { 
+$(".svg-wrapper").hover(
+  function () {
     $(".svg-wrapper").removeClass("active");
-    $(this).addClass("active"); 
+    $(this).addClass("active");
   },
-  function () { 
+  function () {
     $(".svg-wrapper").removeClass("active");
-    $(current).addClass("active"); 
+    $(current).addClass("active");
   }
 
 );
 
-if ($(window).width() < 775) {
+if ($(window).width() < 960) {
   $("#header").headroom({
     "offset": 205,
     "tolerance": 5,
@@ -74,7 +81,7 @@ if ($(window).width() < 775) {
 
 
 $(window).scroll(function() {
-  if ($(window).width() >= 775) {
+  if ($(window).width() >= 960) {
     var halfHeight = $(this).scrollTop() + ($(this).height() / 1.7);
 
     for(var i = 0; i < desktop_menu.length; i++) {
@@ -96,7 +103,7 @@ $(window).scroll(function() {
 $(function() {
     var pull        = $('#pull');
         menu        = $('.mobile');
- 
+
     $(pull).on('click', function(e) {
         e.preventDefault();
         menu.slideToggle();
@@ -117,6 +124,3 @@ function confirmJavascript() {
 
 confirmJavascript();
 setInterval(confirmJavascript, 10000); // invoke each 10 seconds
-
-
-

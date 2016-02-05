@@ -4,7 +4,7 @@
 #hero {
   @media (max-width: 550px) {
     .section-head {
-      margin: 85px 0px; 
+      margin: 85px 0px;
     }
   }
 
@@ -20,7 +20,43 @@
   background-color: transparent;
   text-align: center;
   letter-spacing: .05em;
-  
+
+  #clockdiv{
+      font-family: sans-serif;
+      color: #fff;
+      display: inline-block;
+      font-weight: 100;
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 50px;
+      @media (min-width: 560px) {
+        margin-bottom: 100px;
+      }
+
+      p {
+        font-size: 85%;
+      }
+  }
+
+  #clockdiv > div{
+      padding: 10px;
+      border-radius: 3px;
+      background: $mutedOutline;
+      display: inline-block;
+  }
+
+  #clockdiv div > span{
+      padding: 2px;
+      border-radius: 3px;
+      background: transparent;
+      display: inline-block;
+  }
+
+  .smalltext{
+      padding-top: 0px;
+      font-size: 14px;
+  }
+
   .wrap {
     margin-top: 61px;
   }
@@ -96,7 +132,7 @@
     width: 100%;
     line-height: 250%;
     margin-top: -50px;
-    
+
     @media (max-width: 1024px) {
       width: 87%;
       line-height: 150%;
@@ -109,20 +145,20 @@
     margin: auto;
     text-align: right;
     border: solid 1px $mutedOutline;
-    display: block; 
+    display: block;
     color: $cream;
     width: 90%;
     font-weight: 100;
     font-size: 15px;
     height: 60px;
-    cursor: pointer; 
+    cursor: pointer;
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
     @media (min-width: 560px) {
       width: 557px;
-      margin-bottom: 100px;
+      margin-bottom: 15px;
     }
   }
 
@@ -139,10 +175,10 @@
     font-weight: 300;
     font-size: 16px;
     height: 60px;
-    cursor: pointer; 
+    cursor: pointer;
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    
+
   }
 }

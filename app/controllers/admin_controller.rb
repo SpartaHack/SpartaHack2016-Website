@@ -52,7 +52,7 @@ class AdminController < ApplicationController
                     end.get
 
     @apps_total = @apps.length
-  
+
     render layout: false
   end
 
@@ -116,7 +116,7 @@ class AdminController < ApplicationController
     @empty_app_users.each do |empty_user|
         if !flagged_users.include? empty_user['email']
           @new_empty_app_first_notice += 1
-        elsif flagged_users.include? empty_user['email'] 
+        elsif flagged_users.include? empty_user['email']
           user_flags = Parse::Query.new("EmailFlags").tap do |q|
                             q.eq("user", Parse::Pointer.new({
                               "className" => "_User",
@@ -137,7 +137,7 @@ class AdminController < ApplicationController
     @empty_rsvp_users.each do |empty_user|
         if !flagged_users.include? empty_user['email']
           @new_empty_rsvp_first_notice += 1
-        elsif flagged_users.include? empty_user['email'] 
+        elsif flagged_users.include? empty_user['email']
           user_flags = Parse::Query.new("EmailFlags").tap do |q|
                             q.eq("user", Parse::Pointer.new({
                               "className" => "_User",
@@ -149,7 +149,7 @@ class AdminController < ApplicationController
             @new_empty_rsvp_first_notice += 1
           end
         end
-    end    
+    end
 
     render layout: false
   end
@@ -201,7 +201,7 @@ class AdminController < ApplicationController
       flagged_users = []
       email_flags.each do |flag|
         flagged_users.push(flag['user']['email'])
-      end                      
+      end
 
       @empty_rsvp_users = get_empty_rsvp_acceptances()
       @email_count = 0
@@ -214,7 +214,7 @@ class AdminController < ApplicationController
             emailFlag["user"] = empty_user.pointer
             emailFlag.save
             @email_count += 1
-          elsif flagged_users.include? empty_user['email'] 
+          elsif flagged_users.include? empty_user['email']
             user_flags = Parse::Query.new("EmailFlags").tap do |q|
                               q.eq("user", Parse::Pointer.new({
                                 "className" => "_User",
@@ -237,7 +237,7 @@ class AdminController < ApplicationController
       end
 
     elsif email_params['type'] == "empty_app"
-      
+
 
       email_flags = Parse::Query.new("EmailFlags").tap do |q|
                       q.limit = 1000
@@ -261,7 +261,7 @@ class AdminController < ApplicationController
 
       @email_count = 0
       @empty_app_users.each do |empty_user|
- 
+
           if !flagged_users.include? empty_user['email']
             UserMailer.notify_of_empty_app(empty_user['email']).deliver_now
             emailFlag = Parse::Object.new("EmailFlags")
@@ -284,7 +284,7 @@ class AdminController < ApplicationController
                               }))
                             end.get.first
 
-            
+
 
             if user_flags["firstEmptyApp"] != true
               UserMailer.notify_of_empty_app(empty_user['email']).deliver_now
@@ -396,11 +396,11 @@ class AdminController < ApplicationController
 
   end
 
-  def editsponsor 
-    # Deletes or updates a sponsor 
+  def editsponsor
+    # Deletes or updates a sponsor
 
     company = Parse::Query.new("Company").eq("objectId", edit_sponsor_params['object']).get.first
-    
+
     if edit_sponsor_params["commit"] == "Delete"
       company.parse_delete
     else
@@ -439,7 +439,7 @@ class AdminController < ApplicationController
     else
       redirect_to '/login' and return
     end
-    
+
     @apps = Parse::Query.new("Application").tap do |q|
       q.limit = 1000
       q.include = "user"
@@ -465,7 +465,7 @@ class AdminController < ApplicationController
     else
       redirect_to '/login' and return
     end
-    
+
     @rsvps = Parse::Query.new("RSVP").tap do |q|
       q.include = "user,application"
       q.limit = 1000
@@ -480,7 +480,7 @@ class AdminController < ApplicationController
     render layout: false
   end
 
-  def app_status 
+  def app_status
       app = Parse::Query.new("Application").eq("objectId", status_params["object"]).get.first
       if !status_params["status-select"].blank?
         app['status'] = status_params["status-select"]
@@ -579,27 +579,27 @@ class AdminController < ApplicationController
 
     def add_sponsor_params
       params.permit(:picture, :name, :url, :level)
-    end   
+    end
 
     def edit_sponsor_params
       params.permit(:picture, :name, :url, :level, :commit, :object)
-    end   
+    end
 
     def view_sponsor_params
       params.permit(:object)
-    end   
+    end
 
     def status_params
       params.permit(:object, :"status-select")
-    end 
+    end
 
     def email_params
       params.permit(:object, :"type")
-    end 
+    end
 
     def get_empty_app_users
       users_with_apps = []
-      
+
       applications = Parse::Query.new("Application").tap do |q|
         q.limit = 1000
         q.include = "user"
@@ -629,7 +629,7 @@ class AdminController < ApplicationController
 
     def get_empty_rsvp_acceptances
       users_with_rsvps = []
-      
+
       rsvps = Parse::Query.new("RSVP").tap do |q|
         q.limit = 1000
         q.include = "user"
@@ -656,7 +656,7 @@ class AdminController < ApplicationController
         q.skip = 1000
       end.get
 
-      users = [] 
+      users = []
       applications.each do |app|
         if app["status"] == "Accepted" && app["emailStatus"] == true && users_with_rsvps.include?(app['user']["email"]) == false
           users.push(app["user"])
@@ -665,7 +665,7 @@ class AdminController < ApplicationController
 
       return users
 
-    end    
+    end
 
     # stats on users
     def get_stats(users, rsvps, flag) # flag used to check for user pointers in rsvp table
@@ -675,7 +675,7 @@ class AdminController < ApplicationController
       if flag == ""
         @total_apps = @input.length
       end
-  
+
       # gender count [male, female, nonbinary]
       @gender_count = {"male"=>0, "female"=>0, "non-binary"=>0, "prefer-not"=>0}
 
@@ -933,7 +933,18 @@ class AdminController < ApplicationController
       end
       @common_words = most_common(@master_string)
 
-      most_common_words = ["the", "be", "to", "of", "and", "a", "in", "that", "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at", "this", "but", "his", "by", "from", "they", "we", "say", "her", "she", "or", "an", "will", "my", "one", "all", "would", "there", "their", "what", "so", "up", "out", "if", "about", "who", "get", "which", "go", "me", "when", "make", "can", "like", "time", "no", "just", "him", "know", "take", "person", "into", "year", "your", "good", "some", "could", "them", "see", "other", "than", "then", "now", "look", "only", "come", "its", "over", "think", "also", "back", "after", "use", "two", "how", "our", "work", "first", "well", "way", "even", "new", "want", "because", "any", "these", "give", "day", "most", "us", "im", "ive", "id", "am"]
+      most_common_words = ["the", "be", "to", "of", "and", "a", "in", "that",
+        "have", "i", "it", "for", "not", "on", "with", "he", "as", "you", "do",
+        "at", "this", "but", "his", "by", "from", "they", "we", "say", "her",
+        "she", "or", "an", "will", "my", "one", "all", "would", "there",
+        "their", "what", "so", "up", "out", "if", "about", "who", "get",
+        "which", "go", "me", "when", "make", "can", "like", "time", "no",
+        "just", "him", "know", "take", "person", "into", "year", "your", "good",
+        "some", "could", "them", "see", "other", "than", "then", "now", "look",
+        "only", "come", "its", "over", "think", "also", "back", "after", "use",
+        "two", "how", "our", "work", "first", "well", "way", "even", "new",
+        "want", "because", "any", "these", "give", "day", "most", "us", "im",
+        "ive", "id", "am"]
 
       most_common_words.each do |word|
         @common_words.delete(word)
@@ -959,7 +970,7 @@ class AdminController < ApplicationController
       @output["dietary_restrictions"] = @restriction_count
       @output["other_restrictions"] = @other_restrictions
       @output["tshirt_count"] = @tshirt_count
-      
+
       return @output
 
   end
