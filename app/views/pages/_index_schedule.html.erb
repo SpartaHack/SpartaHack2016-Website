@@ -8,22 +8,21 @@
     <% @schedule.each do |day|  %>
       <% if !day[2].blank? %>
         <div class="schedule-col">
-          <div class="day-wrap">
-            <div class="day"><%= day[0] %></div>
-            <div class="weekday" ><%= day[1] %></div>
-          </div>
-        <% day[2].each do |event| %>
+            <div class="weekday" ><%=  "#{day[0]} #{day[1]}" %></div>
           <div class="event-wrap">
-          <% if event[2] != "Food" %>
-            <% if !event[0][0].blank? %>
-              <div class="event-time"><%= event[0][1].blank? ? event[0][0] : "#{event[0][0]} - #{event[0][1]}" %></div>
-            <% else %>
-              <div class="event-time">TBD</div>
+            <table id="cap-table">
+              <colgroup>
+                 <col span="1" >
+                 <col span="1" >
+              </colgroup>
+            <% day[2].each do |event| %>
+              <tr>
+                <td class="event-time"><%= event[0][1].blank? ? event[0][0] : "#{event[0][0]} - #{event[0][1]}" %></td>
+                <td class="event"><%= event[1] %></td>
+              </tr>
             <% end %>
-          <% end %>
-            <div class="event"><%= event[1] %></div>
+          </table>
           </div>
-        <% end %>
         </div>
       <% end %>
     <% end %>
