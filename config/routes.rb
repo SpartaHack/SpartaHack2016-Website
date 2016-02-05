@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   get 'javascript/confirm'
   get 'jscheck' => 'javascript#jscheck'
 
-  get 'register'  => 'users#register'
-  get 'apply'  => 'users#register'
-  post 'create' => 'users#create'
+  # get 'register'  => 'users#register'
+  # get 'apply'  => 'users#register'
+  # post 'create' => 'users#create'
   get 'login'  => 'users#login'
   get 'logout'  => 'users#logout'
   post 'auth'  => 'users#auth'
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   post 'requestreset'  => 'users#requestreset'
   post 'save' => 'users#save'
   resources :users
-  
+
   get 'mentorship/register' => 'mentorship#registration'
   post 'mentorship/register' => 'mentorship#register'
 
