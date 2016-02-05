@@ -1,6 +1,6 @@
 <section id="hero">
 	<div class="wrap">
-	  
+
 	 	 <div id="logo-wrap">
 			<h2 class="section-head title"><%= image_tag "sparathack2016.svg", alt: "SpartaHack", :class => "title-text" %></h2>
 			<p id="title-desc">Michigan State University’s official hackathon</p>
@@ -9,11 +9,12 @@
 			<%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
 			<p id="intro">
 			  SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. On the weekend of February 26th, we're bringing together 500 students of all skill levels and disciplines to get creative with tech, connect with peers and professionals, and forget the words "I can't."
-			  We're excited to see what you will create! Applications are now open.
+			  We're excited to see what you will create!
 			</p>
 	  	</div>
-		<div class="hvr-underline-from-center apply-wrapper">
+
 	<% if cookies.signed[:spartaUser] %>
+		<div class="hvr-underline-from-center apply-wrapper">
 		<% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
 			<a class="hero-link" href="/admin">VIEW ADMIN DASHBOARD</a>
 		<% else %>
@@ -23,9 +24,36 @@
 				<a class="hero-link" href="/application">COMPLETE MY APPLICATION</a>
 			<% end %>
 		<% end %>
+		</div>
 	<% else %>
-	      <a class="hero-link" href="/register">APPLY NOW</a>
+		<% if Time.now < Time.at(1454882400000/1000) %>
+			<div class="hvr-underline-from-center apply-wrapper">
+					<a class="hero-link" href="/register">APPLY NOW</a>
+			</div>
+			<div id="clockdiv">
+				<p>Applications close in </p>
+				<div>
+					<span class="days"></span>
+					<div class="smalltext">Days</div>
+				</div>
+				<div>
+					<span class="hours"></span>
+					<div class="smalltext">Hours</div>
+				</div>
+				<div>
+					<span class="minutes"></span>
+					<div class="smalltext">Minutes</div>
+				</div>
+				<div>
+					<span class="seconds"></span>
+					<div class="smalltext">Seconds</div>
+				</div>
+			</div>
+		<% else %>
+			<div id="clockdiv">
+				<p>Applications are now closed.</p>
+			</div>
+		<% end %>
 	<% end %>
-	    </div>
 	</div>
 </section>

@@ -16,11 +16,11 @@
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
   align-items: center;
   -webkit-align-items: center;
-  justify-content: center; 
+  justify-content: center;
   -webkit-justify-content: center;
   flex-direction: column;
   -webkit-flex-direction: column;
-  text-align: center; 
+  text-align: center;
   color: $cream;
   border-bottom: 1px solid $mutedOutline;
   padding-bottom: 100px;
@@ -30,7 +30,7 @@
   }
 
   #schedule-col-wrap {
-    
+
     display: -webkit-box;
     /* OLD - iOS 6-, Safari 3.1-6 */
     display: -moz-box;
@@ -50,7 +50,7 @@
       -webkit-flex-direction: row;
       align-items: flex-start;
       -webkit-align-items: flex-start;
-      justify-content: center; 
+      justify-content: center;
       -webkit-justify-content: center;
 
     }
@@ -58,7 +58,7 @@
     .schedule-col {
       margin-top: 50px;
       width: 100%;
-      justify-content: center; 
+      justify-content: center;
       -webkit-justify-content: center;
     }
 
@@ -76,7 +76,6 @@
 
     .weekday {
       font-size: 30px;
-      border-bottom: 1px solid $mutedOutline;
     }
 
     .event-wrap {
@@ -100,4 +99,3 @@
 
 
 }
-

@@ -55,14 +55,14 @@ var desktop_menu = [
 
 var current = "#home-nav";
 
-$(".svg-wrapper").hover( 
-  function () { 
+$(".svg-wrapper").hover(
+  function () {
     $(".svg-wrapper").removeClass("active");
-    $(this).addClass("active"); 
+    $(this).addClass("active");
   },
-  function () { 
+  function () {
     $(".svg-wrapper").removeClass("active");
-    $(current).addClass("active"); 
+    $(current).addClass("active");
   }
 
 );
@@ -103,7 +103,7 @@ $(window).scroll(function() {
 $(function() {
     var pull        = $('#pull');
         menu        = $('.mobile');
- 
+
     $(pull).on('click', function(e) {
         e.preventDefault();
         menu.slideToggle();
@@ -124,6 +124,3 @@ function confirmJavascript() {
 
 confirmJavascript();
 setInterval(confirmJavascript, 10000); // invoke each 10 seconds
-
-
-

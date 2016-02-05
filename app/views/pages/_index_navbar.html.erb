@@ -60,12 +60,12 @@
               <rect class="shape mobile-nav" height="60" width="103" />
             </svg>
           </div>
-          <div class="text">MOBILE</div>  
+          <div class="text">MOBILE</div>
         </a> -->
     </div>
-    
+
     <div class="navbar-nav right">
-    
+
   <% if cookies.signed[:spartaUser] %>
     <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
       <div id="app-wrapper">
@@ -89,7 +89,7 @@
             </div>
             <div class="text">MY DASHBOARD</div>
           </a>
-        </div>  
+        </div>
       <% else %>
         <div id="app-wrapper">
           <a href="/application">
@@ -100,7 +100,7 @@
             </div>
             <div class="text">MY APPLICATION</div>
           </a>
-        </div> 
+        </div>
       <% end %>
     <% end %>
       <div id="login-wrapper">
@@ -112,18 +112,20 @@
           </div>
           <div class="text">LOG OUT</div>
         </a>
-      </div>     
+      </div>
   <% else %>
+    <% if Time.now < Time.at(1454882400000/1000) %>
       <div id="apply-wrapper">
         <a href="/register">
           <div id="apply-nav" class="svg-wrapper">
             <svg height="60" width="95" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape apply" height="60" width="95" />     
+              <rect class="shape apply" height="60" width="95" />
             </svg>
           </div>
           <div class="text">APPLY</div>
         </a>
       </div>
+    <% end %>
 
       <div id="login-wrapper">
         <a href="/login">
@@ -165,9 +167,11 @@
             <% end %>
               <li><a href="/logout">LOG OUT</a></li>
           <% else %>
+            <% if Time.now < Time.at(1454882400000/1000) %>
               <li><a href="/register">APPLY</a></li>
+            <% end %>
               <li><a href="/login">LOGIN</a></li>
-          <% end %> 
+          <% end %>
           </div>
         </div>
         </ul>
@@ -182,5 +186,3 @@
 <a id="mlh-trust-badge" href="https://mlh.io/?utm_campaign=Trust%20Badge" target="_blank">
   <img src="https://s3.amazonaws.com/logged-assets/trust-badge/s2016.png" alt="MLH Official - Spring 2016" style="width:100%;" >
 </a>
-
-        
