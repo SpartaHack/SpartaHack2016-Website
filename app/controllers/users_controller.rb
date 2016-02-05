@@ -465,7 +465,7 @@ class UsersController < ApplicationController
           resume = user_rsvp_params['resume']
           parse_resume = Parse::File.new({
             :body => resume.read,
-            :local_filename => @app["lastName"] + "_" + @app["firstName"] + ".pdf" ,
+            :local_filename => "resume.pdf" ,
             :content_type => resume.content_type,
             :content_length => resume.tempfile().size().to_s
           })
