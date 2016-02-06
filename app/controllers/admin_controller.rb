@@ -343,7 +343,7 @@ class AdminController < ApplicationController
             # creates a parse File using the private svg_to_png function
             photo = Parse::File.new({
               :body => svg_to_png(svg),
-              :local_filename => c["img"].parse_filename.split(".")[0]+".png",
+              :local_filename => "logo.png",
               :content_type => "image/png",
             })
 

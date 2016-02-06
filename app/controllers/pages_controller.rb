@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   require 'parse_config'
   require 'monkey_patch'
   require 'pp'
+  require 'json'
 
   def index
     if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "attendee"
@@ -13,13 +14,19 @@ class PagesController < ApplicationController
             "objectId"  => cookies.signed[:spartaUser][0]
           }))
         end.get.first
-        
-      rescue 
+
+      rescue
         redirect_to "/outage" and return
       end
 
-      
+
     end
+
+      # user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      # data = { :alert => "This is a notification, dm Bogdan if you got it" }
+      # push = Parse::Push.new(data, cookies.signed[:spartaUser][0])
+      # push.save
+
 
     begin
       @partner = []
@@ -37,7 +44,7 @@ class PagesController < ApplicationController
         elsif c["level"] == "warrior"
           @warrior.push([c["url"], c["img"].url, c["name"]])
         elsif c["level"] == "commander"
-          @commander.push([c["url"], c["img"].url, c["name"]])    
+          @commander.push([c["url"], c["img"].url, c["name"]])
         end
       end
 
@@ -58,7 +65,7 @@ class PagesController < ApplicationController
       end
 
       @team = []
-      
+
       team_raw = Parse::Query.new("Team").get
 
       team_raw.each do |t|
@@ -109,8 +116,8 @@ class PagesController < ApplicationController
     render layout: false
   end
 
-  def subscribe 
-    
+  def subscribe
+
     if subscribe_params[:emailinput] == "" && subscribe_params[:fname] == "" && subscribe_params[:lname] == ""
       flash[:error] = "You cannot submit an empty form."
       redirect_to "/#contact" and return
@@ -133,7 +140,7 @@ class PagesController < ApplicationController
     else
       begin
       	mailchimp = Mailchimp::API.new(ENV["MAILCHIMP_API_KEY"])
-    		mailchimp.lists.subscribe(ENV["MAILCHIMP_VOL_LIST_ID"], 
+    		mailchimp.lists.subscribe(ENV["MAILCHIMP_VOL_LIST_ID"],
     		                   { "email" => subscribe_params['emailinput']
     		                   },{'FNAME' => subscribe_params['fname'] , "LNAME" => subscribe_params['lname'] })
         render layout: false
@@ -142,7 +149,7 @@ class PagesController < ApplicationController
         redirect_to "/#contact" and return
       end
     end
-    
+
 	end
 
   def winners2015
@@ -156,11 +163,11 @@ class PagesController < ApplicationController
   def hangout
     redirect_to 'https://talkgadget.google.com/hangouts/_/xkodgcsi4uolmwx2z3siz7q2yya'
   end
-  
+
   private
 
   def subscribe_params
     params.permit(:emailinput, :fname, :lname)
   end
-  
+
 end
