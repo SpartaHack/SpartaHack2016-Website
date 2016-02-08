@@ -42,7 +42,7 @@
                 </a>
                 <div id="admin-panel">Admin: <%= @sponsor['name'] %></div>
             </div>
-            
+
             <div class="navbar-nav right">
                <div id="login-wrapper">
                     <a href="/admin">
@@ -53,7 +53,7 @@
                         </div>
                         <div class="text">ADMIN HOME</div>
                     </a>
-                </div> 
+                </div>
                 <div id="login-wrapper">
                     <a href="/logout">
                         <div id="login-nav" class="svg-wrapper">
@@ -63,23 +63,29 @@
                         </div>
                         <div class="text">LOG OUT</div>
                     </a>
-                </div>  
+                </div>
             </div>
 
 
             <nav>
-                <ul class="mobile">
-                    <li><a href="/" class="anchorLink">HOME</a></li>
-                    <li><a href="/admin" class="anchorLink">ADMIN HOME</a></li>
-                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
-                </ul>
-                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+              <ul class="mobile">
+                <div class=mobile-wrap>
+                  <div>
+                    <li><a href="/" class="anchorLink">HOME PAGE</a></li>
+                  </div>
+                  <div>
+                    <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
+                  </div>
+                </div>
+                <li class="mobile-tail"><a href="/logout" class="anchorLink">LOG OUT</a></li>
+              </ul>
+              <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
 
 		<section id="sponsorship">
 			<div class="row">
-				<h1 class="section-head">EDIT SPONSOR</h1> 
+				<h1 class="section-head">EDIT SPONSOR</h1>
 
 				<%= form_tag({action: :editsponsor}, multipart: true) do %>
 					<div class="inner-wrap">
@@ -99,26 +105,26 @@
 
 							<div id="url-wrap">
 								<%= label_tag(:url, "Website Url", class: 'no-label') %>
-								<%= text_field_tag 'url', @sponsor['url'] , placeholder: 'Website URL' %>	
+								<%= text_field_tag 'url', @sponsor['url'] , placeholder: 'Website URL' %>
 							</div>
-						</div>	
+						</div>
 
-		               	<div class="thumbnail"> 				
+		               	<div class="thumbnail">
 		               		<%= image_tag @sponsor["img"].url, alt: "Image Preview", :id => "img_prev" %>
-							<div class="form-group-file">				        
+							<div class="form-group-file">
 								<%= file_field_tag 'picture', :onchange => 'readURL(this);' %>
 							</div>
-						</div>					
+						</div>
 					</div>
 
 
 					<div id="submit-wrap">
-                        <%= hidden_field_tag 'object' , @sponsor["objectId"]  %>  
+                        <%= hidden_field_tag 'object' , @sponsor["objectId"]  %>
                         <%= submit_tag "Delete", id: "deletesponsor" %>
                         <div class="hvr-underline-from-center">
-                            <%= submit_tag "Submit", id: "editsponsor" %>    
+                            <%= submit_tag "Submit", id: "editsponsor" %>
                         </div>
-						
+
 					</div>
 				<% end %>
 			</div>
@@ -127,12 +133,12 @@
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
-        <%= javascript_include_tag "select2.full.min" %>   
+        <%= javascript_include_tag "select2.full.min" %>
         <%= javascript_include_tag "general" %>
         <%= javascript_include_tag "sponsorship" %>
 
         <%= javascript_tag do %>
             $("#level").val("<%= @sponsor['level'] %>").trigger("change")
-        <% end %> 
+        <% end %>
     </body>
-</html>   
+</html>

@@ -41,7 +41,7 @@
                 </a>
                 <div id="name"><%= @application['firstName'] %></div>
             </div>
-            
+
             <div class="navbar-nav right">
             <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
                 <div id="app-wrapper">
@@ -64,17 +64,27 @@
                         </div>
                         <div class="text">LOG OUT</div>
                     </a>
-                </div>  
+                </div>
             </div>
 
 
             <nav>
                 <ul class="mobile">
-                  <li><a href="/" class="anchorLink">HOME</a></li>
+                  <div class="mobile-wrap">
+                    <div>
+                      <li><a href="/" class="anchorLink">HOME PAGE</a></li>
+                    </div>
             <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
-                  <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
-            <% end %>
-                  <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
+                  <div>
+                    <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
+                  </div>
+                </div>
+                  <li class="mobile-tail"><a href="/logout" class="anchorLink">LOG OUT</a></li>
+            <% else %>
+                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
+                  </div>
+                <div>
+           <% end %>
                 </ul>
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
@@ -83,17 +93,17 @@
         <div class="wrap-dash">
             <% if @application['status'] == 'Accepted' %>
               <canvas id="canvas"></canvas>
-            <% end %> 
+            <% end %>
 
             <section id="user-status">
                 <div class="row">
                   <div class="inner-wrap">
                       <div id="status-text">Status</div>
                       <div class="box" ><%= @application['status'].blank? ? "Application Received" : @application['status'] %></div>
-                  </div>               
+                  </div>
                 </div>
             </section>
-            
+
           <% if !@rsvp.blank? && @rsvp['attending'] == true %>
             <% if @minor == true %>
               <section class="minor">
@@ -159,21 +169,21 @@
                         TBD
                       <% end %>
                       </strong>
-                    </td> 
+                    </td>
                   </tr>
-              <% if !@travel.blank? %>    
+              <% if !@travel.blank? %>
                 <% if @travel["distance"] < 600 && @travel["distance"] > 0 %>
                   <tr>
                     <td class="right-align">Carpool with 1 other: </td>
-                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.20).to_i > 400 ? 400 : (@travel["distance"]* 0.20).to_i %></strong></td> 
+                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.20).to_i > 400 ? 400 : (@travel["distance"]* 0.20).to_i %></strong></td>
                   </tr>
                   <tr>
                     <td class="right-align">2 others: </td>
-                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.25).to_i > 400 ? 400 : (@travel["distance"]* 0.25).to_i %></strong> </td> 
+                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.25).to_i > 400 ? 400 : (@travel["distance"]* 0.25).to_i %></strong> </td>
                   </tr>
                   <tr>
                     <td class="right-align">3 others: </td>
-                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.30).to_i > 400 ? 400 : (@travel["distance"]* 0.30).to_i %></strong></td> 
+                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.30).to_i > 400 ? 400 : (@travel["distance"]* 0.30).to_i %></strong></td>
                   </tr>
                 <% end %>
               <% end %>
@@ -183,7 +193,7 @@
               </div>
             </section>
           <% end %>
-            
+
             <section class="topic-selection">
                 <div class="row">
                   <div class="title-wrap">
@@ -218,19 +228,19 @@
                 </div>
             </section>
 
-            
+
         </div>
-        
+
         <%= render partial: "pages/index_footer" %>
 
-       
+
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
         <% if @application['status'] == 'Accepted' %>
           <%= javascript_include_tag "confetti" %>
-        <% end %> 
+        <% end %>
         <%= javascript_include_tag "users-dashboard" %>
     </body>
-</html>        
+</html>

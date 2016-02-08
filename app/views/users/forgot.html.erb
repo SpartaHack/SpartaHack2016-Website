@@ -41,7 +41,7 @@
                 </a>
 
             </div>
-            
+
             <div class="navbar-nav right">
 
               <div id="apply-wrapper">
@@ -60,8 +60,7 @@
 
             <nav>
                 <ul class="mobile">
-                    <li><a href="/" class="anchorLink">HOME</a></li>
-                    <li><a href="/register">APPLY</a></li>
+                    <li class="mobile-tail"><a href="/" class="anchorLink">HOME</a></li>
                 </ul>
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
@@ -69,7 +68,7 @@
         <div class="wrap-main">
           <section id="forgot">
             <div class="row">
-              <h1 class="section-head">PASSWORD RESET</h1> 
+              <h1 class="section-head">PASSWORD RESET</h1>
               <% if flash[:error] %>
                 <div id="error-wrapper">
                   <div class="error"><%= flash[:error] %></div>
@@ -93,4 +92,4 @@
         <%= javascript_include_tag "jquery-headroom" %>
         <%= javascript_include_tag "users" %>
     </body>
-</html>        
+</html>
