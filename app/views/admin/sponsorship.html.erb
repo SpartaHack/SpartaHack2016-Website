@@ -42,7 +42,7 @@
                 </a>
                 <div id="admin-panel">Admin: Sponsorship</div>
             </div>
-            
+
             <div class="navbar-nav right">
                 <div id="app-wrapper">
                     <a href="/admin">
@@ -63,17 +63,23 @@
                         </div>
                         <div class="text">LOG OUT</div>
                     </a>
-                </div>  
+                </div>
             </div>
 
 
             <nav>
-                <ul class="mobile">
-                    <li><a href="/" class="anchorLink">HOME</a></li>
+              <ul class="mobile">
+                <div class=mobile-wrap>
+                  <div>
+                    <li><a href="/" class="anchorLink">HOME PAGE</a></li>
+                  </div>
+                  <div>
                     <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
-                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
-                </ul>
-                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+                  </div>
+                </div>
+                <li class="mobile-tail"><a href="/logout" class="anchorLink">LOG OUT</a></li>
+              </ul>
+              <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
 
@@ -103,16 +109,16 @@
 
 								<div id="url-wrap">
 									<%= label_tag(:url, "Website Url", class: 'no-label') %>
-									<%= text_field_tag 'url', nil , placeholder: 'Website URL' %>	
+									<%= text_field_tag 'url', nil , placeholder: 'Website URL' %>
 								</div>
-							</div>	
+							</div>
 
-			               	<div class="thumbnail"> 				
+			               	<div class="thumbnail">
 			               		<%= image_tag "company-logo.svg", alt: "Image Preview", :id => "img_prev" %>
-								<div class="form-group-file">				        
+								<div class="form-group-file">
 									<%= file_field_tag 'picture', :onchange => 'readURL(this);' %>
 								</div>
-							</div>					
+							</div>
 						</div>
 
 
@@ -130,7 +136,7 @@
 						<div id="sponsor-wrap">
 					      <% @sponsors.each do |sponsor|  %>
 				        	<%= form_tag({action: :viewsponsor}, multipart: true) do %>
-				        		<%= hidden_field_tag 'object' , sponsor[0]  %>	
+				        		<%= hidden_field_tag 'object' , sponsor[0]  %>
 				            	<%= submit_tag sponsor[1], id: "viewsponsor" %>
 				            <% end %>
 
@@ -145,7 +151,7 @@
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
     	<%= javascript_include_tag "select2.full.min" %>
-        <%= javascript_include_tag "general" %>	
+        <%= javascript_include_tag "general" %>
         <%= javascript_include_tag "sponsorship" %>
     </body>
-</html>        
+</html>

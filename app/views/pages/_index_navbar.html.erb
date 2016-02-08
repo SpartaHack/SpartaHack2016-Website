@@ -152,12 +152,15 @@
                 <li><a href="/application">MY APPLICATION</a></li>
               <% end %>
             <% end %>
-              <li><a href="/logout">LOG OUT</a></li>
+            </div>
+          </div>
+              <li class="mobile-tail"><a href="/logout">LOG OUT</a></li>
           <% else %>
               <li><a href="/login">LOGIN</a></li>
-          <% end %>
+            </div>
           </div>
-        </div>
+          <% end %>
+
         </ul>
 
         <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>

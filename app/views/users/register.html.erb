@@ -42,7 +42,7 @@
                 </a>
 
             </div>
-            
+
             <div class="navbar-nav right">
 
               <div id="login-wrapper">
@@ -61,8 +61,14 @@
 
             <nav>
                 <ul class="mobile">
+                  <div class="mobile-wrap">
+                    <div>
                     <li><a href="/" class="anchorLink">HOME</a></li>
+                    </div>
+                    <div>
                     <li><a href="/login">LOGIN</a></li>
+                    </div>
+                  </div>
                 </ul>
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
@@ -79,15 +85,15 @@
           <div id="popup-wrapper">
             <div id="popup"></div>
           </div>
-        
+
         <div class="wrap-main">
           <section id="app" >
             <div class="row">
-          
+
               <div class="title-wrap">
                 <h1 class="section-head">Register</h1>
                 <div class="hline"></div>
-              </div>  
+              </div>
               <h4 id="required">* fields are required.</h4>
               <%= form_tag("/create", method: "post", id: "save_app", class: "save_app", :remote => true, :authenticity_token => true) do %>
                 <div id="register">
@@ -100,7 +106,7 @@
                     <%= password_field_tag 'password', nil, placeholder: "Password *", minlength: "8", required: true%>
 
                     <%= label_tag 'password_confirmation', 'Confirm Password', class: 'no-label' %>
-                    <%= password_field_tag 'password_confirmation', nil, placeholder: "Confirm Password *", minlength: "6", required: true%>                    
+                    <%= password_field_tag 'password_confirmation', nil, placeholder: "Confirm Password *", minlength: "6", required: true%>
                   </div>
                   <div class="a-hline"></div>
                 </div>
@@ -140,7 +146,7 @@
                   <label id="highschool">Which of the following best describes your current enrollment? *</label>
                   <div id="radio-wrap">
                       <input type="radio" name="universityStudent" id="highschool-student" value="false" >
-                      <label for="highschool-student">High School</label>                  
+                      <label for="highschool-student">High School</label>
                       <input type="radio" name="universityStudent" id="university-student" value="true" >
                       <label for="university-student">College/University</label>
                   </div>
@@ -160,7 +166,7 @@
                 <div class="add-margin-top other-university-enrolled" style="display:none;">
                   <%= label_tag(:otherUniversity, "College/University not listed above? Enter it here.", class: 'no-label') %>
                   <%= text_field_tag 'otherUniversity', "#{flash[:params]['otherUniversity'] if flash[:params] && flash[:params]['otherUniversity']}", placeholder: 'Other College/University' %>
-                </div>            
+                </div>
                 <div class="university-enrolled">
                   <%= render partial: "users/app_major" %>
                 </div>
@@ -234,7 +240,7 @@
                   <%= submit_tag("Submit Application", :id => "application") %>
                 </div>
 
-              <% end %>      
+              <% end %>
 
             </div>
 
@@ -292,7 +298,7 @@
               $("#save_app :input").attr("disabled", true);
             <% end %>
           <% end %>
-        <% end %>     
+        <% end %>
 
         <%= javascript_include_tag "register" %>
 
@@ -305,7 +311,7 @@
           ga('create', 'UA-70811550-1', 'auto');
           ga('send', 'pageview');
 
-        </script>  
+        </script>
 
     </body>
-</html>              
+</html>

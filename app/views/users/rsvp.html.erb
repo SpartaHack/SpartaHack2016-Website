@@ -40,7 +40,7 @@
             </a>
 
         </div>
-        
+
         <div class="navbar-nav right">
         <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
           <div id="app-wrapper">
@@ -63,7 +63,7 @@
               </div>
               <div class="text">MY DASHBOARD</div>
             </a>
-          </div>  
+          </div>
           <div id="login-wrapper">
             <a href="/logout">
               <div id="login-nav" class="svg-wrapper">
@@ -80,12 +80,26 @@
 
         <nav>
             <ul class="mobile">
-                <li><a href="/" class="anchorLink">HOME</a></li>
-              <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
-                <li><a href="/admin">ADMIN DASHBOARD</a></li>
-              <% end %>
-                <li><a href="/dashboard">MY DASHBOARD</a></li>
-                <li><a href="/logout">LOG OUT</a></li>  
+              <div class="mobile-wrap">
+                <div>
+                  <li><a href="/" class="anchorLink">HOME PAGE</a></li>
+                <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
+                  <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
+                </div>
+                <div>
+                  <li><a href="/dashboard">MY DASHBOARD</a></li>
+                  <li><a href="/logout">LOG OUT</a></li>
+                </div>
+              </div>
+                <% else %>
+                </div>
+                <div>
+                  <li><a href="/dashboard">MY DASHBOARD</a></li>
+                </div>
+              </div>
+               <li class="mobile-tail"><a href="/logout">LOG OUT</a></li>
+                <% end %>
+            </ul>
             </ul>
             <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
         </nav>
@@ -102,7 +116,7 @@
         <div id="popup"></div>
       </div>
     <% end %>
-    
+
     <div id="wrap-rsvp">
       <section id="rsvp" >
         <div class="row">
@@ -117,7 +131,7 @@
               <label id="attending">Will you be attending SpartaHack 2016?</label>
               <div id="radio-wrap">
                   <input type="radio" name="attending" id="yes-attending" value="true" >
-                  <label for="yes-attending" id="yes-label">Yes</label>                  
+                  <label for="yes-attending" id="yes-label">Yes</label>
                   <input type="radio" name="attending" id="not-attending" value="false" >
                   <label for="not-attending" id="no-label">No</label>
               </div>
@@ -126,7 +140,7 @@
             <div class="add-margin-top " id="travel-wrap" style="display:none">
               <%= label_tag(:attending, "Which school is closest to where you’ll be traveling from?", class: 'no-label') %>
               <%= render partial: "users/app_university" %>
-            </div>            
+            </div>
 
             <div class="add-margin-top restrictions" id="restrictions-wrap" style="display:none">
               <select id="restrictions" name="restrictions[]" style="display=none;" multiple="true" data-multiple="true">
@@ -145,24 +159,24 @@
             <div class="add-margin-top other-restriction" style="display:none;">
               <%= label_tag(:otherRestrictions, "Restrictions not listed above? Enter it here.", class: 'no-label') %>
               <%= text_field_tag 'otherRestrictions', "#{@rsvp['otherRestrictions'] if @rsvp}", placeholder: 'List dietary restrictions here...' %>
-            </div>            
+            </div>
 
             <div class="add-margin-top tshirt" id="tshirt-wrap" style="display:none">
               <%= select_tag "tshirt", options_for_select(["","Unisex XS", "Unisex Small", "Unisex Medium", "Unisex Large", "Unisex XL", "Unisex XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
             </div>
 
             <div id="upload-resume-wrap" class="add-margin-top" style="display:none">
-              
-              <div class="thumbnail">         
+
+              <div class="thumbnail">
                 <%= image_tag "resume-upload.svg", alt: "Resume Upload", :id => "resume_prev" %>
-                <div class="form-group-file">               
+                <div class="form-group-file">
                   <%= file_field_tag 'resume', :accept => "application/pdf"%>
                 </div>
-              </div>  
+              </div>
 
-            </div> 
+            </div>
 
-            <div class="progress add-margin-bottom" id="progress"></div> 
+            <div class="progress add-margin-bottom" id="progress"></div>
 
             <div class="hvr-underline-from-center full" id="save-rsvp" style="display:none">
               <%= submit_tag("#{@rsvp ? 'Update RSVP' : 'Submit RSVP'}", :id => "rsvp-submit") %>
@@ -175,14 +189,14 @@
               <div class="question" id="q4"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;T-Shirt Size</div>
               <div class="question" id="q5"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;Resume</div>
               <div class="question" id="qsubmit" style="display:none;"><i class="fa fa-times" style="color:#690707"></i>&nbsp;&nbsp;<%= @rsvp ? "Update" : "Submit" %></div>
-            </div> 
+            </div>
 
-          <% end %>    
+          <% end %>
 
-          
+
         </div>
 
-        
+
       </section>
 
     </div>
@@ -261,7 +275,7 @@
       <% end %>
     <% end %>
 
-    <%= javascript_include_tag "users-rsvp" %>  
+    <%= javascript_include_tag "users-rsvp" %>
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -274,5 +288,5 @@
 
     </script>
 
-  </body>  
+  </body>
 </html>

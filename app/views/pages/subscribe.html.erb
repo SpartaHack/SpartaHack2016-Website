@@ -44,7 +44,7 @@
 
             <nav>
                 <ul class="mobile">
-                    <li><a href="/" class="anchorLink">HOME</a></li>
+                    <li class="mobile-tail"><a href="/" class="anchorLink">HOME</a></li>
                 </ul>
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
@@ -54,7 +54,7 @@
 
 					<section id="subscribe">
 						<div class="wrap">
-						  
+
 						  <div id="logo-wrap">
 						      <h1 class="section-head title"><%= image_tag "sparathack2016.svg", alt: "SpartaHack", :class => "title-text" %></h1>
 						      <p id="title-subtext">February 26-28</p>
@@ -69,8 +69,10 @@
        </section>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
-        <%= javascript_include_tag "index.js" %>
-        
+        <%= javascript_include_tag "headroom.min" %>
+        <%= javascript_include_tag "jquery-headroom" %>
+        <%= javascript_include_tag "general.js" %>
+
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -80,6 +82,6 @@
           ga('create', 'UA-70811550-1', 'auto');
           ga('send', 'pageview');
         </script>
-        
+
     </body>
 </html>

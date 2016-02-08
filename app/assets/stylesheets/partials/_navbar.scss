@@ -26,7 +26,7 @@
   justify-content: space-between;
   -webkit-justify-content: space-between;
 
- 
+
 // desktop menu formatting ----------------------------------
 
   .navbar-nav {
@@ -75,7 +75,7 @@
     margin: 0 0;
     height: 60px;
     position: relative;
-    top: 30px; 
+    top: 30px;
   }
 
   .shape {
@@ -114,7 +114,7 @@
 
   .active {
     stroke-width: 5px;
-    
+
     .shape {
       stroke-width: 2px;
       stroke-dashoffset: 0;
@@ -152,7 +152,16 @@
     background-color: #80FFDB;
     color: #030316;
     text-shadow: none;
-   }   
+   }
+
+  @media (max-width: 960px) {
+    .mobile-tail {
+      width: 100% !important;
+    }
+    .mobile-tail a {
+      width: 100vw;
+    }
+  }
 
   .mobile {
     margin-top: 10px;
@@ -163,7 +172,7 @@
 
   nav div#pull {
     display: none;
-  } 
+  }
 
   @media only screen and (max-width : 960px) {
     .navbar-nav {
@@ -353,7 +362,7 @@
       transform: translateY(-100%);
     }
    }
-   
+
   .animated.slideUp {
     -webkit-animation-name: slideUp;
     -moz-animation-name: slideUp;

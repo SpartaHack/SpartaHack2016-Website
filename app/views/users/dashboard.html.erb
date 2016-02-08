@@ -41,7 +41,7 @@
                 </a>
                 <div id="name"><%= @application['firstName'] %></div>
             </div>
-            
+
             <div class="navbar-nav right">
             <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
                 <div id="app-wrapper">
@@ -64,17 +64,27 @@
                         </div>
                         <div class="text">LOG OUT</div>
                     </a>
-                </div>  
+                </div>
             </div>
 
 
             <nav>
                 <ul class="mobile">
-                  <li><a href="/" class="anchorLink">HOME</a></li>
+                  <div class="mobile-wrap">
+                    <div>
+                      <li><a href="/" class="anchorLink">HOME PAGE</a></li>
+                    </div>
             <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
-                  <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
-            <% end %>
-                  <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
+                  <div>
+                    <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
+                  </div>
+                </div>
+                  <li class="mobile-tail"><a href="/logout" class="anchorLink">LOG OUT</a></li>
+            <% else %>
+                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
+                  </div>
+                <div>
+           <% end %>
                 </ul>
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
@@ -83,26 +93,77 @@
         <div class="wrap-dash">
             <% if @application['status'] == 'Accepted' %>
               <canvas id="canvas"></canvas>
-            <% end %> 
+            <% end %>
 
             <section id="user-status">
                 <div class="row">
                   <div class="inner-wrap">
                       <div id="status-text">Status</div>
-                      <div class="box" ><%= @application['status'].blank? ? "Application Received" : @application['status'] %></div>
-                  </div>               
+                      <% if !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["university"] == "USA: Michigan: Michigan State University" %>
+                        <div class="box" ><%= @application['status'] %></div>
+                      <% elsif !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["university"] != "USA: Michigan: Michigan State University" && @rsvp.blank? %>
+                        <div class="box" >Invitation Expired</div>
+                      <% elsif !@application.blank? && @application['status'].blank? %>
+                        <div class="box" >Application Received</div>
+                      <% elsif !@application.blank? && !@application['status'].blank? && @application['status'] == "Denied" %>
+                        <div class="box" >Not Admitted</div>
+                      <% else %>
+                        <div class="box" ><%= @application['status'] %></div>
+                      <% end %>
+                  </div>
                 </div>
             </section>
-            
+          <% if !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["university"] != "USA: Michigan: Michigan State University" && @rsvp.blank? %>
+            <section class="information">
+              <div class="row">
+                <div class="title-wrap">
+                  <h1 class="section-head">Information</h1>
+                  <div class="hline"></div>
+                </div>
+                <p id="minor">Unfortunately, due to an unanticipated volume of RSVPs, our venue has reached capacity and we have had to close RSVPs
+                  for SpartaHack 2016. We apologize for the lack of notice, and we hope you will reapply next year! In the meantime, there are
+                  many other awesome hackathons that you can attend on the weekend of February 26-28th:</p>
+                <ul>
+                  <li><a href="http://www.vthacks.com/#signup" target="_blank">VTHacks</a> in Virginia</li>
+                  <li><a href="http://hacktcnj.com/" target="_blank">HackTCNJ</a> in New Jersey</li>
+                  <li><a href="http://hamphack.hampshire.edu/" target="_blank">HampHacks</a> in Massachusetts</li>
+                  <li><a href="http://wichacks.rit.edu/" target="_blank">WiCHacks</a> in New York</li>
+                  <li><a href="https://2016.nwhacks.io/" target="_blank">nwHacks</a> in British Columbia</li>
+                  <li><a href="https://mlh.io/seasons/s2016/events" target="_blank">All MLH spring hackathons</a></li>
+                </ul>
+              </div>
+            </section>
+          <% elsif !@application.blank? && !@application['status'].blank? && @application['status'] == "Denied" %>
+            <section class="information">
+              <div class="row">
+                <div class="title-wrap">
+                  <h1 class="section-head">Information</h1>
+                  <div class="hline"></div>
+                </div>
+                <p id="minor">Due to an unexpectedly high volume of applications, we are not able to extend you an invitation to
+                  SpartaHack this year 😞We hope that you will apply again next year! Fortunately, there are many 
+                  other awesome hackathons on the weekend of February 26-28: </p>
+                <ul>
+                  <li><a href="http://www.vthacks.com/#signup" target="_blank">VTHacks</a> in Virginia</li>
+                  <li><a href="http://hacktcnj.com/" target="_blank">HackTCNJ</a> in New Jersey</li>
+                  <li><a href="http://hamphack.hampshire.edu/" target="_blank">HampHacks</a> in Massachusetts</li>
+                  <li><a href="http://wichacks.rit.edu/" target="_blank">WiCHacks</a> in New York</li>
+                  <li><a href="https://2016.nwhacks.io/" target="_blank">nwHacks</a> in British Columbia</li>
+                  <li><a href="https://mlh.io/seasons/s2016/events" target="_blank">All MLH spring hackathons</a></li>
+                </ul>
+              </div>
+            </section>
+          <% end %>
+
           <% if !@rsvp.blank? && @rsvp['attending'] == true %>
             <% if @minor == true %>
-              <section class="minor">
+              <section class="information">
                 <div class="row">
                   <div class="title-wrap">
                     <h1 class="section-head">Minor Information</h1>
                     <div class="hline"></div>
                   </div>
-                  <p id="bus-1">Based on your birthday you'll be under 18 the day of the event. You <strong>must</strong> bring the following forms completed to the event:</p>
+                  <p id="minor">Based on your birthday you'll be under 18 the day of the event. You <strong>must</strong> bring the following forms completed to the event:</p>
                   <ul>
                     <li><a href="https://drive.google.com/file/d/0B070VDH8d-MLSmRHcldsRGQ1TDQ/view?usp=sharing" target="_blank">Media Release Form</a></li>
                     <li><a href="https://drive.google.com/file/d/0B070VDH8d-MLazdlOW93dko3Wk0/view?usp=sharing" target="_blank">Medical Treatment Authorization Form</a></li>
@@ -113,7 +174,7 @@
             <% end %>
           <% end %>
 
-          <% if !@application.blank? && !@application['status'].blank? %>
+          <% if !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["university"] == "USA: Michigan: Michigan State University" || !@rsvp.blank?%>
             <section class="travel">
               <div class="row">
                 <div class="title-wrap">
@@ -159,21 +220,21 @@
                         TBD
                       <% end %>
                       </strong>
-                    </td> 
+                    </td>
                   </tr>
-              <% if !@travel.blank? %>    
+              <% if !@travel.blank? %>
                 <% if @travel["distance"] < 600 && @travel["distance"] > 0 %>
                   <tr>
                     <td class="right-align">Carpool with 1 other: </td>
-                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.20).to_i > 400 ? 400 : (@travel["distance"]* 0.20).to_i %></strong></td> 
+                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.20).to_i > 400 ? 400 : (@travel["distance"]* 0.20).to_i %></strong></td>
                   </tr>
                   <tr>
                     <td class="right-align">2 others: </td>
-                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.25).to_i > 400 ? 400 : (@travel["distance"]* 0.25).to_i %></strong> </td> 
+                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.25).to_i > 400 ? 400 : (@travel["distance"]* 0.25).to_i %></strong> </td>
                   </tr>
                   <tr>
                     <td class="right-align">3 others: </td>
-                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.30).to_i > 400 ? 400 : (@travel["distance"]* 0.30).to_i %></strong></td> 
+                    <td class="cap"><strong>$ <%= (@travel["distance"]* 0.30).to_i > 400 ? 400 : (@travel["distance"]* 0.30).to_i %></strong></td>
                   </tr>
                 <% end %>
               <% end %>
@@ -183,7 +244,7 @@
               </div>
             </section>
           <% end %>
-            
+
             <section class="topic-selection">
                 <div class="row">
                   <div class="title-wrap">
@@ -195,7 +256,7 @@
                       <a href="/application"><div class="dash-link">My Application</div></a>
                     </div>
 
-                  <% if @application['status'] == 'Accepted'%>
+                  <% if @application['status'] == 'Accepted' && @application["university"] == "USA: Michigan: Michigan State University" || !@rsvp.blank? %>
                     <div class="hvr-underline-from-left link-wrap">
                       <a href="/rsvp"><div class="dash-link"><%= @rsvp ? "My RSVP" : "Complete RSVP" %></div></a>
                     </div>
@@ -209,7 +270,7 @@
                       <a href="/mycode"><div class="dash-link">My Attendee Code</div></a>
                     </div>
                   <% end %>
-                <% if !@rsvp.blank? && @rsvp['attending'] == true || @rsvp.blank? %>
+                <% if !@rsvp.blank? && @rsvp['attending'] == true %>
                   <p>Be sure to join our Facebook <a href="https://www.facebook.com/events/1054594757917115/" target="_blank">event!</a></p>
                 <% end %>
                 </div>
@@ -218,19 +279,19 @@
                 </div>
             </section>
 
-            
+
         </div>
-        
+
         <%= render partial: "pages/index_footer" %>
 
-       
+
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
         <% if @application['status'] == 'Accepted' %>
           <%= javascript_include_tag "confetti" %>
-        <% end %> 
+        <% end %>
         <%= javascript_include_tag "users-dashboard" %>
     </body>
-</html>        
+</html>

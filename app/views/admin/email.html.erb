@@ -43,7 +43,7 @@
                 </a>
                 <div id="admin-panel">Admin</div>
             </div>
-            
+
             <div class="navbar-nav right">
                 <div id="app-wrapper">
                     <a href="/admin">
@@ -64,16 +64,23 @@
                         </div>
                         <div class="text">LOG OUT</div>
                     </a>
-                </div>  
+                </div>
             </div>
 
 
             <nav>
-                <ul class="mobile">
-                    <li><a href="/" class="anchorLink">HOME</a></li>
-                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
-                </ul>
-                <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+              <ul class="mobile">
+                <div class=mobile-wrap>
+                  <div>
+                    <li><a href="/" class="anchorLink">HOME PAGE</a></li>
+                  </div>
+                  <div>
+                    <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
+                  </div>
+                </div>
+                <li class="mobile-tail"><a href="/logout" class="anchorLink">LOG OUT</a></li>
+              </ul>
+              <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
         </div>
 
@@ -82,7 +89,7 @@
             </div>
 
 			<section class="topic-selection emails">
-				<div class="row"> 
+				<div class="row">
                     <div class="title-wrap">
                         <h1 class="section-head">Email Topics</h1>
                         <div class="hline"></div>
@@ -119,8 +126,8 @@
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
-    	<%= javascript_include_tag "select2.full.min" %>	
+    	<%= javascript_include_tag "select2.full.min" %>
         <%= javascript_include_tag "general" %>
         <%= javascript_include_tag "admin-emails" %>
     </body>
-</html>        
+</html>
