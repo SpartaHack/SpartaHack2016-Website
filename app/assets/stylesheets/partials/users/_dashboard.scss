@@ -34,7 +34,7 @@ body {
     &:visited {
       color: $mutedText;
     }
-    
+
     &:hover {
       -webkit-transition: all .3s ease-in-out;
       -moz-transition: all .3s ease-in-out;
@@ -45,7 +45,7 @@ body {
   }
 
 
-  #bus-1 {
+  #bus-1, #minor {
     margin-top: 15px;
     margin-bottom: 0px;
   }
@@ -81,7 +81,7 @@ body {
     top:0;
     left:0;
     z-index: -1;
-  } 
+  }
 
   .section-head {
       margin-top: 0px;
@@ -130,7 +130,7 @@ body {
 
   }
 
-  .minor {
+  .information {
     margin-bottom: 25px;
 
     ul {
@@ -140,8 +140,12 @@ body {
     }
 
     li {
-      color: $mutedText;
-      padding-left: 1em; 
+      color: $cream;
+      font-family: ubuntu;
+      font-weight: 100;
+      font-weight: lighter;
+      -webkit-font-smoothing: antialiased;
+      padding-left: 1em;
       text-indent: -.7em;
     }
 
@@ -153,13 +157,13 @@ body {
   }
 
 
-  .travel, .minor {
+  .travel, .information {
     display: flex;
     display: -webkit-flex;
     flex-wrap: wrap;
     justify-content: space-around;
     -webkit-justify-content: space-around;
-        
+
     .row {
       width: 87%;
       @media (min-width: 1000px) {
@@ -177,7 +181,7 @@ body {
     -webkit-justify-content: space-around;
     color: $cream;
     top: 50px;
-    font-family: ubuntu; 
+    font-family: ubuntu;
 
     .row {
       width: 87%;
@@ -188,7 +192,7 @@ body {
       justify-content: center;
       -webkit-justify-content: center;
       flex-direction: row;
-      -webkit-flex-direction: row;    
+      -webkit-flex-direction: row;
       @media (min-width: 550px) {
         width: 530px;
         margin-top: 100px;
@@ -271,7 +275,7 @@ body {
     justify-content: space-around;
     -webkit-justify-content: space-around;
     color: $cream;
-    font-family: ubuntu; 
+    font-family: ubuntu;
     margin-bottom: 50px;
 
     .row {
@@ -301,7 +305,7 @@ body {
       -webkit-justify-content: flex-start;
       padding-left: 15px;
 
-    } 
+    }
 
     #dash-wrap {
       @media (min-width: 1000px) {
@@ -315,7 +319,7 @@ body {
         -webkit-justify-content: space-between;
       }
     }
-    
+
   }
 
   .link-wrap {
@@ -324,7 +328,7 @@ body {
     @media (min-width: 1000px) {
       width: 442.5px;
     }
-    
+
     a {
       text-decoration: none;
       font-family: ubuntu;
@@ -339,7 +343,7 @@ body {
 }
 
 #name {
-  font-family: MoonDance; 
+  font-family: MoonDance;
   font-weight: 100;
   font-weight: lighter;
   -webkit-font-smoothing: antialiased;
