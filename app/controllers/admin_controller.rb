@@ -184,7 +184,7 @@ class AdminController < ApplicationController
       @applications.each do |app|
 
         if app['status'] == "Accepted"
-          UserMailer.notify_of_status(app["firstName"], app["user"]['email']).deliver_now
+          UserMailer.notify_of_status(app["user"]["firstName"], app["user"]['email']).deliver_now
           app['emailStatus'] = true
           app.save
           @email_count += 1
@@ -525,10 +525,12 @@ class AdminController < ApplicationController
     # Get all applications
     @apps = Parse::Query.new("Application").tap do |q|
       q.limit = 1000
+      q.include = "user"
     end.get
     @apps += Parse::Query.new("Application").tap do |q|
       q.skip = 1000
       q.limit = 1000
+      q.include = "user"
     end.get
 
     # Calculate stats for applications
@@ -559,6 +561,7 @@ class AdminController < ApplicationController
       @rsvps_total+=1
       if rsvp["attending"]==true
         @rsvp_attending_count += 1
+        rsvp["application"]["user"] = rsvp["user"]
         @rsvpd_applications << rsvp["application"]
       end
     end
@@ -883,12 +886,12 @@ class AdminController < ApplicationController
       if @input.length-1 > 20
         for i in 0..3 # three random reasons :)
           @random_num = rand(0..( @input.length-1 ))
-          while ( @input[@random_num]["whyAttend"].blank? && !(@random_reason.include? [@input[@random_num]["whyAttend"],@input[@random_num]["firstName"],@input[@random_num]["lastName"]]) )
+          while ( @input[@random_num]["whyAttend"].blank? && !(@random_reason.include? [@input[@random_num]["whyAttend"],@input[@random_num]["user"]["firstName"],@input[@random_num]["user"]["lastName"]]) )
             @random_num = rand(0..( @input.length-1 ))
           end
           @random_reason[i][0] = @input[@random_num]["whyAttend"]
-          @random_reason[i][1] = @input[@random_num]["firstName"]
-          @random_reason[i][2] = @input[@random_num]["lastName"]
+          @random_reason[i][1] = @input[@random_num]["user"]["firstName"]
+          @random_reason[i][2] = @input[@random_num]["user"]["lastName"]
         end
       else
 

@@ -133,9 +133,9 @@
           <%= form_tag("/save", method: "post", id: "save_app", class: "save_app", :remote => true, :authenticity_token => true) do %>
             <div class="inner">
               <%= label_tag(:firstName, "First Name", class: 'no-label') %>
-              <%= text_field_tag 'firstName', "#{@application['firstName'] if @application}", placeholder: 'First Name *', required:true %>
+              <%= text_field_tag 'firstName', "#{@application["user"]['firstName'] if @application}", placeholder: 'First Name *', required:true %>
               <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
-              <%= text_field_tag 'lastName', "#{@application['lastName'] if @application}", placeholder: 'Last Name *'  %>
+              <%= text_field_tag 'lastName', "#{@application["user"]['lastName'] if @application}", placeholder: 'Last Name *'  %>
             </div>
 
             <div class="add-margin-top">
