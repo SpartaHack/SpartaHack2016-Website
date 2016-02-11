@@ -56,6 +56,8 @@ class UsersController < ApplicationController
       begin
         apply = Parse::User.new({
           :username => user_app_params['email'].downcase,
+					:firstName => user_app_params["firstName"].capitalize,
+					:lastName => user_app_params["lastName"].capitalize,
           :email => user_app_params['email'].downcase,
           :password => user_app_params['password'],
           :role => "attendee"
@@ -88,7 +90,7 @@ class UsersController < ApplicationController
     end
 
     begin
-      fields = [ "firstName", "lastName", "gender", "birthday", "birthmonth", "birthyear",
+      fields = ["gender", "birthday", "birthmonth", "birthyear",
                                 "major", "gradeLevel", "whyAttend", "hackathons",
                                 "github", "linkedIn", "website", "devPost", "coolLink",
                                 "universityStudent", "mlh"]
@@ -166,6 +168,7 @@ class UsersController < ApplicationController
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
           }))
+          q.include = "user"
         end.get.first
 
         if @application
@@ -273,6 +276,7 @@ class UsersController < ApplicationController
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
           }))
+          q.include = "user"
         end.get.first
 
         if !@application

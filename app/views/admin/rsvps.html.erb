@@ -115,8 +115,8 @@
                         <% @rsvps.each_with_index do |rsvp, index|  %>
                         <tr>
                             <td><%= index.to_i + 1 %></td>
-                            <td><%= rsvp['application']['firstName'] %></td>
-                            <td><%= rsvp['application']['lastName'] %></td>
+                            <td><%= rsvp['user']['firstName'] %></td>
+                            <td><%= rsvp['user']['lastName'] %></td>
                             <td><%= rsvp['user']["email"] %></td>
                             <td><%= rsvp['createdAt'] %></td>
                             <td><%= rsvp['attending'] %></td>
