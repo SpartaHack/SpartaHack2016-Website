@@ -116,6 +116,11 @@ class PagesController < ApplicationController
     render layout: false
   end
 
+  def map
+    map = File.join(Rails.root, "app/assets/pdfs/map.pdf")
+    send_file(map, :filename => "map.pdf", :disposition => 'inline', :type => "application/pdf")
+  end
+
   def subscribe
 
     if subscribe_params[:emailinput] == "" && subscribe_params[:fname] == "" && subscribe_params[:lname] == ""
