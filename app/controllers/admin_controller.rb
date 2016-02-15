@@ -57,6 +57,14 @@ class AdminController < ApplicationController
     render layout: false
   end
 
+  def notifications 
+    @notification = Parse::Object.new("Announcements")
+    @notification["Description"] = notif_params["notification"]
+    @notification["Title"] = notif_params["notification-title"]
+    notif_params["pinned"].blank? ? @notification["Pinned"] = false : @notification["Pinned"] = true;
+    @notification.save
+  end
+
   def generate_code
     @code = Digest::SHA1.hexdigest( (Time.now.to_f * 1000.0).to_i.to_s + ENV["HASH_CODE"] )
 
@@ -609,6 +617,10 @@ class AdminController < ApplicationController
 
     def email_params
       params.permit(:object, :"type")
+    end
+
+    def notif_params
+      params.permit(:"notification-title", :notification, :pinned)
     end
 
     def get_empty_app_users

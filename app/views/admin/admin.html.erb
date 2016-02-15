@@ -93,6 +93,38 @@
                     </div>
                 </div>
             </section>
+        <% if @user['role'] == "admin" %>
+            <section id="notifications">
+                <div class="title-wrap">
+                    <h1 class="section-head">Announcements</h1>
+                    <div class="hline"></div>
+                </div>
+                <div id="notification-wrap">
+                    <%= form_tag("", id: "announce", method: "post") do %>
+                        <div class="row notifs">
+                            <div class="inner-wrap">
+                              <%= label_tag 'notification-title', 'Notification Title', class: 'no-label' %>
+                              <%= text_field_tag 'notification-title', nil, placeholder: 'Notification Title', required: true%>
+                              <div class="hvr-underline-from-center switch">
+                                <input id="pinned" name="pinned" class="toggle toggle-pinned-not" type="checkbox" value="true">
+                                <label for="pinned" data-on="Pinned" data-off="Not Pinned"></label>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="inner-wrap">
+                              <%= label_tag 'notification', 'Notification', class: 'no-label' %>
+                              <%= text_field_tag 'notification', nil, placeholder: "Notification Description", required: true%>
+                              <div class="hvr-underline-from-center submit">
+                                <%= submit_tag "Send", id: "submit" %>
+                              </div>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            </section>
+        <% end %>
+
 			<section class="topic-selection">
 				<div class="row">
                     <div class="title-wrap">
