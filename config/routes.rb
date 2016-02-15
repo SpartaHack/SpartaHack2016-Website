@@ -34,8 +34,8 @@ Rails.application.routes.draw do
 
   get 'admin' => 'admin#admin'
   get 'admin/sponsorship' => 'admin#sponsorship'
-  get 'admin/stats' => 'admin#stats'
-  get 'admin/statistics' => 'admin#stats'
+  get 'admin/stats' => 'statistics#stats'
+  get 'admin/statistics' => 'statistics#stats'
   post 'admin/notifications' => 'admin#notifications'
   get 'admin/users/applications' => 'admin#applications'
   post 'admin/users/applications' => 'admin#app_status'

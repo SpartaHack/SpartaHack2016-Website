@@ -21,7 +21,7 @@
 
         <%= favicon_link_tag 'favicon.png' %>
         <%= stylesheet_link_tag "select2-modified" %>
-        <%= stylesheet_link_tag "admin" %>
+        <%= stylesheet_link_tag "statistics" %>
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -107,9 +107,9 @@
                         </div>
                     </div>
 
-                    <%= render partial: "admin/stats/rsvp_stats" %>
+                    <%= render partial: "statistics/rsvp_stats" %>
 
-                    <%= render partial: "admin/stats/application_stats" %>
+                    <%= render partial: "statistics/application_stats" %>
 
                     <br><br><br><br>
                 </div>
