@@ -298,13 +298,25 @@ class UsersController < ApplicationController
                   end.get.first
           end
           data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-          @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
+          if data_bus_1["ticket_classes"][0]["on_sale_status"] == "SOLD_OUT"
+            @bus_1 = 0
+          else
+            @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
+          end
 
           data_bus_2 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_2"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-          @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
+          if data_bus_1["ticket_classes"][0]["on_sale_status"] == "SOLD_OUT"
+            @bus_2 = 0
+          else
+            @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
+          end
 
           data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-          @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
+          if data_bus_3["ticket_classes"][0]["on_sale_status"] == "SOLD_OUT"
+            @bus_2 = 0
+          else
+            @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
+          end
         rescue
           @bus_1 = nil
           @bus_2 = nil
