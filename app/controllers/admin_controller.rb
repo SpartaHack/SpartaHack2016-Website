@@ -60,8 +60,16 @@ class AdminController < ApplicationController
   def notifications
     @notification = Parse::Object.new("Announcements")
     @notification["Description"] = notif_params["notification"]
+    @notification["PushNotification"] = true
     @notification["Title"] = notif_params["notification-title"]
     notif_params["pinned"].blank? ? @notification["Pinned"] = false : @notification["Pinned"] = true;
+    @notification.save
+  end
+
+  def internal_notifications
+    @notification = Parse::Object.new("InternalAnnouncements")
+    @notification["announcement"] = internal_notif_params["announcement"]
+    @notification["role"] = internal_notif_params["role"]
     @notification.save
   end
 
@@ -549,6 +557,10 @@ class AdminController < ApplicationController
 
     def notif_params
       params.permit(:"notification-title", :notification, :pinned)
+    end
+
+    def internal_notif_params
+      params.permit(:"announcement", :role)
     end
 
     def get_empty_app_users

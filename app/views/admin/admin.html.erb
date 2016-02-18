@@ -94,35 +94,7 @@
                 </div>
             </section>
         <% if @user['role'] == "admin" %>
-            <section id="notifications">
-                <div class="title-wrap">
-                    <h1 class="section-head">Announcements</h1>
-                    <div class="hline"></div>
-                </div>
-                <div id="notification-wrap">
-                    <%= form_tag("", id: "announce", method: "post") do %>
-                        <div class="row notifs">
-                            <div class="inner-wrap">
-                              <%= label_tag 'notification-title', 'Notification Title', class: 'no-label' %>
-                              <%= text_field_tag 'notification-title', nil, placeholder: 'Notification Title', required: true%>
-                              <div class="hvr-underline-from-center switch">
-                                <input id="pinned" name="pinned" class="toggle toggle-pinned-not" type="checkbox" value="true">
-                                <label for="pinned" data-on="Pinned" data-off="Not Pinned"></label>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="inner-wrap">
-                              <%= label_tag 'notification', 'Notification', class: 'no-label' %>
-                              <%= text_field_tag 'notification', nil, placeholder: "Notification Description", required: true%>
-                              <div class="hvr-underline-from-center submit">
-                                <%= submit_tag "Send", id: "submit" %>
-                              </div>
-                            </div>
-                        </div>
-                    <% end %>
-                </div>
-            </section>
+
         <% end %>
 
 			<section class="topic-selection">
@@ -139,6 +111,9 @@
                 <% if @user['role'] == "admin" %>
                     <div class="hvr-underline-from-left full" id="users">
                         <a href=""><div class="topic" >Users</div></a>
+                    </div>
+                    <div class="hvr-underline-from-left full" id="announcements">
+                        <a href=""><div class="topic" >Announcements</div></a>
                     </div>
                 <% end %>
                     <div class="hvr-underline-from-left full">
@@ -175,5 +150,78 @@
     	<%= javascript_include_tag "select2.full.min" %>
         <%= javascript_include_tag "general" %>
         <%= javascript_include_tag "admin" %>
+        <%= javascript_tag do %>
+
+            $('#users').click(function(e){
+                e.preventDefault();
+
+                $('#popup-wrapper').html(
+                    "<%= j(render partial: 'admin/admin_users')  %>"
+                );
+
+                $('#generate_code').click(function(e){
+                    e.preventDefault();
+
+                            $.ajax({
+                                    url: "/admin/users/generate",
+                                    beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                                    type: "post",
+                                    context: document.body
+                            });
+                });
+
+                $("#popup-wrapper").css("display", "flex");
+            })
+
+
+
+            $('#announcements').click(function(e){
+                e.preventDefault();
+
+                $('#popup-wrapper').html(
+                    "<%= j(render partial: 'admin/admin_notifications')  %>"
+                );
+
+                $('#role').select2({
+                  placeholder: "Role", 
+                  allowClear: true,
+                  minimumResultsForSearch: -1, 
+                });
+
+                $('#announce').submit(function(e){
+                    e.preventDefault();
+                    $.ajax({
+                        url: "/admin/notifications",
+                        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                        type: "post",
+                        context: document.body,
+                        data: $(this).serialize()
+                    });
+                    $(this).closest('form').find("input[type=text], textarea").val("");
+                    $("#pinned").removeAttr('checked');
+                });
+
+                $('#announce-internal').submit(function(e){
+                    e.preventDefault();
+                    $.ajax({
+                        url: "/admin/internal-notifications",
+                        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                        type: "post",
+                        context: document.body,
+                        data: $(this).serialize()
+                    });
+                    $(this).closest('form').find("input[type=text], textarea").val("");
+                });
+
+                $("#popup-wrapper").css("display", "flex");
+            })
+        <% end %>
+
+
+
+
+
+
+
     </body>
 </html>

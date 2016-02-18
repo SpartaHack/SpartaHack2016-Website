@@ -224,6 +224,17 @@
       }
     }
 
+    .switch-internal {
+      position:relative;
+      width: 137px;
+      height:62px;
+      margin: 0px 0px 0px 7.5px;
+      @media (max-width: 550px) {
+        width: 100%;
+        margin: 0px;
+      }
+    }
+
     input.toggle-pinned-not + label {
       width: 137px;
       height: 62px;
@@ -232,9 +243,26 @@
       }
     }
 
+    .select2-container .select2-selection--single {
+      height: 62px !important;
+    }
+
+    .select2-selection__rendered {
+      padding-top:0px;
+      line-height: 62px;
+    }
+
     #pinned {
       opacity: 0;
       border:none;
+    }
+
+    #role {
+      width: 137px;
+      height: 62px;
+      @media (max-width: 550px) {
+        width: 100%;
+      }
     }
     
     input.toggle-pinned-not + label:before,
@@ -310,7 +338,7 @@
     margin-top: 15px;
   }
 
-  #notification, #notification-title {
+  #notification, #notification-title, #announcement {
     margin-right: 7.5px;
     margin-bottom: 0px;
     
@@ -330,12 +358,31 @@
     }
   }
 
+  .submit-internal {
+    height:62px;
+    margin-top: 15px;
+    @media (max-width: 550px) {
+      margin-top: 0px;
+    }
+  }
+
   input:focus {
     border-color: rgba(128, 295, 219, 1) !important;
     box-shadow: 0 1px 1px rgba(128, 295, 219, 0.075) inset, 0 0 8px rgba(128, 295, 219, 0.6) !important;
     outline: 0 none !important;
   }
 
+  #submit {
+    @media (min-width: 550px) {
+      width: 137px;
+    }
+  }
+
+  #submit-internal {
+    @media (min-width: 550px) {
+      width: 530px;
+    }
+  }
 
   input[type=submit] {
     background: none;
@@ -353,9 +400,6 @@
     padding: 0px;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    @media (min-width: 550px) {
-      width: 137px;
-    }
   }  
 
   input[type=submit]:hover {

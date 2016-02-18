@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get 'admin/stats' => 'statistics#stats'
   get 'admin/statistics' => 'statistics#stats'
   post 'admin/notifications' => 'admin#notifications'
+  post 'admin/internal-notifications' => 'admin#internal_notifications'
   get 'admin/users/applications' => 'admin#applications'
   post 'admin/users/applications' => 'admin#app_status'
   get 'admin/users/rsvps' => 'admin#rsvps'
