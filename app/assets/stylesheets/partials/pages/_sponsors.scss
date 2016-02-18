@@ -1,5 +1,5 @@
 @import 'partials/colorScheme';
-@import 'partials/fonts';   
+@import 'partials/fonts';
 
 #sponsors {
   width: 100%;
@@ -16,13 +16,14 @@
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
   align-items: center;
   -webkit-align-items: center;
-  justify-content: center; 
+  justify-content: center;
   -webkit-justify-content: center;
   flex-direction: column;
   -webkit-flex-direction: column;
-  text-align: center; 
+  text-align: center;
   color: $faqText;
   position: relative;
+  border-bottom: 1px solid $mutedOutline;
 
   section {
     margin-bottom: 3em;
@@ -30,11 +31,11 @@
   }
 
   #sponsor-wrap {
-    width: 70%;
+    width: 75%;
     display: inherit;
     align-items: center;
     -webkit-align-items: center;
-    justify-content: center; 
+    justify-content: center;
     -webkit-justify-content: center;
     flex-direction: column;
     -webkit-flex-direction: column;
@@ -65,6 +66,7 @@
     flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
+    width: 100%;
     @media (max-width: 550px) {
       flex-direction: column;
       -webkit-flex-direction: column;
@@ -102,16 +104,46 @@
       opacity: .7;
     }
 
+  #auto-owners {
+    position:absolute;
+    left:0px;
+    right: 0px;
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+    @media (min-width: 551px) {
+      -webkit-transition: opacity .6s ease;
+         -moz-transition: opacity .6s ease;
+           -o-transition: opacity .6s ease;
+              transition: opacity .6s ease;
+    }
+  }
+
+  .bottom {
+    @media (max-width: 550px) {
+      opacity: 0;
+    }
+  }
+
+  .bottom:hover {
+    @media (min-width: 551px) {
+      opacity:0;
+    }
+  }
+
   .logo-sponsor {
     @media (min-width: 551px) {
-      filter: grayscale(100%);
       -webkit-filter: grayscale(100%);  /* For Webkit browsers */
+         -moz-filter: grayscale(100%);
+           -o-filter: grayscale(100%);
+          -ms-filter: grayscale(100%);
+              filter: grayscale(100%);
       filter: gray;  /* For IE 6 - 9 */
       -webkit-transition: all .6s ease;  /* Transition for Webkit browsers */
     }
   }
 
-  .logo-sponsor:hover {
+  .logo-sponsor:hover, #auto-owners:hover {
     @media (min-width: 551px) {
       filter: grayscale(0%);
       -webkit-filter: grayscale(0%);
@@ -135,7 +167,7 @@
   /* NEW, Spec - Opera 12.1, Firefox 20+ */
   align-items: center;
   -webkit-align-items: center;
-  
+
   align-content: center;
   -webkit-align-content: center;
 
@@ -147,13 +179,17 @@
   width: 70%;
 }
 
+#silver, #gold, #bronze {
+  width: 100%;
+}
+
 .sub {
   width: 150px;
   height: 70px;
   margin: 15px 25px;
   .logo-sponsor {
     max-width: 150px;
-    min-height: 50px;
+    min-width: 150px;
     max-height: 70px;
     height: auto;
     width: 100%;
@@ -163,17 +199,18 @@
     }
   }
 
-  
+
 }
 
 .bronze {
   width: 250px;
   height: 100px;
   margin: 15px 25px;
+  position: relative;
 
-  .logo-sponsor {
+  .logo-sponsor, #auto-owners {
     max-width: 250px;
-    min-width: 230px;
+    min-width: 250px;
     max-height: 100px;
     height: auto;
     width: 100%;
@@ -184,7 +221,7 @@
     }
   }
 
-  
+
 }
 
 .silver {
@@ -193,23 +230,21 @@
   margin: 15px 25px;
   .logo-sponsor {
     max-width: 300px;
-    min-width: 280px;
+    min-width: 300px;
     max-height: 150px;
     height: auto;
     width: 100%;
 
     @media (max-width: 550px) {
-      min-width: 240px;
       max-width: 260px;
       height: auto;
       margin: 0px 0px 25px 0px;
     }
   }
   @media (max-width: 550px) {
-    min-width: 240px;
     max-width: 260px;
   }
-  
+
 }
 
 .gold {
@@ -218,7 +253,7 @@
   margin: 15px 25px;
   .logo-sponsor {
     max-width: 585px;
-    min-width: 540px;
+    min-width: 585px;
     max-height: 175px;
     height: auto;
     width: 100%;
@@ -231,8 +266,5 @@
     }
   }
 
-  
+
 }
-
-
-

@@ -45,7 +45,7 @@
                 </a>
                 <div id="admin-panel">Admin: Applications</div>
             </div>
-            
+
             <div class="navbar-nav right">
                 <div id="app-wrapper">
                     <a href="/admin">
@@ -66,15 +66,21 @@
                         </div>
                         <div class="text">LOG OUT</div>
                     </a>
-                </div>  
+                </div>
             </div>
 
 
             <nav>
                 <ul class="mobile">
-                    <li><a href="/" class="anchorLink">HOME</a></li>
-                    <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
-                    <li><a href="/logout" class="anchorLink">LOG OUT</a></li>
+                  <div class=mobile-wrap>
+                    <div>
+                      <li><a href="/" class="anchorLink">HOME PAGE</a></li>
+                    </div>
+                    <div>
+                      <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
+                    </div>
+                  </div>
+                  <li class="mobile-tail"><a href="/logout" class="anchorLink">LOG OUT</a></li>
                 </ul>
                 <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
@@ -85,7 +91,7 @@
             <div id="popup"></div>
           </div>
 			<div class="row">
-            
+
                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
                     <thead>
                         <tr>
@@ -94,6 +100,7 @@
                             <th>Last Name</th>
                             <th>Status</th>
                             <th id="created">Created</th>
+                            <th id="email">Email</th>
                             <th>Gender</th>
                             <th>Birth Month</th>
                             <th>Birth Day</th>
@@ -117,15 +124,16 @@
                         <% @apps.each_with_index do |app, index|  %>
                         <tr>
                             <td><%= index.to_i + 1 %></td>
-                            <td><%= app['firstName'] %></td>
-                            <td><%= app['lastName'] %></td>
+                            <td><%= app["user"]['firstName'] %></td>
+                            <td><%= app["user"]['lastName'] %></td>
                             <td id=<%= index.to_i + 1 %> >
                                 <%= form_tag("/admin/users/applications", :remote => true, :authenticity_token => true, class: "status") do %>
-                                    <%= hidden_field_tag 'object' , app["objectId"]  %>  
+                                    <%= hidden_field_tag 'object' , app["objectId"]  %>
                                     <%= select_tag "status-select", options_for_select([["-", nil], ["Accepted", "Accepted"], ["Waitlisted", "Waitlisted"], ["Denied", "Denied"]], selected: "#{app['status']}"), class: "status-select" %>
                                 <% end %>
                             </td>
                             <td><%= app['createdAt'] %></td>
+                            <td><%= app['user']["email"] %></td>
                             <td><%= app['gender'] %></td>
                             <td><%= app['birthmonth'] %></td>
                             <td><%= app['birthday'] %></td>
@@ -149,7 +157,7 @@
                                         <% end %>
                                     <% else %>
                                         <%= "#" %>
-                                    <% end %> > <%= !app['github'].blank? ? app['github'] : "" %> 
+                                    <% end %> > <%= !app['github'].blank? ? app['github'] : "" %>
                                 </a>
                             </td>
 
@@ -165,7 +173,7 @@
                                         <% end %>
                                     <% else %>
                                         <%= "#" %>
-                                    <% end %> > <%= !app['linkedIn'].blank? ? app['linkedIn'] : "" %> 
+                                    <% end %> > <%= !app['linkedIn'].blank? ? app['linkedIn'] : "" %>
                                 </a>
                             </td>
 
@@ -181,7 +189,7 @@
                                         <% end %>
                                     <% else %>
                                         <%= "#" %>
-                                    <% end %> > <%= !app['devPost'].blank? ? !app['devPost'].index('?').blank? ? app['devPost'].slice(0..(app['devPost'].index('?')-1)) : app['devPost'] : "" %> 
+                                    <% end %> > <%= !app['devPost'].blank? ? !app['devPost'].index('?').blank? ? app['devPost'].slice(0..(app['devPost'].index('?')-1)) : app['devPost'] : "" %>
                                 </a>
                             </td>
 
@@ -199,9 +207,9 @@
                         <%= text_field_tag 'end', "", placeholder: 'End #' %>
                         <%= select_tag "status-multi", options_for_select([nil, "Accepted", "Waitlisted", "Denied"]) %>
                         <%= submit_tag "Submit", id: "multi-submit" %>
-                    <% end %>  
+                    <% end %>
 
-                    <div>* Page will refresh on completion.</div>  
+                    <div>* Page will refresh on completion.</div>
                 </div>
 
 			</div>
@@ -209,14 +217,15 @@
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
-        <%= javascript_include_tag "jquery-headroom" %> 
+        <%= javascript_include_tag "jquery-headroom" %>
 
         <%= javascript_include_tag "//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js" %>
         <%= javascript_include_tag "//cdn.datatables.net/select/1.1.0/js/dataTables.select.min.js" %>
         <%= javascript_include_tag "//cdn.datatables.net/fixedcolumns/3.2.0/js/dataTables.fixedColumns.min.js" %>
         <%= javascript_include_tag "//cdn.datatables.net/colreorder/1.1.2/js/dataTables.colReorder.min.js" %>
         <%= javascript_include_tag "//cdn.datatables.net/colvis/1.1.1/js/dataTables.colVis.min.js" %>
-        <%= javascript_include_tag "select2.full.min" %>  
+        <%= javascript_include_tag "select2.full.min" %>
+        <%= javascript_include_tag "general" %>
         <%= javascript_include_tag "admin-apps" %>
     </body>
-</html>   
+</html>

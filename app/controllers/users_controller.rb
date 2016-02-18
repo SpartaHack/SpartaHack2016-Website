@@ -4,21 +4,40 @@ class UsersController < ApplicationController
   require "open-uri"
   require 'json'
 
+	def sorry
+		render layout: false
+	end
+
   def register
     if cookies.signed[:spartaUser]
       redirect_to '/login' and return
-    elsif !@javascript_active
-      session[:return_to] = '/register'
-      redirect_to '/jscheck'
+		else
+			if register_params["t"].blank?
+				redirect_to "/sorry" and return
+			else
+				token = Parse::Query.new("AppCode").tap do |q|
+												q.eq("code", register_params["t"])
+												q.eq("used", false)
+											end.get.first
+
+				if !token.blank?
+					token["used"] = true;
+					token.save
+
+					render layout: false
+				else
+					redirect_to "/sorry" and return
+				end
+			end
     end
-    render layout: false
+
   end
 
   #create a user and redirect them to application process
   def create
     if user_app_params['email'].blank? || user_app_params['password'].blank? || user_app_params['password_confirmation'].blank? ||
-      user_app_params["firstName"].blank? || user_app_params["lastName"].blank? || user_app_params["gender"].blank? || 
-        user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? || 
+      user_app_params["firstName"].blank? || user_app_params["lastName"].blank? || user_app_params["gender"].blank? ||
+        user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? ||
         user_app_params["universityStudent"].blank? || user_app_params["mlh"].blank?
         flash[:popup] = "You must fill in all the required fields."
         flash[:params] = user_app_params
@@ -36,8 +55,10 @@ class UsersController < ApplicationController
       end
       begin
         apply = Parse::User.new({
-          :username => user_app_params['email'],
-          :email => user_app_params['email'],
+          :username => user_app_params['email'].downcase,
+					:firstName => user_app_params["firstName"].capitalize,
+					:lastName => user_app_params["lastName"].capitalize,
+          :email => user_app_params['email'].downcase,
           :password => user_app_params['password'],
           :role => "attendee"
         })
@@ -51,7 +72,7 @@ class UsersController < ApplicationController
         else
           redirect_to "/outage" and return
         end
-        
+
       end
 
       save()
@@ -60,8 +81,8 @@ class UsersController < ApplicationController
 
   def save
 
-    if user_app_params["firstName"].blank? || user_app_params["lastName"].blank? || user_app_params["gender"].blank? || 
-        user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? || 
+    if user_app_params["firstName"].blank? || user_app_params["lastName"].blank? || user_app_params["gender"].blank? ||
+        user_app_params["birthday"].blank?|| user_app_params["birthmonth"].blank? || user_app_params["birthyear"].blank? ||
         user_app_params["universityStudent"].blank? || user_app_params["mlh"].blank?
       flash[:popup] = "You must fill in all the required fields."
       flash[:params] = user_app_params
@@ -69,9 +90,9 @@ class UsersController < ApplicationController
     end
 
     begin
-      fields = [ "firstName", "lastName", "gender", "birthday", "birthmonth", "birthyear", 
-                                "major", "gradeLevel", "whyAttend", "hackathons", 
-                                "github", "linkedIn", "website", "devPost", "coolLink", 
+      fields = ["gender", "birthday", "birthmonth", "birthyear",
+                                "major", "gradeLevel", "whyAttend", "hackathons",
+                                "github", "linkedIn", "website", "devPost", "coolLink",
                                 "universityStudent", "mlh"]
 
       application = Parse::Query.new("Application").tap do |q|
@@ -84,7 +105,7 @@ class UsersController < ApplicationController
         flash[:popup] = "Application successfully submitted."
         flash[:sub] = "You may continue to edit your application."
         application = Parse::Object.new("Application")
-      else 
+      else
         flash[:popup] = "Application updated."
         flash[:sub] = "You may continue to edit your application."
       end
@@ -105,11 +126,11 @@ class UsersController < ApplicationController
           application["universityStudent"] = "false"
           application["otherUniversityConfirm"] = "false"
           application["university"] = nil
-          application["otherUniversity"] = nil 
+          application["otherUniversity"] = nil
         else
           application[field] = user_app_params[field]
         end
-        
+
       end
       response = application.save
 
@@ -125,7 +146,7 @@ class UsersController < ApplicationController
       redirect_to "/outage" and return
     end
 
-  end    
+  end
 
   def application
     if !cookies.signed[:spartaUser]
@@ -147,15 +168,16 @@ class UsersController < ApplicationController
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
           }))
+          q.include = "user"
         end.get.first
 
         if @application
           if @application["university"].blank? && @application["otherUniversity"].blank?
             @application["universityStudent"] = false
-          else 
+          else
             @application["universityStudent"] = true
           end
-        end 
+        end
 
         render layout: false
       rescue Parse::ParseProtocolError => e
@@ -182,10 +204,10 @@ class UsersController < ApplicationController
         else
           redirect_to '/application' and return
         end
-        
+
       rescue Parse::ParseProtocolError => e
         redirect_to "/outage" and return
-      end      
+      end
 
     elsif !@javascript_active
       session[:return_to] ||= '/login'
@@ -203,7 +225,7 @@ class UsersController < ApplicationController
   # authenticate user and redirect them to their application
   def auth
   	begin
-			login = Parse::User.authenticate(user_login_params['email'],user_login_params['password'])
+			login = Parse::User.authenticate(user_login_params['email'].downcase,user_login_params['password'])
       if login["role"] == "admin" || login["role"] == "sponsorship" || login["role"] == "statistics"
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], login["role"]] }
 			  redirect_to '/admin' and return
@@ -224,10 +246,10 @@ class UsersController < ApplicationController
           else
             redirect_to '/application' and return
           end
-          
+
         rescue Parse::ParseProtocolError => e
 
-        end  
+        end
 
       end
 		rescue Parse::ParseProtocolError => e
@@ -237,7 +259,7 @@ class UsersController < ApplicationController
 		  end
 		end
 
-  end  
+  end
 
   def dashboard
     if !cookies.signed[:spartaUser]
@@ -254,6 +276,7 @@ class UsersController < ApplicationController
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
           }))
+          q.include = "user"
         end.get.first
 
         if !@application
@@ -265,35 +288,44 @@ class UsersController < ApplicationController
                           "className" => "_User",
                           "objectId"  => cookies.signed[:spartaUser][0]
                         }))
-                end.get.first
+        end.get.first
 
-        if !@rsvp.blank?
-          @travel = Parse::Query.new("Travel").tap do |q|
-                          q.eq("university", @rsvp['university'])
+
+        begin
+          if !@application['university'].blank?
+            @travel = Parse::Query.new("Travel").tap do |q|
+                          q.eq("university", @application['university'])
                   end.get.first
-          begin
-            data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+          end
+          data_bus_1 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_1"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+          if data_bus_1["ticket_classes"][0]["on_sale_status"] == "SOLD_OUT"
+            @bus_1 = 0
+          else
             @bus_1 = data_bus_1["ticket_classes"][0]["quantity_total"] - data_bus_1["ticket_classes"][0]["quantity_sold"]
-            @bus_1_waitlist = data_bus_1["ticket_classes"][1]["quantity_total"] - data_bus_1["ticket_classes"][1]["quantity_sold"]
-            
-            data_bus_2 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_2"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-            @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
-            @bus_2_waitlist = data_bus_2["ticket_classes"][1]["quantity_total"] - data_bus_2["ticket_classes"][1]["quantity_sold"]
-
-            data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
-            @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
-            @bus_3_waitlist = data_bus_3["ticket_classes"][1]["quantity_total"] - data_bus_3["ticket_classes"][1]["quantity_sold"]
-          rescue
-            @bus_1 = nil
-            @bus_2 = nil
-            @bus_3 = nil
-            @bus_1_waitlist = nil
-            @bus_2_waitlist = nil
-            @bus_3_waitlist = nil
           end
 
+          data_bus_2 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_2"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+          if data_bus_1["ticket_classes"][0]["on_sale_status"] == "SOLD_OUT"
+            @bus_2 = 0
+          else
+            @bus_2 = data_bus_2["ticket_classes"][0]["quantity_total"] - data_bus_2["ticket_classes"][0]["quantity_sold"]
+          end
+
+          data_bus_3 = JSON.parse(URI.parse("https://www.eventbriteapi.com/v3/events/"+ENV["BUS_3"]+"/ticket_classes/?token="+ENV["EVENTBRITE_AUTH"]).read)
+          if data_bus_3["ticket_classes"][0]["on_sale_status"] == "SOLD_OUT"
+            @bus_2 = 0
+          else
+            @bus_3 = data_bus_3["ticket_classes"][0]["quantity_total"] - data_bus_3["ticket_classes"][0]["quantity_sold"]
+          end
+        rescue
+          @bus_1 = nil
+          @bus_2 = nil
+          @bus_3 = nil
+        end
+
+        if !@rsvp.blank?
           if !@application['birthyear'].blank?
-            curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth'].to_i), @application['birthday'].to_i, 0, 0)
+            curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth']), @application['birthday'].to_i, 0, 0)
             if age(curr_bday, Date.new(2016, 2, 26)) < 18
               @minor = true
             else
@@ -301,9 +333,18 @@ class UsersController < ApplicationController
             end
           end
 
+          @travel = Parse::Query.new("Travel").tap do |q|
+                        q.eq("university", @rsvp['university'])
+                end.get.first
+
+          if @travel.blank?
+            @travel = Parse::Query.new("Travel").tap do |q|
+                          q.eq("university", @application['university'])
+                  end.get.first
+          end
 
         end
-        
+
         render layout: false
       rescue
         redirect_to "/outage" and return
@@ -361,6 +402,13 @@ class UsersController < ApplicationController
                       }))
             end.get.first
 
+      @app = Parse::Query.new("Application").tap do |q|
+        q.eq("user", Parse::Pointer.new({
+          "className" => "_User",
+          "objectId"  => cookies.signed[:spartaUser][0]
+        }))
+      end.get.first
+
       @mentor = Parse::Query.new("Mentors").tap do |q|
                       q.eq("mentor", Parse::Pointer.new({
                         "className" => "_User",
@@ -369,7 +417,7 @@ class UsersController < ApplicationController
               end.get.first
 
       if !user_rsvp_params["attending"].blank? && user_rsvp_params["attending"] == "true"
-        if user_rsvp_params["university"].blank? || user_rsvp_params["restrictions"].blank? || 
+        if user_rsvp_params["university"].blank? || user_rsvp_params["restrictions"].blank? ||
           user_rsvp_params["tshirt"].blank?
 
           flash[:popup] = "You must fill in all the required fields."
@@ -382,26 +430,44 @@ class UsersController < ApplicationController
           rsvp = Parse::Object.new("RSVP")
         else
           flash[:popup] = "RSVP updated."
-          flash[:sub] = "You may continue to edit your RSVP."          
+          flash[:sub] = "You may continue to edit your RSVP."
         end
 
         fields.each do |field|
           rsvp[field] = nil
-        end          
+        end
 
         rsvp['attending'] = false
         rsvp['resume'] = nil
 
         if !@mentor.blank?
+
+          cats_to_remove = @mentor["categories"]
+          if !cats_to_remove.blank?
+            cats = Parse::Query.new("Categories").tap do |q|
+              q.value_in("name", cats_to_remove)
+            end.get
+
+            cats.each do |cat|
+              cat["mentors"].delete(cookies.signed[:spartaUser][0])
+              cat.save
+            end
+          end
+
           @mentor.parse_delete
           @mentor.save
         end
-        
+
         response = rsvp.save
 
         rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
         user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
         rsvp["user"] = user.pointer
+
+        if rsvp["application"].blank?
+          rsvp["application"] = @app.pointer
+        end
+
         rsvp.save
 
         redirect_to '/rsvp'  and return
@@ -416,28 +482,34 @@ class UsersController < ApplicationController
         flash[:popup] = "RSVP successfully submitted."
         flash[:sub] = "You may continue to edit your RSVP."
         rsvp = Parse::Object.new("RSVP")
-      else 
+      else
         flash[:popup] = "RSVP updated."
         flash[:sub] = "You may continue to edit your RSVP."
       end
 
-      fields.each do |field|        
+      fields.each do |field|
         rsvp[field] = user_rsvp_params[field]
       end
       rsvp['attending'] = true
 
       if !user_rsvp_params['resume'].blank?
         #save resume to parse
-        resume = user_rsvp_params['resume'] 
-        parse_resume = Parse::File.new({
-          :body => resume.read,
-          :local_filename => resume.original_filename.gsub(" ", "%20").gsub("[", "").gsub("]", ""),
-          :content_type => resume.content_type,
-          :content_length => resume.tempfile().size().to_s
-        })
-        parse_resume.save
+        begin
+          resume = user_rsvp_params['resume']
+          parse_resume = Parse::File.new({
+            :body => resume.read,
+            :local_filename => "resume.pdf" ,
+            :content_type => resume.content_type,
+            :content_length => resume.tempfile().size().to_s
+          })
+          parse_resume.save
 
-        rsvp['resume'] = parse_resume
+          rsvp['resume'] = parse_resume
+        rescue
+          flash[:popup] = "RSVP not saved."
+          flash[:sub] = "Please contact us."
+          redirect_to '/rsvp' and return
+        end
       end
 
       response = rsvp.save
@@ -445,16 +517,21 @@ class UsersController < ApplicationController
       rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
       user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       rsvp["user"] = user.pointer
+
+      if rsvp["application"].blank?
+        rsvp["application"] = @app.pointer
+      end
+
       rsvp.save
 
       redirect_to '/rsvp'  and return
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
       puts e.message
-      redirect_to '/rsvp'
+      redirect_to '/rsvp' and return
     end
 
-  end  
+  end
 
   def usercode
     if !cookies.signed[:spartaUser]
@@ -474,7 +551,7 @@ class UsersController < ApplicationController
                 end.get.first
 
         if @rsvp.blank? || @rsvp["attending"] == false
-          redirect_to "/dashboard"      
+          redirect_to "/dashboard"
         else
           @user = cookies.signed[:spartaUser][0]
           render layout: false
@@ -487,7 +564,7 @@ class UsersController < ApplicationController
 
   def forgot
     render layout: false
-  end  
+  end
 
   def requestreset
     begin
@@ -503,15 +580,15 @@ class UsersController < ApplicationController
   private
 
     def user_app_params
-      params.permit(:email, :password, :password_confirmation, :firstName, :lastName, :gender, :birthday, 
+      params.permit(:email, :password, :password_confirmation, :firstName, :lastName, :gender, :birthday,
                                   :birthmonth, :birthyear, :university, :otherUniversityConfirm,
-                                  :otherUniversity, {:major => []}, :gradeLevel, 
-                                  :whyAttend, {:hackathons => []}, :github, :linkedIn, 
-                                  :website, :devPost, :coolLink, :universityStudent, :mlh)     
+                                  :otherUniversity, {:major => []}, :gradeLevel,
+                                  :whyAttend, {:hackathons => []}, :github, :linkedIn,
+                                  :website, :devPost, :coolLink, :universityStudent, :mlh)
     end
 
     def user_rsvp_params
-      params.permit(:attending, :university, {:restrictions => []}, :otherRestrictions, :tshirt, :resume)     
+      params.permit(:attending, :university, {:restrictions => []}, :otherRestrictions, :tshirt, :resume)
     end
 
     def user_login_params
@@ -520,6 +597,10 @@ class UsersController < ApplicationController
 
     def forgot_password_params
       params.permit(:email)
+    end
+
+		def register_params
+      params.permit(:t)
     end
 
     def age(dob,diq)

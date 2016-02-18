@@ -3,9 +3,39 @@ console.log("Ha you're funny, looking under the hood")
 if (navigator.appVersion.indexOf("Win")!=-1) {
   $('#hero').find('a').addClass( "windowsCenter" );
 }
-$('#faq article h3').click(function() {
-  $(this).next().slideToggle();
+
+var last_p = 1;
+
+$('#faq article').click(function() {
+  current = $(this);
+  $("article").removeClass("active-q");
+  $(".a-hline").removeClass("hide");
+
+  current.addClass("active-q");
+  current.prev().addClass("hide");
+  current.next().addClass("hide");
+
+  $("#answers p:nth-child("+ last_p +")").fadeOut("fast", function() {
+    $( "#answers p:nth-child("+ current.children().attr("id") +")" ).fadeIn();
+  });
+
+  last_p = current.children().attr("id")
 });
+
+$('#questions').on('scroll', function() {
+    if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+        $(".fa-angle-down").fadeOut();
+    } else {
+      $(".fa-angle-down").fadeIn();
+    }
+
+    if($(this).scrollTop() == 0) {
+        $(".fa-angle-up").fadeOut();
+    } else {
+      $(".fa-angle-up").fadeIn();
+    }
+})
+
 
 $('.anchorLink').click(function(){
   $('html, body').animate({
@@ -17,6 +47,7 @@ $('.anchorLink').click(function(){
 var desktop_menu = [
   {"scroll_to": "#home-nav", "elem": $("#hero")},
   {"scroll_to": "#faq-nav", "elem": $("#faq")},
+  {"scroll_to": "#schedule-nav", "elem": $("#schedule")},
   {"scroll_to": "#contact-nav", "elem": $("#contact")},
   {"scroll_to": "#team-nav", "elem": $("#team")},
   {"scroll_to": "#sponsor-nav", "elem": $("#sponsors")},
@@ -24,19 +55,19 @@ var desktop_menu = [
 
 var current = "#home-nav";
 
-$(".svg-wrapper").hover( 
-  function () { 
+$(".svg-wrapper").hover(
+  function () {
     $(".svg-wrapper").removeClass("active");
-    $(this).addClass("active"); 
+    $(this).addClass("active");
   },
-  function () { 
+  function () {
     $(".svg-wrapper").removeClass("active");
-    $(current).addClass("active"); 
+    $(current).addClass("active");
   }
 
 );
 
-if ($(window).width() < 775) {
+if ($(window).width() < 960) {
   $("#header").headroom({
     "offset": 205,
     "tolerance": 5,
@@ -46,20 +77,11 @@ if ($(window).width() < 775) {
       "unpinned": "slideUp"
     }
   });
-  $("#mlh-trust-badge").headroom({
-    "offset": 205,
-    "tolerance": 5,
-    "classes": {
-      "initial": "animated",
-      "pinned": "slideDown-mlh",
-      "unpinned": "slideUp-mlh"
-    }
-  });
 }
 
 
 $(window).scroll(function() {
-  if ($(window).width() >= 775) {
+  if ($(window).width() >= 960) {
     var halfHeight = $(this).scrollTop() + ($(this).height() / 1.7);
 
     for(var i = 0; i < desktop_menu.length; i++) {
@@ -78,36 +100,17 @@ $(window).scroll(function() {
   }
 });
 
-mobile_toggle = 0;
-function toggleMLH() {
-  if (mobile_toggle == 0) {
-    $('#mlh-trust-badge').animate({
-      "marginTop": "+=300px"
-    });
-    mobile_toggle = 1
-  } else {
-    $('#mlh-trust-badge').animate({
-      "marginTop": "-=300px"
-    });
-    mobile_toggle = 0
-  }
-}
-
 $(function() {
     var pull        = $('#pull');
         menu        = $('.mobile');
- 
+
     $(pull).on('click', function(e) {
         e.preventDefault();
         menu.slideToggle();
-        toggleMLH()
-
     });
 
     $('.mobile li a').on('click', function(e) {
         menu.slideToggle();
-         toggleMLH()
-
     });
 
 });
@@ -121,6 +124,3 @@ function confirmJavascript() {
 
 confirmJavascript();
 setInterval(confirmJavascript, 10000); // invoke each 10 seconds
-
-
-

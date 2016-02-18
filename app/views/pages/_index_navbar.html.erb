@@ -9,13 +9,13 @@
           <div class="text">2016</div>
         </a>
 
-        <a href="#contact" class="anchorLink">
-          <div id="contact-nav" class="svg-wrapper">
-            <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape contact" height="60" width="120" />
+        <a href="#schedule" class="anchorLink">
+          <div id="schedule-nav" class="svg-wrapper">
+            <svg height="60" width="122" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape contact" height="60" width="122" />
             </svg>
           </div>
-          <div class="text">CONTACT</div>
+          <div class="text">SCHEDULE</div>
         </a>
 
         <a href="#faq" class="anchorLink">
@@ -27,15 +27,6 @@
           <div class="text">FAQ</div>
         </a>
 
-        <a href="#team" class="anchorLink">
-          <div id="team-nav" class="svg-wrapper">
-            <svg height="60" width="122" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape contact" height="60" width="122" />
-            </svg>
-          </div>
-          <div class="text">OUR TEAM</div>
-        </a>
-
         <a href="#sponsors" class="anchorLink">
           <div id="sponsor-nav" class="svg-wrapper">
             <svg height="60" width="122" xmlns="http://www.w3.org/2000/svg">
@@ -45,18 +36,36 @@
           <div class="text">SPONSORS</div>
         </a>
 
+        <a href="#team" class="anchorLink">
+          <div id="team-nav" class="svg-wrapper">
+            <svg height="60" width="124" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape contact" height="60" width="124" />
+            </svg>
+          </div>
+          <div class="text">OUR TEAM</div>
+        </a>
+
+        <a href="#contact" class="anchorLink">
+          <div id="contact-nav" class="svg-wrapper">
+            <svg height="60" width="120" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape contact" height="60" width="120" />
+            </svg>
+          </div>
+          <div class="text">CONTACT</div>
+        </a>
+
 <!--         <a href="#mobile" class="anchorLink">
           <div id="mobile-nav" class="svg-wrapper">
             <svg height="60" width="103" xmlns="http://www.w3.org/2000/svg">
               <rect class="shape mobile-nav" height="60" width="103" />
             </svg>
           </div>
-          <div class="text">MOBILE</div>  
+          <div class="text">MOBILE</div>
         </a> -->
     </div>
-    
+
     <div class="navbar-nav right">
-    
+
   <% if cookies.signed[:spartaUser] %>
     <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
       <div id="app-wrapper">
@@ -80,7 +89,7 @@
             </div>
             <div class="text">MY DASHBOARD</div>
           </a>
-        </div>  
+        </div>
       <% else %>
         <div id="app-wrapper">
           <a href="/application">
@@ -91,7 +100,7 @@
             </div>
             <div class="text">MY APPLICATION</div>
           </a>
-        </div> 
+        </div>
       <% end %>
     <% end %>
       <div id="login-wrapper">
@@ -103,19 +112,8 @@
           </div>
           <div class="text">LOG OUT</div>
         </a>
-      </div>     
-  <% else %>
-      <div id="apply-wrapper">
-        <a href="/register">
-          <div id="apply-nav" class="svg-wrapper">
-            <svg height="60" width="95" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape apply" height="60" width="95" />     
-            </svg>
-          </div>
-          <div class="text">APPLY</div>
-        </a>
       </div>
-
+  <% else %>
       <div id="login-wrapper">
         <a href="/login">
           <div id="login-nav" class="svg-wrapper">
@@ -133,27 +131,36 @@
 
     <nav>
         <ul class="mobile">
-            <li><a href="#hero" class="anchorLink">HOME</a></li>
-            <li><a href="#contact" class="anchorLink">CONTACT</a></li>
-            <li><a href="#faq" class="anchorLink">FAQ</a></li>
-            <li><a href="#team" class="anchorLink">OUR TEAM</a></li>
-<!--             <li><a href="#mobile" class="anchorLink">MOBILE</a></li> -->
-            <li><a href="#sponsors" class="anchorLink">SPONSORS</a></li>
-        <% if cookies.signed[:spartaUser] %>
-          <% if cookies.signed[:spartaUser][1] == "admin" %>
-            <li><a href="/admin">ADMIN DASHBOARD</a></li>
-          <% else %>
-            <% if @application %>
-              <li><a href="/dashboard">MY DASHBOARD</a></li>
+          <div class="mobile-wrap">
+            <div>
+              <li><a href="#schedule" class="anchorLink">SCHEDULE</a></li>
+              <li><a href="#team" class="anchorLink">OUR TEAM</a></li>
+              <li><a href="#contact" class="anchorLink">CONTACT</a></li>
+            </div>
+            <div>
+              <li><a href="#faq" class="anchorLink">FAQ</a></li>
+              <li><a href="#sponsors" class="anchorLink">SPONSORS</a></li>
+  <!--             <li><a href="#mobile" class="anchorLink">MOBILE</a></li> -->
+
+          <% if cookies.signed[:spartaUser] %>
+            <% if cookies.signed[:spartaUser][1] == "admin" %>
+              <li><a href="/admin">ADMIN DASHBOARD</a></li>
             <% else %>
-              <li><a href="/application">MY APPLICATION</a></li>
+              <% if @application %>
+                <li><a href="/dashboard">MY DASHBOARD</a></li>
+              <% else %>
+                <li><a href="/application">MY APPLICATION</a></li>
+              <% end %>
             <% end %>
+            </div>
+          </div>
+              <li class="mobile-tail"><a href="/logout">LOG OUT</a></li>
+          <% else %>
+              <li><a href="/login">LOGIN</a></li>
+            </div>
+          </div>
           <% end %>
-            <li><a href="/logout">LOG OUT</a></li>
-        <% else %>
-            <li><a href="/register">APPLY</a></li>
-            <li><a href="/login">LOGIN</a></li>
-        <% end %> 
+
         </ul>
 
         <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
@@ -166,5 +173,3 @@
 <a id="mlh-trust-badge" href="https://mlh.io/?utm_campaign=Trust%20Badge" target="_blank">
   <img src="https://s3.amazonaws.com/logged-assets/trust-badge/s2016.png" alt="MLH Official - Spring 2016" style="width:100%;" >
 </a>
-
-        

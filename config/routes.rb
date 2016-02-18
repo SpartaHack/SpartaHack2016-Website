@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'api/school'
+
   get 'javascript/confirm'
   get 'jscheck' => 'javascript#jscheck'
 
@@ -15,10 +17,11 @@ Rails.application.routes.draw do
   post 'rsvp' => 'users#saversvp'
   get 'mycode' => 'users#usercode'
   get 'forgot'  => 'users#forgot'
+  get 'sorry' => 'users#sorry'
   post 'requestreset'  => 'users#requestreset'
   post 'save' => 'users#save'
   resources :users
-  
+
   get 'mentorship/register' => 'mentorship#registration'
   post 'mentorship/register' => 'mentorship#register'
 
@@ -27,16 +30,22 @@ Rails.application.routes.draw do
   get 'outage' => 'pages#outage'
   get 'winners2015' => 'pages#winners2015'
   get 'hangout' => 'pages#hangout'
+  get 'map' => 'pages#map'
 
   get 'admin' => 'admin#admin'
   get 'admin/sponsorship' => 'admin#sponsorship'
-  get 'admin/stats' => 'admin#stats'
-  get 'admin/statistics' => 'admin#stats'
+  get 'admin/stats' => 'statistics#stats'
+  get 'admin/statistics' => 'statistics#stats'
+  post 'admin/notifications' => 'admin#notifications'
+  post 'admin/internal-notifications' => 'admin#internal_notifications'
   get 'admin/users/applications' => 'admin#applications'
   post 'admin/users/applications' => 'admin#app_status'
+  get 'admin/users/rsvps' => 'admin#rsvps'
+  get 'admin/users/email' => 'admin#email'
   post 'admin/users/email' => 'admin#send_emails'
   get 'admin/users/checkin' => 'admin#checkin'
   post '/admin/users/checkin-search' => 'admin#checkin_search'
+  post 'admin/users/generate' => 'admin#generate_code'
   post 'addsponsor' => 'admin#addsponsor'
   post 'viewsponsor' => 'admin#viewsponsor'
   post 'editsponsor' => 'admin#editsponsor'

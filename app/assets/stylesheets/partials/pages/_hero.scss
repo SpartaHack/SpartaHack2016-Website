@@ -4,7 +4,7 @@
 #hero {
   @media (max-width: 550px) {
     .section-head {
-      margin: 85px 0px; 
+      margin: 85px 0px;
     }
   }
 
@@ -20,7 +20,7 @@
   background-color: transparent;
   text-align: center;
   letter-spacing: .05em;
-  
+
   .wrap {
     margin-top: 61px;
   }
@@ -96,7 +96,8 @@
     width: 100%;
     line-height: 250%;
     margin-top: -50px;
-    
+    margin-bottom: 15px;
+
     @media (max-width: 1024px) {
       width: 87%;
       line-height: 150%;
@@ -104,18 +105,32 @@
     }
   }
 
+  #sorry {
+    border-top: 1px solid $mutedOutline;
+    width: 100%;
+    line-height: 250%;
+    font-size: 130%;
+    padding-top: 15px;
+    margin-top: 0px;
+    @media (max-width: 1024px) {
+      width: 87%;
+      line-height: 150%;
+    }
+  }
+
+
   .apply-wrapper {
     background: none;
     margin: auto;
     text-align: right;
     border: solid 1px $mutedOutline;
-    display: block; 
+    display: block;
     color: $cream;
     width: 90%;
     font-weight: 100;
     font-size: 15px;
     height: 60px;
-    cursor: pointer; 
+    cursor: pointer;
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
@@ -139,10 +154,10 @@
     font-weight: 300;
     font-size: 16px;
     height: 60px;
-    cursor: pointer; 
+    cursor: pointer;
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    
+
   }
 }

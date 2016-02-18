@@ -1,0 +1,53 @@
+<section id="schedule">
+  <div id="schedule-wrap">
+    <h2 class="section-head">
+        SCHEDULE
+    </h2>
+
+    <div id="schedule-col-wrap">
+    <% @schedule.each do |day|  %>
+      <% if !day[2].blank? %>
+        <div class="schedule-col">
+            <div class="weekday" ><%=  "#{day[0]} #{day[1]}" %></div>
+          <div class="event-wrap">
+            <table id="cap-table">
+              <colgroup>
+                 <col span="1" >
+                 <col span="1" >
+              </colgroup>
+            <% day[2].each do |event| %>
+              <tr>
+                <td class="event-time"><%= event[0][1].blank? ? event[0][0] : "#{event[0][0]} - #{event[0][1]}" %></td>
+                <td class="event"><%= event[1] %></td>
+              </tr>
+            <% end %>
+          </table>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    </div>
+  </div>
+
+  <div id="clockdiv">
+    <p>Hacking begins in</p>
+    <div>
+      <span class="days"></span>
+      <div class="smalltext">Days</div>
+    </div>
+    <div>
+      <span class="hours"></span>
+      <div class="smalltext">Hours</div>
+    </div>
+    <div>
+      <span class="minutes"></span>
+      <div class="smalltext">Minutes</div>
+    </div>
+    <div>
+      <span class="seconds"></span>
+      <div class="smalltext">Seconds</div>
+    </div>
+  </div>
+
+</section>

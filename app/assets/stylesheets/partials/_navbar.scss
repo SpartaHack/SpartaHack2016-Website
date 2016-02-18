@@ -26,7 +26,7 @@
   justify-content: space-between;
   -webkit-justify-content: space-between;
 
- 
+
 // desktop menu formatting ----------------------------------
 
   .navbar-nav {
@@ -75,7 +75,7 @@
     margin: 0 0;
     height: 60px;
     position: relative;
-    top: 30px; 
+    top: 30px;
   }
 
   .shape {
@@ -114,7 +114,7 @@
 
   .active {
     stroke-width: 5px;
-    
+
     .shape {
       stroke-width: 2px;
       stroke-dashoffset: 0;
@@ -141,7 +141,7 @@
   nav a {
     color: #fff;
     display: inline-block;
-    width: 100vw;
+    width: 50vw;
     text-align: center;
     text-decoration: none;
     line-height: 40px;
@@ -152,7 +152,16 @@
     background-color: #80FFDB;
     color: #030316;
     text-shadow: none;
-   }   
+   }
+
+  @media (max-width: 960px) {
+    .mobile-tail {
+      width: 100% !important;
+    }
+    .mobile-tail a {
+      width: 100vw;
+    }
+  }
 
   .mobile {
     margin-top: 10px;
@@ -163,9 +172,9 @@
 
   nav div#pull {
     display: none;
-  } 
+  }
 
-  @media only screen and (max-width : 775px) {
+  @media only screen and (max-width : 960px) {
     .navbar-nav {
       display: none;
     }
@@ -173,6 +182,17 @@
     nav {
       border-bottom: 0;
     }
+
+
+    nav .mobile-wrap {
+      display: flex;
+      flex-direction: row;
+    }
+
+    nav .mobile-wrap div {
+      width: 50%;
+    }
+
     nav ul {
       display: none;
       height: auto;
@@ -209,7 +229,7 @@
     nav li {
       display: block;
       padding-left: 0px;
-      width: 100%;
+      width: 50%;
     }
 
     nav li a {
@@ -222,7 +242,7 @@
 
   }
 
-  @media only screen and (min-width : 776px) {
+  @media only screen and (min-width : 961px) {
     nav {
       display: none;
     }
@@ -235,15 +255,14 @@
 }
 
 #mlh-trust-badge {
-  position:fixed;
+  position:absolute;
   display:block;
-  z-index:10000;
   top:61px;
   right:10px;
   max-width:80px;
   width:10%;
   min-width: 50px;
-  @media only screen and (min-width : 776px) {
+  @media only screen and (min-width : 961px) {
     right:45px;
   }
 }
@@ -343,101 +362,10 @@
       transform: translateY(-100%);
     }
    }
-   
+
   .animated.slideUp {
     -webkit-animation-name: slideUp;
     -moz-animation-name: slideUp;
     -o-animation-name: slideUp;
     animation-name: slideUp;
-  }
-
-  @-webkit-keyframes slideUp-mlh {
-    0% {
-      -webkit-transform: translateY(0);
-    }
-
-    100% {
-      -webkit-transform: translateY(-61px);
-    }
-  }
-  @-moz-keyframes slideUp-mlh {
-    0% {
-      -moz-transform: translateY(0);
-    }
-
-    100% {
-      -moz-transform: translateY(-61px);
-    }
-  }
-  @-o-keyframes slideUp-mlh{
-    0% {
-      -o-transform: translateY(0);
-    }
-
-    100% {
-      -o-transform: translateY(-61px);
-    }
-  }
-  @keyframes slideUp-mlh {
-    0% {
-      transform: translateY(0);
-    }
-
-    100% {
-      transform: translateY(-61px);
-    }
-   }
-   
-  .animated.slideUp-mlh {
-    -webkit-animation-name: slideUp-mlh;
-    -moz-animation-name: slideUp-mlh;
-    -o-animation-name: slideUp-mlh;
-    animation-name: slideUp-mlh;
-  }
-
-  @-webkit-keyframes slideDown-mlh {
-    0% {
-      -webkit-transform: translateY(-61px);
-    }
-
-    100% {
-      -webkit-transform: translateY(0);
-    }
-  }
-
-  @-moz-keyframes slideDown-mlh {
-    0% {
-      -moz-transform: translateY(-61px);
-    }
-
-    100% {
-      -moz-transform: translateY(0);
-    }
-  }
-
-  @-o-keyframes slideDown-mlh {
-    0% {
-      -o-transform: translateY(-61px);
-    }
-
-    100% {
-      -o-transform: translateY(0);
-    }
-  }
-
-  @keyframes slideDown-mlh {
-    0% {
-      transform: translateY(-61px);
-    }
-
-    100% {
-      transform: translateY(0);
-    }
-  }
-
-  .animated.slideDown-mlh {
-    -webkit-animation-name: slideDown-mlh;
-    -moz-animation-name: slideDown-mlh;
-    -o-animation-name: slideDown-mlh;
-    animation-name: slideDown-mlh;
   }

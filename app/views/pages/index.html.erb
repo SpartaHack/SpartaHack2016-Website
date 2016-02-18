@@ -24,9 +24,9 @@
 
         <%= favicon_link_tag 'favicon.png' %>
         <%= stylesheet_link_tag "pages" %>
-        
-        
-        
+
+
+
 
     </head>
     <body>
@@ -34,18 +34,19 @@
             <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <%= render partial: "pages/index_navbar" %>
-        
+
         <div class="wrap-main">
 
 
           <%= render partial: "pages/index_head" %>
-          <%= render partial: "pages/index_contact" %>
+          <%= render partial: "pages/index_schedule" %>
           <%= render partial: "pages/index_faq" %>
-          <%= render partial: "pages/index_team" %>
           <%= render partial: "pages/index_end" %>
+          <%= render partial: "pages/index_team" %>
+          <%= render partial: "pages/index_contact" %>
           <!-- < render partial: "pages/index_mobile" %> -->
-          
-      
+
+
        </div>
 
        <%= render partial: "pages/index_footer" %>
@@ -53,8 +54,57 @@
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
+        <%= javascript_tag do %>
+          $(document).ready(function() {
+
+            function getTimeRemaining(endtime) {
+              var t = Date.parse(endtime) - Date.parse(new Date());
+              var seconds = Math.floor((t / 1000) % 60);
+              var minutes = Math.floor((t / 1000 / 60) % 60);
+              var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+              var days = Math.floor(t / (1000 * 60 * 60 * 24));
+              return {
+                'total': t,
+                'days': days,
+                'hours': hours,
+                'minutes': minutes,
+                'seconds': seconds
+              };
+            }
+
+            function initializeClock(id, endtime) {
+              var clock = document.getElementById(id);
+              var daysSpan = clock.querySelector('.days');
+              var hoursSpan = clock.querySelector('.hours');
+              var minutesSpan = clock.querySelector('.minutes');
+              var secondsSpan = clock.querySelector('.seconds');
+
+              function updateClock() {
+                var t = getTimeRemaining(endtime);
+
+                daysSpan.innerHTML = t.days;
+                hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
+                minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                if (t.total <= 0) {
+                  clearInterval(timeinterval);
+                }
+              }
+
+              updateClock();
+              var timeinterval = setInterval(updateClock, 1000);
+            }
+
+            var deadline = new Date(1456545600000);
+            initializeClock('clockdiv', deadline);
+
+
+          });
+        <% end %>
+
         <%= javascript_include_tag "index.js" %>
-        
+
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

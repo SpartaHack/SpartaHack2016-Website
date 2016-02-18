@@ -35,7 +35,10 @@
         <% @trainee.each do |sponsor|  %>
           <article class="bronze center">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor sponsor-img" %>
+              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :id => "#{sponsor[2] == 'Auto-Owners Insurance' ? 'auto-owners' : ''}", :class => "#{sponsor[2] != 'Auto-Owners Insurance' ? 'logo-sponsor ' : 'top'}sponsor-img" %>
+              <% if sponsor[2] == 'Auto-Owners Insurance' %>
+                <%= image_tag "auto-owners-gray.svg", alt: sponsor[2], :id => "#{sponsor[2] == 'Auto-Owners Insurance' ? 'auto-owners' : ''}", :class => " bottom sponsor-img" %>
+              <% end %>
             </a>
           </article>
         <% end %>
