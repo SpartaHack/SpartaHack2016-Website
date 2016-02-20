@@ -683,17 +683,17 @@ class AdminController < ApplicationController
         
       flash[:popup] = "You must fill in all the required fields."
       flash[:params] = user_app_params
-      redirect_to '/admin/users/onsite-application' and return
+      redirect_to '/admin/users/onsite-registration' and return
     elsif params.has_key?(:password) && params.has_key?(:password_confirmation) && user_app_params['password'] != user_app_params['password_confirmation']
       flash[:popup] = "Passwords do not match"
       flash[:params] = user_app_params
-      redirect_to '/admin/users/onsite-application' and return
+      redirect_to '/admin/users/onsite-registration' and return
 
     else
       if user_app_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
         flash[:popup] = "You must use a valid email."
         flash[:params] = user_app_params
-        redirect_to '/admin/users/onsite-application' and return
+        redirect_to '/admin/users/onsite-registration' and return
       end
       begin
         if params.has_key?(:password)
@@ -723,7 +723,7 @@ class AdminController < ApplicationController
         if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
           flash[:popup] = "Email is taken"
           flash[:params] = user_app_params
-          redirect_to '/admin/users/onsite-application' and return
+          redirect_to '/admin/users/onsite-registration' and return
         else
           redirect_to "/outage" and return
         end
@@ -833,7 +833,7 @@ class AdminController < ApplicationController
         flash[:sub] = nil
       end
 
-      redirect_to '/admin/users/onsite-application' and return
+      redirect_to '/admin/users/onsite-registration' and return
     rescue Parse::ParseProtocolError => e
       flash[:error] =  e.message
       puts e.message

@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   get 'admin/users/checkin' => 'admin#checkin'
   post '/admin/users/checkin-search' => 'admin#checkin_search'
   post '/admin/users/checkin-confirm' => 'admin#checkin_confirm'
-  get '/admin/users/onsite-application' => 'admin#onsite'
+  get '/admin/users/onsite-registration' => 'admin#onsite'
   post '/admin/users/onsite-search' => 'admin#onsite_search'
   post '/admin/users/onsite-submit' => 'admin#onsite_submit'
   post 'admin/users/generate' => 'admin#generate_code'
