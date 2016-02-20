@@ -50,7 +50,7 @@
   .mobile-top {
     margin-bottom: 0px;
     @media (max-width: 550px) {
-      margin-bottom: 25px;
+      margin-bottom: 0px;
     }
   }
 
@@ -63,13 +63,15 @@
     -webkit-align-items: center;
     align-content: center;
     -webkit-align-content: center;
-    justify-content: space-between;
-    -webkit-justify-content: space-between;
-    width: 30%;
+    justify-content: center;
+    -webkit-justify-content: center;
+    flex-wrap: wrap;
+    width: 500px;
     margin-top: 50px;
     margin-bottom: 100px;
     @media (max-width: 550px) {
       width: 77%;
+      margin-top: -25px;
       margin-bottom: 50px;
     }
   }
@@ -92,12 +94,16 @@
     width: 135px;
   }
 
-  .playstore {
+  .store {
     border: solid 1px #A6A6A6;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     width: 133px;
     height: 38px;
+  }
+
+  .app {
+    margin: 7.5px;
   }
 }

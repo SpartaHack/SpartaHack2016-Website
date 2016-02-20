@@ -96,6 +96,7 @@
                     <ul class="collector"></ul>
                 </div>
 			</div>
+
             <div class="row" id="checkin-search-wrap" >
                 <div class="title-wrap">
                     <h1 class="section-head">Search Check-In</h1>
@@ -114,7 +115,7 @@
                     </div>
                     <div class="inner_wrap">
                         <%= label_tag 'barcode', 'Barcode ID', class: 'no-label' %>
-                        <%= email_field_tag 'barcode', nil, placeholder: 'Barcode ID', required: false %>
+                        <%= text_field_tag 'barcode', nil, placeholder: 'Barcode ID', required: false %>
                     </div>
                     <div class="hvr-underline-from-center full">
                         <%= submit_tag "Search", id: "search" %>
