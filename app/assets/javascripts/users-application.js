@@ -89,10 +89,6 @@ function createSelects() {
 	  multiple:true
 	});
 
-	// hide old selection arrow;
-	$('b[role="presentation"]').hide();
-	$('.select2-selection__arrow').append('<i class="fa fa-angle-down"></i>');	
-	$('.select2-container--open').append('<i class="fa fa-angle-up"></i>');	
 }
 
 function popUpTop() {
@@ -109,6 +105,11 @@ function popUpBottom() {
 
 $(document).ready(function() {	
 	createSelects();
+	// hide old selection arrow;
+	$('b[role="presentation"]').hide();
+	$('.select2-selection__arrow').append('<i class="fa fa-angle-down"></i>');	
+	$('.select2-container--open').append('<i class="fa fa-angle-up"></i>');	
+	
 
 	// Create inline svg;
 

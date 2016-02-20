@@ -9,6 +9,7 @@
 			$("#attendee-tshirt").html("<%= @user['tshirt'] %>");
 			$("#attendee-diet").html("<%= @user['restrictions'].join(', ') %>");
 			$("#attendee-other-diet").html("<%= @user['otherRestrictions'] %>");
+			$("#attendee-minor").html("<%= @minor == true ? 'Yes' : '' %>");
 			$("#attendee-university").html("<%= @user['application']['universityStudent'] == 'false' ? 'High School' : @user['application']['university'].split(':')[-1] %>");
 			$("#attendee-checkin").attr("value", "<%= @user['user']['objectId'] %>");
 			$("#attendee").fadeIn("fast");

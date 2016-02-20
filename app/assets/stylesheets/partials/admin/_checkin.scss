@@ -53,6 +53,12 @@
 
 }
 
+.focus { 
+    outline: none;
+    border-color: $mutedRed;
+    box-shadow: 0 0 10px $mutedRed;
+}
+
 #checkin{
  @media (max-width: 550px) {
     margin-top: 30px;
