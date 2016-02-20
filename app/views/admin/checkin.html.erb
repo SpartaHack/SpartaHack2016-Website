@@ -84,6 +84,10 @@
             </nav>
         </div>
 
+        <div id="popup-wrapper">
+            <div id="popup"></div>
+        </div>
+
 		<section id="checkin">
 			<div class="row" style="width: 640px !important">
                <div class="title-wrap">
@@ -99,19 +103,13 @@
 
             <div class="row" id="checkin-search-wrap" >
                 <div class="title-wrap">
-                    <h1 class="section-head">Search Check-In</h1>
+                    <h1 class="section-head">Search User</h1>
                     <div class="hline"></div>
                 </div>
                 <%= form_tag("/", method: "post", id: "checkin-search") do %>
                     <div class="inner_wrap">
                         <%= label_tag 'email', 'Email', class: 'no-label' %>
                         <%= email_field_tag 'email', nil, placeholder: 'EMAIL', required: false %>
-                    </div>
-                    <div class="inner">
-                      <%= label_tag(:firstName, "First Name", class: 'no-label') %>
-                      <%= text_field_tag 'firstName', nil, placeholder: 'First Name', required:false %>
-                      <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
-                      <%= text_field_tag 'lastName', nil, placeholder: 'Last Name', required: false   %>
                     </div>
                     <div class="inner_wrap">
                         <%= label_tag 'barcode', 'Barcode ID', class: 'no-label' %>
@@ -130,16 +128,12 @@
 
                 <table id="attendee-info-table">
                   <colgroup>
-                     <col span="1" style="width: 150px;">
-                     <col span="1" style="width: 150px;">
+                     <col span="1" style="width: 250px;">
+                     <col span="1" style="width: 250px;">
                   </colgroup>
                   <tr>
-                    <td class="left-align">First Name: </td>
-                    <td class="attendee-info" id="attendee-fname"></td> 
-                  </tr>
-                  <tr>
-                    <td class="left-align">Last Name: </td>
-                    <td class="attendee-info" id="attendee-lname"></td> 
+                    <td class="left-align">Name: </td>
+                    <td class="attendee-info" id="attendee-name"></td> 
                   </tr>
                   <tr>
                     <td class="left-align">Email: </td>
@@ -149,10 +143,23 @@
                     <td class="left-align">Education: </td>
                     <td class="attendee-info" id="attendee-university"></td> 
                   </tr>
+                  <tr class="spacer"></tr>
+                  <tr>
+                    <td class="left-align">T-Shirt Size: </td>
+                    <td class="attendee-info" id="attendee-tshirt"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Dietary Restrictions: </td>
+                    <td class="attendee-info alert" id="attendee-diet"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Other Dietary Restrictions: </td>
+                    <td class="attendee-info alert" id="attendee-other-diet"></td> 
+                  </tr>
                 </table>
 
                 <div class="hvr-underline-from-center full">
-                    <button id="next">Next Attendee</button>
+                    <button id="attendee-checkin">Check-in Attendee</button>
                 </div>
 
             </div>

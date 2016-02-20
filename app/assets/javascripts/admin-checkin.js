@@ -199,22 +199,22 @@ $(document).ready(function() {
 
     });
 
-    $("#next").click(function(){
+    $('#popup-wrapper').click(function(){
+        $('#popup-wrapper').fadeOut('fast');
+    });
+
+    $("#attendee-checkin").click(function(){
+        $.ajax({
+            url: "/admin/users/checkin-confirm",
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            type: "post",
+            context: document.body,
+            data: "user="+$("#attendee-checkin").attr("value")
+        })
         $("#attendee").fadeOut("slow", function() {
             $('#checkin-search')[0].reset();
             $('#checkin-search-wrap').fadeIn("fast");
         })
     })
 
-    $(".check-in").click(function(){
-        keep = $(this).attr("index");
-
-        $(".check-in").slideUp("fast");
-        $(".aline").slideUp("fast");
-        $( "table" ).filter(function( index ) {
-            if (index != keep) {
-                return $(this).slideUp("fast");
-            }
-        })
-    })
 });

@@ -523,17 +523,78 @@ class AdminController < ApplicationController
 
   def checkin_search
     if !checkin_search_params[:barcode].blank?
-      @user = Parse::Query.new("Application").tap do |q|
+      @attendance =  Parse::Query.new("Attendance").tap do |q|
         q.eq("user", Parse::Pointer.new({
           "className" => "_User",
           "objectId"  => checkin_search_params[:barcode]
         }))
-        q.include = "user"
       end.get.first
 
-    else
-        
+      if @attendance.blank?
+        @user = Parse::Query.new("RSVP").tap do |q|
+          q.eq("user", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => checkin_search_params[:barcode]
+          }))
+          q.include = "application,user"
+        end.get.first
+      end
+
+
+
+    elsif !checkin_search_params[:email].blank?
+      @user_object = Parse::Query.new("_User").tap do |q|
+        q.eq("email", checkin_search_params[:email])
+      end.get.first
+
+      if !@user_object.blank?
+        @attendance =  Parse::Query.new("Attendance").tap do |q|
+          q.eq("user", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => @user_object["objectId"]
+          }))
+        end.get.first
+
+        if @attendance.blank?
+          @user = Parse::Query.new("RSVP").tap do |q|
+            q.eq("user", Parse::Pointer.new({
+              "className" => "_User",
+              "objectId"  => @user_object["objectId"]
+            }))
+            q.include = "application,user"
+          end.get.first
+        end
+
+      end
+
     end
+
+  end
+
+  def checkin_confirm
+      @attendance =  Parse::Query.new("Attendance").tap do |q|
+        q.eq("user", Parse::Pointer.new({
+          "className" => "_User",
+          "objectId"  => checkin_confirm_params[:user]
+        }))
+      end.get.first
+
+      if @attendance.blank?
+        @attendance = Parse::Object.new("Attendance")
+        rsvp =  Parse::Query.new("RSVP").tap do |q|
+                                q.eq("user", Parse::Pointer.new({
+                                  "className" => "_User",
+                                  "objectId"  => checkin_confirm_params[:user]
+                                }))
+                                q.include = "application, user"
+                              end.get.first
+
+        @attendance['rsvp'] = rsvp.pointer
+        @attendance['user'] = rsvp["user"].pointer
+        @attendance['application'] = rsvp["application"].pointer
+        @attendance.save
+
+      end
   end
 
   private
@@ -567,7 +628,11 @@ class AdminController < ApplicationController
     end
 
     def checkin_search_params
-      params.permit(:barcode, :email, :firstName, :lastName)
+      params.permit(:barcode, :email)
+    end   
+
+    def checkin_confirm_params
+      params.permit(:user)
     end   
 
     def svg_to_png(svg)

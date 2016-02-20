@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   post 'admin/users/email' => 'admin#send_emails'
   get 'admin/users/checkin' => 'admin#checkin'
   post '/admin/users/checkin-search' => 'admin#checkin_search'
+  post '/admin/users/checkin-confirm' => 'admin#checkin_confirm'
   post 'admin/users/generate' => 'admin#generate_code'
   post 'addsponsor' => 'admin#addsponsor'
   post 'viewsponsor' => 'admin#viewsponsor'
