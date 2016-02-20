@@ -1,0 +1,58 @@
+<section id="notifications">
+    <div class="title-wrap">
+        <h1 class="section-head">Attendee Announcements</h1>
+        <div class="hline"></div>
+    </div>
+    <div id="notification-wrap">
+        <%= form_tag("", id: "announce", method: "post") do %>
+            <div class="row notifs">
+                <div class="inner-wrap">
+                  <%= label_tag 'notification-title', 'Notification Title', class: 'no-label' %>
+                  <%= text_field_tag 'notification-title', nil, placeholder: 'Notification Title', required: true%>
+                  <div class="hvr-underline-from-center switch">
+                    <input id="pinned" name="pinned" class="toggle toggle-pinned-not" type="checkbox" value="true">
+                    <label for="pinned" data-on="Pinned" data-off="Not Pinned"></label>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="inner-wrap">
+                  <%= label_tag 'notification', 'Notification', class: 'no-label' %>
+                  <%= text_field_tag 'notification', nil, placeholder: "Notification Description", required: true%>
+                  <div class="hvr-underline-from-center submit">
+                    <%= submit_tag "Send", id: "submit" %>
+                  </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+    <div class="title-wrap">
+        <h1 class="section-head">Internal Announcements</h1>
+        <div class="hline"></div>
+    </div>
+    <div id="notification-wrap">
+        <%= form_tag("", id: "announce-internal", method: "post") do %>
+            <div class="row notifs">
+                <div class="inner-wrap">
+                  <%= label_tag 'announcement', 'Notification', class: 'no-label' %>
+                  <%= text_field_tag 'announcement', nil, placeholder: 'Notification', required: true%>
+                  <div class="switch-internal">
+                    <select id="role" name="role">
+                      <option></option>
+                      <option value="admin">Admin</option>
+                      <option value="volunteer">Volunteer</option>
+                      <option value="sponsor">Sponsor</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="inner-wrap">
+                  <div class="hvr-underline-from-center submit-internal">
+                    <%= submit_tag "Send", id: "submit-internal" %>
+                  </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</section>
