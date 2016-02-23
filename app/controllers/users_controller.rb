@@ -504,6 +504,7 @@ class UsersController < ApplicationController
           })
           parse_resume.save
 
+					rsvp['resumeDownloaded'] = false
           rsvp['resume'] = parse_resume
         rescue
           flash[:popup] = "RSVP not saved."
