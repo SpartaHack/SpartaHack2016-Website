@@ -11,7 +11,7 @@
   -webkit-align-items: center;
   flex-direction: column;
   -webkit-flex-direction: column;
-  text-align: center; 
+  text-align: center;
   color: $faqText;
   position: relative;
 
@@ -26,9 +26,9 @@
     -webkit-align-items: center;
     @media (max-width: 1000px){
       width: 100%;
-      line-height: 250%; 
-    }   
-  }  
+      line-height: 250%;
+    }
+  }
 
   .mobile-img{
     min-width: 185px;
@@ -84,8 +84,8 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    -webkit-box-shadow:0 0 5px $cream; 
-    -moz-box-shadow: 0 0 5px $cream; 
+    -webkit-box-shadow:0 0 5px $cream;
+    -moz-box-shadow: 0 0 5px $cream;
     box-shadow:0 0 5px $cream;
 
   }
@@ -96,11 +96,27 @@
 
   .store {
     border: solid 1px #A6A6A6;
+    background: black;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     width: 133px;
     height: 38px;
+  }
+
+  .android {
+    opacity: 0.5;
+    border-width: 1px;
+    pointer-events: none;
+  }
+
+  .android:hover {
+    -webkit-border-radius: 1px !important;
+    -moz-border-radius: 1px !important;
+    border-radius: 1px !important;
+    -webkit-box-shadow:0 0 0px $cream !important;
+    -moz-box-shadow: 0 0 0px $cream !important;
+    box-shadow:0 0 0px $cream !important;
   }
 
   .app {
