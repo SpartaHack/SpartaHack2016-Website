@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js" xmlns:fb="http://ogp.me/ns/fb#"> <![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="SpartaHack 2016" />
+        <meta property="og:site_name" content="SpartaHack" />
+        <meta property="og:url" content="https://www.spartahack.com" />
+        <meta property="og:locale" content="en_US" />
+        <%= csrf_meta_tag %>
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This page is the first step to applying for admittance." />
+        <meta property="og:image" content="<%=image_url("facebook.png")%>" />
+
+
+
+
+        <title>SpartaHack</title>
+
+        <%= favicon_link_tag 'favicon.png' %>
+        <%= stylesheet_link_tag "select2-modified" %>
+        <%= stylesheet_link_tag "admin" %>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="header" class="header">
+            <div class="navbar-nav left">
+                <a href="/" class="anchorLink">
+                  <div id="home-nav" class="svg-wrapper active">
+                    <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape home" height="60" width="85" />
+                    </svg>
+                  </div>
+                  <div class="text">2016</div>
+                </a>
+
+            </div>
+
+            <div class="navbar-nav right">
+
+                <div id="app-wrapper">
+                    <a href="/admin">
+                      <div id="admin-nav" class="svg-wrapper">
+                        <svg height="60" width="188" xmlns="http://www.w3.org/2000/svg">
+                          <rect class="shape mobile-nav" height="60" width="188" />
+                        </svg>
+                      </div>
+                      <div class="text">ADMIN DASHBOARD</div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <% if flash[:popup] %>
+          <div id="popup-error-wrapper-onsite">
+            <div id="popup-error-onsite">
+              <%= "#{flash[:popup]}" %>
+              <div id="sub-text"><%= "#{flash[:sub]}" %></div>
+            </div>
+          </div>
+        <% end %>
+          <div id="popup-wrapper-onsite">
+            <div id="popup-onsite"></div>
+          </div>
+
+        <div class="wrap-main">
+          <section id="onsite" >
+            <div class="row">
+
+              <div class="title-wrap">
+                <h1 class="section-head">On-site Registration</h1>
+                <div class="hline"></div>
+              </div>
+              <h4 id="required">* fields are required.</h4>
+
+              <%= form_tag("/admin/users/onsite-search", method: "post", id: "search_app", class: "search_app") do %>
+                <div id="onsite-search">
+                  <div class="inner_wrap">
+                    <%= label_tag 'email-search', 'Email', class: 'no-label' %>
+                    <%= email_field_tag 'email-search', nil, placeholder: 'Email *', required: true%>
+                  </div>
+                </div>
+                <div class="hvr-underline-from-center full" id="search">
+                  <%= submit_tag("Continue", :id => "application") %>
+                </div>
+              <% end %>
+              <%= form_tag("/admin/users/onsite-submit", method: "post", id: "save_app", class: "save_app", style: "display:none", :remote => true, :authenticity_token => true) do %>
+                <div id="register">
+                  <div class="inner_wrap">
+                    <%= label_tag 'email', 'Email', class: 'no-label' %>
+                    <%= email_field_tag 'email', nil, placeholder: 'Email *', required: true%>
+                  </div>
+                  <div class="inner_wrap">
+                    <%= label_tag 'password', 'Password', class: 'no-label' %>
+                    <%= password_field_tag 'password', nil, placeholder: "Password *", minlength: "8", required: true%>
+
+                    <%= label_tag 'password_confirmation', 'Confirm Password', class: 'no-label' %>
+                    <%= password_field_tag 'password_confirmation', nil, placeholder: "Confirm Password *", minlength: "6", required: true%>
+                  </div>
+                  <div class="a-hline"></div>
+                </div>
+                <div class="inner">
+                  <%= label_tag(:firstName, "First Name", class: 'no-label') %>
+                  <%= text_field_tag 'firstName', nil, placeholder: 'First Name *', required:true %>
+                  <%= label_tag(:lastName, "Last Name", class: 'no-label') %>
+                  <%= text_field_tag 'lastName', nil, placeholder: 'Last Name *'  %>
+                </div>
+
+                <div class="add-margin-top">
+                  <select id="gender" name="gender" style="display=none;">
+                    <option></option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-binary</option>
+                    <option value="prefer-not">Prefer not to say</option>
+                  </select>
+                </div>
+
+                <div class="add-margin-top" id="birthdate-wrap">
+                  <select id="birthday" name="birthday">
+                    <option></option>
+                    <%= options_for_select((1..31).to_a)%>
+                  </select>
+                  <select id="birthmonth" name="birthmonth">
+                    <option></option>
+                    <%= options_for_select(Date::MONTHNAMES[1..12]) %>
+                  </select>
+                  <select id="birthyear" name="birthyear">
+                    <option></option>
+                    <%= options_for_select((1950..2002).to_a.reverse) %>
+                  </select>
+                </div>
+
+                <div class="add-margin-top add-margin-bottom" id="enrollment-wrap">
+                  <label id="highschool">Which of the following best describes your current enrollment? *</label>
+                  <div id="radio-wrap">
+                      <input type="radio" name="universityStudent" id="highschool-student" value="false" >
+                      <label for="highschool-student">High School</label>
+                      <input type="radio" name="universityStudent" id="university-student" value="true" >
+                      <label for="university-student">College/University</label>
+                  </div>
+                </div>
+
+                <div class="add-margin-bottom university-enrolled university" style="display:none;">
+                  <%= render partial: "users/app_university" %>
+                </div>
+
+                <div class="add-margin-bottom university-enrolled" id="other-university-wrap">
+                  <div class="check">
+                    <input type="checkbox" value="true" id="other-university-confirm" name="otherUniversityConfirm" />
+                    <label for="other-university-confirm"><div id="other-university-text">College/University not listed?</div></label>
+                  </div>
+                </div>
+
+                <div class="add-margin-top other-university-enrolled" style="display:none;">
+                  <%= label_tag(:otherUniversity, "College/University not listed above? Enter it here.", class: 'no-label') %>
+                  <%= text_field_tag 'otherUniversity', nil, placeholder: 'Other College/University' %>
+                </div>
+
+                <div class="university-enrolled">
+                  <%= render partial: "users/app_major" %>
+                </div>
+
+                <div class="add-margin-top university-enrolled" id="gradeLevel-wrap">
+                  <select id="gradeLevel" name="gradeLevel">
+                    <option></option>
+                    <option>First Year</option>
+                    <option>Second Year</option>
+                    <option>Third Year</option>
+                    <option>Fourth Year</option>
+                    <option>Fifth Year +</option>
+                    <option>Graduate Student</option>
+                    <option>Not a Student</option>
+                  </select>
+                </div>
+
+                <div class="add-margin-top restrictions" id="restrictions-wrap">
+                  <select id="restrictions" name="restrictions[]" style="display=none;" multiple="true" data-multiple="true">
+                    <option value="none">None</option>
+                    <option value="gluten">Gluten Free</option>
+                    <option value="kosher">Kosher</option>
+                    <option value="lactose">Lactose intolerant</option>
+                    <option value="peanuts">Peanut Allergy</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="other">Other</option>
+                  </select>
+
+                </div>
+
+                <div class="add-margin-top other-restriction" style="display:none;">
+                  <%= label_tag(:otherRestrictions, "Restrictions not listed above? Enter it here.", class: 'no-label') %>
+                  <%= text_field_tag 'otherRestrictions', "#{@rsvp['otherRestrictions'] if @rsvp}", placeholder: 'List dietary restrictions here...' %>
+                </div>
+
+                <div class="add-margin-top tshirt" id="tshirt-wrap">
+                  <%= select_tag "tshirt", options_for_select(["","Unisex XS", "Unisex Small", "Unisex Medium", "Unisex Large", "Unisex XL", "Unisex XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
+                </div>
+                <div class="under-textarea has-icon">
+                  <%= image_tag "github.svg", alt: "Github Icon", :class => "icon" %>
+                  <%= label_tag(:github, "What is your GitHub handle?", class: 'no-label') %>
+                  <%= text_field_tag 'github', nil, placeholder: 'GitHub handle?' %>
+                </div>
+
+                <div class="add-margin-top has-icon">
+                  <%= image_tag "linkedin.svg", alt: "LinkedIn Icon", :class => "icon" %>
+                  <%= label_tag(:linkedIn, "What is your LinkedIn handle?", class: 'no-label') %>
+                  <%= text_field_tag 'linkedIn', nil, placeholder: 'LinkedIn handle?' %>
+                </div>
+
+                <div class="add-margin-top has-icon">
+                  <%= image_tag "devpost.svg", alt: "DevPost Icon", :class => "icon" %>
+                  <%= label_tag(:devPost, "What is your DevPost handle?", class: 'no-label') %>
+                  <%= text_field_tag 'devPost', nil, placeholder: 'DevPost handle?' %>
+                </div>
+
+                <div class="add-margin-top has-icon">
+                  <%= image_tag "website.svg", alt: "Personal Website Icon", :class => "icon" %>
+                  <%= label_tag(:website, "What is your personal website?", class: 'no-label') %>
+                  <%= text_field_tag 'website', nil, placeholder: 'Your personal website?' %>
+                </div>
+
+                <div class="add-margin-top" id="mlh-disclaimer">
+                  <div>
+                    <div id="mlh-disclaimer-text">We participate in Major League Hacking (MLH) as a MLH Member Event. You authorize us to share certain application/registration information for event administration, ranking, MLH administration, and occasional messages about hackathons in line with the <a href="https://mlh.io/privacy" target="_blank">MLH Privacy Policy.</a></div>
+                  </div>
+                </div>
+
+                <div class="add-margin-top" id="mlh-wrap">
+                  <div class="check check-mlh">
+                    <input type="checkbox" value="true" id="agree" name="mlh" />
+                    <label for="agree"><div id="mlh-text">I agree to the <a href="http://static.mlh.io/docs/mlh-code-of-conduct.pdf" target="_blank">MLH Code of Conduct</a> and <a href="https://mlh.io/privacy" target="_blank">Private Policy</a> *</div></label>
+                  </div>
+                </div>
+
+                <div class="hvr-underline-from-center full" id="save-app">
+                  <%= submit_tag("Submit Application", :id => "application") %>
+                </div>
+
+              <% end %>
+
+            </div>
+
+          </section>
+        </div>
+
+        <%= javascript_include_tag "jquery-1.11.3.min" %>
+        <%= javascript_include_tag "headroom.min" %>
+        <%= javascript_include_tag "jquery-headroom" %>
+        <%= javascript_include_tag "select2.full.min" %>
+        <%= javascript_include_tag "users-application" %>
+
+        <%= javascript_tag do %>
+
+          $(document).ready(function() {
+            $('#popup-wrapper-onsite').click(function(e){
+                if (e.target !== this)
+                  return;
+
+                $('#popup-wrapper-onsite').fadeOut('fast');
+            });
+
+            $('#popup-error-wrapper-onsite').click(function(e){
+                if (e.target !== this)
+                  return;
+
+                $('#popup-error-wrapper-onsite').fadeOut('fast');
+            });
+
+          });
+
+
+          $('#tshirt').select2({
+            placeholder: "T-Shirt Size *",
+            minimumResultsForSearch: -1, 
+            allowClear: true,
+          });
+
+         $('#restrictions').select2({
+            placeholder: "Dietary Restrictions *",
+            minimumResultsForSearch: Infinity, 
+            allowClear: true,
+            multiple: true
+          });
+
+          $('#restrictions').on('change', function() {
+
+              values = $('#restrictions').val();
+              if (values) {
+                $("#restrictions-wrap").removeClass('focus')  
+              } else {
+                $("#restrictions-wrap").addClass('focus')
+              }
+
+              if (values && values.indexOf("none") > -1 && values.length > 1) {
+                $('#restrictions').val(['none']).trigger("change");
+                $('.other-restriction').slideUp("slow", function() {
+                  $('#otherRestrictions').val("");
+                });
+              } else if (values && values.indexOf("other") > -1) {
+                $('.other-restriction').slideDown({duration:'slow'});
+              }
+
+              if (values && values.indexOf("other") == -1 || !values) {
+                $('.other-restriction').slideUp("slow", function() {
+                  $('#otherRestrictions').val("");
+                });
+              }
+
+          });
+
+          $('#tshirt').on('change', function() {
+            if ($(this).val().length > 0) {
+              $("#tshirt-wrap").removeClass('focus')
+            } else {
+              $("#tshirt-wrap").addClass('focus')
+            }
+          })
+
+          var password = document.getElementById("password")
+            , confirm_password = document.getElementById("password_confirmation");
+
+            //validation for form submit
+
+          $('#search_app').submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                url: "/admin/users/onsite-search",
+                beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+                type: "post",
+                context: document.body,
+                data: $(this).serialize()
+            });
+            $(this).closest('form').find("input[type=text], textarea").val("");
+          });
+          
+
+          $('#save-app').click(function(e){
+            e.preventDefault();
+
+            if ($("#email").val().length == 0 || $("#email").val().length == 0) {
+              $("#popup").html("Email is required.")
+              popUpBottom()
+            } else if ($("#password").length && typeof password !== 'undefined' && password.value.length == 0) {
+              $("#popup").html("You must input a password.")
+              popUpBottom()
+            } else if ($("#password").length && typeof password !== 'undefined' && password.value.length > 0 && password.value != confirm_password.value) {
+              $("#popup").html("Passwords do not match.")
+              popUpBottom()
+            } else if ($("#password").length && typeof password !== 'undefined' && password.value.length < 8) {
+              $("#popup").html("Password is too short.")
+              popUpBottom()
+            } else if ($("#firstName").val().length == 0 || $("#lastName").val().length == 0) {
+              $("#popup").html("You must input your full name.")
+              popUpBottom()
+            } else if ($("#gender").val().length == 0 ) {
+              $("#popup").html("Gender is required.")
+              popUpBottom()
+            } else if ($("#birthday").val().length == 0 || $("#birthyear").val().length == 0 || $("#birthmonth").val().length == 0) {
+              $("#popup").html("Your full birthdate is required.")
+              popUpBottom()
+            } else if (!document.getElementById('highschool-student').checked && !document.getElementById('university-student').checked) {
+              $("#popup").html("Please indicate your current enrollment.")
+              popUpBottom()
+            } else if (document.getElementById('university-student').checked && $("#university").val().length == 0 && $("#otherUniversity").val().length == 0) {
+              $("#popup").html("Please indicate your university.")
+              popUpBottom()
+            } else if (document.getElementById('university-student').checked && $("#major").val() == null || document.getElementById('university-student').checked && $("#major").val().length == 0) {
+              $("#popup").html("Please indicate your major.")
+              popUpBottom()
+            } else if (document.getElementById('university-student').checked && $("#gradeLevel").val().length == 0) {
+              $("#popup").html("Please indicate your year in school.")
+              popUpBottom()
+            } else if (!$('#restrictions').val()) {
+              $("#popup").html("Please indicate your dietary restrictions.")
+              popUpBottom()
+            } else if ($("#tshirt").val().length == 0) {
+              $("#popup").html("Please indicate your T-Shirt size.")
+              popUpBottom()
+            } else if (!document.getElementById('agree').checked) {
+              $("#popup").html("Please agree to the MLH Code of Conduct.")
+              popUpTop()
+            } else {
+              $("#popup").html("Saving Application...")
+              popUpBottom()
+                  setTimeout(function () {
+                      $('#save_app').trigger('submit.rails');
+                  }, 500);
+              
+            }
+          })
+
+        <% end %>
+
+
+
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-70811550-1', 'auto');
+          ga('send', 'pageview');
+
+        </script>
+
+    </body>
+</html>

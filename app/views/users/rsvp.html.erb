@@ -218,19 +218,27 @@
 
       <% if @rsvp %>
         <% if @rsvp['attending']%>
+          animation = 1.0
+
           document.getElementById("yes-attending").checked = true;
 
           $("#university").val("<%= @rsvp['university'].html_safe %>").trigger("change");
           $("#restrictions").val(<%= raw @rsvp['restrictions'] %>).trigger("change");
           $("#tshirt").val("<%= @rsvp['tshirt'].html_safe %>").trigger("change");
+        <% if !@rsvp['resume'].blank? %>
           $('#resume_prev').attr('src', "<%= asset_path('resume-uploaded.svg').to_s %>")
+        <% end %>
 
           $('#question-progress-wrap').show(function() {
             $('#q1').html('<i class="fa fa-check"></i> Attending');
+          <% if !@rsvp['university'].blank? %>
             $('#q2').html('<i class="fa fa-check"></i> Travel');
+          <% end %>
             $('#q3').html('<i class="fa fa-check"></i> Dietary Restrictions');
             $('#q4').html('<i class="fa fa-check"></i> T-Shirt Size');
+          <% if !@rsvp['resume'].blank? %>
             $('#q5').html('<i class="fa fa-check"></i> Resume');
+          <% end %>
             $("#qsubmit").slideDown('slow');
           });
           $('#travel-wrap').show();
@@ -242,15 +250,31 @@
 
           $("#tshirt-wrap").show();
           $("#upload-resume-wrap").show();
-          $("#save-rsvp").fadeIn('slow', function() {
-            line.animate(1.0);
-          });
-
+          
           yes_switch = 1;
+          
+        <% if !@rsvp['university'].blank? %>
           university_switch = 1;
+        <% else %>
+          animation -= 0.2
+          university_switch = 0;
+        <% end %>
           restriction_switch = 1;
           tshirt_switch = 1;
-          resume_switch = 1;
+          <% if !@rsvp['resume'].blank? %>
+            resume_switch = 1;
+          <% else %>
+            animation -= 0.2
+            resume_switch = 0;
+          <% end %>
+
+          if (animation == 1.0) {
+            $("#save-rsvp").fadeIn('slow', function() {
+              line.animate(animation);
+            });
+          } else {
+            line.animate(animation);
+          }
         <% else %>
           document.getElementById("not-attending").checked = true;
           yes_switch = 0 ;

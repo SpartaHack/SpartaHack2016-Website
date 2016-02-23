@@ -36,6 +36,9 @@ gem "font-awesome-rails"
 # word cloud for statistics
 gem "jqcloud-rails"
 
+# rest calls made easy
+gem "rest-client"
+
 gem "rsvg2"
 
 # Use ActiveModel has_secure_password

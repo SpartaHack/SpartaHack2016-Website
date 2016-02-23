@@ -18,6 +18,15 @@
           <div class="text">SCHEDULE</div>
         </a>
 
+        <a href="#mobile" class="anchorLink">
+          <div id="mobile-nav" class="svg-wrapper">
+            <svg height="60" width="103" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape mobile-nav" height="60" width="103" />
+            </svg>
+          </div>
+          <div class="text">MOBILE</div>
+        </a>
+
         <a href="#faq" class="anchorLink">
           <div id="faq-nav" class="svg-wrapper">
             <svg height="60" width="80" xmlns="http://www.w3.org/2000/svg">
@@ -53,15 +62,6 @@
           </div>
           <div class="text">CONTACT</div>
         </a>
-
-<!--         <a href="#mobile" class="anchorLink">
-          <div id="mobile-nav" class="svg-wrapper">
-            <svg height="60" width="103" xmlns="http://www.w3.org/2000/svg">
-              <rect class="shape mobile-nav" height="60" width="103" />
-            </svg>
-          </div>
-          <div class="text">MOBILE</div>
-        </a> -->
     </div>
 
     <div class="navbar-nav right">
@@ -134,13 +134,8 @@
           <div class="mobile-wrap">
             <div>
               <li><a href="#schedule" class="anchorLink">SCHEDULE</a></li>
-              <li><a href="#team" class="anchorLink">OUR TEAM</a></li>
-              <li><a href="#contact" class="anchorLink">CONTACT</a></li>
-            </div>
-            <div>
-              <li><a href="#faq" class="anchorLink">FAQ</a></li>
+              <li><a href="#mobile" class="anchorLink">MOBILE</a></li>
               <li><a href="#sponsors" class="anchorLink">SPONSORS</a></li>
-  <!--             <li><a href="#mobile" class="anchorLink">MOBILE</a></li> -->
 
           <% if cookies.signed[:spartaUser] %>
             <% if cookies.signed[:spartaUser][1] == "admin" %>
@@ -153,12 +148,23 @@
               <% end %>
             <% end %>
             </div>
-          </div>
-              <li class="mobile-tail"><a href="/logout">LOG OUT</a></li>
-          <% else %>
-              <li><a href="/login">LOGIN</a></li>
+            <div>
+              <li><a href="#faq" class="anchorLink">FAQ</a></li>
+              <li><a href="#contact" class="anchorLink">CONTACT</a></li>
+              <li><a href="#team" class="anchorLink">OUR TEAM</a></li>
+              <li><a href="/logout">LOG OUT</a></li>
             </div>
           </div>
+          <% else %>
+            </div>
+            <div>
+              <li><a href="#faq" class="anchorLink">FAQ</a></li>
+              <li><a href="#contact" class="anchorLink">CONTACT</a></li>
+              <li><a href="#team" class="anchorLink">OUR TEAM</a></li>
+            </div>
+          </div>
+              <li class="mobile-tail"><a href="/login">LOGIN</a></li>
+
           <% end %>
 
         </ul>

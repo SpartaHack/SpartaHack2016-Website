@@ -1,0 +1,86 @@
+<% if !@user.blank? %>
+	<% if @attendance == false %>
+			$("#popup-onsite").html("User already in attendance.");
+			$("#popup-wrapper-onsite").fadeIn("fast");
+		    setTimeout(function () { 
+		      location.reload();
+		    }, 2 * 1000);
+	<% elsif !@attendance.blank? %>
+			$("#popup-onsite").html("User now checked in.");
+			$("#popup-wrapper-onsite").fadeIn("fast");
+		    setTimeout(function () { 
+		      location.reload();
+		    }, 2 * 1000);
+	<% else %>
+		<% if !@application.blank? %>
+			$("#search_app").fadeOut("slow", function() {
+				$("#password").parent().remove();
+				$("#email").val("<%= @user['email'] %>")
+				$("#firstName").val("<%= @user['firstName'] %>")
+				$("#lastName").val("<%= @user['lastName'] %>")
+				$("#gender").val("<%= @application['gender'].html_safe %>").trigger("change")
+		        <% if @application['university'] %>
+		          $("#university").val("<%= @application['university'].html_safe %>").trigger("change")
+		        <% end %>
+		        <% if @application['major'] %>
+		          $("#major").val(<%= raw @application['major'].to_a.to_json %>).trigger("change")
+		        <% end %>
+		        <% if @application['birthday'] %>
+		          $("#birthday").val("<%= @application['birthday'].html_safe %>").trigger("change")
+		        <% end %>
+		        <% if @application['birthmonth'] %>
+		          $("#birthmonth").val("<%= @application['birthmonth'].html_safe %>").trigger("change")
+		        <% end %>
+		        <% if @application['birthyear'] %>
+		          $("#birthyear").val("<%= @application['birthyear'].html_safe %>").trigger("change")
+		        <% end %>
+		        <% if @application['gradeLevel'] %>
+		          $("#gradeLevel").val("<%= @application['gradeLevel'].html_safe %>").trigger("change")
+		        <% end %>
+		        <% if @application['universityStudent'] == "true" %>
+		          document.getElementById("university-student").checked = true;
+		        <% else %>
+		          document.getElementById("highschool-student").checked = true;
+		        <% end %>
+		        <% if @application['otherUniversityConfirm'].to_bool == true %>
+		          $('#other-university-confirm').prop('checked', true);
+		        <% else %>
+		          $('#other-university-confirm').prop('checked', false);
+		        <% end %>
+		        $("#linkedIn").val("<%= @application['linkedIn'] %>")
+		        $("#github").val("<%= @application['github'] %>")
+		        $("#devPost").val("<%= @application['devPost'] %>")
+		        $("#website").val("<%= @application['website'] %>")
+		        $("#restrictions-wrap").addClass('focus')
+		        $("#tshirt-wrap").addClass('focus')
+		        <% if @application['mlh'] %>
+		          document.getElementById("agree").checked = true;
+		        <% end %>
+
+				$("#save_app").fadeIn("fast")
+				$("#popup-onsite").html("Application found, please complete the RSVP questions.");
+				$("#popup-wrapper-onsite").fadeIn("fast");					
+
+			});
+		<% else %>
+			$("#search_app").fadeOut("slow", function() {
+				$("#password").parent().remove();
+				$("#email").val("<%= @email %>")
+				$("#firstName").val("<%= @user['firstName'] %>")
+				$("#lastName").val("<%= @user['lastName'] %>")
+				$("#save_app").fadeIn("fast");
+				$("#popup-onsite").html("User found, but there is no application or RSVP.");
+				$("#popup-wrapper-onsite").fadeIn("slow");	
+
+			});
+		<% end %>
+	<% end %>
+<% else %>
+	$("#search_app").fadeOut("slow", function() {
+		$("#email").val("<%= @email %>")
+		$("#save_app").fadeIn("fast");
+		$("#popup-onsite").html("User not found, please continue to register.");
+		$("#popup-wrapper-onsite").fadeIn("fast");	
+
+	});
+<% end %>

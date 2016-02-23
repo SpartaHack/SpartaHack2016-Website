@@ -14,6 +14,7 @@
         <meta property="og:site_name" content="SpartaHack" />
         <meta property="og:url" content="https://www.spartahack.com" />
         <meta property="og:locale" content="en_US" />
+        <%= csrf_meta_tag %>
         <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the checkin page for the admin dashboard." />
         <meta property="og:image" content="<%=image_url("facebook.png")%>" />
 
@@ -44,11 +45,11 @@
             </div>
 
             <div class="navbar-nav right">
-               <div id="login-wrapper">
+                  <div id="app-wrapper">
                     <a href="/admin">
-                        <div id="login-nav" class="svg-wrapper">
-                            <svg height="60" width="140" xmlns="http://www.w3.org/2000/svg">
-                                <rect class="shape login" height="60" width="140" />
+                        <div id="admin-nav" class="svg-wrapper">
+                            <svg height="60" width="188" xmlns="http://www.w3.org/2000/svg">
+                                <rect class="shape mobile-nav" height="60" width="188" />
                             </svg>
                         </div>
                         <div class="text">ADMIN DASHBOARD</div>
@@ -83,6 +84,10 @@
             </nav>
         </div>
 
+        <div id="popup-wrapper">
+            <div id="popup"></div>
+        </div>
+
 		<section id="checkin">
 			<div class="row" style="width: 640px !important">
                <div class="title-wrap">
@@ -95,6 +100,73 @@
                     <ul class="collector"></ul>
                 </div>
 			</div>
+
+            <div class="row" id="checkin-search-wrap" >
+                <div class="title-wrap">
+                    <h1 class="section-head">Search User</h1>
+                    <div class="hline"></div>
+                </div>
+                <%= form_tag("/", method: "post", id: "checkin-search") do %>
+                    <div class="inner_wrap">
+                        <%= label_tag 'email', 'Email', class: 'no-label' %>
+                        <%= email_field_tag 'email', nil, placeholder: 'EMAIL', required: false %>
+                    </div>
+                    <div class="inner_wrap">
+                        <%= label_tag 'barcode', 'Barcode ID', class: 'no-label' %>
+                        <%= text_field_tag 'barcode', nil, placeholder: 'Barcode ID', required: false %>
+                    </div>
+                    <div class="hvr-underline-from-center full">
+                        <%= submit_tag "Search", id: "search" %>
+                    </div>
+                <% end %>
+            </div>
+            <div class="row" id="attendee" style="display:none;">
+                <div class="title-wrap">
+                    <h1 class="section-head">Attendee</h1>
+                    <div class="hline"></div>
+                </div>
+
+                <table id="attendee-info-table">
+                  <colgroup>
+                     <col span="1" style="width: 250px;">
+                     <col span="1" style="width: 250px;">
+                  </colgroup>
+                  <tr>
+                    <td class="left-align">Name: </td>
+                    <td class="attendee-info" id="attendee-name"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Email: </td>
+                    <td class="attendee-info" id="attendee-email"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Education: </td>
+                    <td class="attendee-info" id="attendee-university"></td> 
+                  </tr>
+                  <tr class="spacer"></tr>
+                  <tr>
+                    <td class="left-align">T-Shirt Size: </td>
+                    <td class="attendee-info" id="attendee-tshirt"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Minor: </td>
+                    <td class="attendee-info alert" id="attendee-minor"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Dietary Restrictions: </td>
+                    <td class="attendee-info alert" id="attendee-diet"></td> 
+                  </tr>
+                  <tr>
+                    <td class="left-align">Other Dietary Restrictions: </td>
+                    <td class="attendee-info alert" id="attendee-other-diet"></td> 
+                  </tr>
+                </table>
+
+                <div class="hvr-underline-from-center full">
+                    <button id="attendee-checkin">Check-in Attendee</button>
+                </div>
+
+            </div>
         </section>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
@@ -105,4 +177,4 @@
         <%= javascript_include_tag "general" %>
         <%= javascript_include_tag "admin-checkin" %>
     </body>
-</html>
+</html>   

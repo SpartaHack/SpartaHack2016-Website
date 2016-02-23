@@ -3,8 +3,14 @@ class AdminController < ApplicationController
   require 'parse_config'
   require 'monkey_patch'
   require 'open-uri'
+  require 'net/http'
+  require 'net/https'
+  require 'rubygems'
+  require 'rest-client'
+  require 'json'
   require 'digest/sha1'
   require 'pp'
+
 
   def admin
     if cookies.signed[:spartaUser]
@@ -518,22 +524,325 @@ class AdminController < ApplicationController
   end
 
   def checkin
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship"
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
     render layout: false
   end
 
-  private
+  def checkin_search
+    if !checkin_search_params[:barcode].blank?
+      @attendance =  Parse::Query.new("Attendance").tap do |q|
+        q.eq("user", Parse::Pointer.new({
+          "className" => "_User",
+          "objectId"  => checkin_search_params[:barcode]
+        }))
+      end.get.first
 
-    def svg_to_png(svg)
-      scalar = 4
-      svg = RSVG::Handle.new_from_data(svg)
-      p svg.width
-      surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, svg.width * scalar, svg.height * scalar)
-      context = Cairo::Context.new(surface).scale(scalar,scalar)
-      context.render_rsvg_handle(svg)
-      b = StringIO.new
-      surface.write_to_png(b)
-      return b.string
+      if @attendance.blank?
+        @user = Parse::Query.new("RSVP").tap do |q|
+          q.eq("user", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => checkin_search_params[:barcode]
+          }))
+          q.include = "application,user"
+        end.get.first
+
+        curr_bday = Time.zone.local(@user['application']['birthyear'].to_i, Date::MONTHNAMES.index(@user['application']['birthmonth']), @user['application']['birthday'].to_i, 0, 0)
+        if age(curr_bday, Date.new(2016, 2, 26)) < 18
+          @minor = true
+        else
+          @minor = false
+        end
+
+      end
+
+    elsif !checkin_search_params[:email].blank?
+      @user_object = Parse::Query.new("_User").tap do |q|
+        q.eq("email", checkin_search_params[:email])
+      end.get.first
+
+      if !@user_object.blank?
+        @attendance =  Parse::Query.new("Attendance").tap do |q|
+          q.eq("user", Parse::Pointer.new({
+            "className" => "_User",
+            "objectId"  => @user_object["objectId"]
+          }))
+        end.get.first
+
+        if @attendance.blank?
+          @user = Parse::Query.new("RSVP").tap do |q|
+            q.eq("user", Parse::Pointer.new({
+              "className" => "_User",
+              "objectId"  => @user_object["objectId"]
+            }))
+            q.include = "application,user"
+          end.get.first
+
+          curr_bday = Time.zone.local(@user['application']['birthyear'].to_i, Date::MONTHNAMES.index(@user['application']['birthmonth']), @user['application']['birthday'].to_i, 0, 0)
+          if age(curr_bday, Date.new(2016, 2, 26)) < 18
+            @minor = true
+          else
+            @minor = false
+          end
+        end
+
+      end
+
     end
+
+  end
+
+  def checkin_confirm
+      @attendance =  Parse::Query.new("Attendance").tap do |q|
+        q.eq("user", Parse::Pointer.new({
+          "className" => "_User",
+          "objectId"  => checkin_confirm_params[:user]
+        }))
+      end.get.first
+
+      if @attendance.blank?
+        @attendance = Parse::Object.new("Attendance")
+        rsvp =  Parse::Query.new("RSVP").tap do |q|
+                                q.eq("user", Parse::Pointer.new({
+                                  "className" => "_User",
+                                  "objectId"  => checkin_confirm_params[:user]
+                                }))
+                                q.include = "application, user"
+                              end.get.first
+
+        @attendance['rsvp'] = rsvp.pointer
+        @attendance['user'] = rsvp["user"].pointer
+        @attendance['application'] = rsvp["application"].pointer
+        @attendance["onsiteRegistration"] = false
+        @attendance.save
+
+      end
+  end
+
+  def onsite
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship"
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
+    render layout: false
+  end
+
+  def onsite_search
+    @email = onsite_search_params["email-search"]
+
+    @user = Parse::Query.new("_User").tap do |q|
+      q.eq("email", onsite_search_params["email-search"] )
+    end.get.first
+
+    if !@user.blank?
+      @rsvp = Parse::Query.new("RSVP").tap do |q|
+                q.eq("user", @user.pointer)
+                q.include = "application"
+              end.get.first
+      if !@rsvp.blank?
+        @attendance = Parse::Query.new("Attendance").tap do |q|
+                  q.eq("user", @user.pointer)
+                end.get.first
+        if @attendance.blank?
+          @attendance = Parse::Object.new("Attendance")
+          @attendance['rsvp'] = @rsvp.pointer
+          @attendance['user'] = @user.pointer
+          @attendance['application'] = @rsvp["application"].pointer
+          @attendance["onsiteRegistration"] = false
+          @attendance.save
+        else 
+          @attendance = false
+        end
+      else
+        @application = Parse::Query.new("Application").tap do |q|
+                  q.eq("user", @user.pointer)
+                end.get.first
+      end
+
+    end
+  end
+
+  def onsite_submit
+    if user_app_params['email'].blank? || user_app_params["firstName"].blank? || user_app_params["lastName"].blank? ||
+      user_app_params["gender"].blank? || user_app_params["birthday"].blank? || user_app_params["birthmonth"].blank? ||
+      user_app_params["birthyear"].blank? || user_app_params["universityStudent"].blank? || user_app_params["mlh"].blank?
+        
+      flash[:popup] = "You must fill in all the required fields."
+      flash[:params] = user_app_params
+      redirect_to '/admin/users/onsite-registration' and return
+    elsif params.has_key?(:password) && params.has_key?(:password_confirmation) && user_app_params['password'] != user_app_params['password_confirmation']
+      flash[:popup] = "Passwords do not match"
+      flash[:params] = user_app_params
+      redirect_to '/admin/users/onsite-registration' and return
+
+    else
+      if user_app_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+        flash[:popup] = "You must use a valid email."
+        flash[:params] = user_app_params
+        redirect_to '/admin/users/onsite-registration' and return
+      end
+      begin
+        if params.has_key?(:password)
+          apply = Parse::User.new({
+            :username => user_app_params['email'].downcase,
+            :firstName => user_app_params["firstName"].capitalize,
+            :lastName => user_app_params["lastName"].capitalize,
+            :email => user_app_params['email'].downcase,
+            :password => user_app_params['password'],
+            :role => "attendee"
+          })
+          @user = apply.save
+        else
+          @user = Parse::Query.new("_User").tap do |q|
+            q.eq("email", user_app_params['email'].downcase )
+          end.get.first
+
+          jdata = JSON.generate({"firstName" => user_app_params["firstName"].capitalize, "lastName" => user_app_params["lastName"].capitalize})
+          RestClient.put 'https://api.parse.com/1/users/'+@user["objectId"],
+            jdata,
+            { :content_type => :json,
+              "X-Parse-Application-Id" => ENV["PARSE_APP_ID"],
+              "X-Parse-Master-Key" => ENV["PARSE_APP_M"]
+            } 
+        end
+      rescue Parse::ParseProtocolError => e
+        if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
+          flash[:popup] = "Email is taken"
+          flash[:params] = user_app_params
+          redirect_to '/admin/users/onsite-registration' and return
+        else
+          redirect_to "/outage" and return
+        end
+
+      end
+    end
+
+    begin
+      fields = ["gender", "birthday", "birthmonth", "birthyear",
+                                "major", "gradeLevel", "hackathons",
+                                "github", "linkedIn", "website", "devPost",
+                                "universityStudent", "mlh"]
+
+      application = Parse::Query.new("Application").tap do |q|
+                      q.eq("user", Parse::Pointer.new({
+                        "className" => "_User",
+                        "objectId"  => @user["objectId"]
+                      }))
+                    end.get.first
+      if !application
+        application = Parse::Object.new("Application")
+      end
+
+      fields.each do |field|
+        if field == "universityStudent" && user_app_params["universityStudent"].to_bool == true
+          application["universityStudent"] = "true"
+          if user_app_params["otherUniversityConfirm"].to_bool == true
+            application["otherUniversityConfirm"] = "true"
+            application["otherUniversity"] = user_app_params["otherUniversity"]
+            application["university"] = nil
+          else
+            application["otherUniversityConfirm"] = "false"
+            application["university"] = user_app_params["university"]
+            application["otherUniversity"] = nil
+          end
+        elsif field == "universityStudent" && user_app_params["universityStudent"].to_bool == false
+          application["universityStudent"] = "false"
+          application["otherUniversityConfirm"] = "false"
+          application["university"] = nil
+          application["otherUniversity"] = nil
+        else
+          application[field] = user_app_params[field]
+        end
+
+      end
+      response = application.save
+
+      application = Parse::Query.new("Application").eq("objectId", response["objectId"]).get.first
+      application["user"] = @user.pointer
+      application["exception"] = true
+      application["status"] = "Accepted"
+      application["emailStatus"] = true
+      application.save
+
+      @application = application
+
+    rescue Parse::ParseProtocolError => e
+      flash[:popup] =  e.message
+      flash[:params] = user_app_params
+      redirect_to "/outage" and return
+    end
+
+    begin
+      fields = ["university", "restrictions", "otherRestrictions", "tshirt"]
+
+      @rsvp = Parse::Query.new("RSVP").tap do |q|
+                      q.eq("user", Parse::Pointer.new({
+                        "className" => "_User",
+                        "objectId"  => @user["objectId"]
+                      }))
+            end.get.first
+
+      if !@rsvp
+        @rsvp = Parse::Object.new("RSVP")
+      end
+
+      fields.each do |field|
+        @rsvp[field] = user_app_params[field]
+      end
+      @rsvp['attending'] = true
+
+      response = @rsvp.save
+
+      @rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
+      @rsvp["user"] = @user.pointer
+
+      if @rsvp["application"].blank?
+        @rsvp["application"] = @application.pointer
+      end
+
+      @rsvp.save
+
+      @attendance = Parse::Object.new("Attendance")
+      @attendance['rsvp'] = @rsvp.pointer
+      @attendance['user'] = @user.pointer
+      @attendance['application'] = @application.pointer
+      @attendance["onsiteRegistration"] = true
+      @attendance.save
+
+
+      curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth']), @application['birthday'].to_i, 0, 0)
+      if age(curr_bday, Date.new(2016, 2, 26)) < 18
+        flash[:popup] = "We've noticed you're a minor, there are a few things we need from you before we can let you in."
+        flash[:sub] = "Alse, you can upload a resume on your dashboard, if you'd like."
+      else
+        flash[:popup] = "Thanks for registering, you can upload a resume on your dashboard."
+        flash[:sub] = nil
+      end
+
+      redirect_to '/admin/users/onsite-registration' and return
+    rescue Parse::ParseProtocolError => e
+      flash[:error] =  e.message
+      puts e.message
+      redirect_to '/rsvp' and return
+    end
+
+  end
+
+  private
 
     def add_sponsor_params
       params.permit(:picture, :name, :url, :level)
@@ -561,6 +870,38 @@ class AdminController < ApplicationController
 
     def internal_notif_params
       params.permit(:"announcement", :role)
+    end
+
+    def checkin_search_params
+      params.permit(:barcode, :email)
+    end   
+
+    def checkin_confirm_params
+      params.permit(:user)
+    end  
+
+    def onsite_search_params
+      params.permit(:"email-search")
+    end  
+
+    def user_app_params
+      params.permit(:email, :password, :password_confirmation, :firstName, :lastName, :gender, :birthday,
+                                  :birthmonth, :birthyear, :university, :otherUniversityConfirm,
+                                  :otherUniversity, {:major => []}, :gradeLevel,
+                                  {:hackathons => []}, :github, :linkedIn,
+                                  :website, :devPost, :universityStudent, {:restrictions => []}, :otherRestrictions, :tshirt, :mlh)
+    end 
+
+    def svg_to_png(svg)
+      scalar = 4
+      svg = RSVG::Handle.new_from_data(svg)
+      p svg.width
+      surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, svg.width * scalar, svg.height * scalar)
+      context = Cairo::Context.new(surface).scale(scalar,scalar)
+      context.render_rsvg_handle(svg)
+      b = StringIO.new
+      surface.write_to_png(b)
+      return b.string
     end
 
     def get_empty_app_users
@@ -631,6 +972,11 @@ class AdminController < ApplicationController
 
       return users
 
+    end
+
+    def age(dob,diq)
+      diq = diq.to_date
+      diq.year - dob.year - ((diq.month > dob.month || (diq.month == dob.month && diq.day >= dob.day)) ? 0 : 1)
     end
 
 end
