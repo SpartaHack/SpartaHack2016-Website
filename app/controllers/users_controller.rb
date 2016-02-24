@@ -372,17 +372,18 @@ class UsersController < ApplicationController
         if !@application
           redirect_to '/application' and return
         else
-          if @application["status"] != "Accepted" || @application["status"] == "Accepted" && @application["exception"] != true  && @application["university"] != "USA: Michigan: Michigan State University"
+
+					@rsvp = Parse::Query.new("RSVP").tap do |q|
+	                        q.eq("user", Parse::Pointer.new({
+	                          "className" => "_User",
+	                          "objectId"  => cookies.signed[:spartaUser][0]
+	                        }))
+	                end.get.first
+
+          if @application["status"] != "Accepted" || @application["status"] == "Accepted" && @application["exception"] != true  && @rsvp.blank? &&  @application["university"] != "USA: Michigan: Michigan State University"
             redirect_to '/dashboard' and return
           end
         end
-
-        @rsvp = Parse::Query.new("RSVP").tap do |q|
-                        q.eq("user", Parse::Pointer.new({
-                          "className" => "_User",
-                          "objectId"  => cookies.signed[:spartaUser][0]
-                        }))
-                end.get.first
 
         render layout: false
       rescue
