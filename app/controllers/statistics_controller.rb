@@ -88,6 +88,8 @@ class StatisticsController < ApplicationController
       if !attendee['rsvp'].blank?
         attendee["restrictions"] = attendee["rsvp"]["restrictions"]
         attendee["tshirt"] = attendee["rsvp"]["tshirt"]
+        attendee["university"] = attendee["rsvp"]["university"]
+        attendee["whyAttend"] = attendee["rsvp"]["whyAttend"]
       end
 
       @attending_applications << attendee["application"]

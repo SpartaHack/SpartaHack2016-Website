@@ -414,7 +414,7 @@ form {
   }
 
   input:checked + label {
-    background: rgb(0, 237, 171);
+    background: rgba(0, 237, 171, 0.5);
     font-weight: 500;
     color: white;
   }
