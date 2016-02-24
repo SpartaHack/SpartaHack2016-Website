@@ -42,16 +42,12 @@ class StatisticsController < ApplicationController
     # RSVP setup
     # Gets all rsvps
     @rsvps = Parse::Query.new("RSVP").tap do |q|
-      # q.order_by = "createdAt"
-      # q.order    = :descending
       q.include = "user,application"
       q.limit = 1000
     end.get
 
     @rsvps += Parse::Query.new("RSVP").tap do |q|
       q.skip = 1000
-      # q.order_by = "createdAt"
-      # q.order    = :descending
       q.include = "user,application"
       q.limit = 1000
     end.get
@@ -64,7 +60,6 @@ class StatisticsController < ApplicationController
       @rsvps_total+=1
       if rsvp["attending"]==true
         @rsvp_attending_count += 1
-        pp rsvp
         rsvp["application"]["user"] = rsvp["user"]
         @rsvpd_applications << rsvp["application"]
       end
@@ -73,6 +68,32 @@ class StatisticsController < ApplicationController
     # Calculate stats for rsvps
     @actual_rsvps = @rsvps
     @rsvps = get_stats(@rsvpd_applications, @rsvps, "rsvp")
+
+
+
+    @attending_total = 0
+    @attending_applications = []
+    # Attending stats setup
+    # Gets all attendees
+    @attendees = Parse::Query.new("Attendance").tap do |q|
+      q.include = "user,rsvp,application"
+      q.limit = 1000
+    end.get
+
+    @attendees.each do |attendee|
+      @attending_total+=1
+      attendee["application"]["user"] = attendee["user"]
+
+      # setup the rsvp specific info
+      if !attendee['rsvp'].blank?
+        attendee["restrictions"] = attendee["rsvp"]["restrictions"]
+        attendee["tshirt"] = attendee["rsvp"]["tshirt"]
+      end
+
+      @attending_applications << attendee["application"]
+    end
+    @actual_attendees = @attendees
+    @attendees = get_stats(@attending_applications, @attendees, "attending")
 
     render layout: false
   end
@@ -219,7 +240,7 @@ class StatisticsController < ApplicationController
         end
       end
 
-      if flag != "rsvp"
+      if flag == ""
         # Applications per day
         current_day = ( Time.parse(app['createdAt']) - 9*3600).strftime("%d-%b-%y")
         if !@submission_dates[ current_day ].blank?
@@ -232,9 +253,14 @@ class StatisticsController < ApplicationController
     end
 
     # Loop through actual RSVPs
-    if flag == "rsvp"
+    if flag != ""
       rsvps.each do |rsvp|
-        current_day = ( Time.parse(rsvp['createdAt']) - 9*3600).strftime("%d-%b-%y")
+        if flag == "attending"
+          current_day = ( Time.parse(rsvp['createdAt']) - 9*3600).strftime("%d-%b-%y-%H")
+        else
+          current_day = ( Time.parse(rsvp['createdAt']) - 9*3600).strftime("%d-%b-%y")
+        end
+
         if !@submission_dates[ current_day ].blank?
           @submission_dates[ current_day ] += 1
         else
@@ -242,7 +268,7 @@ class StatisticsController < ApplicationController
         end
 
         # Closest School (rsvp only)
-        if flag == "rsvp"
+        if flag != ""
           if !rsvp['university'].blank?
             if @closest_school[ rsvp['university'] ]
               @closest_school[ rsvp['university'] ] += 1
@@ -267,6 +293,8 @@ class StatisticsController < ApplicationController
 
           # T-shirt sizes
           if !rsvp['tshirt'].blank?
+            pp "not blank"
+            pp flag
             if @tshirt_count[ rsvp['tshirt'] ]
               @tshirt_count[ rsvp['tshirt'] ] += 1
             else
