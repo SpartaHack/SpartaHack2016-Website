@@ -372,7 +372,7 @@ class UsersController < ApplicationController
         if !@application
           redirect_to '/application' and return
         else
-          if @application["status"] != "Accepted" || @application["status"] == "Accepted" && @application["exception"] != true
+          if @application["status"] != "Accepted" || @application["status"] == "Accepted" && @application["exception"] != true  && @application["university"] != "USA: Michigan: Michigan State University"
             redirect_to '/dashboard' and return
           end
         end

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'live' => 'live#live'
+
   get 'api/school'
 
   get 'javascript/confirm'
