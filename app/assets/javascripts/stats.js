@@ -38,9 +38,12 @@ HorizontalBarGraph.prototype.draw = function() {
 };
 
 // RSVP
-$('.ios-switch').click(function() { 
-    var checked = $('.ios-switch').prop('checked');
-    if (checked) {
+$('input').click(function() { 
+  var application_checked = document.getElementById('application').checked;
+  var rsvp_checked = document.getElementById('rsvp').checked;
+  var attending_checked = document.getElementById('attending').checked;
+
+    if (rsvp_checked) {
       document.querySelector('#rsvp-stats').style.visibility = "visible";
       document.querySelector('#rsvp-stats').style.position = "inherit";
       document.querySelector('#rsvp-stats').style.opacity = "1";
@@ -48,8 +51,12 @@ $('.ios-switch').click(function() {
       document.querySelector('#app-stats').style.visibility = "hidden";
       document.querySelector('#app-stats').style.position = "fixed";
       document.querySelector('#app-stats').style.opacity = "0";
+
+      document.querySelector('#attending-stats').style.visibility = "hidden";
+      document.querySelector('#attending-stats').style.position = "fixed";
+      document.querySelector('#attending-stats').style.opacity = "0";
       }
-    else {
+    if (application_checked) {
       document.querySelector('#rsvp-stats').style.position = "fixed";
       document.querySelector('#rsvp-stats').style.visibility = "hidden";
       document.querySelector('#rsvp-stats').style.opacity = "0";
@@ -57,6 +64,25 @@ $('.ios-switch').click(function() {
       document.querySelector('#app-stats').style.position = "inherit";
       document.querySelector('#app-stats').style.visibility = "visible";
       document.querySelector('#app-stats').style.opacity = "1";
+
+      document.querySelector('#attending-stats').style.position = "fixed";
+      document.querySelector('#attending-stats').style.visibility = "hidden";
+      document.querySelector('#attending-stats').style.opacity = "0";
+    }
+    if (attending_checked) {
+      document.querySelector('#rsvp-stats').style.position = "fixed";
+      document.querySelector('#rsvp-stats').style.visibility = "hidden";
+      document.querySelector('#rsvp-stats').style.opacity = "0";
+
+      document.querySelector('#app-stats').style.position = "fixed";
+      document.querySelector('#app-stats').style.visibility = "hidden";
+      document.querySelector('#app-stats').style.opacity = "0";
+
+      document.querySelector('#attending-stats').style.position = "inherit";
+      document.querySelector('#attending-stats').style.visibility = "visible";
+      document.querySelector('#attending-stats').style.opacity = "1";
+
+
     }
 });
 
