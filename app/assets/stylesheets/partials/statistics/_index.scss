@@ -149,6 +149,9 @@
   .tablefooter {
     text-align: right;
     font-size: 75%;
+    strong {
+      line-height: 1.4;
+    }
   }
 
   .minorhighlight {
