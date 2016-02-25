@@ -258,9 +258,9 @@ class StatisticsController < ApplicationController
     if flag != ""
       rsvps.each do |rsvp|
         if flag == "attending"
-          current_day = ( Time.parse(rsvp['createdAt']) - 9*3600).strftime("%d-%b-%y-%H")
+          current_day = ( Time.parse(rsvp['createdAt'])).strftime("%d-%b-%y-%H")
         else
-          current_day = ( Time.parse(rsvp['createdAt']) - 9*3600).strftime("%d-%b-%y")
+          current_day = ( Time.parse(rsvp['createdAt'])).strftime("%d-%b-%y")
         end
 
         if !@submission_dates[ current_day ].blank?
