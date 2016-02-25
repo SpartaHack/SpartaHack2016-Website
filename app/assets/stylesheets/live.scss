@@ -1,3 +1,27 @@
-// Place all the styles related to the Live controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+//Design Variables
+@import "font-awesome";
+@import 'partials/colorScheme';
+@import 'partials/fonts';
+
+@import 'partials/index';
+
+//Modules
+@import 'partials/fontfixes';
+@import 'partials/media-grid';
+@import 'partials/animations';
+
+@import 'partials/live/navbar';
+@import 'partials/live/index';
+@import 'partials/pages/subscribe';
+@import 'partials/pages/winners2015';
+@import 'partials/pages/contact';
+
+
+
+@import 'partials/pages/FAQ';
+@import 'partials/pages/mobile';
+@import 'partials/pages/schedule';
+@import 'partials/pages/judges';
+@import 'partials/pages/team';
+@import 'partials/pages/sponsors';
+@import 'partials/footer';

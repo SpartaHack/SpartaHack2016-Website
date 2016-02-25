@@ -1,12 +1,8 @@
 console.log("Ha you're funny, looking under the hood")
 
-if (navigator.appVersion.indexOf("Win")!=-1) {
-  $('#hero').find('a').addClass( "windowsCenter" );
-}
-
 var last_p = 1;
 
-$('#faq article').click(function() {
+$('article').click(function() {
   current = $(this);
   $("article").removeClass("active-q");
   $(".a-hline").removeClass("hide");
@@ -36,6 +32,39 @@ $('#questions').on('scroll', function() {
     }
 })
 
+totalHeight = 0
+$("#questions").children().each(function(){
+    totalHeight = totalHeight + $(this).outerHeight(true);
+});
+
+if (totalHeight < $("#questions").height()) {
+  $(".fa-angle-up").fadeOut();
+  $(".fa-angle-down").fadeOut();
+} else {
+  $(".fa-angle-up").fadeOut();
+}
+
+$('#wrap-announce').on('scroll', function() {
+    if ( $(this).scrollLeft() == 0) {
+      $(".fa-chevron-left").fadeOut();
+    } else if ($(this).scrollLeft() > ($(this).width() - $(this).width())) {
+      $(".fa-chevron-left").fadeIn();
+    }
+
+    if ( $(this).scrollLeft() == $(this)[0].scrollWidth - $(this).width() ) {
+      $(".fa-chevron-right").fadeOut();
+    } else{
+      $(".fa-chevron-right").fadeIn();
+    }
+})
+
+$('.fa-chevron-left').click( function(){
+  $('#wrap-announce').animate({scrollLeft: 0}, 800);
+});
+
+$('.fa-chevron-right').click( function(){
+  $('#wrap-announce').animate({scrollLeft: $('#wrap-announce').scrollLeft() + 480}, 800);
+});
 
 $('.anchorLink').click(function(){
   $('html, body').animate({
@@ -43,11 +72,6 @@ $('.anchorLink').click(function(){
   }, 500);
   return false;
 });
-
-var desktop_menu = [
-  {"scroll_to": "#home-nav", "elem": $("#hero")},
-  {"scroll_to": "#schedule-nav", "elem": $("#schedule")},
-];
 
 var current = "#home-nav";
 
@@ -74,27 +98,6 @@ if ($(window).width() < 960) {
     }
   });
 }
-
-
-$(window).scroll(function() {
-  if ($(window).width() >= 960) {
-    var halfHeight = $(this).scrollTop() + ($(this).height() / 1.7);
-
-    for(var i = 0; i < desktop_menu.length; i++) {
-      var topOffset = desktop_menu[i]["elem"].offset().top;
-      var height = desktop_menu[i]["elem"].height();
-
-      if(halfHeight >= topOffset && halfHeight <= (topOffset + height) && current != desktop_menu[i]["scroll_to"]) {
-        var scroll_to = desktop_menu[i]["scroll_to"];
-        // change the selected menu element
-        $(".svg-wrapper").removeClass("active");
-        $(scroll_to).addClass("active");
-        current = scroll_to;
-      }
-    }
-
-  }
-});
 
 $(function() {
     var pull        = $('#pull');

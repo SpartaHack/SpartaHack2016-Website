@@ -23,7 +23,7 @@
         <title>SpartaHack</title>
 
         <%= favicon_link_tag 'favicon.png' %>
-        <%= stylesheet_link_tag "pages" %>
+        <%= stylesheet_link_tag "live" %>
 
 
 
@@ -33,17 +33,14 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <%= render partial: "pages/index_navbar" %>
+        <%= render partial: "live/live_navbar" %>
 
         <div class="wrap-main">
 
 
-          <%= render partial: "pages/index_head" %>
-          <%= render partial: "pages/index_schedule" %>
+          <%= render partial: "live/live_head" %>
 
        </div>
-
-       <%= render partial: "pages/index_footer" %>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
@@ -94,7 +91,7 @@
             initializeClock('clockdiv', deadline);
 
 
-          });
+          });  
         <% end %>
 
         <%= javascript_include_tag "live.js" %>
