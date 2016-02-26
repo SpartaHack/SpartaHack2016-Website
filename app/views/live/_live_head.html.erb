@@ -178,7 +178,7 @@
                 <div class="title"><%= prize[0] %></div>
                 <div class="sponsor"><%= prize[2].html_safe %></div>
               </div>
-              <div class="description"><%= prize[1].html_safe %></div>
+              <div class="description"><%= prize[1].gsub("\n", '<br/>').html_safe %></div>
             </div>
           </div>
         <% end %>
