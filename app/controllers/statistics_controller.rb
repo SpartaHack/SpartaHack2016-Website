@@ -60,8 +60,12 @@ class StatisticsController < ApplicationController
       @rsvps_total+=1
       if rsvp["attending"]==true
         @rsvp_attending_count += 1
-        rsvp["application"]["user"] = rsvp["user"]
-        @rsvpd_applications << rsvp["application"]
+        pp "what is going on?"
+        pp rsvp
+        if !rsvp["application"].blank?
+          rsvp["application"]["user"] = rsvp["user"]
+          @rsvpd_applications << rsvp["application"]
+        end
       end
     end
 
@@ -82,17 +86,19 @@ class StatisticsController < ApplicationController
 
     @attendees.each do |attendee|
       @attending_total+=1
-      attendee["application"]["user"] = attendee["user"]
+      if !attendee["application"].blank?
+        attendee["application"]["user"] = attendee["user"]
 
-      # setup the rsvp specific info
-      if !attendee['rsvp'].blank?
-        attendee["restrictions"] = attendee["rsvp"]["restrictions"]
-        attendee["tshirt"] = attendee["rsvp"]["tshirt"]
-        attendee["university"] = attendee["rsvp"]["university"]
-        attendee["whyAttend"] = attendee["rsvp"]["whyAttend"]
+        # setup the rsvp specific info
+        if !attendee['rsvp'].blank?
+          attendee["restrictions"] = attendee["rsvp"]["restrictions"]
+          attendee["tshirt"] = attendee["rsvp"]["tshirt"]
+          attendee["university"] = attendee["rsvp"]["university"]
+          attendee["whyAttend"] = attendee["rsvp"]["whyAttend"]
+        end
+
+        @attending_applications << attendee["application"]
       end
-
-      @attending_applications << attendee["application"]
     end
     @actual_attendees = @attendees
     @attendees = get_stats(@attending_applications, @attendees, "attending")
@@ -258,7 +264,7 @@ class StatisticsController < ApplicationController
     if flag != ""
       rsvps.each do |rsvp|
         if flag == "attending"
-          current_day = ( Time.parse(rsvp['createdAt'])).strftime("%d-%b-%y-%H")
+          current_day = (Time.parse(rsvp['createdAt']) - 9*3600).strftime("%d-%b-%y-%H")
         else
           current_day = ( Time.parse(rsvp['createdAt'])).strftime("%d-%b-%y")
         end
