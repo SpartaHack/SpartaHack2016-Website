@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="add-margin-top">
-                  <select id="company" name="company[]">
+                  <select id="company" name="company">
                     <option></option>
                   <% @companies.each do |company| %>
                     <option value="<%= company['objectId'] %>"><%= company['name'] %></option>

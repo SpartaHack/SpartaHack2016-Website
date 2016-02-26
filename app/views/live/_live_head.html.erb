@@ -155,6 +155,7 @@
               <div class="title-wrap">
                 <div class="title"><%= resource[0] %></div>
                 <div class="sponsor">
+                  <% pp resource %>
                   <a href="<%= resource[2]["url"] %>" target="_blank">
                     <%= image_tag resource[2]["img"].url.sub('http://', 'https://s3.amazonaws.com/'), alt: resource[2]["name"], :class => "logo-sponsor" %>
                   </a>

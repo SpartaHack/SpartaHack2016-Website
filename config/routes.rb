@@ -54,6 +54,8 @@ Rails.application.routes.draw do
   post 'admin/users/generate' => 'admin#generate_code'
   get 'admin/internal/register' => 'admin#internal_register'
   post 'admin/internal/register' => 'admin#internal_register_submit'
+  get 'admin/judging/register' => 'admin#judging_register'
+  post 'admin/judging/register' => 'admin#judging_register_confirm'
   post 'addsponsor' => 'admin#addsponsor'
   post 'viewsponsor' => 'admin#viewsponsor'
   post 'editsponsor' => 'admin#editsponsor'

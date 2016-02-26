@@ -848,64 +848,117 @@ class AdminController < ApplicationController
   end
 
   def internal_register_submit
-    # if internal_register_params['email'].blank? || internal_register_params["firstName"].blank? || internal_register_params["lastName"].blank? ||
-    #   internal_register_params["company"].blank? || internal_register_params["restrictions"].blank? || internal_register_params["tshirt"].blank? ||
-    #   internal_register_params["phone"].blank?
-    #
-    #   flash[:popup] = "You must fill in all the required fields."
-    #   flash[:params] = internal_register_params
-    #   redirect_to '/admin/internal/register' and return
-    # elsif params.has_key?(:password) && params.has_key?(:password_confirmation) && internal_register_params['password'] != internal_register_params['password_confirmation']
-    #   flash[:popup] = "Passwords do not match"
-    #   flash[:params] = internal_register_params
-    #   redirect_to '/admin/internal/register' and return
-    #
-    # else
-    #   if internal_register_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-    #     flash[:popup] = "You must use a valid email."
-    #     flash[:params] = internal_register_params
-    #     redirect_to '/admin/internal/register' and return
-    #   end
-    #   begin
-    #     if params.has_key?(:password)
-    #       internal_register_params["company"] == "volunteer" ? role = "volunteer" : role = "sponsor"
-    #
-    #       apply = Parse::User.new({
-    #         :username => internal_register_params['email'].downcase,
-    #         :firstName => internal_register_params["firstName"].capitalize,
-    #         :lastName => internal_register_params["lastName"].capitalize,
-    #         :email => internal_register_params['email'].downcase,
-    #         :password => internal_register_params['password'],
-    #         :role => role
-    #       })
-    #       @user = apply.save
-    #     else
-    #       @user = Parse::Query.new("_User").tap do |q|
-    #         q.eq("email", internal_register_params['email'].downcase )
-    #       end.get.first
-    #
-    #       jdata = JSON.generate({"firstName" => internal_register_params["firstName"].capitalize, "lastName" => internal_register_params["lastName"].capitalize})
-    #       RestClient.put 'https://api.parse.com/1/users/'+@user["objectId"],
-    #         jdata,
-    #         { :content_type => :json,
-    #           "X-Parse-Application-Id" => ENV["PARSE_APP_ID"],
-    #           "X-Parse-Master-Key" => ENV["PARSE_APP_M"]
-    #         }
-    #     end
-    #   rescue Parse::ParseProtocolError => e
-    #     if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
-    #       flash[:popup] = "Email is taken"
-    #       flash[:params] = internal_register_params
-    #       redirect_to '/admin/internal/register' and return
-    #     else
-    #       redirect_to "/outage" and return
-    #     end
-    #
-    #   end
-    # end
+    if internal_register_params['email'].blank? || internal_register_params["firstName"].blank? || internal_register_params["lastName"].blank? ||
+      internal_register_params["company"].blank? || internal_register_params["restrictions"].blank? || internal_register_params["tshirt"].blank? ||
+      internal_register_params["phone"].blank?
+
+      flash[:popup] = "You must fill in all the required fields."
+      flash[:params] = internal_register_params
+      redirect_to '/admin/internal/register' and return
+    elsif params.has_key?(:password) && params.has_key?(:password_confirmation) && internal_register_params['password'] != internal_register_params['password_confirmation']
+      flash[:popup] = "Passwords do not match"
+      flash[:params] = internal_register_params
+      redirect_to '/admin/internal/register' and return
+
+    else
+      if internal_register_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+        flash[:popup] = "You must use a valid email."
+        flash[:params] = internal_register_params
+        redirect_to '/admin/internal/register' and return
+      end
+      begin
+        if params.has_key?(:password)
+          internal_register_params["company"] == "volunteer" ? role = "volunteer" : role = "sponsor"
+
+          apply = Parse::User.new({
+            :username => internal_register_params['email'].downcase,
+            :firstName => internal_register_params["firstName"].capitalize,
+            :lastName => internal_register_params["lastName"].capitalize,
+            :email => internal_register_params['email'].downcase,
+            :password => internal_register_params['password'],
+            :role => role
+          })
+          @user = apply.save
+        else
+          @user = Parse::Query.new("_User").tap do |q|
+            q.eq("email", internal_register_params['email'].downcase )
+          end.get.first
+
+          jdata = JSON.generate({"firstName" => internal_register_params["firstName"].capitalize, "lastName" => internal_register_params["lastName"].capitalize})
+          RestClient.put 'https://api.parse.com/1/users/'+@user["objectId"],
+            jdata,
+            { :content_type => :json,
+              "X-Parse-Application-Id" => ENV["PARSE_APP_ID"],
+              "X-Parse-Master-Key" => ENV["PARSE_APP_M"]
+            }
+        end
+      rescue Parse::ParseProtocolError => e
+        if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
+          flash[:popup] = "Email is taken"
+          flash[:params] = internal_register_params
+          redirect_to '/admin/internal/register' and return
+        else
+          redirect_to "/outage" and return
+        end
+
+      end
+    end
+
+    @internal = Parse::Object.new("InternalRegistrations")
+    @internal["phone"] = internal_register_params["phone"]
+    @internal["restrictions"] = internal_register_params["restrictions"]
+    @internal["otherRestrictions"] = internal_register_params["otherRestrictions"]
+    @internal["tshirt"] = internal_register_params["tshirt"]
+    @internal["user"] = @user.pointer
+    if internal_register_params["company"] != "none" || internal_register_params["company"] != "volunteer"
+      company = Parse::Query.new("Company").tap do |q|
+                              q.eq("objectId", internal_register_params["company"])
+                            end.get.first
+      @internal["company"] = company.pointer
+    end
 
 
+    @internal.save
+    redirect_to '/admin/internal/register' and return
+  end
 
+  def judging_register
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin"
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
+    render layout: false
+  end
+
+  def judging_register_confirm
+    if !judge_register_confirm_params[:barcode].blank?
+      @judging =  Parse::Query.new("InternalRegistrations").tap do |q|
+        q.eq("user", Parse::Pointer.new({
+          "className" => "_User",
+          "objectId"  => judge_register_confirm_params[:barcode]
+        }))
+      end.get.first
+
+      if !@judging.blank?
+        @judging["judge"] = true
+        @judging.save
+      else
+        @internal = Parse::Object.new("InternalRegistrations")
+
+        @user = Parse::Query.new("_User").eq("objectId", judge_register_confirm_params[:barcode]).get.first
+        pp @user
+
+        @internal["user"] = @user.pointer
+        @internal["judging"] = true
+        @internal.save
+      end
+    end
   end
 
   private
@@ -946,8 +999,18 @@ class AdminController < ApplicationController
       params.permit(:user)
     end
 
+    def judge_register_confirm_params
+      params.permit(:barcode)
+    end
+
+
     def onsite_search_params
       params.permit(:"email-search")
+    end
+
+    def internal_register_params
+      params.permit(:email, :password, :password_confirmation, :firstName, :lastName, :tshirt, :company,
+                                  {:restrictions => []}, :otherRestrictions, :phone)
     end
 
     def user_app_params
