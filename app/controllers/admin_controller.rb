@@ -821,9 +821,9 @@ class AdminController < ApplicationController
       curr_bday = Time.zone.local(@application['birthyear'].to_i, Date::MONTHNAMES.index(@application['birthmonth']), @application['birthday'].to_i, 0, 0)
       if age(curr_bday, Date.new(2016, 2, 26)) < 18
         flash[:popup] = "We've noticed you're a minor, there are a few things we need from you before we can let you in."
-        flash[:sub] = "Alse, you can upload a resume on your dashboard, if you'd like."
+        flash[:sub] = ""
       else
-        flash[:popup] = "Thanks for registering, you can upload a resume on your dashboard."
+        flash[:popup] = "Thanks for registering!"
         flash[:sub] = nil
       end
 
