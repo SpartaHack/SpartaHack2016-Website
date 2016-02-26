@@ -103,19 +103,21 @@
                         <h1 class="section-head">Admin Topics</h1>
                         <div class="hline"></div>
                     </div>
-                <% if @user['role'] == "admin" || @user['role'] == "sponsorship" %>
-					<div class="hvr-underline-from-left full">
-						<a href="/admin/sponsorship"><div class="topic" >Sponsorship</div></a>
-					</div>
-                <% end %>
-                <% if @user['role'] == "admin" %>
+                  <% if @user['role'] == "admin" || @user['role'] == "sponsorship" %>
+          					<div class="hvr-underline-from-left full">
+          						<a href="/admin/sponsorship"><div class="topic" >Sponsorship</div></a>
+          					</div>
+                  <% end %>
+                  <% if @user['role'] == "admin" || @user['role'] == "volunteer" %>
                     <div class="hvr-underline-from-left full" id="users">
                         <a href=""><div class="topic" >Users</div></a>
                     </div>
+                    <% end %>
+                  <% if @user['role'] == "admin" %>
                     <div class="hvr-underline-from-left full" id="announcements">
                         <a href=""><div class="topic" >Announcements</div></a>
                     </div>
-                <% end %>
+                  <% end %>
                     <div class="hvr-underline-from-left full">
                         <a href="/admin/statistics"><div class="topic" >Statistics</div></a>
                     </div>
@@ -183,9 +185,9 @@
                 );
 
                 $('#role').select2({
-                  placeholder: "Role", 
+                  placeholder: "Role",
                   allowClear: true,
-                  minimumResultsForSearch: -1, 
+                  minimumResultsForSearch: -1,
                 });
 
                 $('#announce').submit(function(e){

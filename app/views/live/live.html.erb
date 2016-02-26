@@ -48,6 +48,17 @@
         <%= javascript_include_tag "confetti" %>
         <%= javascript_tag do %>
           $(document).ready(function() {
+            var days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+            now = new Date();
+
+            if (days[ now.getDay() ] == "saturday" || days[ now.getDay() ] == "sunday") {
+              parentDate = $("#day-schedule-wrap")
+              childDay = $("#"+days[ now.getDay() ]+"")
+              parentDate.animate({
+                scrollTop: $("#day-schedule-wrap").scrollTop() + childDay.position().top - 80 - parentDate.height()/2 + childDay.height()/2
+              }, 1000);
+            }
+
             var confetti_count = 0;
 
             function getTimeRemaining(endtime) {
@@ -95,7 +106,6 @@
                 if (t.total > 0) {
                   $("#clockdiv p").attr("style", "");
                 }
-                console.log(t.total)
                 if (t.total < 3600*1000) {
                   $("#clockdiv div span").attr("style", "color: #F3464A !important;");
                   $("#clockdiv div.smalltext").attr("style", "color: #F3464A !important;");
