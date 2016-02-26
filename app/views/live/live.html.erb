@@ -34,7 +34,7 @@
             <p class="browsehappy">You are using an <strong>utdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <%= render partial: "live/live_navbar" %>
-
+        <canvas id="canvas"></canvas>
         <div class="wrap-main">
 
 
@@ -45,8 +45,10 @@
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
+        <%= javascript_include_tag "confetti" %>
         <%= javascript_tag do %>
           $(document).ready(function() {
+            var confetti_count = 0;
 
             function getTimeRemaining(endtime) {
               var t = Date.parse(endtime) - Date.parse(new Date());
@@ -72,6 +74,35 @@
 
               function updateClock() {
                 var t = getTimeRemaining(endtime);
+                if (t.total == 0) {
+                  var deadline = new Date(1456675200000);
+                  initializeClock('clockdiv', deadline);
+                  $("#clockdiv p").html("Hacking ends in");
+                  $("#clockdiv p").attr("style", "color: #F3464A !important;");
+                }
+
+                var d = new Date();
+                var n = d.getTime();
+
+                if ( (n >= 1456675200000) && (confetti_count == 0) ) {
+                  StartConfetti();
+                  confetti_count = 1;
+                  $("#clockdiv p").html("Hacking has ended!");
+                  $("#clockdiv div").remove();
+                }
+
+
+                if (t.total > 0) {
+                  $("#clockdiv p").attr("style", "");
+                }
+                console.log(t.total)
+                if (t.total < 3600*1000) {
+                  $("#clockdiv div span").attr("style", "color: #F3464A !important;");
+                  $("#clockdiv div.smalltext").attr("style", "color: #F3464A !important;");
+                } else {
+                  $("#clockdiv div span").attr("style", "");
+                  $("#clockdiv div.smalltext").attr("style", "");
+                }
 
                 daysSpan.innerHTML = t.days;
                 hoursSpan.innerHTML = ('0' + t.hours).slice(-2);
@@ -91,7 +122,7 @@
             initializeClock('clockdiv', deadline);
 
 
-          });  
+          });
         <% end %>
 
         <%= javascript_include_tag "live.js" %>
