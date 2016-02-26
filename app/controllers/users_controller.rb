@@ -201,8 +201,11 @@ class UsersController < ApplicationController
 
         if @application
           redirect_to '/dashboard' and return
-        else
-          redirect_to '/application' and return
+        elsif @application.blank?
+					pp cookies.signed[:spartaUser][1]
+					if cookies.signed[:spartaUser][1] != "sponsor"
+          	redirect_to '/application' and return
+					end
         end
 
       rescue Parse::ParseProtocolError => e
@@ -226,9 +229,17 @@ class UsersController < ApplicationController
   def auth
   	begin
 			login = Parse::User.authenticate(user_login_params['email'].downcase,user_login_params['password'])
-      if login["role"] == "admin" || login["role"] == "volunteer" || login["role"] == "sponsorship" || login["role"] == "statistics"
+      if login["role"] == "admin" || login["role"] == "volunteer" || login["role"] == "sponsorship" || login["role"] == "sponsor" || login["role"] == "statistics"
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], login["role"]] }
-			  redirect_to '/admin' and return
+
+				if login["role"] == "sponsor"
+					redirect_to '/dashboard' and return
+				else
+					redirect_to '/admin' and return
+				end
+
+
+
       else
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
         begin
@@ -270,7 +281,7 @@ class UsersController < ApplicationController
       session[:return_to] = '/dashboard'
       redirect_to '/jscheck'
     else
-      begin
+      # begin
         @application = Parse::Query.new("Application").tap do |q|
           q.eq("user", Parse::Pointer.new({
             "className" => "_User",
@@ -279,8 +290,14 @@ class UsersController < ApplicationController
           q.include = "user"
         end.get.first
 
+				@user = Parse::Query.new("_User").tap do |q|
+																q.eq("objectId", cookies.signed[:spartaUser][0])
+												end.get.first
+
         if !@application
-          redirect_to '/application' and return
+					if cookies.signed[:spartaUser][1] != "sponsor"
+          	redirect_to '/application' and return
+					end
         end
 
         @rsvp = Parse::Query.new("RSVP").tap do |q|
@@ -292,7 +309,7 @@ class UsersController < ApplicationController
 
 
         begin
-          if !@application['university'].blank?
+	        if !@application.blank? && !@application['university'].blank?
             @travel = Parse::Query.new("Travel").tap do |q|
                           q.eq("university", @application['university'])
                   end.get.first
@@ -346,9 +363,9 @@ class UsersController < ApplicationController
         end
 
         render layout: false
-      rescue
-        redirect_to "/outage" and return
-      end
+      # rescue
+      #   redirect_to "/outage" and return
+      # end
     end
   end
 
@@ -552,8 +569,8 @@ class UsersController < ApplicationController
                         }))
                 end.get.first
 
-        if @rsvp.blank? || @rsvp["attending"] == false
-          redirect_to "/dashboard"
+        if @rsvp.blank? && cookies.signed[:spartaUser][1] != "sponsor"
+          redirect_to "/dashboard"					
         else
           @user = cookies.signed[:spartaUser][0]
           render layout: false

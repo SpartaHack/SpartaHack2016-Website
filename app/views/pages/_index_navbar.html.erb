@@ -91,16 +91,29 @@
           </a>
         </div>
       <% else %>
-        <div id="app-wrapper">
-          <a href="/application">
-            <div id="app-nav" class="svg-wrapper">
-              <svg height="60" width="164" xmlns="http://www.w3.org/2000/svg">
-                <rect class="shape login" height="60" width="164" />
-              </svg>
-            </div>
-            <div class="text">MY APPLICATION</div>
-          </a>
-        </div>
+        <% if @user["role"] != "sponsor" %>
+          <div id="app-wrapper">
+            <a href="/application">
+              <div id="app-nav" class="svg-wrapper">
+                <svg height="60" width="164" xmlns="http://www.w3.org/2000/svg">
+                  <rect class="shape login" height="60" width="164" />
+                </svg>
+              </div>
+              <div class="text">MY APPLICATION</div>
+            </a>
+          </div>
+        <% else %>
+          <div id="app-wrapper">
+            <a href="/dashboard">
+              <div id="app-nav" class="svg-wrapper">
+                <svg height="60" width="163" xmlns="http://www.w3.org/2000/svg">
+                  <rect class="shape login" height="60" width="163" />
+                </svg>
+              </div>
+              <div class="text">MY DASHBOARD</div>
+            </a>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
       <div id="login-wrapper">

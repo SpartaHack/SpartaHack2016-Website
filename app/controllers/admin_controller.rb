@@ -852,15 +852,13 @@ class AdminController < ApplicationController
       a["name"].downcase <=> b["name"].downcase
     end
 
-    pp @companies
     render layout: false
 
   end
 
   def internal_register_submit
     if internal_register_params['email'].blank? || internal_register_params["firstName"].blank? || internal_register_params["lastName"].blank? ||
-      internal_register_params["company"].blank? || internal_register_params["restrictions"].blank? || internal_register_params["tshirt"].blank? ||
-      internal_register_params["phone"].blank?
+      internal_register_params["company"].blank? || internal_register_params["restrictions"].blank? || internal_register_params["phone"].blank?
 
       flash[:popup] = "You must fill in all the required fields."
       flash[:params] = internal_register_params
@@ -878,7 +876,11 @@ class AdminController < ApplicationController
       end
       begin
         if params.has_key?(:password)
-          internal_register_params["company"] == "volunteer" ? role = "volunteer" : role = "sponsor"
+          if internal_register_params["company"] == "volunteer" || internal_register_params["company"] == "none"
+            @role = "volunteer"
+          else
+            @role = "sponsor"
+          end
 
           apply = Parse::User.new({
             :username => internal_register_params['email'].downcase,
@@ -886,7 +888,7 @@ class AdminController < ApplicationController
             :lastName => internal_register_params["lastName"].capitalize,
             :email => internal_register_params['email'].downcase,
             :password => internal_register_params['password'],
-            :role => role
+            :role => @role
           })
           @user = apply.save
         else
@@ -918,13 +920,14 @@ class AdminController < ApplicationController
     @internal["phone"] = internal_register_params["phone"]
     @internal["restrictions"] = internal_register_params["restrictions"]
     @internal["otherRestrictions"] = internal_register_params["otherRestrictions"]
-    @internal["tshirt"] = internal_register_params["tshirt"]
     @internal["user"] = @user.pointer
-    if internal_register_params["company"] != "none" || internal_register_params["company"] != "volunteer"
+    if internal_register_params["company"] != 'none' || internal_register_params["company"] != 'volunteer'
       company = Parse::Query.new("Company").tap do |q|
                               q.eq("objectId", internal_register_params["company"])
                             end.get.first
-      @internal["company"] = company.pointer
+      if !company.blank?
+        @internal["company"] = company.pointer
+      end
     end
 
 

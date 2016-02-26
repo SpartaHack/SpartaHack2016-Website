@@ -39,7 +39,7 @@
                   </div>
                   <div class="text">2016</div>
                 </a>
-                <div id="name"><%= @application["user"]['firstName'] %></div>
+                <div id="name"><%= @user['firstName'] %></div>
             </div>
 
             <div class="navbar-nav right">
@@ -91,28 +91,37 @@
         </div>
 
         <div class="wrap-dash">
-            <% if @application['status'] == 'Accepted' && @application["university"] == "USA: Michigan: Michigan State University" || @application['status'] == 'Accepted' && @application["exception"] == true || @application['status'] == 'Accepted' && !@rsvp.blank? %>
+            <% if !@application.blank? && @application['status'] == 'Accepted' && @application["university"] == "USA: Michigan: Michigan State University" || !@application.blank? && @application['status'] == 'Accepted' && @application["exception"] == true || !@application.blank? && @application['status'] == 'Accepted' && !@rsvp.blank? %>
               <canvas id="canvas"></canvas>
             <% end %>
 
             <section id="user-status">
                 <div class="row">
                   <div class="inner-wrap">
+                    <% if @user["role"] != "sponsor" %>
                       <div id="status-text">Status</div>
-                      <% if !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["university"] == "USA: Michigan: Michigan State University" || !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && !@application["exception"].blank? && @application["exception"] == true %>
-                        <div class="box" ><%= @application['status'] %></div>
-                      <% elsif !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["university"] != "USA: Michigan: Michigan State University" && @rsvp.blank? %>
-                        <div class="box" >Invitation Expired</div>
-                      <% elsif !@application.blank? && @application['status'].blank? %>
-                        <div class="box" >Application Received</div>
-                      <% elsif !@application.blank? && !@application['status'].blank? && @application['status'] == "Denied" %>
-                        <div class="box" >Not Admitted</div>
+                    <% else %>
+                      <div id="status-text">Role</div>
+                    <% end %>
+                      <% if @user["role"] != "sponsor" %>
+                        <% if !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["university"] == "USA: Michigan: Michigan State University" || !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && !@application["exception"].blank? && @application["exception"] == true %>
+                          <div class="box" ><%= @application['status'] %></div>
+                        <% elsif !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["university"] != "USA: Michigan: Michigan State University" && @rsvp.blank? %>
+                          <div class="box" >Invitation Expired</div>
+                        <% elsif !@application.blank? && @application['status'].blank? %>
+                          <div class="box" >Application Received</div>
+                        <% elsif !@application.blank? && !@application['status'].blank? && @application['status'] == "Denied" %>
+                          <div class="box" >Not Admitted</div>
+                        <% else %>
+                          <div class="box" ><%= @application['status'] %></div>
+                        <% end %>
                       <% else %>
-                        <div class="box" ><%= @application['status'] %></div>
+                        <div class="box" >Sponsor</div>
                       <% end %>
                   </div>
                 </div>
             </section>
+
           <% if !@application.blank? && @application['status'] == "Accepted" && @application["university"] != "USA: Michigan: Michigan State University" && @rsvp.blank? && @application["exception"].blank? %>
             <section class="information">
               <div class="row">
@@ -174,7 +183,8 @@
             <% end %>
           <% end %>
 
-          <% if !@application.blank? && @application['status'] == "Accepted" && @application["university"] == "USA: Michigan: Michigan State University" || !@rsvp.blank? || !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["exception"] == true %>
+        <% if !@application.blank? && @application['status'] == "Accepted" && @application["university"] == "USA: Michigan: Michigan State University" || !@rsvp.blank? || !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && @application["exception"] == true %>
+          <% if @user["role"] != "sponsor" %>
             <section class="travel">
               <div class="row">
                 <div class="title-wrap">
@@ -244,6 +254,7 @@
               </div>
             </section>
           <% end %>
+        <% end %>
 
             <section class="topic-selection">
                 <div class="row">
@@ -252,15 +263,28 @@
                     <div class="hline"></div>
                   </div>
                   <div id="dash-wrap">
+                  <% if @user["role"] != "sponsor" %>
                     <div class="hvr-underline-from-left link-wrap">
                       <a href="/application"><div class="dash-link">My Application</div></a>
                     </div>
+                  <% else %>
+                  <div class="hvr-underline-from-left link-wrap">
+                    <a href="/mentorship/register"><div class="dash-link">Mentorship</div></a>
+                  </div>
+                  <% end %>
 
-                  <% if @application['status'] == 'Accepted' && @application["university"] == "USA: Michigan: Michigan State University" || !@rsvp.blank? || !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && !@application["exception"].blank? && @application["exception"] == true %>
+                <% if !@application.blank? && @application['status'] == 'Accepted' && @application["university"] == "USA: Michigan: Michigan State University" || !@application.blank? && !@application['status'].blank? && @application['status'] == "Accepted" && !@application["exception"].blank? && @application["exception"] == true %>
+                  <% if @user["role"] != "sponsor" %>
                     <div class="hvr-underline-from-left link-wrap">
                       <a href="/rsvp"><div class="dash-link"><%= @rsvp ? "My RSVP" : "Complete RSVP" %></div></a>
                     </div>
+
+                  <% else %>
+                    <div class="hvr-underline-from-left link-wrap">
+                      <a href="/mycode"><div class="dash-link">My User Code</div></a>
+                    </div>
                   <% end %>
+                <% end %>
 
                  <% if !@rsvp.blank? && @rsvp['attending'] == true %>
                     <div class="hvr-underline-from-left link-wrap">
@@ -289,7 +313,7 @@
         <%= javascript_include_tag "jquery-1.11.3.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
-        <% if @application['status'] == 'Accepted' && @application["university"] == "USA: Michigan: Michigan State University" || @application['status'] == 'Accepted' && @application["exception"] == true || @application['status'] == 'Accepted' && !@rsvp.blank? %>
+        <% if !@application.blank? && @application['status'] == 'Accepted' && @application["university"] == "USA: Michigan: Michigan State University" || !@application.blank? && @application['status'] == 'Accepted' && @application["exception"] == true || !@application.blank? && @application['status'] == 'Accepted' && !@rsvp.blank? %>
           <%= javascript_include_tag "confetti" %>
         <% end %>
         <%= javascript_include_tag "users-dashboard" %>

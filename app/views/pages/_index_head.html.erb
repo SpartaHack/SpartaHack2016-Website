@@ -23,7 +23,11 @@
 			<% if @application %>
 				<a class="hero-link" href="https://live.spartahack.com">Live!</a>
 			<% else %>
+				<% if @user["role"] != "sponsor" %>
 				<a class="hero-link" href="/application">COMPLETE MY APPLICATION</a>
+				<% else %>
+					<a class="hero-link" href="/dashboard">View Dashboard</a>
+				<% end %>
 			<% end %>
 		<% end %>
 		</div>

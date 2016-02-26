@@ -6,26 +6,27 @@ class PagesController < ApplicationController
   require 'json'
 
   def index
-    if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "attendee"
-      begin
-        @application = Parse::Query.new("Application").tap do |q|
-          q.eq("user", Parse::Pointer.new({
-            "className" => "_User",
-            "objectId"  => cookies.signed[:spartaUser][0]
-          }))
-        end.get.first
+    if cookies.signed[:spartaUser]
+			if cookies.signed[:spartaUser][1] == "attendee"
+	      begin
+	        @application = Parse::Query.new("Application").tap do |q|
+	          q.eq("user", Parse::Pointer.new({
+	            "className" => "_User",
+	            "objectId"  => cookies.signed[:spartaUser][0]
+	          }))
+	        end.get.first
 
-      rescue
-        redirect_to "/outage" and return
-      end
+	      rescue
+	        redirect_to "/outage" and return
+	      end
+			end
 
+			@user = Parse::Query.new("_User").tap do |q|
+				q.eq("objectId", cookies.signed[:spartaUser][0])
+			end.get.first
 
     end
 
-      # user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      # data = { :alert => "This is a notification, dm Bogdan if you got it" }
-      # push = Parse::Push.new(data, cookies.signed[:spartaUser][0])
-      # push.save
 
 
     begin
