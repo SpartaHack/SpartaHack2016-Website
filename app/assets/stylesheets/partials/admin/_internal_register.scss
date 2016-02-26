@@ -1,0 +1,504 @@
+@import 'partials/colorScheme';
+@import 'partials/fonts';
+
+#internal{
+  background-color: transparent;
+  @media (max-width: 550px) {
+    margin-top: 30px;
+  }
+
+  .title-wrap {
+    margin-bottom: 50px;
+    .hline {
+      border-top: solid 1px $mutedOutline;
+      background: none;
+      width: 100%;
+    }
+
+    .section-head {
+        margin-bottom: 10px;
+        color: $mutedText;
+        text-align: left;
+        font-size: 150%;
+        @media (max-width: 550px) {
+          font-size: 130%;
+        }
+    }
+  }
+
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  color: $cream;
+  height: 100%;
+
+  font-family: ubuntu;
+
+
+  a {
+    color: $mutedText;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    font-size: 15px;
+  }
+
+  a:hover {
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    opacity: .7;
+  }
+
+  .row {
+    width: 87%;
+    margin-top: 50px;
+    @media (min-width: 550px) {
+      width: 530px;
+    }
+  }
+
+  #required {
+    text-align: left;
+    margin-top: -20px;
+    font-family: ubuntu;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 100;
+    @media (min-width: 550px) {
+      margin-top: -40px;
+    }
+
+    a {
+      font-size: 100%;
+    }
+  }
+
+  ::-webkit-input-placeholder {
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 15px;
+    padding-right: 1em;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-size: 15px;
+    font-weight: lighter;
+    padding-right: 1em;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19 */
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 15px;
+    padding-right: 1em;
+  }
+
+  :-ms-input-placeholder {
+    color: $cream;
+    opacity: 1;
+    font-family: ubuntu;
+    font-weight: lighter;
+    font-size: 15px;
+    padding-right: 1em;
+  }
+
+  .inner {
+    width: 100%;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    @media (max-width: 550px) {
+      flex-direction: column;
+      -webkit-flex-direction: column;
+    }
+  }
+
+  input[type=text]{
+    height: 36px;
+    text-align:left;
+    border: solid 1px $mutedOutline;
+    font-size: 15px;
+    font-weight: 100;
+    color: $cream;
+    background: none;
+    padding: 8px 0px 8px 25px;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    margin-bottom: 0px;
+    @media (max-width: 550px) {
+      width:100%;
+      height: 54px;
+      box-sizing: border-box;         /* For IE and modern versions of Chrome */
+      -moz-box-sizing: border-box;    /* For Firefox                          */
+      -webkit-box-sizing: border-box; /* For Safari                           */
+      margin-bottom: 15px;
+    }
+  }
+
+  #email, #phone {
+    height: 36px;
+    margin: 0px;
+    @media (min-width: 550px) {
+      width: 503px;
+    }
+  }
+
+  #register{
+    @media (max-width: 550px) {
+      margin-top: 30px;
+    }
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    color: $cream;
+    font-family: ubuntu;
+
+    .inner_wrap {
+      width: 100%;
+      display: flex;
+      display: -webkit-flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      -webkit-justify-content: space-between;
+      @media (max-width: 550px) {
+        margin-bottom: 0px;
+        flex-direction: column;
+        -webkit-flex-direction: column;
+      }
+    }
+
+    .a-hline {
+      border-top: solid 1px $mutedOutline;
+      margin-bottom: 25px;
+      background: none;
+      width: 50%;
+      @media (max-width: 550px) {
+        margin-bottom: 15px;
+      }
+    }
+
+    input {
+      text-align:left;
+      border: solid 1px $mutedOutline;
+      font-size: 14px;
+      font-weight: 100;
+      color: $cream;
+      background: none;
+      padding: 8px 0px 8px 25px;
+      -webkit-appearance: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    #password, #password_confirmation {
+      height: 36px;
+      @media (min-width: 550px) {
+        width: 225px;
+        margin-bottom: 0px;
+      }
+    }
+
+    #password {
+      @media (max-width: 550px) {
+        margin: 15px 0px 15px 0px;
+      }
+    }
+
+    #password_confirmation {
+      margin: 0px;
+      @media (max-width: 550px) {
+        margin: 0px 0px 15px 0px;
+      }
+    }
+  }
+
+  #firstName, #lastName{
+    @media (min-width: 550px) {
+      width: 225px;
+      margin-bottom: 0px;
+    }
+  }
+
+  #company {
+    width: 100%;
+    @media (min-width: 550px) {
+      width: 530px;
+    }
+  }
+
+  input:focus, textarea:focus, option:focus, select:focus, span:focus, span input:focus {
+    border-color: rgba(128, 295, 219, 1) !important;
+    box-shadow: 0 1px 1px rgba(128, 295, 219, 0.075) inset, 0 0 8px rgba(128, 295, 219, 0.6) !important;
+    outline: 0 none !important;
+  }
+
+  .add-margin-top {
+    margin-top: 0px;
+    @media (min-width: 550px) {
+      margin-top: 26px;
+    }
+  }
+
+  .add-margin-bottom {
+    margin-bottom: 15px;
+    @media (min-width: 550px) {
+      margin-bottom: 26px;
+    }
+  }
+
+  #gradeLevel-wrap {
+    margin-bottom: 0px;
+    @media (min-width: 550px) {
+      margin-bottom: 26px;
+    }
+  }
+
+  #restrictions, #tshirt{
+    width: 100%;
+    @media (min-width: 550px) {
+      width: 530px;
+    }
+  }
+
+  #otherRestrictions {
+    width:100%;
+    @media (min-width: 550px) {
+      width: 503px;
+      margin-bottom: 0px;
+    }
+  }
+
+  input[type=submit] {
+    background: none;
+    border-style: none;
+    text-align: center;
+    border: solid 1px $mutedOutline;
+    color: $cream;
+    font-weight: 200;
+    font-size: 15px;
+    border-radius: 0;
+    height: 60px;
+    width: 100%;
+    cursor: pointer;
+    cursor: hand;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    @media (min-width: 550px) {
+      width: 530px;
+      padding-right: 25px;
+    }
+  }
+
+  input[type=submit]:hover {
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 0px;
+    -webkit-box-shadow:0 0 8px $cream;
+    -moz-box-shadow: 0 0 8px $cream;
+    box-shadow:0 0 8px $cream;
+  }
+
+  input[type=submit]:focus {
+    border: solid 1px $mutedOutline;  }
+
+  #error-wrapper {
+    width: 98%;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    @media (min-width: 550px){
+      width: 530px;
+    }
+
+  }
+
+  .error {
+    margin-bottom: 15px;
+  }
+
+  .no-label {
+    display: none;
+  }
+
+  i {
+    color: $cream;
+  }
+
+  #save-app {
+    margin-top: 0px;
+    @media (min-width: 550px) {
+      margin-top: 21px;
+    }
+  }
+
+  #application {
+    margin-bottom: 0px;
+  }
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  color: #000000;
+  position: absolute;
+  top: 17px;
+  right: 5px;
+  width: 20px;
+}
+
+.select2-search__field {
+  border-style: none;
+  color: $cream;
+}
+
+input[type=search] {
+  background-color: transparent !important;
+  font-weight: 100 !important;
+}
+
+#popup-wrapper-internal {
+  position: fixed;
+  display: none;
+  z-index: 9;
+  background-color: rgba(3, 3, 22, .9);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 60px;
+  margin: auto;
+
+  animation:popup-wrapper 1s 1;
+  -webkit-animation:popup-wrapper 1s 1;
+  animation-fill-mode: forwards;
+
+  animation-delay:5s;
+  -webkit-animation-delay:5s; /* Safari and Chrome */
+  -webkit-animation-fill-mode: forwards;
+  @media (max-width: 550px) {
+    width: 87%;
+
+  }
+
+}
+
+#popup-internal {
+  position: fixed;
+  z-index: 9;
+  background-color: $mutedRed;
+  border: 1px solid $mutedOutline;
+  border-radius: 1px;
+  overflow-y: hidden;
+  color: $cream;
+  font-family: ubuntu;
+  font-size: 18px;
+  font-weight: 100;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  padding: 28px 0px;
+  width: 528px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  @media (max-width: 550px) {
+    width: 87%;
+
+  }
+
+}
+
+#popup-error-wrapper-internal {
+  position: fixed;
+  z-index: 9;
+  background-color: rgba(3, 3, 22, .9);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 60px;
+  margin: auto;
+
+  animation:popup-error-wrapper 1s 1;
+  -webkit-animation:popup-error-wrapper 1s 1;
+  animation-fill-mode: forwards;
+
+  animation-delay:20s;
+  -webkit-animation-delay:20s; /* Safari and Chrome */
+  -webkit-animation-fill-mode: forwards;
+  @media (max-width: 550px) {
+    width: 87%;
+
+  }
+
+}
+
+#popup-error-internal {
+  position: fixed;
+  z-index: 9;
+  background-color: $mutedRed;
+  border: 1px solid $mutedOutline;
+  border-radius: 1px;
+  overflow-y: hidden;
+  color: $cream;
+  font-family: ubuntu;
+  font-size: 18px;
+  font-weight: 100;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  padding: 28px 0px;
+  width: 500px;
+  left: 0;
+  right: 0;
+  top: 60px;
+  margin: auto;
+
+  @media (max-width: 550px) {
+    width: 87%;
+
+  }
+  #sub-text {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+}
+
+@keyframes popup-error-wrapper-internal{
+    from {opacity :1;}
+    to {opacity :0; visibility: hidden;}
+}
+
+@-webkit-keyframes popup-error-wrapper-internal{
+    from {opacity :1;}
+    to {opacity :0; visibility: hidden;}
+}
+
+@keyframes popup-wrapper-internal{
+    from {opacity :1;}
+    to {opacity :0; visibility: hidden;}
+}
+
+@-webkit-keyframes popup-wrapper-internal{
+    from {opacity :1;}
+    to {opacity :0; visibility: hidden;}
+}
