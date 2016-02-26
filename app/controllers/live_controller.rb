@@ -34,7 +34,7 @@ class LiveController < ApplicationController
 
         string_array.each do |word|
           if word.include? "http"
-            announcement_string += " <a href='#{word}'>#{word}</a>"
+            announcement_string += " <a href='#{word}' target='_blank'>#{word}</a>"
           else
             announcement_string += " #{word}"
           end
