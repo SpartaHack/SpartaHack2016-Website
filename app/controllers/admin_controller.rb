@@ -86,7 +86,6 @@ class AdminController < ApplicationController
     code["code"] = @code
     code["used"] = false
     code.save
-
   end
 
   def email
@@ -334,7 +333,6 @@ class AdminController < ApplicationController
       end
 
     end
-
   end
 
   def sponsorship
@@ -406,7 +404,6 @@ class AdminController < ApplicationController
     company.save
 
     redirect_to '/admin'
-
   end
 
   def viewsponsor
@@ -426,7 +423,6 @@ class AdminController < ApplicationController
     @sponsor = Parse::Query.new("Company").eq("objectId", object).get[0]
 
     render layout: false
-
   end
 
   def editsponsor
@@ -458,7 +454,6 @@ class AdminController < ApplicationController
     end
 
     redirect_to '/admin'
-
   end
 
   def applications
@@ -597,7 +592,6 @@ class AdminController < ApplicationController
       end
 
     end
-
   end
 
   def checkin_confirm
@@ -664,7 +658,7 @@ class AdminController < ApplicationController
           @attendance['application'] = @rsvp["application"].pointer
           @attendance["onsiteRegistration"] = false
           @attendance.save
-        else 
+        else
           @attendance = false
         end
       else
@@ -680,7 +674,7 @@ class AdminController < ApplicationController
     if user_app_params['email'].blank? || user_app_params["firstName"].blank? || user_app_params["lastName"].blank? ||
       user_app_params["gender"].blank? || user_app_params["birthday"].blank? || user_app_params["birthmonth"].blank? ||
       user_app_params["birthyear"].blank? || user_app_params["universityStudent"].blank? || user_app_params["mlh"].blank?
-        
+
       flash[:popup] = "You must fill in all the required fields."
       flash[:params] = user_app_params
       redirect_to '/admin/users/onsite-registration' and return
@@ -717,7 +711,7 @@ class AdminController < ApplicationController
             { :content_type => :json,
               "X-Parse-Application-Id" => ENV["PARSE_APP_ID"],
               "X-Parse-Master-Key" => ENV["PARSE_APP_M"]
-            } 
+            }
         end
       rescue Parse::ParseProtocolError => e
         if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
@@ -839,6 +833,78 @@ class AdminController < ApplicationController
       puts e.message
       redirect_to '/rsvp' and return
     end
+  end
+
+  def internal_register
+    @companies = Parse::Query.new("Company").get
+
+    @companies = @companies.sort do |a, b|
+      a["name"].downcase <=> b["name"].downcase
+    end
+
+    pp @companies
+    render layout: false
+
+  end
+
+  def internal_register_submit
+    # if internal_register_params['email'].blank? || internal_register_params["firstName"].blank? || internal_register_params["lastName"].blank? ||
+    #   internal_register_params["company"].blank? || internal_register_params["restrictions"].blank? || internal_register_params["tshirt"].blank? ||
+    #   internal_register_params["phone"].blank?
+    #
+    #   flash[:popup] = "You must fill in all the required fields."
+    #   flash[:params] = internal_register_params
+    #   redirect_to '/admin/internal/register' and return
+    # elsif params.has_key?(:password) && params.has_key?(:password_confirmation) && internal_register_params['password'] != internal_register_params['password_confirmation']
+    #   flash[:popup] = "Passwords do not match"
+    #   flash[:params] = internal_register_params
+    #   redirect_to '/admin/internal/register' and return
+    #
+    # else
+    #   if internal_register_params['email'].downcase !~ /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
+    #     flash[:popup] = "You must use a valid email."
+    #     flash[:params] = internal_register_params
+    #     redirect_to '/admin/internal/register' and return
+    #   end
+    #   begin
+    #     if params.has_key?(:password)
+    #       internal_register_params["company"] == "volunteer" ? role = "volunteer" : role = "sponsor"
+    #
+    #       apply = Parse::User.new({
+    #         :username => internal_register_params['email'].downcase,
+    #         :firstName => internal_register_params["firstName"].capitalize,
+    #         :lastName => internal_register_params["lastName"].capitalize,
+    #         :email => internal_register_params['email'].downcase,
+    #         :password => internal_register_params['password'],
+    #         :role => role
+    #       })
+    #       @user = apply.save
+    #     else
+    #       @user = Parse::Query.new("_User").tap do |q|
+    #         q.eq("email", internal_register_params['email'].downcase )
+    #       end.get.first
+    #
+    #       jdata = JSON.generate({"firstName" => internal_register_params["firstName"].capitalize, "lastName" => internal_register_params["lastName"].capitalize})
+    #       RestClient.put 'https://api.parse.com/1/users/'+@user["objectId"],
+    #         jdata,
+    #         { :content_type => :json,
+    #           "X-Parse-Application-Id" => ENV["PARSE_APP_ID"],
+    #           "X-Parse-Master-Key" => ENV["PARSE_APP_M"]
+    #         }
+    #     end
+    #   rescue Parse::ParseProtocolError => e
+    #     if e.to_s.split(":").first == '202' || e.to_s.split(":").first == "203"
+    #       flash[:popup] = "Email is taken"
+    #       flash[:params] = internal_register_params
+    #       redirect_to '/admin/internal/register' and return
+    #     else
+    #       redirect_to "/outage" and return
+    #     end
+    #
+    #   end
+    # end
+
+
 
   end
 
@@ -874,15 +940,15 @@ class AdminController < ApplicationController
 
     def checkin_search_params
       params.permit(:barcode, :email)
-    end   
+    end
 
     def checkin_confirm_params
       params.permit(:user)
-    end  
+    end
 
     def onsite_search_params
       params.permit(:"email-search")
-    end  
+    end
 
     def user_app_params
       params.permit(:email, :password, :password_confirmation, :firstName, :lastName, :gender, :birthday,
@@ -890,7 +956,7 @@ class AdminController < ApplicationController
                                   :otherUniversity, {:major => []}, :gradeLevel,
                                   {:hackathons => []}, :github, :linkedIn,
                                   :website, :devPost, :universityStudent, {:restrictions => []}, :otherRestrictions, :tshirt, :mlh)
-    end 
+    end
 
     def svg_to_png(svg)
       scalar = 4
