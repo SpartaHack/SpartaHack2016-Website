@@ -1,0 +1,190 @@
+<div class="mobile-go">
+  <%= render partial: "live/live_mobile" %>
+</div>
+
+<section id="live-index">
+
+  <div id="clockdiv" class="no-mobile">
+    <p>Hacking begins in</p>
+    <div>
+      <span class="days"></span>
+      <div class="smalltext">Days</div>
+    </div>
+    <div>
+      <span class="hours"></span>
+      <div class="smalltext">Hours</div>
+    </div>
+    <div>
+      <span class="minutes"></span>
+      <div class="smalltext">Minutes</div>
+    </div>
+    <div>
+      <span class="seconds"></span>
+      <div class="smalltext">Seconds</div>
+    </div>
+  </div>
+
+  <div id="col-index-wrap" class="no-mobile">
+    <div id="announcement-wrap">
+      <div class="section-title">Announcements</div>
+      <div id="announcement-arrow-wrap">
+        <div class="arrow-wrap-horizontal">
+          <i class="fa fa-chevron-left fa-1" style="display:none;"></i>
+        </div>
+        <div id="wrap-announce">
+        <% @announcements_array.each do |announcement| %>
+          <div class="announcement">
+            <div class="inner-wrap">
+              <div class="title-wrap">
+                <div class="title"><%= announcement[0] %></div>
+                <div class="time"><%= announcement[2] %></div>
+              </div>
+              <div class="description"><%= announcement[1].html_safe %></div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+        <div class="arrow-wrap-horizontal">
+          <i class="fa fa-chevron-right fa-1"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-index-wrap no-mobile">
+      <div id="schedule-wrap">
+        <div class="section-title" style="height: 190px">Schedule</div>
+        <div id="day-schedule-wrap">
+      <% @schedule.each_with_index do |day, index| %>
+          <div class="day-wrap">
+            <%= index == 0 ? "<h1 class='day friday'>#{day[0]}</h1>".html_safe : "<h1 class='day'>#{day[0]}</h1>".html_safe %>
+          </div>
+
+        <% day[1].each_with_index do |schedule, i| %>
+          <%= i == 0 ? "<div class='schedule-item lead'>".html_safe : "<div class='schedule-item'>".html_safe %>
+              <div class="left-wrap">
+                <%= !schedule[0].blank? ? "<div class='item-time'>#{schedule[0]}</div>".html_safe : nil %>
+                <%= !schedule[3].blank? ? "<div class='item-location'>#{schedule[3]}</div>".html_safe : nil %>
+              </div>
+              <div class="right-wrap">
+                <%= !schedule[1].blank? ? "<div class='item-title'>#{schedule[1]}</div>".html_safe : nil %>
+                <%= !schedule[2].blank? ? "<div class='item-description'>#{schedule[2]}</div>".html_safe : nil %>
+              </div>
+          </div>
+        <% end %>
+      <% end %>
+        </div>
+    	</div>
+
+      <div id="hardware-wrap">
+        <div class="section-title" style="height: 68px;">Hardware <span>(Name/ Lender/ Quantity)</span></div>
+
+        <div class="hardware-wrap">
+        <% @hardware_array.each do |hardware| %>
+          <div class="hardware">
+            <div class="inner-wrap">
+              <div class="name-wrap">
+                <div class="name"><%= hardware[0] %></div>
+                <div class="lender"><%= hardware[2] %></div>
+                <div class="quantity"><%= hardware[1] %></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+    	</div>
+
+      <div id="map-wrap-wrap">
+        <div class="section-title">Map</div>
+
+        <div class="map-wrap">
+          <object data="<%= asset_url("SpartaHack 2016 Map.pdf").sub('http://', 'https://')%>" type="application/pdf" width="100%" height="100%" name="Map">
+              alt : <a href="https://live.spartahack.com/map">SpartaHack Map</a>
+          </object>
+        </div>
+    	</div>
+    </div>
+
+  </div>
+
+  <div class="row-index-wrap bottom no-mobile">
+    <div id="faq-wrap">
+      <div class="section-title">FAQ</div>
+      <div id="faq-box">
+        <div id="questions-wrap">
+          <div class="arrow-wrap">
+            <i class="fa fa-angle-up"></i>
+          </div>
+          <div id="questions">
+
+          <% @faq_array.each_with_index do |qa, index|%>
+              <%= index == 0 ? "<article class='active-q'>".html_safe : "<article>".html_safe %>
+              <h3 id="<%= index + 1 %>">
+                <span><%= qa[0] %></span>
+              </h3>
+            </article>
+
+            <% if index != @faq_array.length-1 %>
+              <div class="a-hline <%= index == 0 ? 'hide' : nil %>"></div>
+            <% end %>
+          <% end %>
+
+          </div>
+          <div class="arrow-wrap arrow-bot">
+            <i class="fa fa-angle-down"></i>
+          </div>
+        </div>
+        <div id="answers">
+
+        <% @faq_array.each_with_index do |qa, index|%>
+          <%= index == 0 ? "<p>".html_safe : "<p style='display:none'>".html_safe %>
+            <%= qa[1].html_safe %>
+          </p>
+        <% end %>
+
+        </div>
+      </div>
+  	</div>
+
+    <div class="piece-wrap">
+      <div id="resource-wrap">
+        <div class="section-title" style="height: 250px">APIs/ Resources</div>
+        <div class="resources-wrap">
+        <% @resources_array.each do |resource| %>
+          <div class="resource">
+            <div class="inner-wrap">
+              <div class="title-wrap">
+                <div class="title"><%= resource[0] %></div>
+                <div class="sponsor">
+                  <a href="<%= resource[2]["url"] %>" target="_blank">
+                    <%= image_tag resource[2]["img"].url.sub('http://', 'https://s3.amazonaws.com/'), alt: resource[2]["name"], :class => "logo-sponsor" %>
+                  </a>
+                </div>
+              </div>
+              <div class="description"><%= "<a href='#{resource[1]}'>#{resource[1]}</a>".html_safe %></div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+    	</div>
+
+      <div id="prize-wrap">
+        <div class="section-title" style="height: 250px">Prizes</div>
+        <div class="prizes-wrap">
+        <% @prizes_array.each do |prize| %>
+          <div class="prize">
+            <div class="inner-wrap">
+              <div class="title-wrap">
+                <div class="title"><%= prize[0] %></div>
+                <div class="sponsor"><%= prize[2].html_safe %></div>
+              </div>
+              <div class="description"><%= prize[1].html_safe %></div>
+            </div>
+          </div>
+        <% end %>
+        </div>
+    	</div>
+    </div>
+
+  </div>
+</section>
+<%= render partial: "pages/index_footer" %>

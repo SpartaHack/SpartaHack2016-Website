@@ -88,7 +88,8 @@
                     <strong>
                         <%= @total_apps %> Applications <br>
                         <%= @uni_count %> Schools <br>
-                        <%= @rsvp_attending_count %> Attending <br>
+                        <%= @rsvp_attending_count %> Accepted RSVPS <br>
+                        <%= @attending_total %> Checked-in <br>
                     </strong>
                 </p>
 
@@ -99,17 +100,20 @@
                             <h1 class="section-head">Statistics</h1>
                         </div>
                     </div>
-                    <div class="row center">
-                        <div>
-                            <div style="justify-content: flex-end;">
-                                <label><input type="checkbox" class="ios-switch bigswitch" unchecked /><div><div></div></div></label>
-                            </div>
-                        </div>
+
+                    <div class="row">
+                        <group class="inline-radio">
+                            <div><input type="radio" name="lives" id="application" checked><label>Application</label></div>
+                            <div><input type="radio" name="lives" id="rsvp"><label>RSVP</label></div>
+                            <div><input type="radio" name="lives" id="attending"><label>Attending</label></div>
+                        </group>
                     </div>
 
                     <%= render partial: "statistics/rsvp_stats" %>
 
                     <%= render partial: "statistics/application_stats" %>
+
+                    <%= render partial: "statistics/attending_stats" %>
 
                     <br><br><br><br>
                 </div>
@@ -131,5 +135,6 @@
         <%= javascript_include_tag "stats.js" %>
         <%= javascript_include_tag "app-stats.js" %>
         <%= javascript_include_tag "rsvp-stats.js" %>
+        <%= javascript_include_tag "attending-stats.js" %>
     </body>
 </html>

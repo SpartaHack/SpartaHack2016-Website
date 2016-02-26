@@ -11,7 +11,7 @@
   -webkit-align-items: center;
   flex-direction: column;
   -webkit-flex-direction: column;
-  text-align: center; 
+  text-align: center;
   color: $faqText;
   position: relative;
 
@@ -26,13 +26,22 @@
     -webkit-align-items: center;
     @media (max-width: 1000px){
       width: 100%;
-      line-height: 250%; 
-    }   
-  }  
+      line-height: 250%;
+    }
+  }
+
+  p {
+    width: 70%;
+    font-family: ubuntu;
+    font-weight: 100;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }
 
   .mobile-img{
     min-width: 185px;
     width: 30%;
+    height: auto;
     margin-top: 50px;
     @media (max-width: 550px) {
       margin-top: 25px;
@@ -72,6 +81,7 @@
     @media (max-width: 550px) {
       width: 77%;
       margin-top: -25px;
+      padding-top: 25px;
       margin-bottom: 50px;
     }
   }
@@ -84,8 +94,8 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    -webkit-box-shadow:0 0 5px $cream; 
-    -moz-box-shadow: 0 0 5px $cream; 
+    -webkit-box-shadow:0 0 5px $cream;
+    -moz-box-shadow: 0 0 5px $cream;
     box-shadow:0 0 5px $cream;
 
   }
@@ -96,6 +106,7 @@
 
   .store {
     border: solid 1px #A6A6A6;
+    background: black;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;

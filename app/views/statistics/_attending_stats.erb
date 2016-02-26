@@ -1,4 +1,15 @@
-<div id="app-stats">
+<div id="attending-stats">
+    <div class="row">
+        <h2 class="center"><%= number_to_percentage(100*(@attending_total.to_f / @rsvps_total),precision: 1) %></h2>
+        <div class="progress">
+            <div class="progress-bar" style="width: <%= number_to_percentage(100*(@attending_total.to_f / @rsvps_total),precision: 1) %>;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="center">
+            <p>There are <strong> <%= @attending_total %> </strong> students signed in out of <strong> <%= @rsvp_attending_count %> </strong> accepted rsvps.</p>
+        </div>
+    </div>
     <div class="column">
         <article>
             <div>
@@ -6,25 +17,24 @@
                   <h1 class="section-head">Gender</h1>
                   <div class="hline"></div>
                 </div>
-                <div class="horizontal-bar-graph" id="gender-graph"></div>
-                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
-                <thead>
-                    <tr>
-                        <th>Gender</th>
-                        <th>Count</th>
-                    </tr>
-                </thead>
+                <div class="horizontal-bar-graph" id="attending-gender-graph"></div>
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
+                    <thead>
+                        <tr>
+                            <th>Gender</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <% @gender_count.each_with_index do |gender_count, index|  %>
-                    <tr>
-                        <td><%= gender_count[0] %></td>
-                        <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @total_apps ),precision: 1) %></td>
-                    </tr>
-                    <% end %>
-                </tbody>
-
-            </table>
+                    <tbody>
+                        <% @attendees["gender_count"].each_with_index do |gender_count, index|  %>
+                        <tr>
+                            <td><%= gender_count[0] %></td>
+                            <td><%= gender_count[1] %> or <%= number_to_percentage(100*(gender_count[1].to_f / @attending_total),precision: 1) %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
             </div>
         </article>
 
@@ -33,10 +43,10 @@
               <h1 class="section-head">Age</h1>
               <div class="hline"></div>
             </div>
-            <div id="age-graph">
+            <div id="attending-age-graph">
             </div>
             <div class="row">
-                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
                     <thead>
                         <tr>
                             <th>Age</th>
@@ -45,20 +55,20 @@
                     </thead>
 
                     <tbody>
-                        <% @age_count.each_with_index do |age_count, index|  %>
+                        <% @attendees["age_count"].each_with_index do |age_count, index|  %>
                             <% if age_count[0] < 18 %>
                                 <tr>
                                     <td class="minorhighlight"><%= age_count[0].to_i %>
                                     </td>
                                     <td class="minorhighlight"><%= age_count[1] %>
-                                        or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
+                                        or <%= number_to_percentage(100* age_count[1].to_f / @attending_total.to_f, precision: 1) %>
                                     </td>
                                 </tr>
                             <% else %>
                                 <tr>
                                     <td><%= age_count[0].to_i %></td>
                                     <td><%= age_count[1] %>
-                                        or <%= number_to_percentage(100* age_count[1].to_f / @total_apps.to_f, precision: 1) %>
+                                        or <%= number_to_percentage(100* age_count[1].to_f / @attending_total.to_f, precision: 1) %>
                                     </td>
                                 </tr>
                             <% end %>
@@ -67,8 +77,8 @@
 
                 </table>
                 <p class="">
-                    There are <strong><%= @minor_count %> minors</strong>, which make up <strong><%= number_to_percentage(100*@minor_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
-                    <br>There are <strong><%= @adult_count %> adults</strong>, which make up <strong><%= number_to_percentage(100*@adult_count.to_f / @age_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
+                    There are <strong><%= @attendees["minor_count"] %> minors</strong>, which make up <strong><%= number_to_percentage(100*@attendees["minor_count"].to_f / @attendees["age_count"].inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
+                    <br>There are <strong><%= @attendees["adult_count"] %> adults</strong>, which make up <strong><%= number_to_percentage(100*@attendees["adult_count"].to_f / @attendees["age_count"].inject(0){|sum,e| sum += e[1] }, precision: 1) %></strong> of attendees.
                 </p>
             </div>
         </article>
@@ -80,8 +90,8 @@
               <h1 class="section-head">Universities</h1>
               <div class="hline"></div>
             </div>
-            <div class="horizontal-bar-graph" id="university-graph"></div>
-            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+            <div class="horizontal-bar-graph" id="attending-university-graph"></div>
+            <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
                 <thead>
                     <tr>
                         <th>University</th>
@@ -90,10 +100,10 @@
                 </thead>
 
                 <tbody>
-                    <% @uni_applicants[0..20].each_with_index do |uni_applicants, index|  %>
+                    <% @attendees["uni_applicants"][0..20].each_with_index do |uni_applicants, index|  %>
                     <tr>
                         <td><%= uni_applicants[0] %></td>
-                        <td><%= uni_applicants[1] %> or <%= number_to_percentage(100*(uni_applicants[1].to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></td>
+                        <td><%= uni_applicants[1] %> or <%= number_to_percentage(100*(uni_applicants[1].to_f / @attendees["uni_applicants"].inject(0){|sum,e| sum += e[1]}), precision: 1) %></td>
                     </tr>
                     <% end %>
                 </tbody>
@@ -101,38 +111,145 @@
             <div class="tablefooter">
                 *top 20
             </div>
-            <p>There are <strong><%= @international_count %> international students</strong>, which make up <strong><%= number_to_percentage(100*(@international_count.to_f / @uni_applicants.inject(0){|sum,e| sum += e[1]}), precision: 1) %></strong> of applicants.</p>
+            <p>There are <strong><%= @attendees["international_count"] %> international students</strong>, which make up <strong><%= number_to_percentage(100*(@attendees["international_count"].to_f / @attendees["uni_applicants"].inject(0){|sum,e| sum += e[1]}), precision: 1) %></strong> of attending.</p>
 
         </article>
-
         <article>
             <div class="title-wrap">
-              <h1 class="section-head">Majors</h1>
+              <h1 class="section-head">Closest Schools</h1>
               <div class="hline"></div>
             </div>
-            <div class="horizontal-bar-graph" id="major-graph"></div>
+            <div class="horizontal-bar-graph" id="attending-university-graph"></div>
+            <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
+                <thead>
+                    <tr>
+                        <th>University</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% @attendees["closest_school"][0..20].each_with_index do |closest_school, index|  %>
+                    <tr>
+                        <td><%= closest_school[0] %></td>
+                        <td><%= closest_school[1] %> or <%= number_to_percentage(100*(closest_school[1].to_f / @attending_total), precision: 1) %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <div class="tablefooter">
+                *top 20
+            </div>
+        </article>
+    </div>
+
+    <div class="row" id="rsvp-majors">
+        <div class="title-wrap">
+          <h1 class="section-head">Majors</h1>
+          <div class="hline"></div>
+        </div>
+        <div class="horizontal-bar-graph" id="attending-major-graph"></div>
+        <div class="row">
+            <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
+                <thead>
+                    <tr>
+                        <th>Major</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% @attendees["major_count"].each_with_index do |major_count, index|  %>
+                    <tr>
+                        <td><%= major_count[0] %></td>
+                        <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @attending_total, precision: 1) %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    
+    <div class="column">
+        <article>
+            <div class="title-wrap">
+              <h1 class="section-head">T-Shirt Sizes</h1>
+              <div class="hline"></div>
+            </div>
+            <div class="horizontal-bar-graph" id="attending-tshirt-graph"></div>
             <div class="row">
-                <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
                     <thead>
                         <tr>
-                            <th>Major</th>
+                            <th>Shirt Size</th>
                             <th>Count</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <% @major_count.each_with_index do |major_count, index|  %>
+                        <% @attendees["tshirt_count"].each_with_index do |tshirt_count, index|  %>
                         <tr>
-                            <td><%= major_count[0] %></td>
-                            <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @total_apps, precision: 1) %></td>
+                            <td><%= tshirt_count[0] %></td>
+                            <td><%= tshirt_count[1] %> or <%= number_to_percentage(100*tshirt_count[1].to_f / @attending_total, precision: 1) %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+
+                </table>
+
+                <div class="horizontal-bar-graph" id="attending-tshirt-graph"></div>
+
+            </div>
+        </article>
+
+        <article>
+            <div class="title-wrap">
+              <h1 class="section-head">Dietary Restrictions</h1>
+              <div class="hline"></div>
+            </div>
+            <div class="horizontal-bar-graph" id="attending-major-graph"></div>
+            <div class="row">
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
+                    <thead>
+                        <tr>
+                            <th>Restriction</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% @attendees["dietary_restrictions"].each_with_index do |dietary_restriction, index|  %>
+                        <tr>
+                            <td><%= dietary_restriction[0] %></td>
+                            <td><%= dietary_restriction[1] %> or <%= number_to_percentage(100*dietary_restriction[1].to_f / @attending_total, precision: 1) %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+
+                </table>
+                <br>
+
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
+                    <thead>
+                        <tr>
+                            <th>Other Restrictions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% @attendees["other_restrictions"].each_with_index do |dietary_restriction, index|  %>
+                        <tr>
+                            <td><%= dietary_restriction[0] %></td>
                         </tr>
                         <% end %>
                     </tbody>
 
                 </table>
             </div>
-
         </article>
+
     </div>
 
     <div class="title-wrap">
@@ -141,7 +258,7 @@
     </div>
     <div class="column">
         <article>
-            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+            <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
                 <thead>
                     <tr>
                         <th>Grade</th>
@@ -149,18 +266,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% @uni_grade_count.each_with_index do |uni_grade_count, index|  %>
-                            <tr>
-                                <td><%= uni_grade_count[0] %></td>
-                                <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @uni_grade_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
-                            </tr>
+                    <% @attendees["uni_grade_count"].each_with_index do |uni_grade_count, index|  %>
+                        <tr>
+                            <td><%= uni_grade_count[0] %></td>
+                            <td><%= uni_grade_count[1] %> or <%= number_to_percentage(100*uni_grade_count[1].to_f / @attendees["uni_grade_count"].inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                        </tr>
                     <% end %>
                 </tbody>
             </table>
         </article>
 
         <article>
-            <div class="horizontal-bar-graph" id="grade-graph"></div>
+            <div class="horizontal-bar-graph" id="attending-grade-graph"></div>
         </article>
     </div>
 
@@ -172,7 +289,7 @@
     </div>
     <div class="column">
         <article>
-            <table id="my-final-table" class="display dataTable" cellspacing="0" width="100%" role="grid">
+            <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
                 <thead>
                     <tr>
                         <th>Number</th>
@@ -181,43 +298,80 @@
                 </thead>
 
                 <tbody>
-                    <% @hackathons_count.each_with_index do |hackathons_count, index|  %>
+                    <% @attendees["hackathons_count"].each_with_index do |hackathons_count, index|  %>
                         <tr>
                             <td><%= hackathons_count[0] %></td>
-                            <td><%= hackathons_count[1] %> or <%= number_to_percentage(100*hackathons_count[1].to_f / @hackathons_count.inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
+                            <td><%= hackathons_count[1] %> or <%= number_to_percentage(100*hackathons_count[1].to_f / @attendees["hackathons_count"].inject(0){|sum,e| sum += e[1] }, precision: 1) %></td>
                         </tr>
                     <% end %>
                 </tbody>
             </table>
-            <p>The most popular Hackathon was <strong><%= @hackathons_attended[0][0] %></strong>, listed in <strong><%= @hackathons_attended[0][1] %></strong> applications.</p> 
+            <p>The most popular Hackathon was <strong><%= @attendees["hackathons_attended"][0][0] %></strong>, listed in <strong><%= @attendees["hackathons_attended"][0][1] %></strong> attendees' applications.</p>
         </article>
 
         <article>
-            <div class="horizontal-bar-graph" id="hackathon-graph"></div>
+            <div class="horizontal-bar-graph" id="attending-hackathon-graph"></div>
         </article>
     </div>
 
     <div class="row">
         <br><br><br><br>
-        <!-- Random reason to attend -->
-        <p><%= @random_reason[0] %></p>
-        <p>-<%= @random_reason[1] %> <%= @random_reason[2] %></p>
+        <div class="title-wrap">
+          <h1 class="section-head">Random Reasons For Attending</h1>
+          <div class="hline"></div>
+        </div>
+        <div class="column">
+            <article>
+                <p><%= @attendees["random_reason"][0][0] %></p>
+                <p>-<%= @attendees["random_reason"][0][1] %> <%= @random_reason[0][2] %></p>
+            </article>
+            <article>
+                <p><%= @attendees["random_reason"][1][0] %></p>
+                <p>-<%= @attendees["random_reason"][1][1] %> <%= @random_reason[1][2] %></p>
+            </article>
+        </div>
+        <div class="column">
+            <article>
+                <p><%= @attendees["random_reason"][2][0] %></p>
+                <p>-<%= @attendees["random_reason"][2][1] %> <%= @random_reason[3][2] %></p>
+            </article>
+            <article>
+                <p><%= @attendees["random_reason"][3][0] %></p>
+                <p>-<%= @attendees["random_reason"][3][1] %> <%= @random_reason[3][2] %></p>
+            </article>
+        </div>
     </div>
 
     <div class="row wordmap">
         <br><br><br><br><br><br><br>
         <div class="center">
-            <div id="example" style="width: 100%; height: 600px;"></div>
+            <div id="attending-wordcloud" style="width: 100%; height: 600px;"></div>
         </div>
-        <br><br><br><br><br><br><br>
+        <br><br><br><br>
     </div>
 
     <div class="row" id="hide-on-mobile">
         <div class="title-wrap">
-          <h1 class="section-head">Daily Number of Applications</h1>
+          <h1 class="section-head">Live Check-ins</h1>
           <div class="hline"></div>
         </div>
-        <div class="center" id="applications-graph">
+        <div class="center" id="attending-submissions-graph">
         </div>
     </div>
 </div>
+
+<!-- Let's load ruby variables into js because Noah likes to live dangerously -->
+<%= content_tag :div, class: "attending_data_gender_count", data: {temp: @attendees["gender_count"]} do %>
+<% end %>
+<%= content_tag :div, class: "attending_data_age_count", data: {temp: @attendees["age_count"]} do %>
+<% end %>
+<%= content_tag :div, class: "attending_data_grade_count", data: {temp: @attendees["uni_grade_count"]} do %>
+<% end %>
+<%= content_tag :div, class: "attending_data_hackathon_count", data: {temp: @attendees["hackathons_count"]} do %>
+<% end %>
+<%= content_tag :div, class: "attending_data_common_words", data: {temp: @attendees["common_words"]} do %>
+<% end %>
+<%= content_tag :div, class: "attending_data_submission_dates", data: {temp: @attendees["submission_array"]} do %>
+<% end %>
+<%= content_tag :div, class: "attending_data_tshirt_count", data: {temp: @attendees["tshirt_count"]} do %>
+<% end %>

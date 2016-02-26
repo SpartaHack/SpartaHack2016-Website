@@ -372,17 +372,18 @@ class UsersController < ApplicationController
         if !@application
           redirect_to '/application' and return
         else
-          if @application["status"] != "Accepted"
+
+					@rsvp = Parse::Query.new("RSVP").tap do |q|
+	                        q.eq("user", Parse::Pointer.new({
+	                          "className" => "_User",
+	                          "objectId"  => cookies.signed[:spartaUser][0]
+	                        }))
+	                end.get.first
+
+          if @application["status"] != "Accepted" || @application["status"] == "Accepted" && @application["exception"] != true  && @rsvp.blank? &&  @application["university"] != "USA: Michigan: Michigan State University"
             redirect_to '/dashboard' and return
           end
         end
-
-        @rsvp = Parse::Query.new("RSVP").tap do |q|
-                        q.eq("user", Parse::Pointer.new({
-                          "className" => "_User",
-                          "objectId"  => cookies.signed[:spartaUser][0]
-                        }))
-                end.get.first
 
         render layout: false
       rescue
@@ -504,6 +505,7 @@ class UsersController < ApplicationController
           })
           parse_resume.save
 
+					rsvp['resumeDownloaded'] = false
           rsvp['resume'] = parse_resume
         rescue
           flash[:popup] = "RSVP not saved."
