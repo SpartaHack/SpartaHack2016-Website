@@ -14,7 +14,7 @@ class AdminController < ApplicationController
 
   def admin
     if cookies.signed[:spartaUser]
-      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics"
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics"
         @user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
@@ -90,7 +90,7 @@ class AdminController < ApplicationController
 
   def email
     if cookies.signed[:spartaUser]
-      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics"
+      if cookies.signed[:spartaUser][1] == "admin"
         @user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
@@ -520,7 +520,7 @@ class AdminController < ApplicationController
 
   def checkin
     if cookies.signed[:spartaUser]
-      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship"
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer"
         user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
@@ -623,7 +623,7 @@ class AdminController < ApplicationController
 
   def onsite
     if cookies.signed[:spartaUser]
-      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship"
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer"
         user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
@@ -836,6 +836,16 @@ class AdminController < ApplicationController
   end
 
   def internal_register
+    if cookies.signed[:spartaUser]
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer"
+        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      else
+        flash[:error] = "You're not an admin."
+        redirect_to '/login' and return
+      end
+    else
+      redirect_to '/login' and return
+    end
     @companies = Parse::Query.new("Company").get
 
     @companies = @companies.sort do |a, b|
@@ -924,7 +934,7 @@ class AdminController < ApplicationController
 
   def judging_register
     if cookies.signed[:spartaUser]
-      if cookies.signed[:spartaUser][1] == "admin"
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer"
         user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
