@@ -134,10 +134,6 @@
                   <%= text_field_tag 'otherRestrictions', "#{@rsvp['otherRestrictions'] if @rsvp}", placeholder: 'List dietary restrictions here...' %>
                 </div>
 
-                <div class="add-margin-top tshirt" id="tshirt-wrap">
-                  <%= select_tag "tshirt", options_for_select(["","Unisex XS", "Unisex Small", "Unisex Medium", "Unisex Large", "Unisex XL", "Unisex XXL", "Women's XS", "Women's Small", "Women's Medium", "Women's Large", "Women's XL", "Women's XXL",]) %>
-                </div>
-
                 <div class="add-margin-top">
                   <%= label_tag(:phone, "What is your phone number", class: 'no-label') %>
                   <input type='tel' id="phone" name="phone" placeholder='Phone Number *'>
@@ -176,13 +172,6 @@
                 $('#popup-error-wrapper-internal').fadeOut('fast');
             });
 
-          });
-
-
-          $('#tshirt').select2({
-            placeholder: "T-Shirt Size *",
-            minimumResultsForSearch: -1,
-            allowClear: true,
           });
 
           $('#company').select2({

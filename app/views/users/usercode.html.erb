@@ -109,7 +109,11 @@
         <div class="wrap-code">
 	         <section id="user-code">
                 <div class="title-wrap">
-                  <h1 class="section-head">Attendee Code</h1>
+                  <% if @user["role"] != "sponsor" %>
+                    <h1 class="section-head">Attendee Code</h1>
+                  <% else %>
+                    <h1 class="section-head">User Code</h1>
+                  <% end %>
                   <div class="hline"></div>
                 </div>
             	<div class="inner-wrap">
