@@ -126,7 +126,7 @@
     }
   }
 
-  input[type=text]{
+  input[type=text], input[type=tel]{
     height: 36px;
     text-align:left;
     border: solid 1px $mutedOutline;

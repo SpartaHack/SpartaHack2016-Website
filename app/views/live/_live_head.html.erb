@@ -64,7 +64,7 @@
         <div id="day-schedule-wrap">
       <% @schedule.each_with_index do |day, index| %>
           <div class="day-wrap">
-            <%= index == 0 ? "<h1 class='day friday'>#{day[0]}</h1>".html_safe : "<h1 class='day'>#{day[0]}</h1>".html_safe %>
+            <%= index == 0 ? "<h1 class='day friday' id='#{day[0].downcase}'>#{day[0]}</h1>".html_safe : "<h1 class='day' id='#{day[0].downcase}'>#{day[0]}</h1>".html_safe %>
           </div>
 
         <% day[1].each_with_index do |schedule, i| %>

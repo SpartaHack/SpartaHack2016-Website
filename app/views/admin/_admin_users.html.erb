@@ -1,20 +1,30 @@
 <section class="topic-selection">
 	<div class="row">
+			<% if @user['role'] == "admin"%>
         <div class="hvr-underline-from-left full">
             <a href="/admin/users/applications"><div class="topic" >Applications</div></a>
         </div>
-		<div class="hvr-underline-from-left full">
-			<submit id="generate_code" class="topic">Generate Application Code</submit>
+				<div class="hvr-underline-from-left full">
+					<submit id="generate_code" class="topic">Generate Application Code</submit>
         </div>
         <div class="hvr-underline-from-left full">
             <a href="/admin/users/rsvps"><div class="topic" >RSVPs</div></a>
         </div>
+			<% end %>
+			<% if @user['role'] == "admin" || @user['role'] == "volunteer" %>
         <div class="hvr-underline-from-left full">
             <a href="/admin/users/checkin"><div class="topic" >Check-in Attendees</div></a>
         </div>
         <div class="hvr-underline-from-left full">
             <a href="/admin/users/onsite-registration"><div class="topic" >On-Site Registration</div></a>
         </div>
+				<div class="hvr-underline-from-left full">
+            <a href="/admin/internal/register"><div class="topic" >Sponsor/Volunteer Registration</div></a>
+        </div>
+				<div class="hvr-underline-from-left full">
+            <a href="/admin/judging/register"><div class="topic" >Judging Registration</div></a>
+        </div>
+			<% end %>
         <div class="hvr-underline-from-left full">
             <a href="/admin/users/email"><div class="topic" >Email</div></a>
         </div>

@@ -331,9 +331,9 @@ class StatisticsController < ApplicationController
       @submission_array.push({"date" => submission[0], "close" => submission[1]})
     end
 
-    # Check if using test database
-    if @hackathons_attended.length < 2
-      @hackathons_attended = {"test"=>1, "test hi"=>2}
+    # Populate the hackathons_attended list if empty
+    if @hackathons_attended.length < 1
+      @hackathons_attended = {"MHacks VI F15"=>1}
     end
 
     # Sorting
