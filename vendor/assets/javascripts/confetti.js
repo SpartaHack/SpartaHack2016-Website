@@ -51,7 +51,7 @@ function update() {
     tiltAngle += 0.1;
     TiltChangeCountdown--;
     for (var i = 0; i < mp; i++) {
-        
+
         var p = particles[i];
         p.tiltAngle += p.tiltAngleIncremental;
         //Updating X and Y coordinates
@@ -90,7 +90,7 @@ function update2() {
     tiltAngle += 0.1;
     TiltChangeCountdown--;
     for (var i = 0; i < mp; i++) {
-        
+
         var p = particles[i];
         p.tiltAngle += p.tiltAngleIncremental;
         //Updating X and Y coordinates
@@ -101,7 +101,7 @@ function update2() {
         p.x += Math.sin(angle);
         //p.tilt = (Math.cos(p.tiltAngle - (i / 3))) * 15;
         p.tilt = (Math.sin(p.tiltAngle - (i / 3))) * 15;
- 
+
     }
 }
 
@@ -121,8 +121,8 @@ function StartConfetti() {
         });
     }
 
-    W = window.innerWidth;
-    H = window.innerHeight;
+    W = $(document).width()
+    H = $(document).height()
     canvas.width = W;
     canvas.height = H;
     clearTimeout(confettiHandler);
@@ -138,8 +138,8 @@ function StopConfetti() {
 $(window).resize(function () {
     canvas = document.getElementById("canvas");
     //canvas dimensions
-    W = window.innerWidth;
-    H = window.innerHeight;
+    W = $(document).width()
+    H = $(document).height()
     canvas.width = W;
     canvas.height = H;
 });
@@ -166,12 +166,12 @@ $(document).ready(function () {
       } else {
         if (!timer) {
             StartConfetti();
-            
+
         }else {
             confetti_switch = 1;
             $('.box').unbind('mouseenter').unbind('mouseleave')
         };
       }
     });
-    
+
 });

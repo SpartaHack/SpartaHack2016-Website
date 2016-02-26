@@ -5,7 +5,12 @@
 <section id="live-index">
 
   <div id="clockdiv" class="no-mobile">
+<% if (Time.new(2016,02,28,11,00,00).to_i - Time.now.to_i) > 0 %>
+  <% if (Time.new(2016,02,26,23,00,00).to_i - Time.now.to_i) > 0 %>
     <p>Hacking begins in</p>
+  <% else %>
+    <p>Hacking ends in</p>
+  <% end %>
     <div>
       <span class="days"></span>
       <div class="smalltext">Days</div>
@@ -22,6 +27,9 @@
       <span class="seconds"></span>
       <div class="smalltext">Seconds</div>
     </div>
+<% else %>
+  <p>Hacking has ended!</p>
+<% end %>
   </div>
 
   <div id="col-index-wrap" class="no-mobile">
