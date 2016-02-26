@@ -19,100 +19,129 @@ class LiveController < ApplicationController
         redirect_to "/outage" and return
       end
 
-
     end
 
-      # user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      # data = { :alert => "This is a notification, dm Bogdan if you got it" }
-      # push = Parse::Push.new(data, cookies.signed[:spartaUser][0])
-      # push.save
-
-
     begin
-      @partner = []
-      @trainee = []
-      @warrior = []
-      @commander = []
+      @announcements_array = []
+      announcements = Parse::Query.new("Announcements").tap do |q|
+                        q.order_by = "updatedAt"
+                        q.order = :descending
+                      end.get
 
-      companies = Parse::Query.new("Company").get
+      announcements.each do |a|
+        string_array = a["Description"].split(" ")
+        announcement_string = ""
 
-      companies.each do |c|
-        if c["level"] == "partner"
-          @partner.push([c["url"], c["img"].url, c["name"]])
-        elsif c["level"] == "trainee"
-          @trainee.push([c["url"], c["img"].url, c["name"]])
-        elsif c["level"] == "warrior"
-          @warrior.push([c["url"], c["img"].url, c["name"]])
-        elsif c["level"] == "commander"
-          @commander.push([c["url"], c["img"].url, c["name"]])
+        string_array.each do |word|
+          if word.include? "http"
+            announcement_string += " <a href='#{word}' target='_blank'>#{word}</a>"
+          else
+            announcement_string += " #{word}"
+          end
         end
+
+        time = ( ( Time.now - DateTime.parse(a['updatedAt']) ) / ( 60 * 60) ).to_i
+        time_string = ""
+
+        if time < 1
+          time = ( ( Time.now - DateTime.parse(a['updatedAt']) ) / 60 ).to_i
+          if time > 1
+            time_string = "#{time} minutes ago"
+          elsif time == 1
+            time_string = "1 minute ago"
+          else
+            time_string = "#{( ( Time.now - DateTime.parse(a['updatedAt']) ) ).to_i} seconds ago"
+          end
+        else
+          if time > 1
+            time_string = "#{time} hours ago"
+          else
+            time_string = "1 hour ago"
+          end
+        end
+
+        time = "#{} hours ago"
+        @announcements_array.push([a['Title'], announcement_string.strip, time_string])
       end
 
-      @partner= @partner.sort do |a,b|
-        a[2] <=> b[2]
+      @prizes_array = []
+      prizes = Parse::Query.new("Prizes").tap do |q|
+                        q.include = "sponsor"
+                        q.order_by = "name"
+                        q.order = :ascending
+                      end.get
+
+      prizes.each do |prize|
+        @prizes_array.push([prize["name"], prize["description"], !prize["sponsor"].blank? ? "<a href='#{prize['sponsor']['url']}' target='_blank'>#{prize['sponsor']['name']}</a>" : "<a href='/' target='_blank'>SpartaHack</a>"])
       end
 
-      @trainee= @trainee.sort do |a,b|
-        a[2] <=> b[2]
+      @hardware_array = []
+      hardware = Parse::Query.new("Hardware").tap do |q|
+                        q.order_by = "name"
+                        q.order = :ascending
+                      end.get
+
+      hardware.each do |hardware|
+        @hardware_array.push([hardware['name'], !hardware["inventory"].blank? ? hardware["inventory"] : "Many", !hardware["lender"].blank? ? hardware["lender"] : "SpartaHack"])
       end
 
-      @warrior= @warrior.sort do |a,b|
-        a[2] <=> b[2]
+      @resources_array = []
+      resources = Parse::Query.new("Resources").tap do |q|
+                        q.order_by = "name"
+                        q.order = :ascending
+                        q.include = "sponsor"
+                      end.get
+
+      resources.each do |resource|
+        @resources_array.push([resource['name'], resource["url"], resource["sponsor"]])
       end
 
-      @commander= @commander.sort do |a,b|
-        a[2] <=> b[2]
+      @faq_array = []
+      faq = Parse::Query.new("FAQ").tap do |q|
+                        q.order_by = "order"
+                        q.order = :ascending
+                      end.get
+
+      faq.each do |qa|
+        @faq_array.push([qa['question'], qa["answer"]])
       end
 
-      @team = []
-
-      team_raw = Parse::Query.new("Team").get
-
-      team_raw.each do |t|
-        @team.push([t["url"], t["img"].url, t["name"], t["position"], t["order"], t["position2"]])
-      end
-
-      @team= @team.sort do |a,b|
-        a[4] <=> b[4]
-      end
 
     rescue
       redirect_to "/outage" and return
     end
 
       @schedule = [
-        [ 26, "Friday",[ ] ],
-        [ 27, "Saturday",[ ] ],
-        [ 28, "Sunday",[ ] ]
+        ["Friday",[ ] ],
+        ["Saturday",[ ] ],
+        ["Sunday",[ ] ]
       ]
 
-      schedule_raw = Parse::Query.new("Schedule").eq("publicBeforeEvent", true).get
+      schedule_raw = Parse::Query.new("Schedule").get
 
       schedule_raw.each do |s|
         day = s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%e")
         time = s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M")
-        time_end = !s["eventTimeEnd"].blank? ? s["eventTimeEnd"].in_time_zone("Eastern Time (US & Canada)").strftime("%H:%M") : nil
         if day.to_i == 26
-          @schedule[0][2].push([[time, time_end],s["eventTitle"],s["category"]])
+          @schedule[0][1].push([time,s["eventTitle"],s["eventDescription"],s["eventLocation"]])
         elsif day.to_i == 27
-          @schedule[1][2].push([[time, time_end],s["eventTitle"],s["category"]])
+          @schedule[1][1].push([time,s["eventTitle"],s["eventDescription"],s["eventLocation"]])
         else
-          @schedule[2][2].push([[time, time_end],s["eventTitle"],s["category"]])
+          @schedule[2][1].push([time,s["eventTitle"],s["eventDescription"],s["eventLocation"]])
         end
       end
 
-      @schedule[0][2]= @schedule[0][2].sort do |a,b|
+      @schedule[0][1]= @schedule[0][1].sort do |a,b|
         a[0] <=> b[0]
       end
 
-      @schedule[1][2]= @schedule[1][2].sort do |a,b|
+      @schedule[1][1]= @schedule[1][1].sort do |a,b|
         a[0] <=> b[0]
       end
 
-      @schedule[2][2]= @schedule[2][2].sort do |a,b|
+      @schedule[2][1]= @schedule[2][1].sort do |a,b|
         a[0] <=> b[0]
       end
-
     render layout: false
   end
 

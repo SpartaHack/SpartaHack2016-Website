@@ -29,7 +29,7 @@
 
     </div>
   </div>
-
+<% if (Time.new(2016,02,26,23,00,00).to_i - Time.now.to_i) > 0 %>
   <div id="clockdiv">
     <p>Hacking begins in</p>
     <div>
@@ -49,5 +49,6 @@
       <div class="smalltext">Seconds</div>
     </div>
   </div>
+<% end %>
 
 </section>

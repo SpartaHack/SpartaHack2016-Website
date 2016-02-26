@@ -1,0 +1,122 @@
+<div id="header" class="header">
+    <div class="navbar-nav left">
+      <a href="#hero" class="anchorLink">
+        <div id="home-nav" class="svg-wrapper active">
+          <svg height="60" width="85" xmlns="http://www.w3.org/2000/svg">
+            <rect class="shape home" height="60" width="85" />
+          </svg>
+        </div>
+        <div class="text">2016</div>
+      </a>
+  <% if cookies.signed[:spartaUser] %>
+    <% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
+      <div id="app-wrapper">
+        <a href="/admin">
+          <div id="admin-nav" class="svg-wrapper">
+            <svg height="60" width="188" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape mobile-nav" height="60" width="188" />
+            </svg>
+          </div>
+          <div class="text">ADMIN DASHBOARD</div>
+        </a>
+      </div>
+    <% else %>
+      <% if @application %>
+        <div id="app-wrapper">
+          <a href="/dashboard">
+            <div id="app-nav" class="svg-wrapper">
+              <svg height="60" width="163" xmlns="http://www.w3.org/2000/svg">
+                <rect class="shape login" height="60" width="163" />
+              </svg>
+            </div>
+            <div class="text">MY DASHBOARD</div>
+          </a>
+        </div>
+      <% else %>
+        <div id="app-wrapper">
+          <a href="/application">
+            <div id="app-nav" class="svg-wrapper">
+              <svg height="60" width="164" xmlns="http://www.w3.org/2000/svg">
+                <rect class="shape login" height="60" width="164" />
+              </svg>
+            </div>
+            <div class="text">MY APPLICATION</div>
+          </a>
+        </div>
+      <% end %>
+    <% end %>
+      <div id="login-wrapper">
+        <a href="/logout">
+          <div id="login-nav" class="svg-wrapper">
+            <svg height="60" width="110" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape login" height="60" width="110" />
+            </svg>
+          </div>
+          <div class="text">LOG OUT</div>
+        </a>
+      </div>
+  <% else %>
+      <div id="login-wrapper">
+        <a href="/login">
+          <div id="login-nav" class="svg-wrapper">
+            <svg height="60" width="93" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape login" height="60" width="93" />
+            </svg>
+          </div>
+          <div class="text">LOGIN</div>
+        </a>
+      </div>
+  <% end %>
+
+    </div>
+
+    <div class="navbar-nav right">
+        <a href="/mentorship/register" class="anchorLink">
+          <div id="schedule-nav" class="svg-wrapper">
+            <svg height="60" width="202" xmlns="http://www.w3.org/2000/svg">
+              <rect class="shape contact" height="60" width="202" />
+            </svg>
+          </div>
+          <div class="text">Sign up to be a mentor!</div>
+        </a>
+    </div>
+
+
+    <nav>
+        <ul class="mobile">
+          <div class="mobile-wrap">
+            <div>
+          <% if cookies.signed[:spartaUser] %>
+            <% if cookies.signed[:spartaUser][1] == "admin" %>
+              <li><a href="/admin">ADMIN DASHBOARD</a></li>
+            <% else %>
+              <% if @application %>
+                <li><a href="/dashboard">MY DASHBOARD</a></li>
+              <% else %>
+                <li><a href="/application">MY APPLICATION</a></li>
+              <% end %>
+            <% end %>
+            </div>
+            <div>
+              <li><a href="/mentorship/register" class="anchorLink">Be a Mentor</a></li>
+
+            </div>
+          </div>
+          <li class="mobile-tail"><a href="/logout">LOG OUT</a></li>
+          <% else %>
+            </div>
+            <div>
+            </div>
+          </div>
+              <li class="mobile-tail"><a href="/login">LOGIN</a></li>
+
+          <% end %>
+
+        </ul>
+
+        <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
+    </nav>
+
+
+
+</div>

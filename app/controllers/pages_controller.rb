@@ -117,8 +117,8 @@ class PagesController < ApplicationController
   end
 
   def map
-    map = File.join(Rails.root, "app/assets/pdfs/map.pdf")
-    send_file(map, :filename => "map.pdf", :disposition => 'inline', :type => "application/pdf")
+    map = File.join(Rails.root, "app/assets/pdfs/SpartaHack 2016 Map.pdf")
+    send_file(map, :filename => "SpartaHack 2016 Map.pdf", :disposition => 'inline', :type => "application/pdf")
   end
 
   def subscribe
