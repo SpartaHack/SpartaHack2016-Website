@@ -7,7 +7,7 @@ class StatisticsController < ApplicationController
   def stats
     # Only allow admins to view
     if cookies.signed[:spartaUser]
-      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics"
+      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "volunteer"
         user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
