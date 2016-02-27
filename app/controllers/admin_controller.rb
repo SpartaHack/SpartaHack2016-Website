@@ -34,6 +34,11 @@ class AdminController < ApplicationController
                       q.skip = 1000
                     end.get.length
 
+    @users_total += Parse::Query.new("_User").tap do |q|
+                      q.limit = 1000
+                      q.skip = 2000
+                    end.get.length
+
     # Gets a total count of RSVPs
     @rsvp_total = Parse::Query.new("RSVP").tap do |q|
                       q.limit = 1000
