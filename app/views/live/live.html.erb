@@ -85,12 +85,6 @@
 
               function updateClock() {
                 var t = getTimeRemaining(endtime);
-                if (t.total == 0) {
-                  var deadline = new Date(1456675200000);
-                  initializeClock('clockdiv', deadline);
-                  $("#clockdiv p").html("Hacking ends in");
-                  $("#clockdiv p").attr("style", "color: #F3464A !important;");
-                }
 
                 var d = new Date();
                 var n = d.getTime();
@@ -128,7 +122,7 @@
               var timeinterval = setInterval(updateClock, 1000);
             }
 
-            var deadline = new Date(1456545600000);
+            var deadline = new Date(1456675200000);
             initializeClock('clockdiv', deadline);
 
 
