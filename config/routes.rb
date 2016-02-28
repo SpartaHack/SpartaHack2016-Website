@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   get 'outage' => 'pages#outage'
   get 'winners2015' => 'pages#winners2015'
   get 'hangout' => 'pages#hangout'
+  get 'tables' => 'pages#tables'
+  get 'judging' => 'pages#judging'
   get 'map' => 'pages#map'
 
   get 'admin' => 'admin#admin'

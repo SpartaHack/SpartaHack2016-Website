@@ -166,6 +166,14 @@ class PagesController < ApplicationController
     render layout: false
   end
 
+  def tables
+    redirect_to 'https://docs.google.com/spreadsheets/d/1PaBMyiiEhUnkGXBcQyvL6wBGM8Tblnx6u826o7J7qXk/edit?usp=sharing'
+  end
+
+  def judging
+    redirect_to 'https://docs.google.com/forms/d/1HJAPH6-Fy6ynxONi_3-F16TkdINn5oG1F_h5CS4s0Ns/viewform'
+  end
+
   def hangout
     redirect_to 'https://talkgadget.google.com/hangouts/_/xkodgcsi4uolmwx2z3siz7q2yya'
   end
