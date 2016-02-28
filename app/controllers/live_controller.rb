@@ -72,7 +72,7 @@ class LiveController < ApplicationController
                       end.get
 
       prizes.each do |prize|
-        @prizes_array.push([prize["name"], prize["description"], !prize["sponsor"].blank? ? "<a href='#{prize['sponsor']['url']}' target='_blank'>#{prize['sponsor']['name']}</a>" : "<a href='/' target='_blank'>SpartaHack</a>"])
+        @prizes_array.push([prize["name"], prize["description"], !prize["sponsor"].blank? ? prize["sponsor"] : "SpartaHack"])
       end
 
       @hardware_array = []
