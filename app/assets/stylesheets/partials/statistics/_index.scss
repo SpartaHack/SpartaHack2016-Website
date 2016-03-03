@@ -66,6 +66,10 @@
 
 
   .title-wrap {
+      @media (max-width: 650px) {
+        margin-top: 25px;
+        width: 100%;
+      }
 
     .section-head {
         margin-top: 0px;

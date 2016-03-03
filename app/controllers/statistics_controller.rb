@@ -7,14 +7,7 @@ class StatisticsController < ApplicationController
   def stats
     # Only allow admins to view
     if cookies.signed[:spartaUser]
-      if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "volunteer"
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
-      else
-        flash[:error] = "You're not an admin."
-        redirect_to '/login' and return
-      end
-    else
-      redirect_to '/login' and return
+        @user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
     end
 
     def age(dob,diq)
@@ -60,8 +53,7 @@ class StatisticsController < ApplicationController
       @rsvps_total+=1
       if rsvp["attending"]==true
         @rsvp_attending_count += 1
-        pp "what is going on?"
-        pp rsvp
+
         if !rsvp["application"].blank?
           rsvp["application"]["user"] = rsvp["user"]
           @rsvpd_applications << rsvp["application"]
@@ -264,12 +256,37 @@ class StatisticsController < ApplicationController
     if flag != ""
       rsvps.each do |rsvp|
         if flag == "attending"
-          current_day = (Time.parse(rsvp['createdAt']) - 9*3600).strftime("%d-%b-%y-%H")
+          current_day = (Time.parse(rsvp['createdAt']).in_time_zone("Eastern Time (US & Canada)")).strftime("%d-%b-%y-%H-%M")
+          minute = current_day[-2..-1].to_i
+
+          if minute <= 7
+            current_day = current_day[0..-3] + "00"
+          elsif minute > 7 && minute <= 22
+            current_day = current_day[0..-3] + "15"
+          elsif minute > 22 && minute <= 37
+            current_day = current_day[0..-3] + "30"
+          elsif minute > 37 && minute <= 52
+            current_day = current_day[0..-3] + "45"
+          elsif minute > 52 && minute <= 59
+            hour = current_day[-5..-4]
+
+            if hour.to_i == 23
+              current_day = (current_day[0..1].to_i + 1).to_s + current_day[2..-6] + "00-00"
+            else
+              if hour.to_i < 9
+                current_day = current_day[0..-5] + (current_day[-4..-4].to_i + 1).to_s + "-00"
+              else
+                current_day = current_day[0..-6] + (hour.to_i + 1).to_s + "-00"
+              end
+            end
+          end
+
         else
           current_day = ( Time.parse(rsvp['createdAt'])).strftime("%d-%b-%y")
         end
 
         if !@submission_dates[ current_day ].blank?
+
           @submission_dates[ current_day ] += 1
         else
           @submission_dates[ current_day ] = 1
@@ -301,8 +318,7 @@ class StatisticsController < ApplicationController
 
           # T-shirt sizes
           if !rsvp['tshirt'].blank?
-            pp "not blank"
-            pp flag
+
             if @tshirt_count[ rsvp['tshirt'] ]
               @tshirt_count[ rsvp['tshirt'] ] += 1
             else
