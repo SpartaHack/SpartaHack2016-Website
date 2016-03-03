@@ -314,6 +314,7 @@
         </article>
     </div>
 
+<% if !@user.blank? && @user["role"] == 'admin'%>
     <div class="row">
         <br><br><br><br>
         <div class="title-wrap">
@@ -341,6 +342,7 @@
             </article>
         </div>
     </div>
+<% end %>
 
     <div class="row wordmap">
         <br><br><br><br><br><br><br>

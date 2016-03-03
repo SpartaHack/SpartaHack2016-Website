@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   get 'admin/sponsorship' => 'admin#sponsorship'
   get 'admin/stats' => 'statistics#stats'
   get 'admin/statistics' => 'statistics#stats'
+  get 'statistics' => 'statistics#stats'
   post 'admin/notifications' => 'admin#notifications'
   post 'admin/internal-notifications' => 'admin#internal_notifications'
   get 'admin/users/applications' => 'admin#applications'

@@ -14,7 +14,7 @@
         <meta property="og:site_name" content="SpartaHack" />
         <meta property="og:url" content="https://www.spartahack.com" />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the page for the admin dashboard." />
+        <meta property="og:description" content="SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. This is the page for the stats." />
         <meta property="og:image" content="<%=image_url("facebook.png")%>" />
 
         <title>SpartaStats</title>
@@ -37,10 +37,11 @@
                   </div>
                   <div class="text">2016</div>
                 </a>
-                <div id="admin-panel">Admin</div>
             </div>
 
             <div class="navbar-nav right">
+        <% if !@user.blank? %>
+            <% if @user["role"] == 'admin'%>
                 <div id="app-wrapper">
                     <a href="/admin">
                       <div id="admin-nav" class="svg-wrapper">
@@ -51,6 +52,18 @@
                       <div class="text">ADMIN DASHBOARD</div>
                     </a>
                 </div>
+            <% else %>
+                <div id="app-wrapper">
+                    <a href="/dashboard">
+                      <div id="app-nav" class="svg-wrapper">
+                        <svg height="60" width="163" xmlns="http://www.w3.org/2000/svg">
+                          <rect class="shape login" height="60" width="163" />
+                        </svg>
+                      </div>
+                      <div class="text">MY DASHBOARD</div>
+                    </a>
+                </div>
+            <% end %>
                 <div id="login-wrapper">
                     <a href="/logout">
                         <div id="login-nav" class="svg-wrapper">
@@ -61,6 +74,18 @@
                         <div class="text">LOG OUT</div>
                     </a>
                 </div>
+        <% else %>
+              <div id="login-wrapper">
+                <a href="/login">
+                  <div id="login-nav" class="svg-wrapper">
+                    <svg height="60" width="93" xmlns="http://www.w3.org/2000/svg">
+                      <rect class="shape login" height="60" width="93" />
+                    </svg>
+                  </div>
+                  <div class="text">LOGIN</div>
+                </a>
+              </div>
+        <% end %>
             </div>
 
 
@@ -71,10 +96,20 @@
                     <li><a href="/" class="anchorLink">HOME PAGE</a></li>
                   </div>
                   <div>
+            <% if !@user.blank? %>
+                <% if @user["role"] == 'admin'%>
                     <li><a href="/admin" class="anchorLink">ADMIN DASHBOARD</a></li>
+                <% else %>
+                    <li><a href="/dashboard" class="anchorLink">MY DASHBOARD</a></li>
+                <% end %>
                   </div>
+            <% else %>
+                <li><a href="/login" class="anchorLink">LOG IN</a></li>
+            <% end %>
                 </div>
+            <% if !@user.blank? %>
                 <li class="mobile-tail"><a href="/logout" class="anchorLink">LOG OUT</a></li>
+            <% end %>
               </ul>
               <div id="pull"><%= image_tag "2016.svg", alt: "2016", :id => "year" %><%= image_tag "menu.svg", alt: "menu", :id => "mobile-menu-img" %></div>
             </nav>
