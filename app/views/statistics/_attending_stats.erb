@@ -84,11 +84,7 @@
         </article>
     </div>
 
-    <% if !@user.blank? && @user["role"] == 'admin'%>
-        <div class="column">
-    <% else %>
-        <div class="row">
-    <% end %>
+    <div class="column">
         <article>
             <div class="title-wrap">
               <h1 class="section-head">Universities</h1>
@@ -118,66 +114,36 @@
             <p>There are <strong><%= @attendees["international_count"] %> international students</strong>, which make up <strong><%= number_to_percentage(100*(@attendees["international_count"].to_f / @attendees["uni_applicants"].inject(0){|sum,e| sum += e[1]}), precision: 1) %></strong> of attending.</p>
 
         </article>
-    <% if !@user.blank? && @user["role"] == 'admin'%>
+
         <article>
             <div class="title-wrap">
-              <h1 class="section-head">Closest Schools</h1>
+              <h1 class="section-head">Majors</h1>
               <div class="hline"></div>
             </div>
-            <div class="horizontal-bar-graph" id="attending-university-graph"></div>
-            <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
-                <thead>
-                    <tr>
-                        <th>University</th>
-                        <th>Count</th>
-                    </tr>
-                </thead>
+            <div class="horizontal-bar-graph" id="attending-major-graph"></div>
+            <div class="row">
+                <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
+                    <thead>
+                        <tr>
+                            <th>Major</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <% @attendees["closest_school"][0..20].each_with_index do |closest_school, index|  %>
-                    <tr>
-                        <td><%= closest_school[0] %></td>
-                        <td><%= closest_school[1] %> or <%= number_to_percentage(100*(closest_school[1].to_f / @attending_total), precision: 1) %></td>
-                    </tr>
-                    <% end %>
-                </tbody>
-            </table>
-            <div class="tablefooter">
-                *top 20
+                    <tbody>
+                        <% @attendees["major_count"].each_with_index do |major_count, index|  %>
+                        <tr>
+                            <td><%= major_count[0] %></td>
+                            <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @attending_total, precision: 1) %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+
+                </table>
             </div>
         </article>
-    <% end %>
     </div>
 
-    <div class="row" id="rsvp-majors">
-        <div class="title-wrap">
-          <h1 class="section-head">Majors</h1>
-          <div class="hline"></div>
-        </div>
-        <div class="horizontal-bar-graph" id="attending-major-graph"></div>
-        <div class="row">
-            <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
-                <thead>
-                    <tr>
-                        <th>Major</th>
-                        <th>Count</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <% @attendees["major_count"].each_with_index do |major_count, index|  %>
-                    <tr>
-                        <td><%= major_count[0] %></td>
-                        <td><%= major_count[1] %> or <%= number_to_percentage(100*major_count[1].to_f / @attending_total, precision: 1) %></td>
-                    </tr>
-                    <% end %>
-                </tbody>
-
-            </table>
-        </div>
-    </div>
-
-    
     <div class="column">
         <article>
             <div class="title-wrap">
