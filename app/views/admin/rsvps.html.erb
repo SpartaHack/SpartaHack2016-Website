@@ -113,21 +113,23 @@
 
                     <tbody>
                         <% @rsvps.each_with_index do |rsvp, index|  %>
+                        <% pp "----------------------" %>
+                        <% pp rsvp %>
                         <tr>
                             <td><%= index.to_i + 1 %></td>
                             <td><%= rsvp['user']['firstName'] %></td>
                             <td><%= rsvp['user']['lastName'] %></td>
                             <td><%= rsvp['user']["email"] %></td>
-                            <td><%= rsvp['createdAt'] %></td>
-                            <td><%= rsvp['attending'] %></td>
-                            <td><%= rsvp['tshirt'] %></td>
-                            <td><%= !rsvp['application']['university'].blank? ? rsvp['application']['university'] : "" %></td>
-                            <td><%= !rsvp['university'].blank? ? rsvp['university'] : "" %></td>
-                            <td><%= !rsvp['application']["major"].blank? ? rsvp['application']["major"] : "" %></td>
-                            <td><%= !rsvp['restrictions'].blank? ? rsvp['restrictions'].join(", ") : "" %></td>
-                            <td><%= !rsvp['otherRestrictions'].blank? ? rsvp['otherRestrictions'] : "" %></td>
+                            <td><%= !rsvp['createdAt'].blank? ? rsvp['createdAt'] : nil %></td>
+                            <td><%= !rsvp['attending'].blank? ? rsvp['attending'] : nil %></td>
+                            <td><%= !rsvp['tshirt'].blank? ? rsvp['tshirt'] : nil %></td>
+                            <td><%= !rsvp['application']['university'].blank? ? rsvp['application']['university'] : nil %></td>
+                            <td><%= !rsvp['university'].blank? ? rsvp['university'] : nil %></td>
+                            <td><%= !rsvp['application']["major"].blank? ? rsvp['application']["major"] : nil %></td>
+                            <td><%= !rsvp['restrictions'].blank? ? rsvp['restrictions'].join(", ") : nil %></td>
+                            <td><%= !rsvp['otherRestrictions'].blank? ? rsvp['otherRestrictions'] : nil %></td>
                             <td>
-                                <a target="_blank" href=<%= !rsvp['resume'].blank? ? "#{rsvp['resume'].url.sub('http://', 'https://s3.amazonaws.com/')}" : "" %>>
+                                <a target="_blank" href=<%= !rsvp['resume'].blank? ? "#{rsvp['resume'].url.sub('http://', 'https://s3.amazonaws.com/')}" : "" %> >
                                     Resume
                                 </a>
                             </td>
