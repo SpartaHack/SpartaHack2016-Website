@@ -84,7 +84,11 @@
         </article>
     </div>
 
-    <div class="column">
+    <% if !@user.blank? && @user["role"] == 'admin'%>
+        <div class="column">
+    <% else %>
+        <div class="row">
+    <% end %>
         <article>
             <div class="title-wrap">
               <h1 class="section-head">Universities</h1>
@@ -114,6 +118,7 @@
             <p>There are <strong><%= @rsvps["international_count"] %> international students</strong>, which make up <strong><%= number_to_percentage(100*(@rsvps["international_count"].to_f / @rsvps["uni_applicants"].inject(0){|sum,e| sum += e[1]}), precision: 1) %></strong> of RSVPs.</p>
 
         </article>
+    <% if !@user.blank? && @user["role"] == 'admin'%>
         <article>
             <div class="title-wrap">
               <h1 class="section-head">Closest Schools</h1>
@@ -141,6 +146,7 @@
                 *top 20
             </div>
         </article>
+    <% end %>
     </div>
 
     <div class="row" id="rsvp-majors">
@@ -230,7 +236,7 @@
 
                 </table>
                 <br>
-
+            <% if !@user.blank? && @user["role"] == 'admin'%>
                 <table id="my-final-table" class="display dataTable" cellspacing="0" width="98%" role="grid">
                     <thead>
                         <tr>
@@ -247,6 +253,7 @@
                     </tbody>
 
                 </table>
+            <% end %>
             </div>
         </article>
 

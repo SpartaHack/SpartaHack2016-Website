@@ -35,9 +35,9 @@
   }
 
   #attending-stats {
-    position: fixed;
-    visibility: hidden;
-    opacity: 0;
+    position: inherit;
+    visibility: visible;
+    opacity: 1;
     transition: visibility 0s, opacity 0.75s linear;
   }
 
@@ -49,9 +49,9 @@
   }
 
   #app-stats {
-    position: inherit;
-    visibility: visible;
-    opacity: 1;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
     transition: visibility 0s, opacity 0.75s linear;
   }
 

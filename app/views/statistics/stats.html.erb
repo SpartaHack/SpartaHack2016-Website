@@ -138,17 +138,19 @@
 
                     <div class="row">
                         <group class="inline-radio">
-                            <div><input type="radio" name="lives" id="application" checked><label>Application</label></div>
+                            <div><input type="radio" name="lives" id="attending"  checked><label>Attending</label></div>
                             <div><input type="radio" name="lives" id="rsvp"><label>RSVP</label></div>
-                            <div><input type="radio" name="lives" id="attending"><label>Attending</label></div>
+                            <div><input type="radio" name="lives" id="application"><label>Application</label></div>
                         </group>
                     </div>
+
+                    <%= render partial: "statistics/attending_stats" %>
 
                     <%= render partial: "statistics/rsvp_stats" %>
 
                     <%= render partial: "statistics/application_stats" %>
 
-                    <%= render partial: "statistics/attending_stats" %>
+                    
 
                     <br><br><br><br>
                 </div>
