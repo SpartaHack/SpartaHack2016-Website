@@ -113,8 +113,6 @@
 
                     <tbody>
                         <% @rsvps.each_with_index do |rsvp, index|  %>
-                        <% pp "----------------------" %>
-                        <% pp rsvp %>
                         <tr>
                             <td><%= index.to_i + 1 %></td>
                             <td><%= rsvp['user']['firstName'] %></td>
