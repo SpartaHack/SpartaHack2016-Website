@@ -123,5 +123,5 @@ function confirmJavascript() {
   })
 }
 
-confirmJavascript();
-setInterval(confirmJavascript, 10000); // invoke each 10 seconds
+// confirmJavascript();
+// setInterval(confirmJavascript, 10000); // invoke each 10 seconds

@@ -122,8 +122,7 @@ class PagesController < ApplicationController
     send_file(map, :filename => "SpartaHack 2016 Map.pdf", :disposition => 'inline', :type => "application/pdf")
   end
 
-  def subscribe
-
+	def subscribe
     if subscribe_params[:emailinput] == "" && subscribe_params[:fname] == "" && subscribe_params[:lname] == ""
       flash[:error] = "You cannot submit an empty form."
       redirect_to "/#contact" and return
@@ -146,16 +145,21 @@ class PagesController < ApplicationController
     else
       begin
       	mailchimp = Mailchimp::API.new(ENV["MAILCHIMP_API_KEY"])
-    		mailchimp.lists.subscribe(ENV["MAILCHIMP_VOL_LIST_ID"],
+    		mailchimp.lists.subscribe(ENV["MAILCHIMP_LIST_ID"],
     		                   { "email" => subscribe_params['emailinput']
     		                   },{'FNAME' => subscribe_params['fname'] , "LNAME" => subscribe_params['lname'] })
-        render layout: false
-      rescue
-        flash[:error] = "You've already signed up with this email."
-        redirect_to "/#contact" and return
+
+      	@type = "success"
+      	@desc = "Now you just need to confirm your email address!"
+      	@title = "Sweet!"
+      rescue Exception => e
+      	p e
+      	puts
+      	@type = "error"
+      	@desc = "You've already signed up with this email."
+      	@title = "Uh Oh!"
       end
     end
-
 	end
 
   def winners2015

@@ -9,6 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+        <%= csrf_meta_tag %>
         <!-- Open Graph -->
         <meta property="og:title" content="SpartaHack 2016" />
         <meta property="og:site_name" content="SpartaHack" />
@@ -19,11 +20,11 @@
 
 
 
-
-        <title>SpartaHack</title>
+        <title>SpartaHack 2016</title>
 
         <%= favicon_link_tag 'favicon.png' %>
         <%= stylesheet_link_tag "pages" %>
+        <%= stylesheet_link_tag "sweetalert" %>
 
 
 
@@ -39,22 +40,25 @@
 
 
           <%= render partial: "pages/index_head" %>
+          <%= render partial: "pages/index_contact" %>
           <%= render partial: "pages/index_schedule" %>
           <%= render partial: "pages/index_mobile" %>
           <%= render partial: "pages/index_faq" %>
           <%= render partial: "pages/index_end" %>
           <%= render partial: "pages/index_team" %>
-          <%= render partial: "pages/index_contact" %>
+
 
 
        </div>
 
-       <%= render partial: "pages/index_footer" %>
+        <%= render partial: "pages/index_footer" %>
 
         <%= javascript_include_tag "jquery-1.11.3.min" %>
+        <%= javascript_include_tag :jquery, :jquery_ujs %>
+        <%= javascript_include_tag "sweetalert.min" %>
         <%= javascript_include_tag "headroom.min" %>
         <%= javascript_include_tag "jquery-headroom" %>
-        <%= javascript_tag do %>
+        <!-- <= javascript_tag do %>
           $(document).ready(function() {
 
             function getTimeRemaining(endtime) {
@@ -101,7 +105,7 @@
 
 
           });
-        <% end %>
+        < end %> -->
 
         <%= javascript_include_tag "index.js" %>
 

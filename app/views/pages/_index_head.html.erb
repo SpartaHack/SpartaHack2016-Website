@@ -8,11 +8,10 @@
 			<p id="title-hashtag">#livebythecode</p>
 			<%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
 			<p id="intro">
-			  SpartaHack 2016 is Michigan State University’s second annual student-run hackathon. On the weekend of February 26th, we're bringing together 500 students of all skill levels and disciplines to get creative with tech, connect with peers and professionals, and forget the words "I can't."
-			  We're excited to see what you will create!
+			  SpartaHack 2016 was Michigan State University’s second annual student-run hackathon. On the weekend of February 26th, we brought together 500+ students of all skill levels and disciplines to get creative with tech, connect with peers and professionals, and forget the words "I can't."
 			</p>
-
-			<p id="sorry">We're sorry, due to an overwhelming volume of applications, we have had to close registration.</p>
+<!-- 
+			<p id="sorry">We're sorry, due to an overwhelming volume of applications, we have had to close registration.</p> -->
 	  	</div>
 
 	<% if cookies.signed[:spartaUser] %>
@@ -21,7 +20,7 @@
 			<a class="hero-link" href="/admin">VIEW ADMIN DASHBOARD</a>
 		<% else %>
 			<% if @application %>
-				<a class="hero-link" href="https://live.spartahack.com">Live!</a>
+				<a class="hero-link" href="/live">Live!</a>
 			<% else %>
 				<% if @user["role"] != "sponsor" %>
 				<a class="hero-link" href="/application">COMPLETE MY APPLICATION</a>
@@ -33,7 +32,7 @@
 		</div>
 	<% else %>
 			<div class="hvr-underline-from-center apply-wrapper">
-					<a class="hero-link" href="https://live.spartahack.com">Live!</a>
+					<a class="hero-link" href="/live">Live!</a>
 			</div>
 	<% end %>
 	</div>
