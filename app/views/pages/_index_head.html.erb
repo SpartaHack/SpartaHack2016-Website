@@ -8,9 +8,9 @@
 			<p id="title-hashtag">#livebythecode</p>
 			<%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
 
-			<div id="contact">
+			<div id="contact" style="border:none">
 				<%= form_tag("/subscribe", method: "post", id: "send_contact", :remote => true, :authenticity_token => true) do %>
-				  <div class="wrap column mail-list">
+				  <div class="wrap column">
 				    <h1 id="mail">SpartaHack 2017 MAILING LIST SIGNUP</h1>
 				    <% if flash[:error] %>
 				      <div id="error-wrapper">
