@@ -43,7 +43,7 @@
     padding-right: 1em;
   }
 
-  :-ms-input-placeholder { 
+  :-ms-input-placeholder {
     color: $cream;
     opacity: 1;
     font-family: ubuntu;
@@ -58,12 +58,12 @@
     border: solid 1px $mutedOutline;
     margin-top: 25px;
     margin-bottom: 0px;
-    text-align:left; 
-    font-size: 14px; 
+    text-align:left;
+    font-size: 14px;
     font-weight: lighter;
     color: $cream;
     background: none;
-    padding: 8px 0px 8px 25px; 
+    padding: 8px 0px 8px 25px;
     height: 36px;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
@@ -73,13 +73,13 @@
   }
 
   input[type=text] {
-    text-align:left; 
+    text-align:left;
     border: solid $mutedOutline;
-    font-size: 14px; 
+    font-size: 14px;
     font-weight: 100;
     color: $cream;
     background: none;
-    padding: 8px 0px 8px 25px; 
+    padding: 8px 0px 8px 25px;
     width: 40%;
     height: 36px;
     -webkit-appearance: none;
@@ -93,7 +93,7 @@
     border-color: rgba(128, 295, 219, 0.8) !important;
     box-shadow: 0 1px 1px rgba(128, 295, 219, 0.075) inset, 0 0 8px rgba(128, 295, 219, 0.6) !important;
     outline: 0 none !important;
-  }  
+  }
 
   #mail {
 
@@ -161,7 +161,7 @@
     @media (min-width: 341px) and (max-width: 560px) {
       font-size: 18px;
     }
-  }  
+  }
 
   .email {
     padding-left: 25px;
@@ -232,16 +232,16 @@
     background: none;
     border-style: none;
     text-align: center;
-    -moz-box-sizing: border-box; 
-    box-sizing: border-box; 
-    display: block; 
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
     border: none;
     color: $cream;
     width: 100%;
     font-weight: 100;
     font-size: 15px;
     height: 60px;
-    cursor: pointer; 
+    cursor: pointer;
     cursor: hand;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
@@ -259,6 +259,10 @@
       width: 557px;
     }
 
+  }
+
+  .mail-list {
+    margin-top: 0px;
   }
 
 }

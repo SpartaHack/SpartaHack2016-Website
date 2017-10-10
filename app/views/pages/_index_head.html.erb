@@ -7,33 +7,61 @@
 			<p id="title-date">February 26-28, 2016</p>
 			<p id="title-hashtag">#livebythecode</p>
 			<%= image_tag "logo.svg", alt: "SpartaHack", :class => "logo" %>
+
+			<div id="contact" style="border:none">
+				<%= form_tag("/subscribe", method: "post", id: "send_contact", :remote => true, :authenticity_token => true) do %>
+				  <div class="wrap column">
+				    <h1 id="mail">SpartaHack 2017 MAILING LIST SIGNUP</h1>
+				    <% if flash[:error] %>
+				      <div id="error-wrapper">
+				        <div class="error"><%= flash[:error] %></div>
+				      </div>
+				    <% end %>
+				    <div class="inner">
+				      <%= label_tag 'fname', 'First Name', class: 'no-label' %>
+				      <%= text_field_tag 'fname', "#{flash[:fname] if flash[:fname]}", placeholder: 'FIRST NAME', required: true%>
+				      <%= label_tag 'lname', 'Last Name', class: 'no-label' %>
+				      <%= text_field_tag 'lname', "#{flash[:lname] if flash[:lname]}", placeholder: 'LAST NAME', required: true%>
+				    </div>
+
+				    <%= label_tag 'emailinput', 'Email', class: 'no-label' %>
+				    <%= email_field_tag 'emailinput', "#{flash[:email] if flash[:email]}", placeholder: 'YOUR EMAIL',  :class => "tail", required: true%>
+
+				    <div class="hvr-underline-from-center inner" id="submit-wrap">
+				      <%= submit_tag "SIGN UP TO BE NOTIFIED", id: "send-message"%>
+				    </div>
+				  </div>
+
+				<% end %>
+			</div>
+
 			<p id="intro">
 			  SpartaHack 2016 was Michigan State University’s second annual student-run hackathon. On the weekend of February 26th, we brought together 500+ students of all skill levels and disciplines to get creative with tech, connect with peers and professionals, and forget the words "I can't."
 			</p>
-<!-- 
+<!--
 			<p id="sorry">We're sorry, due to an overwhelming volume of applications, we have had to close registration.</p> -->
 	  	</div>
 
-	<% if cookies.signed[:spartaUser] %>
+	<!-- < if cookies.signed[:spartaUser] %>
 		<div class="hvr-underline-from-center apply-wrapper">
-		<% if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
+		< if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics" %>
 			<a class="hero-link" href="/admin">VIEW ADMIN DASHBOARD</a>
-		<% else %>
-			<% if @application %>
+		< else %>
+			< if @application %>
 				<a class="hero-link" href="/live">Live!</a>
-			<% else %>
-				<% if @user["role"] != "sponsor" %>
+			< else %>
+				< if @user["role"] != "sponsor" %>
 				<a class="hero-link" href="/application">COMPLETE MY APPLICATION</a>
-				<% else %>
+				< else %>
 					<a class="hero-link" href="/dashboard">View Dashboard</a>
-				<% end %>
-			<% end %>
-		<% end %>
+				< end %>
+			< end %>
+		< end %>
 		</div>
-	<% else %>
+	< else %>
 			<div class="hvr-underline-from-center apply-wrapper">
 					<a class="hero-link" href="/live">Live!</a>
 			</div>
-	<% end %>
+	< end %> -->
 	</div>
 </section>
