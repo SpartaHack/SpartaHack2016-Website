@@ -9,7 +9,7 @@ class MentorshipController < ApplicationController
       session[:return_to] = '/mentorship/register'
       redirect_to '/jscheck'
     else
-      @rsvp = Parse::Query.new("RSVP").tap do |q|
+      @rsvp = $client.query("RSVP").tap do |q|
         q.eq("user", Parse::Pointer.new({
           "className" => "_User",
           "objectId"  => cookies.signed[:spartaUser][0]
@@ -24,14 +24,14 @@ class MentorshipController < ApplicationController
         redirect_to '/dashboard' and return
       end
 
-      @mentor = Parse::Query.new("Mentors").tap do |q|
+      @mentor = $client.query("Mentors").tap do |q|
                       q.eq("mentor", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
               end.get.first
 
-      @categories = Parse::Query.new("HelpDesk").tap do |q|
+      @categories = $client.query("HelpDesk").tap do |q|
                       q.eq("category", "Mentorship")
               end.get.first["subCategory"]
 
@@ -44,7 +44,7 @@ class MentorshipController < ApplicationController
     begin
       fields = [ "mentoring", "categories"]
 
-      @mentor = Parse::Query.new("Mentors").tap do |q|
+      @mentor = $client.query("Mentors").tap do |q|
                       q.eq("mentor", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
@@ -62,7 +62,7 @@ class MentorshipController < ApplicationController
 
           cats_to_remove = @mentor["categories"]
           if !cats_to_remove.blank?
-            cats = Parse::Query.new("Categories").tap do |q|
+            cats = $client.query("Categories").tap do |q|
               q.value_in("name", cats_to_remove)
             end.get
 
@@ -94,7 +94,7 @@ class MentorshipController < ApplicationController
         end
 
         if !cats_to_remove.blank?
-          cats = Parse::Query.new("Categories").tap do |q|
+          cats = $client.query("Categories").tap do |q|
             q.value_in("name", cats_to_remove)
           end.get
 
@@ -104,7 +104,7 @@ class MentorshipController < ApplicationController
           end
         end
 
-        get_cats = Parse::Query.new("Categories").tap do |q|
+        get_cats = $client.query("Categories").tap do |q|
             q.value_in("name", new_cats)
         end.get
 
@@ -119,7 +119,7 @@ class MentorshipController < ApplicationController
         @mentor.save
       else
 
-        get_cats = Parse::Query.new("Categories").tap do |q|
+        get_cats = $client.query("Categories").tap do |q|
             q.value_in("name", mentorship_register_params["categories"])
         end.get
 
@@ -130,7 +130,7 @@ class MentorshipController < ApplicationController
           end
         end
 
-        @mentor = Parse::Object.new("Mentors")
+        @mentor = $client.object("Mentors")
         @mentor["categories"] = mentorship_register_params["categories"]
         @mentor["mentor"] = Parse::Pointer.new({
                         "className" => "_User",

@@ -1,6 +1,6 @@
 <section id="sponsors">
   <div id="sponsor-wrap">
-    
+
     <h2 class="section-head">
         SPONSORS
     </h2>
@@ -12,7 +12,7 @@
           <article class="gold center">
             <a href="<%= sponsor[0] %>" target="_blank">
               <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor" %>
-            </a>  
+            </a>
           </article>
         <% end %>
       </div>
@@ -23,7 +23,7 @@
         <% @warrior.each do |sponsor|  %>
           <article class="silver center">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor" %>
+              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
             </a>
           </article>
         <% end %>
@@ -35,7 +35,7 @@
         <% @trainee.each do |sponsor|  %>
           <article class="bronze center">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :id => "#{sponsor[2] == 'Auto-Owners Insurance' ? 'auto-owners' : ''}", :class => "#{sponsor[2] != 'Auto-Owners Insurance' ? 'logo-sponsor ' : 'top'}sponsor-img" %>
+              <%= image_tag sponsor[1], alt: sponsor[2], :id => "#{sponsor[2] == 'Auto-Owners Insurance' ? 'auto-owners' : ''}", :class => "#{sponsor[2] != 'Auto-Owners Insurance' ? 'logo-sponsor ' : 'top'}sponsor-img" %>
               <% if sponsor[2] == 'Auto-Owners Insurance' %>
                 <%= image_tag "auto-owners-gray.svg", alt: sponsor[2], :id => "#{sponsor[2] == 'Auto-Owners Insurance' ? 'auto-owners' : ''}", :class => " bottom sponsor-img" %>
               <% end %>
@@ -45,12 +45,12 @@
       </div>
     </section>
 
-    <section id="sub"> 
+    <section id="sub">
       <div class="media-grid">
         <% @partner.each do |sponsor|  %>
           <article class="sub center">
             <a href="<%= sponsor[0] %>" target="_blank">
-              <%= image_tag sponsor[1].sub('http://', 'https://s3.amazonaws.com/'), alt: sponsor[2], :class => "logo-sponsor" %>
+              <%= image_tag sponsor[1], alt: sponsor[2], :class => "logo-sponsor" %>
             </a>
           </article>
         <% end %>

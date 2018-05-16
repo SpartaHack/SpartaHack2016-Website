@@ -9,7 +9,7 @@
         <% @team.each do |member|  %>
           <article class="team-wrap">
             <a href="<%= member[0] %>" target="_blank">
-              <%= image_tag member[1].sub('http://', 'https://s3.amazonaws.com/'), alt: member[2], :class => "member member-img" %>
+              <%= image_tag member[1], alt: member[2], :class => "member member-img" %>
             </a>
             <p id="member-name"><%= member[2] %></p>
             <p class="position"><%= member[3] %></p>

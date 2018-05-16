@@ -7,7 +7,7 @@ class StatisticsController < ApplicationController
   def stats
     # Only allow admins to view
     if cookies.signed[:spartaUser]
-        @user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        @user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
     end
 
     def age(dob,diq)
@@ -19,11 +19,11 @@ class StatisticsController < ApplicationController
     @apps_accepted_total = 0
 
     # Get all applications
-    @apps = Parse::Query.new("Application").tap do |q|
+    @apps = $client.query("Application").tap do |q|
       q.limit = 1000
       q.include = "user"
     end.get
-    @apps += Parse::Query.new("Application").tap do |q|
+    @apps += $client.query("Application").tap do |q|
       q.skip = 1000
       q.limit = 1000
       q.include = "user"
@@ -34,12 +34,12 @@ class StatisticsController < ApplicationController
 
     # RSVP setup
     # Gets all rsvps
-    @rsvps = Parse::Query.new("RSVP").tap do |q|
+    @rsvps = $client.query("RSVP").tap do |q|
       q.include = "user,application"
       q.limit = 1000
     end.get
 
-    @rsvps += Parse::Query.new("RSVP").tap do |q|
+    @rsvps += $client.query("RSVP").tap do |q|
       q.skip = 1000
       q.include = "user,application"
       q.limit = 1000
@@ -71,7 +71,7 @@ class StatisticsController < ApplicationController
     @attending_applications = []
     # Attending stats setup
     # Gets all attendees
-    @attendees = Parse::Query.new("Attendance").tap do |q|
+    @attendees = $client.query("Attendance").tap do |q|
       q.include = "user,rsvp,application"
       q.limit = 1000
     end.get

@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 			if register_params["t"].blank?
 				redirect_to "/sorry" and return
 			else
-				token = Parse::Query.new("AppCode").tap do |q|
+				token = $client.query("AppCode").tap do |q|
 												q.eq("code", register_params["t"])
 												q.eq("used", false)
 											end.get.first
@@ -54,7 +54,7 @@ class UsersController < ApplicationController
         redirect_to '/register' and return
       end
       begin
-        apply = Parse::User.new({
+        apply = $client.user({
           :username => user_app_params['email'].downcase,
 					:firstName => user_app_params["firstName"].capitalize,
 					:lastName => user_app_params["lastName"].capitalize,
@@ -95,7 +95,7 @@ class UsersController < ApplicationController
                                 "github", "linkedIn", "website", "devPost", "coolLink",
                                 "universityStudent", "mlh"]
 
-      application = Parse::Query.new("Application").tap do |q|
+      application = $client.query("Application").tap do |q|
                       q.eq("user", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
@@ -104,7 +104,7 @@ class UsersController < ApplicationController
       if !application
         flash[:popup] = "Application successfully submitted."
         flash[:sub] = "You may continue to edit your application."
-        application = Parse::Object.new("Application")
+        application = $client.object("Application")
       else
         flash[:popup] = "Application updated."
         flash[:sub] = "You may continue to edit your application."
@@ -134,8 +134,8 @@ class UsersController < ApplicationController
       end
       response = application.save
 
-      application = Parse::Query.new("Application").eq("objectId", response["objectId"]).get.first
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      application = $client.query("Application").eq("objectId", response["objectId"]).get.first
+      user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       application["user"] = user.pointer
       application.save
 
@@ -157,13 +157,13 @@ class UsersController < ApplicationController
       redirect_to '/jscheck'
     else
       begin
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       rescue
         redirect_to "/outage" and return
       end
 
       begin
-        @application = Parse::Query.new("Application").tap do |q|
+        @application = $client.query("Application").tap do |q|
           q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
@@ -192,7 +192,7 @@ class UsersController < ApplicationController
   def login
     if cookies.signed[:spartaUser]
       begin
-        @application = Parse::Query.new("Application").tap do |q|
+        @application = $client.query("Application").tap do |q|
           q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
@@ -228,7 +228,7 @@ class UsersController < ApplicationController
   # authenticate user and redirect them to their application
   def auth
   	begin
-			login = Parse::User.authenticate(user_login_params['email'].downcase,user_login_params['password'])
+			login = Parse::User.authenticate(user_login_params['email'].downcase, user_login_params['password'], $client)
       if login["role"] == "admin" || login["role"] == "volunteer" || login["role"] == "sponsorship" || login["role"] == "sponsor" || login["role"] == "statistics"
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], login["role"]] }
 
@@ -243,7 +243,7 @@ class UsersController < ApplicationController
       else
         cookies.permanent.signed[:spartaUser] = { value: [login["objectId"], "attendee"] }
         begin
-          @application = Parse::Query.new("Application").tap do |q|
+          @application = $client.query("Application").tap do |q|
             q.eq("user", Parse::Pointer.new({
               "className" => "_User",
               "objectId"  => login["objectId"]
@@ -282,7 +282,7 @@ class UsersController < ApplicationController
       redirect_to '/jscheck'
     else
       # begin
-        @application = Parse::Query.new("Application").tap do |q|
+        @application = $client.query("Application").tap do |q|
           q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
@@ -290,7 +290,7 @@ class UsersController < ApplicationController
           q.include = "user"
         end.get.first
 
-				@user = Parse::Query.new("_User").tap do |q|
+				@user = $client.query("_User").tap do |q|
 																q.eq("objectId", cookies.signed[:spartaUser][0])
 												end.get.first
 
@@ -300,7 +300,7 @@ class UsersController < ApplicationController
 					end
         end
 
-        @rsvp = Parse::Query.new("RSVP").tap do |q|
+        @rsvp = $client.query("RSVP").tap do |q|
                         q.eq("user", Parse::Pointer.new({
                           "className" => "_User",
                           "objectId"  => cookies.signed[:spartaUser][0]
@@ -310,7 +310,7 @@ class UsersController < ApplicationController
 
         begin
 	        if !@application.blank? && !@application['university'].blank?
-            @travel = Parse::Query.new("Travel").tap do |q|
+            @travel = $client.query("Travel").tap do |q|
                           q.eq("university", @application['university'])
                   end.get.first
           end
@@ -350,12 +350,12 @@ class UsersController < ApplicationController
             end
           end
 
-          @travel = Parse::Query.new("Travel").tap do |q|
+          @travel = $client.query("Travel").tap do |q|
                         q.eq("university", @rsvp['university'])
                 end.get.first
 
           if @travel.blank?
-            @travel = Parse::Query.new("Travel").tap do |q|
+            @travel = $client.query("Travel").tap do |q|
                           q.eq("university", @application['university'])
                   end.get.first
           end
@@ -379,7 +379,7 @@ class UsersController < ApplicationController
       redirect_to '/jscheck'
     else
       begin
-        @application = Parse::Query.new("Application").tap do |q|
+        @application = $client.query("Application").tap do |q|
           q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
@@ -390,7 +390,7 @@ class UsersController < ApplicationController
           redirect_to '/application' and return
         else
 
-					@rsvp = Parse::Query.new("RSVP").tap do |q|
+					@rsvp = $client.query("RSVP").tap do |q|
 	                        q.eq("user", Parse::Pointer.new({
 	                          "className" => "_User",
 	                          "objectId"  => cookies.signed[:spartaUser][0]
@@ -413,21 +413,21 @@ class UsersController < ApplicationController
     begin
       fields = [ "university", "restrictions", "otherRestrictions", "tshirt"]
 
-      rsvp = Parse::Query.new("RSVP").tap do |q|
+      rsvp = $client.query("RSVP").tap do |q|
                       q.eq("user", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
                       }))
             end.get.first
 
-      @app = Parse::Query.new("Application").tap do |q|
+      @app = $client.query("Application").tap do |q|
         q.eq("user", Parse::Pointer.new({
           "className" => "_User",
           "objectId"  => cookies.signed[:spartaUser][0]
         }))
       end.get.first
 
-      @mentor = Parse::Query.new("Mentors").tap do |q|
+      @mentor = $client.query("Mentors").tap do |q|
                       q.eq("mentor", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => cookies.signed[:spartaUser][0]
@@ -445,7 +445,7 @@ class UsersController < ApplicationController
         if !rsvp
           flash[:popup] = "RSVP successfully submitted."
           flash[:sub] = "You may continue to edit your RSVP."
-          rsvp = Parse::Object.new("RSVP")
+          rsvp = $client.object("RSVP")
         else
           flash[:popup] = "RSVP updated."
           flash[:sub] = "You may continue to edit your RSVP."
@@ -462,7 +462,7 @@ class UsersController < ApplicationController
 
           cats_to_remove = @mentor["categories"]
           if !cats_to_remove.blank?
-            cats = Parse::Query.new("Categories").tap do |q|
+            cats = $client.query("Categories").tap do |q|
               q.value_in("name", cats_to_remove)
             end.get
 
@@ -478,8 +478,8 @@ class UsersController < ApplicationController
 
         response = rsvp.save
 
-        rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        rsvp = $client.query("RSVP").eq("objectId", response["objectId"]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
         rsvp["user"] = user.pointer
 
         if rsvp["application"].blank?
@@ -499,7 +499,7 @@ class UsersController < ApplicationController
 
         flash[:popup] = "RSVP successfully submitted."
         flash[:sub] = "You may continue to edit your RSVP."
-        rsvp = Parse::Object.new("RSVP")
+        rsvp = $client.object("RSVP")
       else
         flash[:popup] = "RSVP updated."
         flash[:sub] = "You may continue to edit your RSVP."
@@ -514,7 +514,7 @@ class UsersController < ApplicationController
         #save resume to parse
         begin
           resume = user_rsvp_params['resume']
-          parse_resume = Parse::File.new({
+          parse_resume = $client.file({
             :body => resume.read,
             :local_filename => "resume.pdf" ,
             :content_type => resume.content_type,
@@ -533,8 +533,8 @@ class UsersController < ApplicationController
 
       response = rsvp.save
 
-      rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
-      user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+      rsvp = $client.query("RSVP").eq("objectId", response["objectId"]).get.first
+      user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       rsvp["user"] = user.pointer
 
       if rsvp["application"].blank?
@@ -562,7 +562,7 @@ class UsersController < ApplicationController
       redirect_to '/jscheck'
     else
       begin
-        @rsvp = Parse::Query.new("RSVP").tap do |q|
+        @rsvp = $client.query("RSVP").tap do |q|
                         q.eq("user", Parse::Pointer.new({
                           "className" => "_User",
                           "objectId"  => cookies.signed[:spartaUser][0]
@@ -570,7 +570,7 @@ class UsersController < ApplicationController
                 end.get.first
 
         if @rsvp.blank? && cookies.signed[:spartaUser][1] != "sponsor"
-          redirect_to "/dashboard"					
+          redirect_to "/dashboard"
         else
           @user = cookies.signed[:spartaUser][0]
           render layout: false

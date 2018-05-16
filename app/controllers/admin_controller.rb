@@ -15,7 +15,7 @@ class AdminController < ApplicationController
   def admin
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer" || cookies.signed[:spartaUser][1] == "sponsorship" || cookies.signed[:spartaUser][1] == "statistics"
-        @user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        @user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -25,39 +25,39 @@ class AdminController < ApplicationController
     end
 
     # Gets a total count of users
-    @users_total = Parse::Query.new("_User").tap do |q|
+    @users_total = $client.query("_User").tap do |q|
                       q.limit = 1000
                     end.get.length
 
-    @users_total += Parse::Query.new("_User").tap do |q|
+    @users_total += $client.query("_User").tap do |q|
                       q.limit = 1000
                       q.skip = 1000
                     end.get.length
 
-    @users_total += Parse::Query.new("_User").tap do |q|
+    @users_total += $client.query("_User").tap do |q|
                       q.limit = 1000
                       q.skip = 2000
                     end.get.length
 
     # Gets a total count of RSVPs
-    @rsvp_total = Parse::Query.new("RSVP").tap do |q|
+    @rsvp_total = $client.query("RSVP").tap do |q|
                       q.limit = 1000
                       q.eq("attending", true)
                     end.get.length
 
-    @rsvp_total += Parse::Query.new("RSVP").tap do |q|
+    @rsvp_total += $client.query("RSVP").tap do |q|
                       q.limit = 1000
                       q.skip = 1000
                       q.eq("attending", true)
                     end.get.length
 
     # Collects all the applications with their user object
-    @apps = Parse::Query.new("Application").tap do |q|
+    @apps = $client.query("Application").tap do |q|
                       q.limit = 1000
                       q.include = "user"
                     end.get
 
-    @apps += Parse::Query.new("Application").tap do |q|
+    @apps += $client.query("Application").tap do |q|
                       q.limit = 1000
                       q.include = "user"
                       q.skip = 1000
@@ -69,7 +69,7 @@ class AdminController < ApplicationController
   end
 
   def notifications
-    @notification = Parse::Object.new("Announcements")
+    @notification = $client.object("Announcements")
     @notification["Description"] = notif_params["notification"]
     @notification["PushNotification"] = true
     @notification["Title"] = notif_params["notification-title"]
@@ -78,7 +78,7 @@ class AdminController < ApplicationController
   end
 
   def internal_notifications
-    @notification = Parse::Object.new("InternalAnnouncements")
+    @notification = $client.object("InternalAnnouncements")
     @notification["announcement"] = internal_notif_params["announcement"]
     @notification["role"] = internal_notif_params["role"]
     @notification.save
@@ -87,7 +87,7 @@ class AdminController < ApplicationController
   def generate_code
     @code = Digest::SHA1.hexdigest( (Time.now.to_f * 1000.0).to_i.to_s + ENV["HASH_CODE"] )
 
-    code = Parse::Object.new("AppCode")
+    code = $client.object("AppCode")
     code["code"] = @code
     code["used"] = false
     code.save
@@ -96,7 +96,7 @@ class AdminController < ApplicationController
   def email
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin"
-        @user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        @user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -106,12 +106,12 @@ class AdminController < ApplicationController
     end
 
     # Collects all the applications with their user object
-    @apps = Parse::Query.new("Application").tap do |q|
+    @apps = $client.query("Application").tap do |q|
                       q.limit = 1000
                       q.include = "user"
                     end.get
 
-    @apps += Parse::Query.new("Application").tap do |q|
+    @apps += $client.query("Application").tap do |q|
                       q.limit = 1000
                       q.include = "user"
                       q.skip = 1000
@@ -129,12 +129,12 @@ class AdminController < ApplicationController
     end
 
     # Collects users that have been notified of an empty app already
-    email_flags = Parse::Query.new("EmailFlags").tap do |q|
+    email_flags = $client.query("EmailFlags").tap do |q|
                     q.limit = 1000
                     q.include = "user"
                   end.get
 
-    email_flags += Parse::Query.new("EmailFlags").tap do |q|
+    email_flags += $client.query("EmailFlags").tap do |q|
                       q.limit = 1000
                       q.include = "user"
                       q.skip = 1000
@@ -154,7 +154,7 @@ class AdminController < ApplicationController
         if !flagged_users.include? empty_user['email']
           @new_empty_app_first_notice += 1
         elsif flagged_users.include? empty_user['email']
-          user_flags = Parse::Query.new("EmailFlags").tap do |q|
+          user_flags = $client.query("EmailFlags").tap do |q|
                             q.eq("user", Parse::Pointer.new({
                               "className" => "_User",
                               "objectId"  => empty_user['objectId']
@@ -175,7 +175,7 @@ class AdminController < ApplicationController
         if !flagged_users.include? empty_user['email']
           @new_empty_rsvp_first_notice += 1
         elsif flagged_users.include? empty_user['email']
-          user_flags = Parse::Query.new("EmailFlags").tap do |q|
+          user_flags = $client.query("EmailFlags").tap do |q|
                             q.eq("user", Parse::Pointer.new({
                               "className" => "_User",
                               "objectId"  => empty_user['objectId']
@@ -193,13 +193,13 @@ class AdminController < ApplicationController
 
   def send_emails
     if email_params['type'] == 'decision'
-      @applications = Parse::Query.new("Application").tap do |q|
+      @applications = $client.query("Application").tap do |q|
         q.limit = 1000
         q.eq("emailStatus", nil)
         q.include = "user"
       end.get
 
-      @applications += Parse::Query.new("Application").tap do |q|
+      @applications += $client.query("Application").tap do |q|
         q.limit = 1000
         q.skip = 1000
         q.eq("emailStatus", nil)
@@ -224,12 +224,12 @@ class AdminController < ApplicationController
       end
     elsif email_params['type'] == "rsvp-reminder"
 
-      email_flags = Parse::Query.new("EmailFlags").tap do |q|
+      email_flags = $client.query("EmailFlags").tap do |q|
                       q.limit = 1000
                       q.include = "user"
                     end.get
 
-      email_flags += Parse::Query.new("EmailFlags").tap do |q|
+      email_flags += $client.query("EmailFlags").tap do |q|
                         q.limit = 1000
                         q.include = "user"
                         q.skip = 1000
@@ -246,13 +246,13 @@ class AdminController < ApplicationController
       @empty_rsvp_users.each do |empty_user|
           if !flagged_users.include? empty_user['email']
             UserMailer.notify_of_empty_rsvp(empty_user['email']).deliver_now
-            emailFlag = Parse::Object.new("EmailFlags")
+            emailFlag = $client.object("EmailFlags")
             emailFlag["firstRsvpReminder"] = true
             emailFlag["user"] = empty_user.pointer
             emailFlag.save
             @email_count += 1
           elsif flagged_users.include? empty_user['email']
-            user_flags = Parse::Query.new("EmailFlags").tap do |q|
+            user_flags = $client.query("EmailFlags").tap do |q|
                               q.eq("user", Parse::Pointer.new({
                                 "className" => "_User",
                                 "objectId"  => empty_user['objectId']
@@ -276,13 +276,13 @@ class AdminController < ApplicationController
     elsif email_params['type'] == "empty_app"
 
 
-      email_flags = Parse::Query.new("EmailFlags").tap do |q|
+      email_flags = $client.query("EmailFlags").tap do |q|
                       q.limit = 1000
                       q.eq("firstEmptyApp", true)
                       q.include = "user"
                     end.get
 
-      email_flags += Parse::Query.new("EmailFlags").tap do |q|
+      email_flags += $client.query("EmailFlags").tap do |q|
                         q.limit = 1000
                         q.eq("firstEmptyApp", true)
                         q.include = "user"
@@ -301,7 +301,7 @@ class AdminController < ApplicationController
 
           if !flagged_users.include? empty_user['email']
             UserMailer.notify_of_empty_app(empty_user['email']).deliver_now
-            emailFlag = Parse::Object.new("EmailFlags")
+            emailFlag = $client.object("EmailFlags")
             emailFlag["firstEmptyApp"] = true
             emailFlag["user"] = empty_user.pointer
             emailFlag.save
@@ -314,7 +314,7 @@ class AdminController < ApplicationController
               @email_count = 0
             end
           elsif flagged_users.include? empty_user['email']
-            user_flags = Parse::Query.new("EmailFlags").tap do |q|
+            user_flags = $client.query("EmailFlags").tap do |q|
                               q.eq("user", Parse::Pointer.new({
                                 "className" => "_User",
                                 "objectId"  => empty_user['objectId']
@@ -343,7 +343,7 @@ class AdminController < ApplicationController
   def sponsorship
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship"
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -355,9 +355,10 @@ class AdminController < ApplicationController
     # Used to populate Edit Sponsors section.
     @sponsors = []
 
-    companies = Parse::Query.new("Company").get
+    companies = $client.query("Company").get
 
     companies.each do |c|
+        c["img"].url.slice! ":1337"
         @sponsors.push([c["objectId"], c["name"]])
 
         # saves a png version of svg else if png uses the png
@@ -366,7 +367,7 @@ class AdminController < ApplicationController
             svg = open(c['img'].url) {|f| f.read }
 
             # creates a parse File using the private svg_to_png function
-            photo = Parse::File.new({
+            photo = $client.file({
               :body => svg_to_png(svg),
               :local_filename => "logo.png",
               :content_type => "image/png",
@@ -392,7 +393,7 @@ class AdminController < ApplicationController
 
     logo = add_sponsor_params['picture']
 
-    photo = Parse::File.new({
+    photo = $client.file({
       :body => logo.read,
       :local_filename => logo.original_filename,
       :content_type => logo.content_type,
@@ -400,7 +401,7 @@ class AdminController < ApplicationController
     })
     photo.save
 
-    company = Parse::Object.new("Company")
+    company = $client.object("Company")
     company['name'] = add_sponsor_params['name']
     company['url'] = add_sponsor_params['url']
     company['img'] = photo
@@ -414,7 +415,7 @@ class AdminController < ApplicationController
   def viewsponsor
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "sponsorship"
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -425,7 +426,8 @@ class AdminController < ApplicationController
 
     # Populates form with sponsor info to be edited.
     object = view_sponsor_params['object']
-    @sponsor = Parse::Query.new("Company").eq("objectId", object).get[0]
+    @sponsor = $client.query("Company").eq("objectId", object).get[0]
+    @sponsor["img"].url.slice! ":1337"
 
     render layout: false
   end
@@ -433,7 +435,7 @@ class AdminController < ApplicationController
   def editsponsor
     # Deletes or updates a sponsor
 
-    company = Parse::Query.new("Company").eq("objectId", edit_sponsor_params['object']).get.first
+    company = $client.query("Company").eq("objectId", edit_sponsor_params['object']).get.first
 
     if edit_sponsor_params["commit"] == "Delete"
       company.parse_delete
@@ -441,7 +443,7 @@ class AdminController < ApplicationController
 
       if edit_sponsor_params["picture"]
         logo = edit_sponsor_params['picture']
-        photo = Parse::File.new({
+        photo = $client.file({
           :body => logo.read,
           :local_filename => logo.original_filename,
           :content_type => logo.content_type,
@@ -464,7 +466,7 @@ class AdminController < ApplicationController
   def applications
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin"
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -473,12 +475,12 @@ class AdminController < ApplicationController
       redirect_to '/login' and return
     end
 
-    @apps = Parse::Query.new("Application").tap do |q|
+    @apps = $client.query("Application").tap do |q|
       q.limit = 1000
       q.include = "user"
     end.get
 
-    @apps += Parse::Query.new("Application").tap do |q|
+    @apps += $client.query("Application").tap do |q|
       q.skip = 1000
       q.include = "user"
       q.limit = 1000
@@ -490,7 +492,7 @@ class AdminController < ApplicationController
   def rsvps
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin"
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -499,12 +501,12 @@ class AdminController < ApplicationController
       redirect_to '/login' and return
     end
 
-    @rsvps = Parse::Query.new("RSVP").tap do |q|
+    @rsvps = $client.query("RSVP").tap do |q|
       q.include = "user,application"
       q.limit = 1000
     end.get
 
-    @rsvps += Parse::Query.new("RSVP").tap do |q|
+    @rsvps += $client.query("RSVP").tap do |q|
       q.skip = 1000
       q.include = "user,application"
       q.limit = 1000
@@ -514,7 +516,7 @@ class AdminController < ApplicationController
   end
 
   def app_status
-      app = Parse::Query.new("Application").eq("objectId", status_params["object"]).get.first
+      app = $client.query("Application").eq("objectId", status_params["object"]).get.first
       if !status_params["status-select"].blank?
         app['status'] = status_params["status-select"]
       else
@@ -526,7 +528,7 @@ class AdminController < ApplicationController
   def checkin
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer"
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -539,7 +541,7 @@ class AdminController < ApplicationController
 
   def checkin_search
     if !checkin_search_params[:barcode].blank?
-      @attendance =  Parse::Query.new("Attendance").tap do |q|
+      @attendance =  $client.query("Attendance").tap do |q|
         q.eq("user", Parse::Pointer.new({
           "className" => "_User",
           "objectId"  => checkin_search_params[:barcode]
@@ -547,7 +549,7 @@ class AdminController < ApplicationController
       end.get.first
 
       if @attendance.blank?
-        @user = Parse::Query.new("RSVP").tap do |q|
+        @user = $client.query("RSVP").tap do |q|
           q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => checkin_search_params[:barcode]
@@ -565,12 +567,12 @@ class AdminController < ApplicationController
       end
 
     elsif !checkin_search_params[:email].blank?
-      @user_object = Parse::Query.new("_User").tap do |q|
+      @user_object = $client.query("_User").tap do |q|
         q.eq("email", checkin_search_params[:email])
       end.get.first
 
       if !@user_object.blank?
-        @attendance =  Parse::Query.new("Attendance").tap do |q|
+        @attendance =  $client.query("Attendance").tap do |q|
           q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => @user_object["objectId"]
@@ -578,7 +580,7 @@ class AdminController < ApplicationController
         end.get.first
 
         if @attendance.blank?
-          @user = Parse::Query.new("RSVP").tap do |q|
+          @user = $client.query("RSVP").tap do |q|
             q.eq("user", Parse::Pointer.new({
               "className" => "_User",
               "objectId"  => @user_object["objectId"]
@@ -600,7 +602,7 @@ class AdminController < ApplicationController
   end
 
   def checkin_confirm
-      @attendance =  Parse::Query.new("Attendance").tap do |q|
+      @attendance =  $client.query("Attendance").tap do |q|
         q.eq("user", Parse::Pointer.new({
           "className" => "_User",
           "objectId"  => checkin_confirm_params[:user]
@@ -608,8 +610,8 @@ class AdminController < ApplicationController
       end.get.first
 
       if @attendance.blank?
-        @attendance = Parse::Object.new("Attendance")
-        rsvp =  Parse::Query.new("RSVP").tap do |q|
+        @attendance = $client.object("Attendance")
+        rsvp =  $client.query("RSVP").tap do |q|
                                 q.eq("user", Parse::Pointer.new({
                                   "className" => "_User",
                                   "objectId"  => checkin_confirm_params[:user]
@@ -629,7 +631,7 @@ class AdminController < ApplicationController
   def onsite
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer"
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -643,21 +645,21 @@ class AdminController < ApplicationController
   def onsite_search
     @email = onsite_search_params["email-search"]
 
-    @user = Parse::Query.new("_User").tap do |q|
+    @user = $client.query("_User").tap do |q|
       q.eq("email", onsite_search_params["email-search"] )
     end.get.first
 
     if !@user.blank?
-      @rsvp = Parse::Query.new("RSVP").tap do |q|
+      @rsvp = $client.query("RSVP").tap do |q|
                 q.eq("user", @user.pointer)
                 q.include = "application"
               end.get.first
       if !@rsvp.blank?
-        @attendance = Parse::Query.new("Attendance").tap do |q|
+        @attendance = $client.query("Attendance").tap do |q|
                   q.eq("user", @user.pointer)
                 end.get.first
         if @attendance.blank?
-          @attendance = Parse::Object.new("Attendance")
+          @attendance = $client.object("Attendance")
           @attendance['rsvp'] = @rsvp.pointer
           @attendance['user'] = @user.pointer
           @attendance['application'] = @rsvp["application"].pointer
@@ -667,7 +669,7 @@ class AdminController < ApplicationController
           @attendance = false
         end
       else
-        @application = Parse::Query.new("Application").tap do |q|
+        @application = $client.query("Application").tap do |q|
                   q.eq("user", @user.pointer)
                 end.get.first
       end
@@ -696,7 +698,7 @@ class AdminController < ApplicationController
       end
       begin
         if params.has_key?(:password)
-          apply = Parse::User.new({
+          apply = $client.user({
             :username => user_app_params['email'].downcase,
             :firstName => user_app_params["firstName"].capitalize,
             :lastName => user_app_params["lastName"].capitalize,
@@ -706,7 +708,7 @@ class AdminController < ApplicationController
           })
           @user = apply.save
         else
-          @user = Parse::Query.new("_User").tap do |q|
+          @user = $client.query("_User").tap do |q|
             q.eq("email", user_app_params['email'].downcase )
           end.get.first
 
@@ -736,14 +738,14 @@ class AdminController < ApplicationController
                                 "github", "linkedIn", "website", "devPost",
                                 "universityStudent", "mlh"]
 
-      application = Parse::Query.new("Application").tap do |q|
+      application = $client.query("Application").tap do |q|
                       q.eq("user", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => @user["objectId"]
                       }))
                     end.get.first
       if !application
-        application = Parse::Object.new("Application")
+        application = $client.object("Application")
       end
 
       fields.each do |field|
@@ -770,7 +772,7 @@ class AdminController < ApplicationController
       end
       response = application.save
 
-      application = Parse::Query.new("Application").eq("objectId", response["objectId"]).get.first
+      application = $client.query("Application").eq("objectId", response["objectId"]).get.first
       application["user"] = @user.pointer
       application["exception"] = true
       application["status"] = "Accepted"
@@ -788,7 +790,7 @@ class AdminController < ApplicationController
     begin
       fields = ["university", "restrictions", "otherRestrictions", "tshirt"]
 
-      @rsvp = Parse::Query.new("RSVP").tap do |q|
+      @rsvp = $client.query("RSVP").tap do |q|
                       q.eq("user", Parse::Pointer.new({
                         "className" => "_User",
                         "objectId"  => @user["objectId"]
@@ -796,7 +798,7 @@ class AdminController < ApplicationController
             end.get.first
 
       if !@rsvp
-        @rsvp = Parse::Object.new("RSVP")
+        @rsvp = $client.object("RSVP")
       end
 
       fields.each do |field|
@@ -806,7 +808,7 @@ class AdminController < ApplicationController
 
       response = @rsvp.save
 
-      @rsvp = Parse::Query.new("RSVP").eq("objectId", response["objectId"]).get.first
+      @rsvp = $client.query("RSVP").eq("objectId", response["objectId"]).get.first
       @rsvp["user"] = @user.pointer
 
       if @rsvp["application"].blank?
@@ -815,7 +817,7 @@ class AdminController < ApplicationController
 
       @rsvp.save
 
-      @attendance = Parse::Object.new("Attendance")
+      @attendance = $client.object("Attendance")
       @attendance['rsvp'] = @rsvp.pointer
       @attendance['user'] = @user.pointer
       @attendance['application'] = @application.pointer
@@ -843,7 +845,7 @@ class AdminController < ApplicationController
   def internal_register
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer"
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -851,7 +853,10 @@ class AdminController < ApplicationController
     else
       redirect_to '/login' and return
     end
-    @companies = Parse::Query.new("Company").get
+    @companies = $client.query("Company").get
+    @companies.each do |c|
+      c["img"].url.slice! ":1337"
+    end
 
     @companies = @companies.sort do |a, b|
       a["name"].downcase <=> b["name"].downcase
@@ -887,7 +892,7 @@ class AdminController < ApplicationController
             @role = "sponsor"
           end
 
-          apply = Parse::User.new({
+          apply = $client.user({
             :username => internal_register_params['email'].downcase,
             :firstName => internal_register_params["firstName"].capitalize,
             :lastName => internal_register_params["lastName"].capitalize,
@@ -897,7 +902,7 @@ class AdminController < ApplicationController
           })
           @user = apply.save
         else
-          @user = Parse::Query.new("_User").tap do |q|
+          @user = $client.query("_User").tap do |q|
             q.eq("email", internal_register_params['email'].downcase )
           end.get.first
 
@@ -921,13 +926,13 @@ class AdminController < ApplicationController
       end
     end
 
-    @internal = Parse::Object.new("InternalRegistrations")
+    @internal = $client.object("InternalRegistrations")
     @internal["phone"] = internal_register_params["phone"]
     @internal["restrictions"] = internal_register_params["restrictions"]
     @internal["otherRestrictions"] = internal_register_params["otherRestrictions"]
     @internal["user"] = @user.pointer
     if internal_register_params["company"] != 'none' || internal_register_params["company"] != 'volunteer'
-      company = Parse::Query.new("Company").tap do |q|
+      company = $client.query("Company").tap do |q|
                               q.eq("objectId", internal_register_params["company"])
                             end.get.first
       if !company.blank?
@@ -943,7 +948,7 @@ class AdminController < ApplicationController
   def judging_register
     if cookies.signed[:spartaUser]
       if cookies.signed[:spartaUser][1] == "admin" || cookies.signed[:spartaUser][1] == "volunteer"
-        user = Parse::Query.new("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
+        user = $client.query("_User").eq("objectId", cookies.signed[:spartaUser][0]).get.first
       else
         flash[:error] = "You're not an admin."
         redirect_to '/login' and return
@@ -956,7 +961,7 @@ class AdminController < ApplicationController
 
   def judging_register_confirm
     if !judge_register_confirm_params[:barcode].blank?
-      @judging =  Parse::Query.new("InternalRegistrations").tap do |q|
+      @judging =  $client.query("InternalRegistrations").tap do |q|
         q.eq("user", Parse::Pointer.new({
           "className" => "_User",
           "objectId"  => judge_register_confirm_params[:barcode]
@@ -967,9 +972,9 @@ class AdminController < ApplicationController
         @judging["judge"] = true
         @judging.save
       else
-        @internal = Parse::Object.new("InternalRegistrations")
+        @internal = $client.object("InternalRegistrations")
 
-        @user = Parse::Query.new("_User").eq("objectId", judge_register_confirm_params[:barcode]).get.first
+        @user = $client.query("_User").eq("objectId", judge_register_confirm_params[:barcode]).get.first
         pp @user
 
         @internal["user"] = @user.pointer
@@ -1054,12 +1059,12 @@ class AdminController < ApplicationController
     def get_empty_app_users
       users_with_apps = []
 
-      applications = Parse::Query.new("Application").tap do |q|
+      applications = $client.query("Application").tap do |q|
         q.limit = 1000
         q.include = "user"
       end.get
 
-      applications += Parse::Query.new("Application").tap do |q|
+      applications += $client.query("Application").tap do |q|
         q.limit = 1000
         q.include = "user"
         q.skip = 1000
@@ -1069,12 +1074,12 @@ class AdminController < ApplicationController
         users_with_apps.push(app["user"]['email'])
       end
 
-      users = Parse::Query.new("_User").tap do |q|
+      users = $client.query("_User").tap do |q|
         q.value_not_in("email", users_with_apps)
         q.limit = 1000
       end.get
 
-      users += Parse::Query.new("_User").tap do |q|
+      users += $client.query("_User").tap do |q|
         q.value_not_in("email", users_with_apps)
         q.limit = 1000
         q.skip = 1000
@@ -1084,12 +1089,12 @@ class AdminController < ApplicationController
     def get_empty_rsvp_acceptances
       users_with_rsvps = []
 
-      rsvps = Parse::Query.new("RSVP").tap do |q|
+      rsvps = $client.query("RSVP").tap do |q|
         q.limit = 1000
         q.include = "user"
       end.get
 
-      rsvps += Parse::Query.new("RSVP").tap do |q|
+      rsvps += $client.query("RSVP").tap do |q|
         q.limit = 1000
         q.include = "user"
         q.skip = 1000
@@ -1099,12 +1104,12 @@ class AdminController < ApplicationController
         users_with_rsvps.push(rsvp["user"]['email'])
       end
 
-      applications = Parse::Query.new("Application").tap do |q|
+      applications = $client.query("Application").tap do |q|
         q.limit = 1000
         q.include = "user"
       end.get
 
-      applications += Parse::Query.new("Application").tap do |q|
+      applications += $client.query("Application").tap do |q|
         q.limit = 1000
         q.include = "user"
         q.skip = 1000

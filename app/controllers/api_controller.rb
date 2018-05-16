@@ -4,12 +4,12 @@ class ApiController < ApplicationController
 
   def school
     # Collects all the applications for that school
-    @apps = Parse::Query.new("Application").tap do |q|
+    @apps = $client.query("Application").tap do |q|
     				          q.eq("university", school_params[:school])
                       q.limit = 1000
                     end.get
 
-    @apps += Parse::Query.new("Application").tap do |q|
+    @apps += $client.query("Application").tap do |q|
     				          q.eq("university", school_params[:school])
                       q.limit = 1000
                       q.skip = 1000
@@ -22,12 +22,12 @@ class ApiController < ApplicationController
     	@school_dates.push(app["createdAt"])
     end
 
-    @rsvps = Parse::Query.new("RSVP").tap do |q|
+    @rsvps = $client.query("RSVP").tap do |q|
     				          q.eq("university", school_params[:school])
                       q.limit = 1000
                     end.get
 
-    @rsvps += Parse::Query.new("RSVP").tap do |q|
+    @rsvps += $client.query("RSVP").tap do |q|
     				          q.eq("university", school_params[:school])
                       q.limit = 1000
                       q.skip = 1000

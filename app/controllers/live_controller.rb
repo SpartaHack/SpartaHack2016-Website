@@ -8,7 +8,7 @@ class LiveController < ApplicationController
   def live
     if cookies.signed[:spartaUser] && cookies.signed[:spartaUser][1] == "attendee"
       begin
-        @application = Parse::Query.new("Application").tap do |q|
+        @application = $client.query("Application").tap do |q|
           q.eq("user", Parse::Pointer.new({
             "className" => "_User",
             "objectId"  => cookies.signed[:spartaUser][0]
@@ -23,7 +23,7 @@ class LiveController < ApplicationController
 
     begin
       @announcements_array = []
-      announcements = Parse::Query.new("Announcements").tap do |q|
+      announcements = $client.query("Announcements").tap do |q|
                         q.order_by = "updatedAt"
                         q.order = :descending
                       end.get
@@ -65,7 +65,7 @@ class LiveController < ApplicationController
       end
 
       @prizes_array = []
-      prizes = Parse::Query.new("Prizes").tap do |q|
+      prizes = $client.query("Prizes").tap do |q|
                         q.include = "sponsor"
                         q.order_by = "name"
                         q.order = :ascending
@@ -76,7 +76,7 @@ class LiveController < ApplicationController
       end
 
       @hardware_array = []
-      hardware = Parse::Query.new("Hardware").tap do |q|
+      hardware = $client.query("Hardware").tap do |q|
                         q.order_by = "name"
                         q.order = :ascending
                       end.get
@@ -86,7 +86,7 @@ class LiveController < ApplicationController
       end
 
       @resources_array = []
-      resources = Parse::Query.new("Resources").tap do |q|
+      resources = $client.query("Resources").tap do |q|
                         q.order_by = "name"
                         q.order = :ascending
                         q.include = "sponsor"
@@ -97,7 +97,7 @@ class LiveController < ApplicationController
       end
 
       @faq_array = []
-      faq = Parse::Query.new("FAQ").tap do |q|
+      faq = $client.query("FAQ").tap do |q|
                         q.order_by = "order"
                         q.order = :ascending
                       end.get
@@ -117,7 +117,7 @@ class LiveController < ApplicationController
         ["Sunday",[ ] ]
       ]
 
-      schedule_raw = Parse::Query.new("Schedule").get
+      schedule_raw = $client.query("Schedule").get
 
       schedule_raw.each do |s|
         day = s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%e")

@@ -27,7 +27,7 @@ gem 'compass', '~> 1.0'
 
 gem 'autoprefixer-rails'
 
-gem "parse-ruby-client"
+gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
 
 gem 'mailchimp-api', '~> 2.0.6'
 
@@ -79,4 +79,3 @@ end
 group :test do
   gem 'capybara', '~> 2.3.0'
 end
-

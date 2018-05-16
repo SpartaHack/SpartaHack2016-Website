@@ -9,19 +9,21 @@ class PagesController < ApplicationController
     if cookies.signed[:spartaUser]
 			if cookies.signed[:spartaUser][1] == "attendee"
 	      begin
-	        @application = Parse::Query.new("Application").tap do |q|
+	        @application = $client.query("Application").tap do |q|
 	          q.eq("user", Parse::Pointer.new({
 	            "className" => "_User",
 	            "objectId"  => cookies.signed[:spartaUser][0]
 	          }))
 	        end.get.first
 
-	      rescue
+        rescue Exception => e
+          pp e
+          pp ""
 	        redirect_to "/outage" and return
 	      end
 			end
 
-			@user = Parse::Query.new("_User").tap do |q|
+			@user = $client.query("_User").tap do |q|
 				q.eq("objectId", cookies.signed[:spartaUser][0])
 			end.get.first
 
@@ -35,9 +37,10 @@ class PagesController < ApplicationController
       @warrior = []
       @commander = []
 
-      companies = Parse::Query.new("Company").get
+      companies = $client.query("Company").get
 
       companies.each do |c|
+        c["img"].url.slice! ":1337"
         if c["level"] == "partner"
           @partner.push([c["url"], c["img"].url, c["name"]])
         elsif c["level"] == "trainee"
@@ -67,9 +70,10 @@ class PagesController < ApplicationController
 
       @team = []
 
-      team_raw = Parse::Query.new("Team").get
+      team_raw = $client.query("Team").get
 
       team_raw.each do |t|
+        t["img"].url.slice! ":1337"
         @team.push([t["url"], t["img"].url, t["name"], t["position"], t["order"], t["position2"]])
       end
 
@@ -77,7 +81,8 @@ class PagesController < ApplicationController
         a[4] <=> b[4]
       end
 
-    rescue
+    rescue Exception => e
+      pp e
       redirect_to "/outage" and return
     end
 
@@ -87,7 +92,7 @@ class PagesController < ApplicationController
         [ 28, "Sunday",[ ] ]
       ]
 
-      schedule_raw = Parse::Query.new("Schedule").eq("publicBeforeEvent", true).get
+      schedule_raw = $client.query("Schedule").eq("publicBeforeEvent", true).get
 
       schedule_raw.each do |s|
         day = s["eventTime"].in_time_zone("Eastern Time (US & Canada)").strftime("%e")
@@ -153,7 +158,7 @@ class PagesController < ApplicationController
       	@desc = "Now you just need to confirm your email address!"
       	@title = "Sweet!"
       rescue Exception => e
-      	p e
+        pp e
       	puts
       	@type = "error"
       	@desc = "You've already signed up with this email."
